@@ -1,0 +1,18 @@
+{
+  "domain": "progress.com",
+  "logo": "progress-official-alternate.png",
+  "primary": "#00B563",
+  "ink": "#00216B",
+  "palette": [
+    "#00B563",
+    "#00216B",
+    "#2B2BB2",
+    "#F4FAFF",
+    "#00D364"
+  ],
+  "_note": "Built from the progress-arag-branding skill's official palette (references/color.md) and logo bundle (assets/logos/primary-horizontal-alternate.png), for video title/CTA cards on a dark field. ink = Blue P1, primary/accent = Green P2 (product palette, not the logo green - the logo file itself carries Progress Logo Green #5CE500 in its own asset).",
+  "fonts": {
+    "body": "ProgressText, Roboto, Arial, Helvetica, sans-serif",
+    "heading": "ProgressDisplay, Metric, Arial, Helvetica, sans-serif"
+  }
+}

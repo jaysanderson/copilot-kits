@@ -1,0 +1,14 @@
+{
+ "chain": "volume=11.420dB,alimiter=limit=0.575:level=disabled:attack=5:release=50",
+ "latency_compensation_samples": 239,
+ "gain_db": 11.42,
+ "staged_I_LUFS": -19.3,
+ "staged_true_peak_dBTP": -4.6,
+ "LRA": 3.9,
+ "staged_target_lufs": -19.0,
+ "staged_tp_ceiling": -3.6,
+ "host_lufs_offset": 3.0,
+ "host_tp_offset": 2.1,
+ "predicted_delivered_I": -16.3,
+ "predicted_delivered_TP": -2.5
+}

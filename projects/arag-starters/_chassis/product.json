@@ -1,0 +1,12 @@
+{
+  "name": "ARAG starter",
+  "promise": "Ask a question of the sources and get an answer you can check.",
+  "suggested": [
+    "What does the policy say about refunds?"
+  ],
+  "how_it_works": [
+    "Your question goes to this app.",
+    "The app asks the Knowledge Box and gets an answer with citations.",
+    "You see the answer, its sources and how closely it tracks them."
+  ]
+}

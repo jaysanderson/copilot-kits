@@ -1,0 +1,121 @@
+{
+  "colours": [
+    [
+      "rgb(33, 37, 41)",
+      573
+    ],
+    [
+      "rgb(0, 132, 129)",
+      141
+    ],
+    [
+      "rgb(255, 255, 255)",
+      105
+    ],
+    [
+      "rgb(0, 0, 0)",
+      79
+    ],
+    [
+      "rgb(225, 39, 68)",
+      49
+    ],
+    [
+      "rgb(73, 80, 87)",
+      8
+    ],
+    [
+      "rgb(173, 181, 189)",
+      8
+    ],
+    [
+      "rgb(222, 226, 230)",
+      2
+    ],
+    [
+      "rgb(11, 18, 19)",
+      2
+    ],
+    [
+      "rgb(87, 79, 70)",
+      2
+    ],
+    [
+      "rgb(0, 115, 122)",
+      2
+    ],
+    [
+      "rgb(85, 85, 85)",
+      2
+    ],
+    [
+      "rgb(108, 117, 125)",
+      1
+    ],
+    [
+      "rgb(233, 236, 239)",
+      1
+    ]
+  ],
+  "fonts": [
+    [
+      "Poppins",
+      403
+    ],
+    [
+      "\"Font Awesome 6 Pro\"",
+      31
+    ],
+    [
+      "Poppins, helvetica, arial, sans-serif",
+      28
+    ],
+    [
+      "\"Font Awesome 6 Brands\"",
+      5
+    ]
+  ],
+  "logos": [
+    {
+      "tag": "IMG",
+      "alt": "The university logo",
+      "src": "https://cdn.university.edu.au/mu-images/default-source/global/mu-logo.svg?sfvrsn=330f5be3_1"
+    },
+    {
+      "tag": "IMG",
+      "alt": "Two undergraduate students gaining hands on experience at The university",
+      "src": "https://cdn.university.edu.au/mu-images/librariesprovider4/default-album/ug2.tmb-640-16x9c.webp?Culture=en&sfvrsn=5013b1be_1"
+    },
+    {
+      "tag": "IMG",
+      "alt": "Postgraduate study studying at Boola Katijin",
+      "src": "https://cdn.university.edu.au/mu-images/librariesprovider4/default-album/pg.tmb-640-16x9c.webp?Culture=en&sfvrsn=93567cc3_1"
+    },
+    {
+      "tag": "IMG",
+      "alt": "Research being done at The university",
+      "src": "https://cdn.university.edu.au/mu-images/librariesprovider4/default-album/research.tmb-640-16x9c.webp?Culture=en&sfvrsn=98455635_1"
+    },
+    {
+      "tag": "IMG",
+      "alt": "University Rockingham Campus earmarked as future defence training and innovation hub",
+      "src": "https://cdn.university.edu.au/mu-images/newsportallibraries/default-album/img_0116---cropped.tmb-630-53crop.jpg?Culture=en&sfvrsn=824349cf_1"
+    },
+    {
+      "tag": "IMG",
+      "alt": "AI biotechnology helping crack the codes behind pollution from \u2018forever chemicals\u2019",
+      "src": "https://cdn.university.edu.au/mu-images/newsportallibraries/default-album/travel40629715d2564a8eb8102020cfe591bc.tmb-630-53crop.png?Culture=en&sfvrsn=b234dd27_1"
+    },
+    {
+      "tag": "IMG",
+      "alt": "Leaders in justice, inclusion and education honoured by The university",
+      "src": "https://cdn.university.edu.au/mu-images/newsportallibraries/default-album/untitled-design501a308b924945ff8348e0ea2d67e876.tmb-630-53crop.jpg?Culture=en&sfvrsn=22537502_1"
+    },
+    {
+      "tag": "IMG",
+      "alt": "Faster, more accurate newborn sepsis test in development",
+      "src": "https://cdn.university.edu.au/mu-images/newsportallibraries/default-album/neonatal-research-group-kemh.tmb-630-53crop.jpg?Culture=en&sfvrsn=58402aae_1"
+    }
+  ],
+  "title": "The university"
+}

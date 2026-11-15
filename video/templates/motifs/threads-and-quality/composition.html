@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: threads back to sources + quality</title></head>
+<body>
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    .tq-slot { position: absolute; left: 388px; width: 64px; height: 42px; border-radius: 8px;
+      background: #ffffff; border: 2px solid #00B563; box-shadow: 0 6px 18px rgba(0,10,40,.5); }
+    .tq-slot .tq-sbar { position: absolute; left: 9px; height: 5px; border-radius: 3px; background: #9FB0D0; }
+    .tq-srclabel { position: absolute; left: 388px; top: 352px; color: #9FB0D0;
+      font-family: "ProgText", sans-serif; font-size: 22px; letter-spacing: 0.08em; }
+    .tq-card { position: absolute; left: 830px; top: 330px; width: 730px; height: 460px;
+      border-radius: 20px; background: linear-gradient(176deg, #ffffff 0%, #f0f4fa 100%);
+      box-shadow: 0 18px 48px rgba(0, 8, 36, 0.55); }
+    .tq-card .tq-chip { position: absolute; left: 36px; top: 30px; height: 36px; padding: 0 16px;
+      border-radius: 18px; background: #00724F; color: #fff; font-family: "ProgText", sans-serif;
+      font-size: 21px; line-height: 36px; }
+    .tq-bar { position: absolute; left: 36px; height: 13px; border-radius: 7px; background: #5E719F; }
+    .tq-badge { position: absolute; left: 1360px; top: 212px; width: 330px; height: 88px;
+      border-radius: 44px; background: #ffffff; box-shadow: 0 14px 36px rgba(0,8,36,.5);
+      display: flex; align-items: center; }
+    .tq-badge .tq-blabel { margin-left: 86px; color: #00206B; font-family: "ProgDisplay", sans-serif;
+      font-size: 29px; font-weight: 600; }
+    svg.tq-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    svg.tq-ring { position: absolute; left: 18px; top: 14px; }
+  </style>
+
+  <div id="root" data-composition-id="m-tq" data-width="1920" data-height="1080" data-duration="12.4">
+    <div id="tq-stage" style="position:absolute; inset:0;">
+      <div class="tq-srclabel" id="tq-srclabel" data-var-text="tqSources">SOURCES</div>
+      <svg class="tq-svg" id="tq-svg" viewBox="0 0 1920 1080" fill="none"></svg>
+      <div class="tq-card" id="tq-card">
+        <div class="tq-chip" id="tq-chip" data-var-text="tqChip">Grounded response</div>
+      </div>
+      <div class="tq-badge" id="tq-badge">
+        <svg class="tq-ring" width="60" height="60" viewBox="0 0 60 60">
+          <circle cx="30" cy="30" r="25" stroke="#D7DEEA" stroke-width="7" fill="none"/>
+          <circle id="tq-ringfill" cx="30" cy="30" r="25" stroke="#00B563" stroke-width="7"
+                  fill="none" stroke-linecap="round" transform="rotate(-90 30 30)"/>
+        </svg>
+        <div class="tq-blabel" id="tq-blabel" data-var-text="tqBadge">Well supported</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const stage = document.getElementById("tq-stage");
+      const svg = document.getElementById("tq-svg");
+      const card = document.getElementById("tq-card");
+      const slots = [];
+      for (let s = 0; s < 6; s++) {
+        const el = document.createElement("div");
+        el.className = "tq-slot"; el.id = "tq-slot" + s;
+        el.style.top = (400 + s * 66) + "px";
+        for (let b = 0; b < 2; b++) {
+          const bar = document.createElement("div"); bar.className = "tq-sbar";
+          bar.style.top = (11 + b * 11) + "px";
+          bar.style.width = (28 + ((s * 17 + b * 11) % 18)) + "px";
+          el.appendChild(bar);
+        }
+        slots.push(el); stage.appendChild(el);
+      }
+      const BARS = [
+        [92, 620], [132, 648], [172, 560], [226, 636], [266, 596], [306, 648], [346, 420],
+      ];
+      BARS.forEach((b, i) => {
+        const el = document.createElement("div");
+        el.className = "tq-bar"; el.id = "tq-bar" + i;
+        el.style.top = b[0] + "px"; el.style.width = b[1] + "px";
+        card.appendChild(el);
+      });
+      // Six threads - every source chip on screen gets its thread (six for six):
+      // each answer sentence draws back to its own source slot.
+      const T = [
+        { from: [866, 428], to: [456, 421], id: 0, slot: 0 },
+        { from: [866, 468], to: [456, 487], id: 1, slot: 1 },
+        { from: [866, 508], to: [456, 553], id: 2, slot: 2 },
+        { from: [866, 562], to: [456, 619], id: 3, slot: 3 },
+        { from: [866, 602], to: [456, 685], id: 4, slot: 4 },
+        { from: [866, 642], to: [456, 751], id: 5, slot: 5 },
+      ];
+      const threads = [];
+      T.forEach((t) => {
+        const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        p.setAttribute("d", `M ${t.from[0]} ${t.from[1]} C ${t.from[0] - 190} ${t.from[1]}, ${t.to[0] + 190} ${t.to[1]}, ${t.to[0]} ${t.to[1]}`);
+        p.setAttribute("stroke", "#00B563"); p.setAttribute("stroke-width", "3.5");
+        p.setAttribute("fill", "none"); p.setAttribute("stroke-linecap", "round");
+        p.id = "tq-thread" + t.id;
+        p.setAttribute("stroke-dasharray", "620");
+        svg.appendChild(p); threads.push(p);
+      });
+      // Anchor dots where each thread leaves the answer.
+      T.forEach((t) => {
+        const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        c.setAttribute("cx", t.from[0]); c.setAttribute("cy", t.from[1]);
+        c.setAttribute("r", "7"); c.setAttribute("fill", "#00B563");
+        c.id = "tq-dot" + t.id; svg.appendChild(c);
+      });
+
+      const ring = document.getElementById("tq-ringfill");
+      const C = 2 * Math.PI * 25;
+      ring.setAttribute("stroke-dasharray", String(C));
+
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 0.6, ease: "power3.out" } });
+
+      // Open state: answer + six sources present (continuity with the narrowing beat).
+      threads.forEach((p) => tl.set(p, { strokeDashoffset: -620, autoAlpha: 0 }, 0));
+      T.forEach((t) => tl.set("#tq-dot" + t.id, { autoAlpha: 0, scale: 0.4, transformOrigin: "50% 50%" }, 0));
+      tl.set("#tq-badge", { autoAlpha: 0, scale: 0.85 }, 0);
+      tl.set(ring, { strokeDashoffset: C }, 0);
+      tl.set("#tq-blabel", { autoAlpha: 0 }, 0);
+      tl.set("#tq-srclabel", { autoAlpha: 0 }, 0);
+
+      // Gentle float from the start - never still.
+      tl.to("#tq-card", { y: -6, duration: 1.6, ease: "sine.inOut", yoyo: true, repeat: 6 }, 0);
+      slots.forEach((s, i) => {
+        tl.to(s, { y: i % 2 ? -5 : 5, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 7 }, 0.1 * i);
+      });
+      tl.to("#tq-srclabel", { autoAlpha: 0.9, duration: 0.5 }, 0.6);
+
+      // "shows its sources" 1.3: threads draw back, dots pop, tiles pulse on landing.
+      T.forEach((t, i) => {
+        const at = 1.3 + i * 0.42;
+        tl.to("#tq-dot" + t.id, { autoAlpha: 1, scale: 1, duration: 0.3 }, at);
+        tl.to(threads[i], { autoAlpha: 1, duration: 0.15 }, at);
+        tl.to(threads[i], { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, at);
+        tl.to(slots[t.slot], { scale: 1.18, duration: 0.22, ease: "power2.out" }, at + 0.75);
+        tl.to(slots[t.slot], { scale: 1.0, duration: 0.3, ease: "power2.in" }, at + 0.97);
+        tl.to(slots[t.slot], { borderColor: "#00B563", boxShadow: "0 6px 26px rgba(0,181,99,.45)", duration: 0.3 }, at + 0.75);
+      });
+
+      // "scored" 4.0: badge in, ring fills through "grounded in them", completes at "measure" 8.0.
+      tl.to("#tq-badge", { autoAlpha: 1, scale: 1, duration: 0.5 }, 3.95);
+      tl.to(ring, { strokeDashoffset: C * 0.08, duration: 3.9, ease: "power1.inOut" }, 4.15);
+      tl.to("#tq-blabel", { autoAlpha: 1, duration: 0.5 }, 7.9);
+      tl.to(ring, { strokeDashoffset: C * 0.08, duration: 0.1 }, 8.0);
+      // Badge settle pulse at "measure".
+      tl.to("#tq-badge", { scale: 1.05, duration: 0.25, ease: "power2.out" }, 8.05);
+      tl.to("#tq-badge", { scale: 1.0, duration: 0.35, ease: "power2.in" }, 8.3);
+
+      // Threads shimmer finite; whole group slow push to the end.
+      threads.forEach((p, i) => {
+        tl.to(p, { opacity: 0.65, duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 1 }, 8.6 + i * 0.3);
+      });
+      tl.to("#tq-stage", { scale: 1.02, transformOrigin: "52% 48%", duration: 3.6, ease: "sine.inOut" }, 8.7);
+
+      window.__timelines["m-tq"] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

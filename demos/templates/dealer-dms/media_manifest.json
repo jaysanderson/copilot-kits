@@ -1,0 +1,156 @@
+[
+  {
+    "file": "recon-cm-5102-front-quarter.png",
+    "stock_no": "CM-5102",
+    "site": "Riverside",
+    "make": "Toyota",
+    "model": "RAV4 GXL",
+    "body": "SUV",
+    "angle": "Front Quarter",
+    "focus": "Front-left brake caliper",
+    "title": "Stock CM-5102 - 2023 Toyota RAV4 GXL - Front Quarter"
+  },
+  {
+    "file": "recon-cm-5118-rear-quarter.png",
+    "stock_no": "CM-5118",
+    "site": "Northgate",
+    "make": "Ford",
+    "model": "Ranger XLT",
+    "body": "Ute",
+    "angle": "Rear Quarter",
+    "focus": "Rear differential housing",
+    "title": "Stock CM-5118 - 2022 Ford Ranger XLT - Rear Quarter"
+  },
+  {
+    "file": "recon-cm-5124-interior--cockpit.png",
+    "stock_no": "CM-5124",
+    "site": "Riverside",
+    "make": "Mazda",
+    "model": "CX-5 Touring",
+    "body": "SUV",
+    "angle": "Interior / Cockpit",
+    "focus": "Infotainment unit (dash)",
+    "title": "Stock CM-5124 - 2023 Mazda CX-5 Touring - Interior / Cockpit"
+  },
+  {
+    "file": "recon-cm-5137-front-quarter.png",
+    "stock_no": "CM-5137",
+    "site": "Northgate",
+    "make": "Hyundai",
+    "model": "i30 Active",
+    "body": "Hatch",
+    "angle": "Front Quarter",
+    "focus": "Timing chain area (engine bay)",
+    "title": "Stock CM-5137 - 2021 Hyundai i30 Active - Front Quarter"
+  },
+  {
+    "file": "recon-cm-5145-rear-quarter.png",
+    "stock_no": "CM-5145",
+    "site": "Riverside",
+    "make": "Isuzu",
+    "model": "D-Max SX",
+    "body": "Ute",
+    "angle": "Rear Quarter",
+    "focus": "Exhaust / DPF outlet",
+    "title": "Stock CM-5145 - 2023 Isuzu D-Max SX - Rear Quarter"
+  },
+  {
+    "file": "recon-cm-5150-interior--cockpit.png",
+    "stock_no": "CM-5150",
+    "site": "Northgate",
+    "make": "Kia",
+    "model": "Sportage SX",
+    "body": "SUV",
+    "angle": "Interior / Cockpit",
+    "focus": "Airbag control unit (dash)",
+    "title": "Stock CM-5150 - 2022 Kia Sportage SX - Interior / Cockpit"
+  },
+  {
+    "file": "recon-cm-5163-front-quarter.png",
+    "stock_no": "CM-5163",
+    "site": "Riverside",
+    "make": "Yamaha",
+    "model": "MT-07",
+    "body": "Motorcycle",
+    "angle": "Front Quarter",
+    "focus": "Right fairing scuff",
+    "title": "Stock CM-5163 - 2023 Yamaha MT-07 - Front Quarter"
+  },
+  {
+    "file": "recon-cm-5171-rear-quarter.png",
+    "stock_no": "CM-5171",
+    "site": "Northgate",
+    "make": "Subaru",
+    "model": "Outback Sport",
+    "body": "Wagon",
+    "angle": "Rear Quarter",
+    "focus": "Rear-left quarter panel",
+    "title": "Stock CM-5171 - 2021 Subaru Outback Sport - Rear Quarter"
+  },
+  {
+    "file": "recon-cm-5184-interior--cockpit.png",
+    "stock_no": "CM-5184",
+    "site": "Riverside",
+    "make": "Toyota",
+    "model": "HiLux SR5",
+    "body": "Ute",
+    "angle": "Interior / Cockpit",
+    "focus": "Fuel pump control module",
+    "title": "Stock CM-5184 - 2023 Toyota HiLux SR5 - Interior / Cockpit"
+  },
+  {
+    "file": "recon-cm-5192-front-quarter.png",
+    "stock_no": "CM-5192",
+    "site": "Northgate",
+    "make": "Honda",
+    "model": "CR-V VTi-L",
+    "body": "SUV",
+    "angle": "Front Quarter",
+    "focus": "Windscreen / ADAS camera",
+    "title": "Stock CM-5192 - 2022 Honda CR-V VTi-L - Front Quarter"
+  },
+  {
+    "file": "recon-cm-5205-rear-quarter.png",
+    "stock_no": "CM-5205",
+    "site": "Riverside",
+    "make": "Suzuki",
+    "model": "Swift GL+",
+    "body": "Hatch",
+    "angle": "Rear Quarter",
+    "focus": "Driver door card trim",
+    "title": "Stock CM-5205 - 2023 Suzuki Swift GL+ - Rear Quarter"
+  },
+  {
+    "file": "recon-cm-5213-interior--cockpit.png",
+    "stock_no": "CM-5213",
+    "site": "Northgate",
+    "make": "Ford",
+    "model": "Everest Trend",
+    "body": "SUV",
+    "angle": "Interior / Cockpit",
+    "focus": "Rear differential housing",
+    "title": "Stock CM-5213 - 2021 Ford Everest Trend - Interior / Cockpit"
+  },
+  {
+    "file": "recon-cm-5226-front-quarter.png",
+    "stock_no": "CM-5226",
+    "site": "Riverside",
+    "make": "Kawasaki",
+    "model": "Ninja 650",
+    "body": "Motorcycle",
+    "angle": "Front Quarter",
+    "focus": "No findings - showroom condition",
+    "title": "Stock CM-5226 - 2023 Kawasaki Ninja 650 - Front Quarter"
+  },
+  {
+    "file": "recon-cm-5234-rear-quarter.png",
+    "stock_no": "CM-5234",
+    "site": "Northgate",
+    "make": "Mitsubishi",
+    "model": "Triton GLS",
+    "body": "Ute",
+    "angle": "Rear Quarter",
+    "focus": "Rear tyre - uneven wear",
+    "title": "Stock CM-5234 - 2022 Mitsubishi Triton GLS - Rear Quarter"
+  }
+]

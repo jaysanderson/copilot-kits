@@ -1,0 +1,14 @@
+{
+  "name": "MediaChat",
+  "promise": "Answers that show the clip, the image and the table, in the language the customer asked in.",
+  "suggested": [
+    "How do I reset the device?",
+    "Show me the setup video",
+    "¿Cómo cambio la batería?"
+  ],
+  "how_it_works": [
+    "Your question, in any language, goes to this app.",
+    "The app asks the Knowledge Box; the answer comes back in your language with the exact clip, image or page it came from.",
+    "Media is streamed through this app, never from the knowledge service directly."
+  ]
+}

@@ -1,0 +1,145 @@
+<title>Compliance &amp; Recall Centre - Ignition</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/css/ignition.css">
+
+<header class="topbar">
+  <a href="/" class="brand" id="brand-mark"><span>Ignition</span><small>Coppermill Motor Group</small></a>
+  <nav>
+    <a href="/">Overview</a>
+    <a href="/service-assistant">Service</a>
+    <a href="/compliance" class="active">Compliance</a>
+    <a href="/media-library">Media</a>
+    <a href="/deal-desk">Deal Desk</a>
+    <a href="/insights">Insights</a>
+  </nav>
+  <div class="right-cluster">
+    <span class="site-pill"><span class="dot"></span> Both sites online</span>
+    <button class="how-btn" id="how-it-works-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 4.9 2.3c-.9.7-1.5 1.3-1.5 2.7"/><circle cx="12" cy="17" r=".3" fill="currentColor"/></svg>
+    <span>How this works</span>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+  <div class="hero">
+    <div class="eyebrow"><span class="bar"></span> Compliance &amp; recalls</div>
+    <h1>Recalls, service bulletins and compliance policy</h1>
+    <p class="lede">Every open recall and compliance standard, with AI-generated summaries
+      and highlights pulled from the bulletin itself, not hand-typed copy.</p>
+  </div>
+
+  <div class="facet-row" id="facet-row"></div>
+
+  <div class="rail">
+    <div class="rail-head"><h2>Open recalls</h2><span class="count" id="count-recall"></span></div>
+    <div class="item-rail" id="rail-recall"></div>
+  </div>
+  <div class="rail">
+    <div class="rail-head"><h2>Service bulletins</h2><span class="count" id="count-bulletin"></span></div>
+    <div class="item-rail" id="rail-bulletin"></div>
+  </div>
+  <div class="rail">
+    <div class="rail-head"><h2>Compliance policy</h2><span class="count" id="count-compliance"></span></div>
+    <div class="item-rail" id="rail-compliance"></div>
+  </div>
+</main>
+
+<footer class="disclosure-footer">
+  Coppermill Motor Group, its sites, stock and personnel are a synthetic illustrative dataset built for this demonstration. Not a real dealership.
+</footer>
+
+<div class="modal-backdrop" id="reveal-backdrop" hidden>
+  <div class="modal">
+    <div class="modal-head"><h3 class="reveal-title">How this works</h3><button class="modal-close">&times;</button></div>
+    <div class="modal-body">
+      <div class="flow-diagram"></div>
+      <div class="reveal-section"><h4>What this page does</h4><p class="reveal-what"></p></div>
+      <div class="reveal-section"><h4>Why it matters</h4><p class="reveal-why"></p></div>
+      <div class="reveal-section"><h4>The real mechanism</h4><p class="reveal-tech"></p></div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-tabs">
+  <a href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></a>
+  <a href="/service-assistant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M4 7h16M4 17h16"/></svg><span>Service</span></a>
+  <a href="/compliance" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/></svg><span>Compliance</span></a>
+  <a href="/media-library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m8 10 5 3-5 3z"/></svg><span>Media</span></a>
+  <a href="/deal-desk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H8l-4 4z"/></svg><span>Deals</span></a>
+  <a href="/insights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M12 20V4M20 20v-7"/></svg><span>Insights</span></a>
+</nav>
+
+<script src="/static/js/shared.js"></script>
+<script>
+document.getElementById('brand-mark').insertAdjacentHTML('afterbegin', IGN.logoSVG());
+
+const URGENCY_CLASS = { high: 'red', medium: 'amber', low: 'blue' };
+// Distinct per doc_type treatment (icon + tint) - a compliance policy, a
+// recall and a service bulletin are different KINDS of document and should
+// not share one repeated hexagon glyph (B10/consistency bar).
+const DOC_TYPE_ICON = {
+  recall: { colour: '#e0524a', bg: 'rgba(224,82,74,.16)',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="m10.3 3.6-8 14A1 1 0 0 0 3 19h18a1 1 0 0 0 .87-1.5l-8-14a1 1 0 0 0-1.74 0Z"/></svg>' },
+  'service-bulletin': { colour: '#e0a834', bg: 'rgba(224,168,52,.16)',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-5 5a1.5 1.5 0 0 0 2 2l5-5a4 4 0 0 0 5.4-5.4l-2.1 2.1-2-2Z"/></svg>' },
+  compliance: { colour: '#4caf7d', bg: 'rgba(76,175,125,.16)',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>' },
+};
+function card(item) {
+  const urgency = item.urgency ? `<span class="chip ${URGENCY_CLASS[item.urgency]||''}">${item.urgency} urgency</span>` : '';
+  const icon = DOC_TYPE_ICON[item.doc_type] || DOC_TYPE_ICON.compliance;
+  const highlights = (item.highlights || []).slice(0, 2);
+  return `
+    <div class="item-card" onclick="location.href='/r/${item.id}'">
+      <div class="thumb" style="background:${icon.bg}"><div class="ph-thumb" style="background:none;color:${icon.colour}">
+        ${icon.svg}
+        <span>${item.doc_type.replace('-', ' ')}</span>
+      </div></div>
+      <div class="body">
+        <div class="t">${IGN.cleanText(item.title)}</div>
+        <div class="s">${IGN.cleanText(item.summary)}</div>
+        ${highlights.length ? `<ul style="margin:8px 0 0;padding-left:1.1em;font-size:.78rem;color:var(--steel-400)">${highlights.map(h => `<li style="margin-bottom:3px">${IGN.cleanText(h)}</li>`).join('')}</ul>` : ''}
+        <div class="chips" style="margin-top:9px">${urgency}${item.make ? `<span class="chip">${item.make}</span>` : ''}</div>
+      </div>
+    </div>`;
+}
+
+async function load(filter) {
+  const params = new URLSearchParams({ kind: 'document' });
+  const d = await IGN.api('/api/catalog?' + params.toString());
+  const facets = await IGN.api('/api/facets?kind=document');
+
+  const facetTypes = ['recall', 'service-bulletin', 'compliance'];
+  document.getElementById('facet-row').innerHTML = facetTypes.map(t => `
+    <button class="facet-btn ${filter===t?'active':''}" onclick="setFilter('${t}')">
+      ${t.replace('-', ' ')} <span class="n">${facets.doc_type[t]||0}</span>
+    </button>
+  `).join('') + `<button class="facet-btn ${!filter?'active':''}" onclick="setFilter(null)">all <span class="n">${d.total}</span></button>`;
+
+  const recalls = d.items.filter(i => i.doc_type === 'recall');
+  const bulletins = d.items.filter(i => i.doc_type === 'service-bulletin');
+  const compliance = d.items.filter(i => i.doc_type === 'compliance');
+  document.getElementById('count-recall').textContent = `${recalls.length} open`;
+  document.getElementById('count-bulletin').textContent = `${bulletins.length} active`;
+  document.getElementById('count-compliance').textContent = `${compliance.length} policies`;
+  document.getElementById('rail-recall').innerHTML = recalls.map(card).join('') || '<div class="empty-state">No open recalls.</div>';
+  document.getElementById('rail-bulletin').innerHTML = bulletins.map(card).join('');
+  document.getElementById('rail-compliance').innerHTML = compliance.map(card).join('');
+}
+function setFilter(t) { load(t); }
+load();
+
+IGN.mountReveal({
+  title: 'How the Compliance & Recall Centre works',
+  nodes: [
+    { label: 'Ingest', tag: 'Deterministic doc_type + urgency labels', active: false },
+    { label: 'Progress Agentic RAG', tag: 'Structured JSON generation', active: true },
+    { label: 'Catalogue cards', tag: 'Title, summary, highlights', active: true },
+  ],
+  what: 'Every card\'s title, summary and highlights are generated once by a real Progress Agentic RAG structured-answer call over that bulletin\'s own extracted text - never hand-typed copy, and never repeated boilerplate.',
+  why: 'A compliance desk needs to scan dozens of bulletins fast. Real per-item summaries and urgency chips mean a reviewer can triage without opening every document.',
+  tech: 'doc_type and urgency are set deterministically at ingest (they are known facts, not something to infer with a labeler); title/summary/highlights come from a real query-time structured-answer call, the working generation mechanism, seeded with the resource\'s own extracted text - never the ingest-time generator task, which has a known platform bug.',
+});
+</script>

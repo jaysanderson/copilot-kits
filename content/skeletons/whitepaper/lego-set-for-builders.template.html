@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>Progress Agentic RAG - A box of bricks for builders</title>
+<style>
+  :root {
+    --blue-p1-shade: #00123C;
+    --blue-p1: #00216B;
+    --blue-p2: #2B2BB2;
+    --blue-p3: #4B4BF7;
+    --blue-p4: #5777EA;
+    --blue-p5: #DCECFF;
+    --green-p2: #00B563;
+    --green-p3: #00D364;
+    --green-s3: #90EF8E;
+    --green-s4: #CDFFCA;
+    --grey-s4: #F4FAFF;
+    --border: #C9D9EE;
+    --text: #000000;
+    --muted: #3D3D42;
+    --font-display: "Progress Sans Display", Arial, sans-serif;
+    --font-text: "Progress Sans Text", Arial, sans-serif;
+    --font-mono: "Roboto Mono", monospace;
+  }
+  * { box-sizing: border-box; }
+  @page { size: A4; margin: 0; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-text);
+    color: var(--text);
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+    font-size: 10.5pt;
+    background: #fff;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.14; margin: 0; }
+
+  .sheet {
+    position: relative;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 17mm 18mm 16mm;
+    background: #FFFFFF;
+    page-break-after: always;
+    overflow: hidden;
+  }
+  .sheet:last-child { page-break-after: auto; }
+  .sheet.light { background: var(--grey-s4); }
+
+  /* ---------- DARK FULL-BLEED PAGES ---------- */
+  .sheet.dark {
+    background: var(--blue-p1);
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+  }
+  .sheet.dark h1, .sheet.dark h2, .sheet.dark h3 { color: #FFFFFF; }
+
+  /* Hex Loop crop container - device bleeds off an edge, never shown whole */
+  .hexcrop { position: absolute; overflow: hidden; pointer-events: none; z-index: 0; }
+  .hexcrop img { position: absolute; }
+  .hex-tr { top: 0; right: 0; width: 118mm; height: 132mm; }
+  .hex-tr img { right: -38mm; top: -36mm; width: 150mm; }
+  .hex-br { bottom: 0; right: 0; width: 110mm; height: 120mm; }
+  .hex-br img { right: -40mm; bottom: -40mm; width: 148mm; }
+  .hex-bl { bottom: 0; left: 0; width: 110mm; height: 120mm; }
+  .hex-bl img { left: -44mm; bottom: -42mm; width: 150mm; }
+
+  /* ---------- COVER ---------- */
+  .cover { justify-content: space-between; }
+  .cover .top { position: relative; z-index: 2; }
+  .cover-logo { width: 150mm; height: auto; display: block; margin-bottom: 22mm; }
+  .eyebrow {
+    font-family: var(--font-text); font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    font-size: 9.5pt; color: var(--green-s3); margin-bottom: 10mm;
+  }
+  .hero {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 50pt; line-height: 1.02; letter-spacing: -0.02em;
+    margin: 0 0 9mm; max-width: 165mm;
+  }
+  .hero .g { color: var(--green-p3); }
+  .subtitle {
+    font-size: 14pt; font-weight: 300; color: var(--blue-p5);
+    max-width: 150mm; line-height: 1.5;
+  }
+  .cover .foot {
+    position: relative; z-index: 2;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: var(--font-text); font-size: 9pt; letter-spacing: 0.03em;
+    color: var(--blue-p5); border-top: 1px solid rgba(220,236,255,0.28);
+    padding-top: 5mm;
+  }
+  .cover .foot .wm { font-family: var(--font-display); font-weight: 700; font-size: 12pt; color: #fff; }
+  .cover .foot .wm .r { color: var(--green-p3); font-size: 8pt; vertical-align: super; }
+
+  /* ---------- BODY TYPOGRAPHY ---------- */
+  .kicker {
+    font-family: var(--font-text); font-weight: 700;
+    color: var(--blue-p2); letter-spacing: 0.14em; text-transform: uppercase;
+    font-size: 8.5pt; margin-bottom: 3mm;
+  }
+  .dark .kicker { color: var(--green-s3); }
+  h2.sec {
+    font-size: 27pt; font-weight: 700; letter-spacing: -0.015em;
+    margin-bottom: 4mm; color: #000; max-width: 150mm;
+  }
+  .dark h2.sec { color: #fff; max-width: 158mm; }
+  h3.sub {
+    font-size: 13pt; font-weight: 700; color: var(--blue-p1-shade);
+    margin: 7mm 0 2mm;
+  }
+  p { margin: 0 0 3.6mm; }
+  .lead { font-size: 12.5pt; font-weight: 300; line-height: 1.5; color: #16171A; margin-bottom: 5mm; }
+  .dark .lead { color: var(--blue-p5); }
+  strong { font-weight: 700; }
+  .accent-bar { width: 24mm; height: 3px; background: var(--green-p3); margin-bottom: 6mm; border-radius: 2px; }
+
+  .pagenum {
+    position: absolute; bottom: 9mm; left: 18mm; right: 18mm; z-index: 2;
+    display: flex; justify-content: space-between;
+    font-family: var(--font-text); font-size: 7.8pt; letter-spacing: 0.05em;
+    color: #5B6472; border-top: 1px solid var(--border); padding-top: 3mm;
+  }
+  .pagenum .wm { font-weight: 700; color: var(--blue-p1); }
+  .dark .pagenum { color: var(--blue-p5); border-color: rgba(220,236,255,0.25); }
+  .dark .pagenum .wm { color: #fff; }
+
+  /* ---------- BRICK CARDS ---------- */
+  .brickgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 2mm; }
+  .brick {
+    position: relative; background: #fff; border: 1px solid var(--border);
+    border-radius: 3mm; padding: 6mm 6mm 5.5mm; overflow: hidden;
+  }
+  .brick::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue-p2), var(--blue-p3), var(--green-p3));
+  }
+  .brick .idx {
+    font-family: var(--font-mono); font-size: 8.5pt; font-weight: 500;
+    color: var(--blue-p3); letter-spacing: 0.05em; margin-bottom: 2mm; display: block;
+  }
+  .brick h4 { font-size: 13.5pt; font-weight: 700; color: #000; margin-bottom: 1.5mm; letter-spacing: -0.01em; }
+  .brick .snap { font-size: 10pt; font-weight: 700; color: var(--blue-p2); margin-bottom: 2mm; }
+  .brick p { font-size: 9.3pt; color: var(--muted); margin: 0; line-height: 1.5; }
+
+  /* ---------- GALLERY BUILD CARDS ---------- */
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 2mm; }
+  .build {
+    background: #fff; border: 1px solid var(--border); border-radius: 3mm;
+    padding: 5.5mm 6mm; display: flex; flex-direction: column;
+  }
+  .build .tag {
+    font-family: var(--font-text); font-weight: 700; font-size: 7.5pt;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-p2);
+    margin-bottom: 2mm;
+  }
+  .build .tag::before {
+    content: ""; display: inline-block; width: 5px; height: 5px;
+    background: var(--green-p3); border-radius: 1px; margin-right: 5px; vertical-align: middle;
+  }
+  .build h4 { font-size: 12.5pt; font-weight: 700; color: #000; margin-bottom: 2mm; line-height: 1.2; }
+  .build p { font-size: 9.3pt; color: var(--muted); margin: 0 0 3mm; line-height: 1.48; }
+  .build .bricks { font-size: 8.2pt; color: var(--blue-p2); font-weight: 700; margin-top: auto; letter-spacing: 0.01em; }
+
+  .shotcard { background:#fff; border:1px solid var(--border); border-radius:3mm; overflow:hidden; }
+  .shotcard img { width: 100%; display: block; border-bottom: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,20,60,0.06); }
+  .shotcard .cap { padding: 3.5mm 5mm; font-size: 8.4pt; color: var(--muted); line-height: 1.45; }
+  .shotcard .cap b { color:#000; }
+
+  .shotrow { display:grid; grid-template-columns: 1fr 1fr; gap:6mm; margin-top:6mm; align-items:start; }
+  .shotwrap { border:1px solid var(--border); border-radius:2.5mm; overflow:hidden; background:#fff; box-shadow: 0 1px 4px rgba(0,20,60,0.07); }
+  .shotwrap img { width:100%; display:block; }
+  .shotwrap .cap { padding: 3mm 4.5mm; font-size: 8.2pt; color: var(--muted); line-height:1.42; }
+  .shotwrap .cap b { color:#000; }
+
+  /* ---------- STEP LIST ---------- */
+  .steps { display:grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 4mm; }
+  .step { display:flex; gap:4mm; align-items:flex-start; }
+  .step .n {
+    flex: 0 0 auto; width: 9mm; height: 9mm; border-radius: 50%;
+    background: var(--blue-p2); color:#fff; font-family: var(--font-display);
+    font-weight:700; font-size: 12pt; display:flex; align-items:center; justify-content:center;
+  }
+  .step h4 { font-size: 11.5pt; font-weight:700; color:#000; margin-bottom:1mm; }
+  .step p { font-size: 9.3pt; color: var(--muted); margin:0; line-height:1.45; }
+
+  /* ---------- METRIC / TRUST TILES ---------- */
+  .triad { display:grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; margin: 7mm 0 4mm; }
+  .metric {
+    background: rgba(220,236,255,0.10); border: 1px solid rgba(144,239,142,0.35);
+    border-radius: 3mm; padding: 6mm 6mm 5mm;
+  }
+  .metric .lab { font-size: 9pt; font-weight:700; color: var(--green-s3); letter-spacing:0.06em; text-transform:uppercase; margin-bottom: 2mm; }
+  .metric p { font-size: 9.4pt; color: var(--blue-p5); margin:0; line-height:1.45; }
+  .metric .scale { font-family: var(--font-display); font-weight:700; font-size: 20pt; color:#fff; margin-bottom:1mm; }
+
+  /* ---------- DEPLOY ROW ---------- */
+  .deployrow { display:grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; margin-top: 5mm; }
+  .depcard { background:#fff; border:1px solid var(--border); border-radius:3mm; padding:5.5mm 5mm; }
+  .depcard .t { font-family:var(--font-display); font-weight:700; font-size:12pt; color: var(--blue-p1-shade); margin-bottom:2mm; }
+  .depcard p { font-size:9pt; color:var(--muted); margin:0; line-height:1.45; }
+  .depcard .where { display:inline-block; margin-top:3mm; font-size:7.6pt; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color: var(--blue-p2); }
+  .depcard .where::before { content:""; display:inline-block; width:5px; height:5px; background:var(--green-p3); border-radius:1px; margin-right:5px; vertical-align:middle; }
+
+  /* ---------- CLOSING CTA ---------- */
+  .cta-wrap { position: relative; z-index: 2; margin-top: auto; }
+  .cta-hero { font-family: var(--font-display); font-weight:700; font-size: 34pt; line-height:1.06; letter-spacing:-0.02em; color:#fff; max-width: 155mm; margin-bottom: 8mm; }
+  .cta-hero .g { color: var(--green-p3); }
+  .cta-box { background: rgba(220,236,255,0.08); border:1px solid rgba(144,239,142,0.4); border-radius:3mm; padding: 8mm; max-width: 150mm; }
+  .cta-box .go { font-family:var(--font-display); font-weight:700; font-size: 16pt; color:#fff; margin-bottom: 2mm; }
+  .cta-box .go .url { color: var(--green-p3); }
+  .cta-box p { color: var(--blue-p5); font-size: 10.5pt; margin:0; }
+  .closing-logo { width: 120mm; height:auto; display:block; margin-top: 14mm; position:relative; z-index:2; }
+
+  .pull {
+    border-left: 3px solid var(--green-p3); padding: 1mm 0 1mm 6mm; margin: 5mm 0;
+    font-family: var(--font-display); font-weight: 500; font-size: 15pt; line-height:1.3;
+    color: var(--blue-p1-shade); max-width: 150mm;
+  }
+  .dark .pull { color:#fff; border-color: var(--green-p3); }
+</style>
+</head>
+<body>
+
+<!-- ============ 1. COVER ============ -->
+<section class="sheet dark cover">
+  <div class="hexcrop hex-tr"><img src="{{HEXLOOP}}" alt=""></div>
+  <div class="top">
+    <img class="cover-logo" src="{{LOGO_DARK}}" alt="Progress Agentic RAG">
+    <div class="eyebrow">A builder's field guide</div>
+    <h1 class="hero">A box of bricks.<br>And whatever <span class="g">you</span> decide to build with them.</h1>
+    <p class="subtitle">Progress&reg; Agentic RAG is a bin of composable parts for turning your unstructured data into grounded, cited, measurable AI. Snap the pieces together. Ship something this week.</p>
+  </div>
+  <div class="foot">
+    <span>For developers, architects and the people who ship.</span>
+    <span class="wm">Progress<span class="r">&reg;</span> Agentic RAG</span>
+  </div>
+</section>
+
+<!-- ============ 2. THE IDEA ============ -->
+<section class="sheet light">
+  <div class="kicker">The idea</div>
+  <h2 class="sec">Every good build starts with a good parts bin</h2>
+  <div class="accent-bar"></div>
+  <p class="lead">Think about the best thing you ever built out of a box of bricks. It was never the model on the front of the box. You tipped the pieces out, ignored the instructions, and made something the picture never showed.</p>
+  <p>Most enterprise AI is sold the other way around. You buy the finished model in a sealed box, you get the one thing it does, and you can never change it. When your problem does not match the picture, you file a feature request and wait.</p>
+  <p>Agentic RAG is the box of bricks. It ships a bin of composable parts - agents that do real work as your content lands, a retrieval agent that plans and reasons, a knowledge graph, structured output, trust scoring, and deployment that goes wherever your data has to live. None of it is a finished application. All of it clicks together.</p>
+
+  <div class="pull">Here are the pieces. Here is what people have already built. Now go build something we have not thought of.</div>
+
+  <h3 class="sub">Built for the person who wants to ship</h3>
+  <p>This is written for the builder and the disruptor - the developer, the architect, the AI prosumer who would rather stand a prototype up on a Tuesday than sit through a procurement cycle. You do not need a signature to start. There is published pricing, a free trial with no credit card, and a set of reference apps you can clone and reskin. The parts are on the table.</p>
+
+  <div class="pagenum"><span class="wm">Progress&reg; Agentic RAG</span><span>02</span></div>
+</section>
+
+<!-- ============ 3. THE PARTS BIN (bricks 1) ============ -->
+<section class="sheet">
+  <div class="kicker">The parts bin</div>
+  <h2 class="sec">The bricks</h2>
+  <div class="accent-bar"></div>
+  <p class="lead">Ten parts. Each does one job well and connects to the others. This is the whole bin - what you build from it is up to you.</p>
+
+  <div class="brickgrid">
+    <div class="brick">
+      <span class="idx">01</span>
+      <h4>Ingestion agents</h4>
+      <div class="snap">Work happens as content lands.</div>
+      <p>Task-specific agents label, extract, generate questions and answers, and build a knowledge graph out of every document the moment it arrives - no batch job, no manual tagging.</p>
+    </div>
+    <div class="brick">
+      <span class="idx">02</span>
+      <h4>The Retrieval Agent</h4>
+      <div class="snap">A brick that thinks.</div>
+      <p>A multi-step agent that plans retrieval, walks the knowledge graph, and calls external tools - including over MCP - carrying the caller's own permissions so it only ever sees what they are allowed to.</p>
+    </div>
+    <div class="brick">
+      <span class="idx">03</span>
+      <h4>Knowledge Boxes</h4>
+      <div class="snap">Your corpus, made answerable.</div>
+      <p>Drop in text, files, web pages and conversations. Each Knowledge Box indexes and understands it all. Run one, or many, and scope access per box.</p>
+    </div>
+    <div class="brick">
+      <span class="idx">04</span>
+      <h4>Knowledge graph</h4>
+      <div class="snap">The map hiding in your files.</div>
+      <p>Entities and the relationships between them, pulled out of your content automatically - so retrieval can reason across connections, not just match keywords.</p>
+    </div>
+    <div class="brick">
+      <span class="idx">05</span>
+      <h4>Structured output</h4>
+      <div class="snap">Answers your code can use.</div>
+      <p>Put a JSON schema on the question and get a typed object back instead of a paragraph. This is the part that generative UI is made of - grounded data, rendered as components.</p>
+    </div>
+    <div class="brick">
+      <span class="idx">06</span>
+      <h4>Visual and OCR extraction</h4>
+      <div class="snap">Everything is readable.</div>
+      <p>Text out of PDFs, scans, tables and images; speech-to-text over audio and video. One multimodal index across all of it, layout and structure intact.</p>
+    </div>
+  </div>
+  <div class="pagenum"><span class="wm">Progress&reg; Agentic RAG</span><span>03</span></div>
+</section>
+
+<!-- ============ 4. THE PARTS BIN (bricks 2) ============ -->
+<section class="sheet">
+  <div class="brickgrid" style="margin-top:6mm;">
+    <div class="brick">
+      <span class="idx">07</span>
+      <h4>Connectors and sync agents</h4>
+      <div class="snap">Point it at the source.</div>
+      <p>Connect Google Drive or SharePoint over OAuth and the Sync Agent keeps the Knowledge Box current on its own. Load with the SDK, CLI or API when you would rather push.</p>
+    </div>
+    <div class="brick">
+      <span class="idx">08</span>
+      <h4>REMi trust scoring</h4>
+      <div class="snap">Every answer, measured.</div>
+      <p>A purpose-built evaluation model scores answer relevance, context relevance and groundedness for each response, live - in a dashboard or over the API. Trust you can put a number on.</p>
+    </div>
+    <div class="brick">
+      <span class="idx">09</span>
+      <h4>Deploy anywhere</h4>
+      <div class="snap">It runs where you need it.</div>
+      <p>Cloud in the EU or US, hybrid with your own local storage, or fully on-premises including the generative model - air-gapped if that is your world.</p>
+    </div>
+    <div class="brick">
+      <span class="idx">10</span>
+      <h4>Self-serve entry</h4>
+      <div class="snap">Start before the meeting.</div>
+      <p>Published pricing, a free trial with no credit card, and usage-based billing - you pay for what you process, not per seat. Prototype money for a prototype.</p>
+    </div>
+  </div>
+
+  <h3 class="sub" style="margin-top:9mm;">Two of the bricks, in action</h3>
+  <div class="shotrow" style="margin-top:4mm;">
+    <div class="shotwrap">
+      <img src="{{SHOT_GROUNDED}}" alt="A grounded, cited answer with per-answer quality scores">
+      <div class="cap"><b>Grounded and cited by default.</b> Every fact traces to a source, and every answer carries a live quality read.</div>
+    </div>
+    <div class="shotwrap">
+      <img src="{{SHOT_TRACE}}" alt="A live agent tool-call trace over MCP">
+      <div class="cap"><b>The Retrieval Agent, working.</b> A live trace of the tools it calls to reach an answer - each one scoped to the caller.</div>
+    </div>
+  </div>
+
+  <div class="pull">Ten bricks. That is the whole product surface. Everything else in this paper is built from these, and nothing you cannot see here.</div>
+
+  <div class="pagenum"><span class="wm">Progress&reg; Agentic RAG</span><span>04</span></div>
+</section>
+
+<!-- ============ 5. THE GALLERY 1 ============ -->
+<section class="sheet light">
+  <div class="kicker">The gallery</div>
+  <h2 class="sec">What people build with them</h2>
+  <div class="accent-bar"></div>
+  <p class="lead">Same ten bricks. Wildly different models. Every pattern below has already been built and driven on Agentic RAG - proof that the bin stretches a lot further than any single sealed product would.</p>
+
+  <div class="gallery">
+    <div class="build">
+      <div class="tag">Support</div>
+      <h4>A copilot that answers from your own manuals</h4>
+      <p>Ask a plain question, get a plain answer with the exact page it came from. No more digging through a PDF nobody has opened since launch.</p>
+      <div class="bricks">Knowledge Box + cited answers + REMi</div>
+    </div>
+    <div class="build">
+      <div class="tag">Operations</div>
+      <h4>An assistant that answers over your live systems</h4>
+      <p>Not just your documents - the Retrieval Agent reaches into your own tools over MCP, fuses live data with the manuals, and answers in context.</p>
+      <div class="bricks">Retrieval Agent + MCP + knowledge graph</div>
+    </div>
+    <div class="build">
+      <div class="tag">Document intelligence</div>
+      <h4>An intake line for whatever lands in the inbox</h4>
+      <p>Read the layout, classify the document, pull the fields, flag what needs a human. A pile of scanned forms becomes clean, structured records.</p>
+      <div class="bricks">Visual + OCR + ingestion agents + structured output</div>
+    </div>
+    <div class="build">
+      <div class="tag">Search</div>
+      <h4>A knowledge hub the whole company can ask</h4>
+      <p>One place to ask across everything the organisation knows, with the answer grounded in real sources instead of a confident guess.</p>
+      <div class="bricks">Knowledge Box + semantic search + cited answers</div>
+    </div>
+  </div>
+
+  <div class="shotrow">
+    <div class="shotwrap">
+      <img src="{{SHOT_TRIAGE}}" alt="A document triage and extraction pipeline">
+      <div class="cap"><b>Document intake, step by step.</b> Ingest, read the layout, classify, extract, summarise - each stage visible.</div>
+    </div>
+    <div class="shotwrap">
+      <img src="{{SHOT_GRAPH}}" alt="A knowledge graph of entities and relationships">
+      <div class="cap"><b>A pile of records, turned into a map.</b> Entities and links pulled straight out of the content.</div>
+    </div>
+  </div>
+
+  <div class="pagenum"><span class="wm">Progress&reg; Agentic RAG</span><span>05</span></div>
+</section>
+
+<!-- ============ 6. THE GALLERY 2 ============ -->
+<section class="sheet light">
+  <div class="gallery" style="margin-top:6mm;">
+    <div class="build">
+      <div class="tag">Analytics</div>
+      <h4>Call and media analytics, to the moment</h4>
+      <p>Every conversation transcribed, tagged and searchable - jump straight to the moment a topic came up, and watch the trends build on a dashboard.</p>
+      <div class="bricks">Speech-to-text + ingestion agents + search</div>
+    </div>
+    <div class="build">
+      <div class="tag">Trust</div>
+      <h4>A quality dashboard for your AI</h4>
+      <p>Score every answer before anyone relies on it. Catch the ungrounded one, spot the retrieval gap, and prove the thing works instead of hoping.</p>
+      <div class="bricks">REMi + cited answers</div>
+    </div>
+    <div class="build">
+      <div class="tag">Agent experience</div>
+      <h4>An MCP endpoint for any AI agent</h4>
+      <p>Hand your content to any external agent as a clean set of tools. Your Knowledge Box becomes something the rest of the AI world can call, safely.</p>
+      <div class="bricks">Knowledge Box as MCP + permissions</div>
+    </div>
+    <div class="build">
+      <div class="tag">Product intelligence</div>
+      <h4>Ask questions across a messy catalogue</h4>
+      <p>Point it at thousands of products with inconsistent data and get grounded answers, related items and generated summaries - no clean-up project first.</p>
+      <div class="bricks">Structured output + search + ingestion agents</div>
+    </div>
+  </div>
+
+  <div class="shotrow">
+    <div class="shotwrap">
+      <img src="{{SHOT_ANALYTICS}}" alt="An analytics dashboard built on transcribed conversations">
+      <div class="cap"><b>Conversations become numbers.</b> Volumes, resolution, sentiment and mix - read off content that started as audio.</div>
+    </div>
+    <div class="shotwrap">
+      <img src="{{SHOT_OPS}}" alt="An operations assistant answering over live data">
+      <div class="cap"><b>Answers over live systems.</b> The agent reasons across the manuals and the operational data together.</div>
+    </div>
+  </div>
+
+  <p style="margin-top:7mm; font-size:9.6pt; color:var(--muted);">And this is a sample. The same bin has produced case and claims triage, code and estate intelligence, research libraries, personalised storefronts, compliance tracing, voice-first assistants and more. The limit is what you decide to click together.</p>
+
+  <div class="pagenum"><span class="wm">Progress&reg; Agentic RAG</span><span>06</span></div>
+</section>
+
+<!-- ============ 7. ZERO TO SHIPPED ============ -->
+<section class="sheet">
+  <div class="kicker">Speed</div>
+  <h2 class="sec">Zero to shipped in an afternoon</h2>
+  <div class="accent-bar"></div>
+  <p class="lead">The reason to build with a parts bin is that you move at the speed of your own ideas. There is no gate between you and a working prototype.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <div>
+        <h4>Sign up and start free</h4>
+        <p>A free trial, no credit card. You are inside the platform in minutes, not after a sales cycle.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div>
+        <h4>Feed it your content</h4>
+        <p>Drop files in, or connect a source over OAuth. The ingestion agents label, extract and graph it while you make coffee.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div>
+        <h4>Ask it something</h4>
+        <p>Get a grounded, cited answer straight away, with a live quality score attached. This is the moment the demo sells itself.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">4</div>
+      <div>
+        <h4>Clone a reference app and reskin</h4>
+        <p>Start from a working build instead of a blank page. Point it at your Knowledge Box, put your own front end on it, and ship.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull">Usage-based, not per-seat. A prototype costs prototype money - so you can try five ideas for the price other platforms charge to talk about one.</div>
+
+  <h3 class="sub">Build with what you already reach for</h3>
+  <p>SDK, CLI and a full REST API. Load data, run retrieval, register agents and read trust scores from your own stack - whatever language your team already builds in. The platform exposes the parts; your code decides the shape.</p>
+
+  <div class="pagenum"><span class="wm">Progress&reg; Agentic RAG</span><span>07</span></div>
+</section>
+
+<!-- ============ 8. TRUST ============ -->
+<section class="sheet dark">
+  <div class="hexcrop hex-bl"><img src="{{HEXLOOP}}" alt=""></div>
+  <div style="position:relative; z-index:2;">
+    <div class="kicker">Trust you can measure</div>
+    <h2 class="sec">Every answer, scored</h2>
+    <div class="accent-bar"></div>
+    <p class="lead">A demo that sounds confident is easy. A demo that proves it is right is the one that survives the room. Agentic RAG scores its own answers with REMi, a purpose-built evaluation model following the RAG Triad.</p>
+
+    <div class="triad">
+      <div class="metric">
+        <div class="lab">Answer relevance</div>
+        <div class="scale">0&ndash;5</div>
+        <p>How well the answer actually addresses the question that was asked.</p>
+      </div>
+      <div class="metric">
+        <div class="lab">Context relevance</div>
+        <div class="scale">0&ndash;5</div>
+        <p>How relevant the retrieved sources were to that question in the first place.</p>
+      </div>
+      <div class="metric">
+        <div class="lab">Groundedness</div>
+        <div class="scale">0&ndash;5</div>
+        <p>How firmly the answer is grounded in those sources, rather than invented.</p>
+      </div>
+    </div>
+
+    <p style="color:var(--blue-p5);">Read the three together and you can diagnose a pipeline, not just grade it: strong context but weak groundedness points at the model; weak context points at retrieval. It runs live, per query, in the dashboard or through the API - and every answer is grounded and cited by default, so each fact traces back to its source.</p>
+  </div>
+  <div class="pagenum"><span class="wm">Progress&reg; Agentic RAG</span><span>08</span></div>
+</section>
+
+<!-- ============ 9. DEPLOY ============ -->
+<section class="sheet light">
+  <div class="kicker">Control</div>
+  <h2 class="sec">Run it where your data has to live</h2>
+  <div class="accent-bar"></div>
+  <p class="lead">Data residency and sovereignty are a configuration choice here, not a limitation you design around. Pick the model that matches your obligations.</p>
+
+  <div class="deployrow">
+    <div class="depcard">
+      <div class="t">Cloud</div>
+      <p>Managed infrastructure in the EU or the US. Configure search, answers and UI; the platform runs the rest.</p>
+      <span class="where">EU / US</span>
+    </div>
+    <div class="depcard">
+      <div class="t">Hybrid</div>
+      <p>Processing in the cloud, storage in your own local instance of NucliaDB. Cloud speed, local control.</p>
+      <span class="where">Your storage</span>
+    </div>
+    <div class="depcard">
+      <div class="t">On-premises</div>
+      <p>The full pipeline, the database and the generative model, all inside your own infrastructure.</p>
+      <span class="where">Your infra</span>
+    </div>
+    <div class="depcard">
+      <div class="t">Air-gapped</div>
+      <p>Fully offline operation for strict residency, regulated or disconnected environments.</p>
+      <span class="where">Offline</span>
+    </div>
+  </div>
+
+  <h3 class="sub">The same bricks, wherever they run</h3>
+  <p>The build you prototype in the cloud is the build you run on-premises. You are not choosing between a capable hosted product and a stripped-back private one - the parts bin is the same in every deployment, so a proof of concept does not have to be thrown away to meet a compliance requirement later.</p>
+
+  <div class="pull">Sovereignty should be a setting, not a rebuild.</div>
+
+  <div class="pagenum"><span class="wm">Progress&reg; Agentic RAG</span><span>09</span></div>
+</section>
+
+<!-- ============ 10. CLOSING CTA ============ -->
+<section class="sheet dark">
+  <div class="hexcrop hex-br"><img src="{{HEXLOOP}}" alt=""></div>
+  <div class="cta-wrap">
+    <div class="kicker">Start building</div>
+    <h1 class="cta-hero">Now go build something <span class="g">we have not thought of.</span></h1>
+    <p class="subtitle" style="margin-bottom:9mm;">The bricks are on the table. You do not need permission, a procurement cycle, or a finished business case to start - just an idea and an afternoon.</p>
+    <div class="cta-box">
+      <div class="go">Start free at <span class="url">rag.progress.cloud</span></div>
+      <p>A free trial, no credit card. Clone a reference app, point it at your data, and see a grounded answer inside the hour.</p>
+    </div>
+  </div>
+  <img class="closing-logo" src="{{LOGO_DARK}}" alt="Progress Agentic RAG">
+  <div class="pagenum"><span class="wm">Progress&reg; Agentic RAG</span><span>10</span></div>
+</section>
+
+</body>
+</html>

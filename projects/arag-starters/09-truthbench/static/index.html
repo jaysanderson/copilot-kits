@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARAG starter</title>
+<meta name="description" content="A small, finished product built on Progress Agentic RAG.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap row">
+    <a class="brand" href="/"><img src="/static/brand/progress-logo-dark.svg" alt="Progress" onerror="this.style.display='none'"><span id="productName">Starter</span></a>
+    <button class="ghost" id="howBtn" aria-expanded="false">How this works</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1 id="promise">Loading</h1>
+    <form id="askForm" class="askbar" autocomplete="off">
+      <input id="q" name="q" type="text" placeholder="Ask a question about the sources" maxlength="500" required>
+      <select id="lang" aria-label="Answer language">
+        <option value="">Source language</option>
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="zh">中文</option>
+        <option value="ar">العربية</option>
+        <option value="id">Bahasa Indonesia</option>
+      </select>
+      <button type="submit" id="askBtn">Ask</button>
+    </form>
+    <div class="chips" id="chips"></div>
+  </section>
+
+  <section id="result" class="result" hidden>
+    <div class="answer-head">
+      <span class="badge" id="badge"></span>
+      <span class="muted" id="meta"></span>
+    </div>
+    <article class="answer" id="answer"></article>
+    <h2 class="sources-h">Sources</h2>
+    <ol class="sources" id="sources"></ol>
+  </section>
+
+  <section id="how" class="how" hidden>
+    <h2>How this works</h2>
+    <ol id="howList"></ol>
+    <p class="muted">The browser only ever talks to this app. The app calls Progress Agentic RAG server-side with a service-account token that never reaches the page.</p>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap muted small" id="footnote">Demo content is synthetic unless the README says otherwise.</div></footer>
+
+<script src="/static/mdlite.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

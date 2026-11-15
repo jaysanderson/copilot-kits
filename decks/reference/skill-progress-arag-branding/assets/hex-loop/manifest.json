@@ -1,0 +1,51 @@
+{
+  "description": "Official Progress Agentic RAG Hex Loop graphic device. Always reference this file rather than drawing, tracing, or approximating a hexagon. Use only as a cropped layout element — never shown in full or as a standalone graphic.",
+  "path": "assets/hex-loop/",
+  "files": [
+    {
+      "name": "hex-loop-rgb",
+      "file": "hex-loop-rgb.svg",
+      "viewBox": "0 0 291.7 335.4",
+      "source": "Agentic_RAG_-_Hex_Loop_RGB",
+      "format": "SVG (Adobe Illustrator 29.2.1 export)",
+      "use": "RGB / screen artwork. Use for web, demo UIs, decks, and any digital asset."
+    }
+  ],
+  "colors": {
+    "baseFill": {
+      "hex": "#2B2BB2",
+      "note": "Blue P2 — the solid base of the device."
+    },
+    "gradientOverlay": {
+      "hex": "#001433",
+      "note": "Near-black blue applied as directional linear-gradient overlays at 0–70% opacity across multiple facets. These gradients create the tonal depth and 3D faceting."
+    },
+    "confirmedPalette": "Blues only — no orange. This resolves the source-guideline discrepancy documented in references/hex-loop.md."
+  },
+  "structure": {
+    "geometry": "Two concentric hexagonal rings on the 30° isometric grid, constructed from faceted polygonal shapes with gradient overlays.",
+    "clipPath": "The outer hexagon clips all content via a clipPath element.",
+    "innerHexagon": "A smaller concentric hexagon creates the 'loop' negative space."
+  },
+  "cropping": {
+    "rule": "Always crop the Hex Loop so it bleeds off an edge of the layout. Never show it in full. See references/hex-loop.md for crop selection guidance.",
+    "technique": "Use CSS overflow:hidden, SVG viewBox manipulation, or a clipping mask on the container to crop the device. The SVG itself should remain unedited — crop at the layout level, not by modifying the SVG paths.",
+    "examples": {
+      "rightBleed": "Place the SVG so its left half is visible and the right half extends beyond the container edge.",
+      "topLeftBleed": "Position so the bottom-right quarter is visible inside the layout, with the rest bleeding off the top and left.",
+      "bottomBleed": "Position so the top half is visible, bottom half extends below the container."
+    }
+  },
+  "prohibitions": [
+    "Never show the full hexagon in layout — always crop.",
+    "Never recolor any part of the device.",
+    "Never use as a standalone graphic, icon, or illustration.",
+    "Never rotate off the 30° isometric grid.",
+    "Never use two crops in multi-product material — use the Progress Helix instead.",
+    "Never let it compete with the logo for attention."
+  ],
+  "gaps": [
+    "Only an RGB variant has been supplied. A CMYK/print variant may exist in the Brand Bank — request it for print-specific deliverables.",
+    "No PNG raster fallback is bundled. Rasterize the SVG at the needed resolution if PNG is required."
+  ]
+}

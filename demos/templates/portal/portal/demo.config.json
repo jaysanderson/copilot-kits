@@ -1,0 +1,538 @@
+{
+  "blueprint": "publisher-claims-desk",
+  "title": "Publisher Mutual Claims Desk",
+  "persona": "Publisher Mutual - a fictional Australian general insurer handling home, motor and small commercial property claims",
+  "tagline": "A claims workbench where coverage answers are cited, decisions are trust-scored, and exceptions surface before a cheque goes out.",
+  "elevatorPitch": "A claims handler opens a claim and gets its documents read, the coverage question answered against the actual policy wording with the clause cited, a payable / not-payable call with a live REMi trust score, and any integrity exception flagged - all grounded in the claim file, never invented.",
+  "vertical": "general insurance claims handling",
+  "domainNoun": "claim file system",
+  "archetype": {
+    "id": "claims-workbench",
+    "name": "Claims workbench",
+    "demonstrates": "A live claims queue on the left and a reading-room workbench on the right: select a claim, then intake extraction, coverage Q&A, a trust-scored decision and an exception check all operate on that claim's real documents."
+  },
+  "useCases": [
+    "claim-intake-extraction",
+    "coverage-qa-cited",
+    "coverage-decision-remi",
+    "exception-integrity-check",
+    "claims-portfolio-dashboard",
+    "claims-copilot-agent",
+    "underwriting-risk-summary",
+    "broker-copilot-qa"
+  ],
+  "progressAttribution": {
+    "header": true,
+    "footerBadge": true,
+    "architectureRevealProminent": true
+  },
+  "theme": {
+    "brandName": "Publisher Mutual",
+    "primary": "#00317A",
+    "accent": "#E4873C",
+    "mood": "a calm, authoritative marine-blue claims desk - deep Progress Agentic RAG blue as the structural field, a single warm amber accent used sparingly for guidance and status, the real claim documents rendered as bright paper objects against the navy chrome",
+    "scheme": "dark"
+  },
+  "surfaces": [
+    {
+      "id": "desk",
+      "route": "/",
+      "label": "Claims Desk",
+      "component": "AskSurface",
+      "icon": "gauge",
+      "group": "Analyze",
+      "tagline": "The live claims queue and where every claim stands today.",
+      "sells": "The whole book of work on one screen - volumes, cycle time and the claims that need a decision now.",
+      "enabled": true
+    },
+    {
+      "id": "intake",
+      "route": "/intake",
+      "label": "Claim Intake",
+      "component": "DocStudioSurface",
+      "icon": "file",
+      "group": "Explore",
+      "tagline": "Read a submitted claim's documents into structured intake fields.",
+      "sells": "Unstructured paperwork - a First Notice of Loss, a policy schedule - turned into clean, structured claim fields the handler can act on, extracted by ARAG, not re-keyed by hand.",
+      "enabled": true
+    },
+    {
+      "id": "coverage",
+      "route": "/coverage",
+      "label": "Coverage Q&A",
+      "component": "AskSurface",
+      "icon": "chat",
+      "group": "Converse",
+      "tagline": "Ask a coverage question, get a cited answer from the policy wording.",
+      "sells": "The question a claims handler asks a dozen times a day - is this covered - answered against the actual Product Disclosure Statement, with the clause cited and clickable, never a confident guess.",
+      "enabled": true
+    },
+    {
+      "id": "decision",
+      "route": "/decision",
+      "label": "Coverage Decision",
+      "component": "RemiSurface",
+      "icon": "gauge",
+      "group": "Analyze",
+      "tagline": "Payable, not payable or needs-more-info - cited, and REMi-scored.",
+      "sells": "A defensible coverage call with its reasons cited AND a live REMi trust score - so a low-confidence decision is caught before a cheque goes out, not after.",
+      "enabled": true
+    },
+    {
+      "id": "exceptions",
+      "route": "/exceptions",
+      "label": "Exception Check",
+      "component": "AskSurface",
+      "icon": "eye",
+      "group": "Analyze",
+      "tagline": "Cross-check the claim against the policy and integrity indicators.",
+      "sells": "The inconsistencies a busy handler misses - a date that doesn't match the police report, a premium in arrears at the loss date, a claim over a sub-limit - surfaced with the source, before settlement.",
+      "enabled": true
+    },
+    {
+      "id": "reports",
+      "route": "/reports",
+      "label": "Portfolio",
+      "component": "RemiSurface",
+      "icon": "gauge",
+      "group": "Analyze",
+      "tagline": "Claim volumes, cycle time, status mix and peril breakdown as charts.",
+      "sells": "A claims manager's own book of work as charts - where the backlog is, what is slow, which perils are driving cost.",
+      "enabled": true
+    },
+    {
+      "id": "copilot",
+      "route": "/copilot",
+      "label": "Claims Copilot",
+      "component": "RaoAgentSurface",
+      "icon": "plug",
+      "group": "Extend",
+      "tagline": "ARAG's own Retrieval Agent plans across live policy and claims-history systems.",
+      "sells": "The agentic story done for real: ARAG's own Retrieval Agent - not our code - plans, calls this app's live policy, claimant-history and prior-claims tools over MCP, and answers only from what it actually retrieved, streamed live so the room watches it think.",
+      "enabled": true
+    },
+    {
+      "id": "underwriting",
+      "route": "/underwriting",
+      "label": "Underwriting Risk Summary",
+      "component": "DocStudioSurface",
+      "icon": "file",
+      "group": "Analyze",
+      "tagline": "Synthesise an application, inspection report and risk data into a cited risk summary.",
+      "sells": "A structured risk rating, the specific risk factors and a recommended underwriting action - synthesised by ARAG from the application form, an independent inspection and the risk-data feed, never guessed from the product line alone.",
+      "enabled": true
+    },
+    {
+      "id": "broker-copilot",
+      "route": "/broker-copilot",
+      "label": "Broker Copilot",
+      "component": "AskSurface",
+      "icon": "chat",
+      "group": "Converse",
+      "tagline": "Natural-language Q&A over products, rates and compliance bulletins for the broker channel.",
+      "sells": "The question a broker asks between quotes - what does this product cover, what loading applies, what must I disclose - answered against Publisher's own product sheets, rate card and compliance bulletins, cited and never a claim file.",
+      "enabled": true
+    }
+  ],
+  "architectureFlow": [
+    {
+      "stage": "Browser",
+      "detail": "The claims workbench UI - never calls ARAG directly, never holds a token.",
+      "status": "real"
+    },
+    {
+      "stage": "App proxy (server/index.mjs)",
+      "detail": "Express server holds the KB service-account token server-side and proxies every ARAG call.",
+      "status": "real"
+    },
+    {
+      "stage": "Grounded-answer call (cited)",
+      "detail": "Grounded, streamed answer generation over the claim file - every claim traces to a cited paragraph.",
+      "status": "real"
+    },
+    {
+      "stage": "Grounded-answer call (answer_json_schema)",
+      "detail": "Query-time structured-JSON extraction - reads a claim document into typed intake fields.",
+      "status": "real"
+    },
+    {
+      "stage": "REMi trust-scoring call",
+      "detail": "Real RAG-triad scoring (groundedness / answer relevance / context relevance), authenticated by the KB service-account token.",
+      "status": "real"
+    },
+    {
+      "stage": "ARAG Retrieval Agent -> this app's /mcp",
+      "detail": "ARAG's own Retrieval Agent plans and calls back OUT to this app's MCP tools (JWT forwarded so the app's RBAC applies) - ARAG is the agent, not a homegrown planner.",
+      "status": "real"
+    },
+    {
+      "stage": "Rendered answer",
+      "detail": "Citations, structured fields and scores render through truthful-by-construction components - never hand-typed.",
+      "status": "real"
+    }
+  ],
+  "architectureFlowByRoute": {
+    "/": [
+      {
+        "stage": "Browser",
+        "detail": "The claims desk UI - the live queue and today's KPIs.",
+        "status": "real"
+      },
+      {
+        "stage": "App proxy (server/index.mjs)",
+        "detail": "Holds the KB service-account token server-side; the browser never sees it.",
+        "status": "real"
+      },
+      {
+        "stage": "POST /catalog + GET /counters",
+        "detail": "Live document counts and the current claim files come straight from the KB.",
+        "status": "real"
+      },
+      {
+        "stage": "Seeded portfolio dataset",
+        "detail": "The book-of-work volumes are a clearly-labelled synthetic portfolio (the 8 detailed claims are the live queue) - computed on screen, never a hand-typed headline number.",
+        "status": "disclosed-gap"
+      },
+      {
+        "stage": "Rendered desk",
+        "detail": "The queue, KPIs and activity feed render from real, computed values.",
+        "status": "real"
+      }
+    ],
+    "/intake": [
+      {
+        "stage": "Browser",
+        "detail": "The claim intake view - never calls ARAG directly, never holds a token.",
+        "status": "real"
+      },
+      {
+        "stage": "App proxy (server/index.mjs)",
+        "detail": "Proxies the extraction call with the KB service-account token server-side.",
+        "status": "real"
+      },
+      {
+        "stage": "Grounded-answer call (answer_json_schema)",
+        "detail": "ARAG reads the claim's own First Notice of Loss and policy schedule and returns typed intake fields (claimant, policy, peril, date of loss, amount) as schema-conformant JSON, grounded in the document.",
+        "status": "real"
+      },
+      {
+        "stage": "Rendered intake card",
+        "detail": "The structured fields render as a generative-UI card, with the source document it grounded on one click away.",
+        "status": "real"
+      }
+    ],
+    "/coverage": [
+      {
+        "stage": "Browser",
+        "detail": "The coverage Q&A view - never calls ARAG directly, never holds a token.",
+        "status": "real"
+      },
+      {
+        "stage": "App proxy (server/index.mjs)",
+        "detail": "Holds the KB service-account token server-side and proxies the ask.",
+        "status": "real"
+      },
+      {
+        "stage": "Grounded-answer call (cited)",
+        "detail": "Grounded, streamed answer over the policy wording and the claim file - every claim traces to a cited clause.",
+        "status": "real"
+      },
+      {
+        "stage": "REMi trust-scoring call",
+        "detail": "Real RAG-triad score on the answer, against the full retrieved context.",
+        "status": "real"
+      },
+      {
+        "stage": "Rendered answer",
+        "detail": "The cited clause is clickable and opens the actual source document at that record.",
+        "status": "real"
+      }
+    ],
+    "/decision": [
+      {
+        "stage": "Browser",
+        "detail": "The coverage-decision view - never calls ARAG directly, never holds a token.",
+        "status": "real"
+      },
+      {
+        "stage": "App proxy (server/index.mjs)",
+        "detail": "Holds the KB service-account token server-side and proxies the ask.",
+        "status": "real"
+      },
+      {
+        "stage": "Grounded-answer call (cited)",
+        "detail": "A payable / not-payable / needs-more-info determination reasoned only from the policy wording and the claim file, with each reason cited.",
+        "status": "real"
+      },
+      {
+        "stage": "REMi trust-scoring call",
+        "detail": "Real RAG-triad trust score - a low-confidence decision is flagged for review, never shown as settled.",
+        "status": "real"
+      },
+      {
+        "stage": "Rendered decision",
+        "detail": "The verdict, its cited reasons and the live trust score render as one unit.",
+        "status": "real"
+      }
+    ],
+    "/exceptions": [
+      {
+        "stage": "Browser",
+        "detail": "The exception-check view - never calls ARAG directly, never holds a token.",
+        "status": "real"
+      },
+      {
+        "stage": "App proxy (server/index.mjs)",
+        "detail": "Holds the KB service-account token server-side and proxies the ask.",
+        "status": "real"
+      },
+      {
+        "stage": "Grounded-answer call (cited)",
+        "detail": "Cross-checks the claim against the policy schedule and the claims integrity-indicators reference, citing every inconsistency it finds.",
+        "status": "real"
+      },
+      {
+        "stage": "Rendered flags",
+        "detail": "Each exception renders with the source that evidences it, one click from the record.",
+        "status": "real"
+      }
+    ],
+    "/reports": [
+      {
+        "stage": "Browser",
+        "detail": "The claims-insight dashboard - never calls ARAG directly, never holds a token.",
+        "status": "real"
+      },
+      {
+        "stage": "App proxy + GET /counters",
+        "detail": "The live document count comes from the KB via the server proxy.",
+        "status": "real"
+      },
+      {
+        "stage": "ARAG extracts insight from each documented claim's files",
+        "detail": "A query-time answer_json_schema grounded-answer call (the working structured-JSON path Claim Intake uses) reads each documented claim's First Notice of Loss narrative, adjuster report and decision letter, scoped by claim_number, and pulls out the cause-of-loss theme, claimant sentiment, integrity signals and coverage complexity - dimensions no coded claim field carries. Verified live (scripts/extract-insight.mjs).",
+        "status": "real"
+      },
+      {
+        "stage": "Extracted-insight dataset",
+        "detail": "The dashboard charts exactly the claims that extraction genuinely covered - the documented desk claims. The wider seeded book has no documents to extract from and is never charted as 'extracted'.",
+        "status": "real"
+      },
+      {
+        "stage": "Rendered matrix + charts",
+        "detail": "The per-claim extracted fields and the summary charts are drawn from the real extraction to the dataviz standard.",
+        "status": "real"
+      }
+    ],
+    "/copilot": [
+      {
+        "stage": "Browser",
+        "detail": "The Claims Copilot view - streams the agent's live NDJSON trace as it plans, calls tools and composes.",
+        "status": "real"
+      },
+      {
+        "stage": "App proxy (server/rao.mjs)",
+        "detail": "Relays ARAG's own Retrieval Agent trace and applies the honest-refusal gate; it never calls the tools itself and never substitutes a homegrown planner.",
+        "status": "real"
+      },
+      {
+        "stage": "App exposes POST /mcp (four tools)",
+        "detail": "get_policy_status, get_claimant_history and get_claim reach the insurer's live systems; search_claim_documents runs a scoped semantic-retrieval call over the KB's policy and claim documents. Each dispatches through the app's own handlers (JWT forwarded so its RBAC applies).",
+        "status": "real"
+      },
+      {
+        "stage": "ARAG Retrieval Agent plans and calls /mcp",
+        "detail": "A mode:'agent' KB (a Smart Agent over an MCP context node) drives the tools over this app's live /mcp endpoint - blending STRUCTURED live data with UNSTRUCTURED document retrieval in a single reasoning loop.",
+        "status": "real"
+      },
+      {
+        "stage": "Blended, grounded answer",
+        "detail": "The agent composes one answer from both the live tool results and the retrieved policy/claim documents; the surface shows BOTH - the tool trail AND the knowledge-box sources it grounded on.",
+        "status": "real"
+      }
+    ],
+    "/underwriting": [
+      {
+        "stage": "Browser",
+        "detail": "The underwriting desk - selects an application, never calls ARAG directly.",
+        "status": "real"
+      },
+      {
+        "stage": "App proxy (server/index.mjs)",
+        "detail": "Holds the KB service-account token server-side and proxies the synthesis.",
+        "status": "real"
+      },
+      {
+        "stage": "Grounded-answer call with answer_json_schema",
+        "detail": "The working query-time structured-JSON path - NOT the broken ingest-time DA Generator task - scoped to this application's own documents via the application_number label.",
+        "status": "real"
+      },
+      {
+        "stage": "Structured risk summary",
+        "detail": "A typed risk rating, key risk factors and a recommended action, grounded in the application, inspection and risk-data triad.",
+        "status": "real"
+      },
+      {
+        "stage": "Rendered summary",
+        "detail": "Each source document is clickable and opens at the real record.",
+        "status": "real"
+      }
+    ],
+    "/broker-copilot": [
+      {
+        "stage": "Browser",
+        "detail": "The broker copilot view - never calls ARAG directly, never holds a token.",
+        "status": "real"
+      },
+      {
+        "stage": "App proxy (server/index.mjs)",
+        "detail": "Holds the KB service-account token server-side and proxies the ask.",
+        "status": "real"
+      },
+      {
+        "stage": "Grounded-answer call (cited, filtered)",
+        "detail": "Grounded, streamed answer scoped to product sheets, the rate card and compliance bulletins via a doc_type filter_expression - never a claim file or application.",
+        "status": "real"
+      },
+      {
+        "stage": "REMi trust-scoring call",
+        "detail": "Real RAG-triad score on the answer, against the full retrieved context.",
+        "status": "real"
+      },
+      {
+        "stage": "Rendered answer",
+        "detail": "The cited product, rate or compliance fact is clickable and opens the actual source document.",
+        "status": "real"
+      }
+    ]
+  },
+  "pageContext": {
+    "whatItDoes": "This app calls ARAG server-side for document extraction, grounded retrieval, generation and quality scoring - the browser never talks to ARAG directly.",
+    "value": "Every claim answer is either a genuine ARAG mechanism at work or an honestly disclosed synthetic dataset - never a hardcoded answer dressed up as one."
+  },
+  "pageContextByRoute": {
+    "/": {
+      "whatItDoes": "The claims desk aggregates the live queue of claim files, the current document count from the KB, and a synthetic book-of-work portfolio into one view - the queue and counts are live, the portfolio volumes are clearly-labelled demo data.",
+      "value": "A claims manager sees where the whole book stands in the first five seconds - what is waiting on a decision, what is slow - without opening ten files."
+    },
+    "/intake": {
+      "whatItDoes": "You pick a claim and ARAG reads its own submitted documents - the First Notice of Loss and the policy schedule - and returns the intake fields as structured, typed JSON, grounded in the document it read.",
+      "value": "The re-keying that starts every claim - claimant, policy number, peril, date of loss, estimated amount - is done from the paperwork itself in seconds, with the source one click away, instead of typed in by hand."
+    },
+    "/coverage": {
+      "whatItDoes": "You ask a coverage question in plain language. The app proxy sends it to ARAG's grounded-answer call, which retrieves the relevant policy wording and claim documents, generates a cited answer, and scores it with REMi before it is shown.",
+      "value": "The question every claim turns on - is this covered - is answered against the actual policy wording, with the clause cited and clickable, so a handler acts on the document, not a memory of it."
+    },
+    "/decision": {
+      "whatItDoes": "The app frames the coverage call for the selected claim and asks ARAG for a payable / not-payable / needs-more-info determination reasoned only from the policy and the claim file, each reason cited, then REMi-scores the answer.",
+      "value": "A defensible decision with its reasons cited and a live trust score attached - so a low-confidence call is caught and reviewed before money moves, not queried in a complaint later."
+    },
+    "/exceptions": {
+      "whatItDoes": "The app asks ARAG to cross-check the selected claim against its policy schedule and Publisher's claims integrity-indicators reference, and to cite every inconsistency it finds.",
+      "value": "The quiet risks a busy handler misses - a date-of-loss that doesn't match the police report, a premium in arrears at the loss date, an amount over a sub-limit - are surfaced with their evidence, before settlement."
+    },
+    "/reports": {
+      "whatItDoes": "Every value on this page is a real ARAG extraction: a query-time answer_json_schema grounded-answer call reads each documented claim's FNOL narrative, adjuster report and decision letter and pulls out the cause theme, the claimant's tone, the integrity signals and the coverage complexity - dimensions no coded claim field carries. Scoped to the claims genuinely extracted, shown per claim, not asserted.",
+      "value": "Proves the product's core move end to end - unstructured documents in, structured chartable fields out. A claims manager sees the themes, sentiment and risk signals that only reading every file reveals, and can see per claim exactly what ARAG read out of it."
+    },
+    "/copilot": {
+      "whatItDoes": "ARAG's own Retrieval Agent plans a check, then calls this app's MCP tools - the structured live systems (policy master, claims-history register, claim record) AND a knowledge-box search over the unstructured policy and claim documents - and blends both into one grounded answer. The trace, the live tool calls and the knowledge-box documents it grounded on are all shown live.",
+      "value": "The differentiated ARAG story: one agent reasoning across live operational systems AND the document corpus together - 'the premium was in arrears [live data] and here is the clause that lets us reduce the claim [policy wording]' - not document Q&A with a separate data lookup bolted on."
+    },
+    "/underwriting": {
+      "whatItDoes": "You pick an application from the underwriting desk and run the synthesis. The app proxy sends a query-time structured request to ARAG scoped to that application's own documents, and ARAG returns a typed risk rating, risk factors and a recommended action grounded in the application form, the inspection report and the risk-data feed.",
+      "value": "A new-business risk call that would take an underwriter ten minutes of cross-referencing three separate documents is synthesised in seconds, with every factor traceable to its source - never a guess from the product line or the applicant's name alone."
+    },
+    "/broker-copilot": {
+      "whatItDoes": "You ask a product, rating or compliance question in plain language. The app proxy sends it to ARAG's grounded-answer call, scoped to the broker product sheets, rate card and compliance bulletins only, which retrieves the relevant wording, generates a cited answer, and scores it with REMi before it is shown.",
+      "value": "The question a broker asks between quotes - what's covered, what loading applies, what must I disclose - answered against Publisher's actual current product and compliance material, with the fact cited and clickable, so a broker never relies on memory of a rate that may have changed."
+    }
+  },
+  "researchPhase": {
+    "required": true,
+    "script": "scripts/research-vertical.mjs",
+    "status": "complete",
+    "note": "research/publisher-claims.md - general-insurance claims terminology, workflow, document types, roles and edge cases. Corpus built from it."
+  },
+  "safety": {
+    "syntheticOnly": true,
+    "noRealBrands": true,
+    "disclaimer": "Demonstration data - Publisher Mutual is a fictional general insurer and every claim, claimant, policy, document and figure is synthetic. Not insurance, financial or legal advice."
+  },
+  "demoScript": [
+    {
+      "step": 1,
+      "say": "A claims handler opens a claim on the Claims Desk - the whole book of work is on one screen, and this claim is waiting on a coverage call.",
+      "show": "Claims Desk: the live queue, KPIs and the flood claim CLM-2026-0501 waiting on a decision"
+    },
+    {
+      "step": 2,
+      "say": "Claim Intake reads the submitted paperwork itself - the First Notice of Loss and policy schedule - into structured intake fields, extracted by ARAG, not re-keyed by hand.",
+      "show": "Claim Intake: run extraction on the selected claim -> a structured intake card grounded in the document"
+    },
+    {
+      "step": 3,
+      "say": "Coverage Q&A answers the question every claim turns on - is this covered - against the actual policy wording, with the clause cited and clickable.",
+      "show": "Coverage Q&A: 'Is riverine flood damage covered under this Home and Contents policy?' -> cited answer opening the PDS clause"
+    },
+    {
+      "step": 4,
+      "say": "The Coverage Decision gives a payable / not-payable call with its reasons cited AND a live REMi trust score, so a low-confidence decision is caught before a cheque goes out.",
+      "show": "Coverage Decision: the flood claim -> not payable, cited to the schedule's flood-cover option, REMi-scored"
+    },
+    {
+      "step": 5,
+      "say": "The Exception Check cross-checks the claim against the policy and Publisher's integrity indicators - a date that doesn't match the police report, a premium in arrears at the loss date.",
+      "show": "Exception Check: the theft claim CLM-2026-0466 -> date-of-loss and arrears exceptions, each cited"
+    },
+    {
+      "step": 6,
+      "say": "The Portfolio view is the claims manager's own book of work as charts - volumes, cycle time, status mix and the perils driving cost.",
+      "show": "Portfolio: claim volumes over time, status mix and peril breakdown"
+    },
+    {
+      "step": 7,
+      "say": "The Claims Copilot is ARAG's own Retrieval Agent, planning across live policy and claims-history tools - not our hardcoded lookup.",
+      "show": "Claims Copilot: 'Does Tomas Ruiz have prior claims, and was his policy in force at the date of loss?' -> live agent trace over MCP tools"
+    },
+    {
+      "step": 8,
+      "say": "Underwriting Risk Summary reads a new-business application's own form, an independent inspection and the risk-data feed together, and synthesises a risk rating, the specific risk factors and a recommended action - grounded in all three documents.",
+      "show": "Underwriting Risk Summary: the Cheng bushfire application -> High risk, accept with conditions, cited to the application, inspection and risk data"
+    },
+    {
+      "step": 9,
+      "say": "Broker Copilot answers a broker's product, rating or compliance question against Publisher's own current material - never a claim file - cited and REMi-scored.",
+      "show": "Broker Copilot: 'Is flood cover included by default under TideProtect Home and Contents?' -> cited answer opening the product sheet"
+    }
+  ],
+  "probes": {
+    "answerable": [
+      "Is sudden water damage from a burst flexible hose covered under the TideProtect Home and Contents policy?",
+      "Is the Delacroix flood claim payable given their policy schedule?",
+      "What excess applies to a windscreen claim when the Glass Excess Waiver endorsement is held?",
+      "Does the Tomas Ruiz theft claim have any inconsistencies a handler should flag?",
+      "What loading applies to a driver under 25 with a modified vehicle under TideDrive Motor?",
+      "Does the Southbank Import Traders warehouse application need underwriting referral given its aerosol stock and lack of sprinklers?"
+    ],
+    "refusal": [
+      "What is the current RBA cash rate target?",
+      "Draft a United States Medicare appeal letter for a hospital claim."
+    ]
+  },
+  "personas": {
+    "primary": "CIO",
+    "secondary": "Solutions Architect",
+    "note": "The claims-desk narrative is decision governance and defensible, trust-scored answers with data staying in the insurer's own environment - a CIO's risk/governance register. The architecture reveal, the RBAC-carried agent-over-MCP Copilot and the honest disclosed-gap framing map to the Solutions Architect. Developer/builder considered and set aside: the story here is a claims operation's risk, not an embed/integration build."
+  },
+  "provenance": {
+    "demo": "flagship-proof-demo-3",
+    "reference": null
+  },
+  "generatedBy": "arag-demo-factory",
+  "kb": {
+    "baseUrlEnv": "NUCLIA_KB_URL",
+    "zoneEnv": "NUCLIA_ZONE",
+    "tokenEnv": "NUCLIA_SERVICEACCOUNT"
+  }
+}

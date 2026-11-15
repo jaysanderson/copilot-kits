@@ -1,0 +1,257 @@
+{
+ "_note": "Voice registry for ElevenLabs TTS. scripts/voiceover.py reads voice_id here via --voice <name> (default: hope). The ELEVENLABS_API_KEY lives in .env, never here. voice_id values are not secret; populate them yourself.",
+ "_pool_note": "pool = Jay-approved good voices (added 2026-07-06). ALTERNATE through them across multi-segment/multi-piece narration for variety - do not use one voice throughout. Rotate: segment i -> pool[i % len(pool)]. Characteristics are TBD (identify by ear and rename); until then they are neutral rotation slots.",
+ "default": "hope",
+ "pool": [
+  "v1",
+  "v2",
+  "v3",
+  "v4",
+  "v5"
+ ],
+ "john": {
+  "voice_id": "IKne3meq5aSn9XLyUdCD",
+  "_voice_default": "Charlie (premade, australian/male) - placeholder until John's clone is set up",
+  "style_notes": "John Menagh, Progress. Overt optimist, plain-spoken, talks to the room in first-person inclusive 'we'/'us'. Vivid homely idioms, about one per key beat: 'their chickens have come home to roost', 'quaking in their slippers', 'the middle-man has left the building', 'gold from fool's gold', 'having a crack'. Folksy proverbs to open or punctuate. Punchy fragments for emphasis: 'Great. Interesting.' / 'Danger! Danger!' Rhetorical scene-setting questions. Clear signposting: opens beats with 'Right -', 'So', 'Now'. Outcome- and customer-empathy centred, challenges complacency gently and with humour. Australian spelling, no em dashes (spaced hyphens). Confident, never arrogant. Full profile: memory john-menagh-voice."
+ },
+ "daniel": {
+  "voice_id": "onwK4e9ZLuTAKqWW03F9",
+  "_voice_default": "Daniel - Steady Broadcaster (ElevenLabs premade, British male, informative/broadcast register). Resolves live 28 Aug 2026.",
+  "style_notes": "THE voice for a UK/British audience (voice-matches-the-brief rule, GM 26 Aug 2026). Confident, authoritative broadcast register - chosen for the Pay-co Pay UK fintech CIO walkthrough. Single voice throughout a piece. Use eleven_multilingual_v2 for long-form stability."
+ },
+ "bill": {
+  "voice_id": "pqHfZKP75CvOlQylNhV4",
+  "_voice_default": "Bill - older American male (ElevenLabs premade, mature/measured/wry). Chosen 4 Sep 2026.",
+  "style_notes": "THE deadpan register voice: dry, measured, world-weary elder-statesman read that treats the trivial with total gravity - the comedic engine for understated, deadpan pieces (chosen for the Fanclub 'Ruling Engine' / Curb Your Enthusiasm cinematic trailer, deliberately distinct from Trek's Hope and SV's Will). Run at stability ~0.6, style 0.0 for a flat, unhurried delivery. Single voice throughout a piece; eleven_multilingual_v2. CAST 13 Oct 2026 for the demos/films/decks showreel (videos/showreel-2026-10), against a register brief of 'measured, dry, unhurried - a craft documentary, not a trailer'. Auditioned on two real narration lines against daniel (British broadcast) and david (the standing Australian default, auditioned rather than skipped per the note on that voice): measured 151.5 / 149.6 / 183.8 wpm, which separates david out and does NOT separate bill from daniel - so the choice between those two was made on the documented register above, and the builder stated plainly that it has no audio perception and cast on fit plus pace rather than on a listen. PACE LEVER, with voices.json's own two conditions met: the script was lead-locked and unrewritable, so writing-first was unavailable, and `speed` on eleven_multilingual_v2 was calibrated on the FULL 23-line set at 1.00 / 0.75 / 0.70 (170.0 / 128.3 / 118.9 wpm overall) rather than on a sample. 0.70 was taken, landing mid-window against the brief's 100-130. NOT resampling: pooled median f0 across the three speeds moved 147.1 to 136.2 Hz, where a resampling implementation at 0.70 would read about 103 Hz, and the 10.9 Hz across-speed spread is smaller than the 12.9 Hz between-take spread at a single speed - so it is estimator noise, not pitch. Settings for that build: stability 0.6, similarity 0.75, style 0.0, seed 20261013."
+ },
+ "hope": {
+  "voice_id": "WZlYpi1yf6zJhNWXih74",
+  "_voice_default": "Hope - Professional, Clear and Natural (ElevenLabs premade, US female, informative/educational). Chosen for narrated deck-explainer videos.",
+  "style_notes": "Clear, confident, natural narration voice for video explainers of decks. Neutral American, professional register. Use when a deck is turned into a self-serve narrated video rather than John presenting live."
+ },
+ "jay": {
+  "voice_id": "oUbjcKlrUrhnYf9kwdmI",
+  "_voice_default": "Brad - Australian narrator (placeholder until Jay's clone, e.g. JAY(ME!), is set up)",
+  "style_notes": "Jay Sanderson, default narrator and default content voice. Practitioner reporting back, not a pundit; enthusiastic but hype-allergic. Signature rhythm: short, punchy, deliberate fragments after a long sentence ('The model was never the hard part. Your context is.'). Cold open on a scene or claim, build to one memorable reframe, restate it tighter, close with a low-pressure collegial invitation. Always concede one honest caveat. Plain Anglo-Saxon words, gloss jargon in parentheses on first use, ground claims in concrete numbers. Dry humour, occasional deadpan ':)'. Australian spelling. Em dashes allowed in his personal LinkedIn/articles; spaced hyphens everywhere else. Full profile: memory jay-sanderson-voice."
+ },
+ "david": {
+  "voice_id": "CFN1FeTIoSu4xm6mDCkI",
+  "_voice_default": "David - Australian male (GM-supplied, 22 Aug 2026).",
+  "style_notes": "THE voice for anything targeted at an AUSTRALIAN audience (GM directive, 22 Aug 2026; RE-AFFIRMED 28 Sep 2026 after the GM rejected a tourism film cast on an audition winner - \"go back to using David as that as an Australian sounding voice\"). Treat this as the standing default for Australian-audience narration, not a candidate in an audition: an audition may still run to check register, but david only loses it if the GM himself says so. Single voice throughout a piece. Clear, professional register. Note the measured trade-off so it is handled in the WRITING, not by re-casting: david reads fast (171 wpm on the tourism opening lines). Where a piece wants gravitas, buy it with written-in pauses, shorter sentences and beat holds in the script rather than a slower voice. ADDENDUM (29 Sep 2026, Experience-co re-narration): that writing-first rule assumes the script is still writable. When BOTH the script and the picture are already locked - a re-narration of an approved cut, where 47 lines were each written to land on a visible beat - rewriting is not available, and the ElevenLabs `speed` parameter is then the legitimate lever. Measured on that build: david at natural speed ran about 9 per cent shorter than the approved read, and speed 0.95 put every line back on its authored frame (worst drift 0.35s, against 1.15s for the voice it replaced). Two conditions before using it: calibrate on the FULL line set, never a sample (a six-line calibration mispredicted the ratio and produced 0.85, which drifted 29 of 47 lines past a second), and confirm it is not resampling the voice - check median f0 across settings is unrelated to speed (measured 113-131 Hz with no relationship, so no pitch shift). Outside that locked-both-ends case the writing-first rule stands unchanged. Also measured on eleven_multilingual_v2 (and scoped to that model - scripts/voiceover.py documents seed as NON-reproducible on eleven_v3, untested): A FIXED SEED REPRODUCES THE TAKE TO WITHIN MEASUREMENT NOISE on every property you would re-roll for. Not bit-identical - three renders at one seed returned three different md5s - but identical byte length and duration, with speech-RMS moving only -24.96 to -24.97 dB and crest 23.27 to 23.46 across eight attempts. Varying the seed moved the same line across 3.1 dB of RMS and 0.79s of duration. So re-rolling WITHOUT changing the seed cannot move level, crest or duration, and any \"we re-rolled it and it did not improve\" conclusion drawn that way is unproven. A varied seed is necessary but NOT sufficient: 2 of 3 varied-seed renders came back at the same length, so a real re-roll needs several attempts. Known instance: rerender_uniform.py called synth_timed without previous_text/next_text, so its FIRST attempt per line genuinely differed from the original (that is where its variation came from) while attempts 2-7 at the unchanged seed were the same take again - its \"6 of 23 lines clean in 7 attempts\" is one real sample per line plus six repeats."
+ },
+ "joel_nz": {
+  "voice_id": "3Mb3pRhm3AnXiPCSQNXS",
+  "_voice_default": "Joel - Calm Kiwi Professional (ElevenLabs shared library, male, middle_aged, accent=new zealand, locale=en-NZ, use_case=conversational). Chosen 3 Sep 2026.",
+  "style_notes": "THE voice for a New Zealand audience (voice-matches-the-brief rule, GM 26 Aug 2026): a genuine en-NZ native accent, professional and calm register credible to scientists, industry partners and funders. Chosen for the Bioeconomy Science Institute (BSI) research-portal showcase over the AU-male David fallback precisely because a clean NZ option exists. Single voice throughout a piece; use eleven_multilingual_v2 for long-form stability."
+ },
+ "vr_milly": {
+  "voice_id": "rSeWUeOepJe3YA3pacAe",
+  "_voice_default": "Milly - Cheerful Aussie Presenter (ElevenLabs shared library, descriptive=upbeat, use_case=entertainment_tv, female, young, locale en-AU).",
+  "style_notes": "Cinema-group Theme Parks Gold Coast concierge showcase (apps/cinema-group-concierge) narrator, chosen 1 Sep 2026 for a warm + energetic Australian read for a Gold Coast FAMILY/theme-park-wonder audience - deliberately brighter and more energetic than Holidayisle's calm 'holidayisle_en' (Joel), which the brief asked this piece to exceed. Auditioned against Becca (uplifting/advertisement) and Kylie (warm/conversational); Milly's cheerful presenter energy fit theme-park wonder best. Single voice throughout the piece. Callable directly via its shared-library voice_id. Auditions: videos/vr_build/audio/audition/."
+ },
+ "aimee": {
+  "voice_id": "fCqNx624ZlenYx5PXk6M",
+  "_voice_default": "Aimee - Australian female (GM-supplied, 9 Sep 2026). CORRECTION 30 Sep 2026: the earlier note here said the /voices/{id} metadata GET returns voice_not_found and must not be gated on. That is no longer true - it returns 200 with labels {age: young, use_case: conversational, descriptive: professional, gender: female, language: en, accent: australian}, category professional. /v1/shared-voices independently returns locale en-AU for the same id. Both checks now work, so USE them to confirm accent rather than trusting this file's own claim. Verified while casting the Cinema-group HyperFrames showcase film.",
+  "style_notes": "GM's chosen voice for the Cinema-group customer-experience marketer video (videos/vr-customer-experience, work 8a91d5a2). Australian female, marketer-facing customer-experience register. Use eleven_multilingual_v2 for long-form stability. Single voice throughout the piece."
+ },
+ "v1": {
+  "voice_id": "bfGb7JTLUnZebZRiFYyq",
+  "_voice_default": "Jay-approved pool voice (2026-07-06). Characteristics TBD - identify by ear and rename.",
+  "style_notes": "Rotation-pool narration voice. Clear, professional register unless the piece dictates otherwise."
+ },
+ "v2": {
+  "voice_id": "Gubgw9l4dtIoQA9YZHgx",
+  "_voice_default": "Jay-approved pool voice (2026-07-06). Characteristics TBD - identify by ear and rename.",
+  "style_notes": "Rotation-pool narration voice. Clear, professional register unless the piece dictates otherwise."
+ },
+ "v3": {
+  "voice_id": "qgmxQ9pDWmPoMdev9PYB",
+  "_voice_default": "Jay-approved pool voice (2026-07-06). Characteristics TBD - identify by ear and rename.",
+  "style_notes": "Rotation-pool narration voice. Clear, professional register unless the piece dictates otherwise."
+ },
+ "v4": {
+  "voice_id": "s3TPKV1kjDlVtZbl4Ksh",
+  "_voice_default": "Jay-approved pool voice (2026-07-06). Characteristics TBD - identify by ear and rename.",
+  "style_notes": "Rotation-pool narration voice. Clear, professional register unless the piece dictates otherwise."
+ },
+ "v5": {
+  "voice_id": "zGjIP4SZlMnY9m93k97r",
+  "_voice_default": "Jay-approved pool voice (2026-07-06). Characteristics TBD - identify by ear and rename.",
+  "style_notes": "Rotation-pool narration voice. Clear, professional register unless the piece dictates otherwise."
+ },
+ "ci-bb_classic": {
+  "voice_id": "PA1XYeK584cPbgobwKAc",
+  "_voice_default": "rwa-daryl - Australian male, advertisement register.",
+  "_character": "Brackenbury & Sons campaign narrator (uncredited, 2025 era)",
+  "style_notes": "Brackenbury & Sons' standing advertising narrator in the CI demo corpus (2025 era). Warm, folksy, unhurried Australian read - 'family favourite' territory. Registered 2026-08-26 for content/ci-demo. One voice per character is binding in that corpus: the demo asks who-said-that questions."
+ },
+ "ci-bb_2026": {
+  "voice_id": "zMK1eWY5DTw3Jjb8efU8",
+  "_voice_default": "rwa-emily - Australian female, narrative register.",
+  "_character": "Brackenbury & Sons campaign narrator (uncredited, 2026 'Unfold' era)",
+  "style_notes": "Brackenbury & Sons' 2026 'Unfold' campaign narrator. The script explicitly calls for a NEW voice artist, slower and more considered, because the brand's register shift is itself a plot clue - a different voice and a different sex makes that audible in one second. Registered 2026-08-26 for content/ci-demo."
+ },
+ "ci-qf_vo": {
+  "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+  "_voice_default": "George - British male, warm captivating storyteller.",
+  "_character": "Intel-co Chocolate Works campaign narrator (uncredited)",
+  "style_notes": "Intel-co Chocolate Works' campaign narrator. Hushed, precise, faintly theatrical - a heritage house trading on mystique casting a British storyteller, which also gives the hero brand a sonic identity distinct from three Australian rivals. Registered 2026-08-26."
+ },
+ "ci-isolde": {
+  "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+  "_voice_default": "Lily - British female, velvety.",
+  "_character": "Isolde Vesper, co-founder, Vesper & Ash",
+  "style_notes": "Isolde Vesper, co-founder of Vesper & Ash. Voices her own advertising, as the brand's standing practice, and appears as a podcast guest - same voice_id in all three. Literary, sensory, unhurried, provenance-led. Registered 2026-08-26 for content/ci-demo."
+ },
+ "ci-thomas": {
+  "voice_id": "auq43ws1oslv0tO4BDa7",
+  "_voice_default": "Adam Stone - British male, smooth and relaxed.",
+  "_character": "Thomas Ash, co-founder, Vesper & Ash",
+  "style_notes": "Thomas Ash, co-founder of Vesper & Ash, design and brand side. Unhurried but more structurally minded than Isolde. Registered 2026-08-26 for content/ci-demo."
+ },
+ "ci-dash": {
+  "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+  "_voice_default": "Liam - American male, social-media creator energy.",
+  "_character": "Dashiell Kwan, founder/CEO, Sweetstack",
+  "style_notes": "Dashiell Kwan, founder/CEO of Sweetstack. Fast, hyped, US-inflected digital-marketing voice - in character by design, not a spelling or accent error. Fronts all Sweetstack video. Registered 2026-08-26 for content/ci-demo."
+ },
+ "ci-nadia": {
+  "voice_id": "IdDgBtBBVTnSVb4wDvbT",
+  "_voice_default": "rwa-samantha - Australian female, conversational.",
+  "_character": "Nadia Okafor, host, The Couverture Sessions",
+  "style_notes": "Nadia Okafor, host of The Couverture Sessions, across every episode in the CI corpus - including the sponsor reads, which she delivers herself in her own host voice. Registered 2026-08-26 for content/ci-demo."
+ },
+ "ci-priya": {
+  "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+  "_voice_default": "Alice - British female, clear engaging educator.",
+  "_character": "Dr Priya Renshaw, Head of Flavour Science, Brackenbury & Sons",
+  "style_notes": "Dr Priya Renshaw, Head of Flavour Science at Brackenbury & Sons. Warm, articulate, enthusiastic about her own field - she carries the corpus's dramatic payload and has to sound like someone speaking a little too freely in a friendly room, never like a confession. Registered 2026-08-26 for content/ci-demo."
+ },
+ "ci-callum": {
+  "voice_id": "At3GWS0JVOaxoI8KPYt2",
+  "_voice_default": "rwa-rick - Australian male, conversational.",
+  "_character": "Callum Reyes, roastmaster and sourcing consultant",
+  "style_notes": "Callum Reyes, roastmaster and independent cocoa sourcing consultant. Blunt, experienced, plain-spoken practitioner. Registered 2026-08-26 for content/ci-demo."
+ },
+ "_ci_demo_note": "ci-* entries are the locked character cast for the competitive-intelligence demo corpus (content/ci-demo). Each character keeps ONE voice_id across every asset they appear in - TV, pre-roll and podcast - because that corpus is queried with who-said-that questions and a drifting voice breaks the narrative. Canonical mapping and the reasoning per casting choice: scripts/ci_media_spec.py CAST. Do not repoint one of these without re-rendering every asset that character appears in.",
+ "holidayisle_en": {
+  "voice_id": "0zgVQzF8uy6TauIra2W1",
+  "_voice_default": "Joel - Calm & Friendly Australian (ElevenLabs shared library, descriptive=relaxed, use_case=conversational, locale en-AU).",
+  "style_notes": "Holidayisle Island demo (apps/holidayisle-island) English voice, swapped from 'david' 27 Aug 2026 on GM feedback: David is genuinely Australian-accented but ElevenLabs' own listing positions him for technical/corporate-training register - wrong feel for a warm WA-tourist-island welcome. Joel is explicitly labelled relaxed/conversational. Callable directly via its ElevenLabs shared-library voice_id without adding to the workspace first (confirmed live)."
+ },
+ "holidayisle_zh": {
+  "voice_id": "ZqMiFUjytue2TImoYCpY",
+  "_voice_default": "Magge - Mandarin native, eleven_multilingual_v2.",
+  "style_notes": "Holidayisle Island demo (apps/holidayisle-island), Mandarin voice-over for the multilingual assistant. Native-language voice, not English reading translated text. Registered 27 Aug 2026."
+ },
+ "holidayisle_ja": {
+  "voice_id": "xeizJaHsHrlfQdJJQmlK",
+  "_voice_default": "Garyu - Japanese native, eleven_multilingual_v2.",
+  "style_notes": "Holidayisle Island demo (apps/holidayisle-island), Japanese voice-over for the multilingual assistant. Native-language voice, not English reading translated text. Registered 27 Aug 2026."
+ },
+ "holidayisle_fr": {
+  "voice_id": "40Rmxv431tMaTTYB09bz",
+  "_voice_default": "Virginie - French native, eleven_multilingual_v2.",
+  "style_notes": "Holidayisle Island demo (apps/holidayisle-island), French voice-over for the multilingual assistant. Native-language voice, not English reading translated text. Registered 27 Aug 2026."
+ },
+ "_holidayisle_note": "Holidayisle Island demo (apps/holidayisle-island) is voice-per-language: EN uses 'holidayisle_en' (Joel, swapped from 'david' 27 Aug 2026 - genuinely Australian but the wrong register, see holidayisle_en's own note), ZH/JA/FR use holidayisle_zh/holidayisle_ja/holidayisle_fr above, all via eleven_multilingual_v2. Never English-voice reading translated text. The assistant concierge is named 'Kwoka' (EN - the real Noongar word for quokka, KB-verified) / '\u8df3\u8df3' Ti\u00e0oti\u00e0o (ZH) / '\u30af\u30aa\u3061\u3083\u3093' Kuo-chan (JA) / 'Coco' (FR), changing with the language dropdown.",
+ "voices": {},
+ "ja_naomi": {
+  "voice_id": "JGDwW9z83vZudMiOzzS9",
+  "_voice_default": "Naomi - native Japanese female (ElevenLabs shared). Multilingual concierge demos: the Japanese answer voice. Use with eleven_multilingual_v2. No-accent native read (GM directive 26 Aug)."
+ },
+ "ko_sori": {
+  "voice_id": "DlU3oDWG5pC5PBITbfga",
+  "_voice_default": "Sori - native Korean female (ElevenLabs shared). Korean answer voice for multilingual concierge demos. eleven_multilingual_v2."
+ },
+ "zh_susan": {
+  "voice_id": "0H4ruoQ81Ei2FCwjW5j1",
+  "_voice_default": "Susan - native Mandarin Chinese female (ElevenLabs shared). Mandarin answer voice for multilingual concierge demos. eleven_multilingual_v2."
+ },
+ "fr_johanna": {
+  "voice_id": "9UK7PgAsdvmlErBPenNb",
+  "_voice_default": "Johanna - native French female (ElevenLabs shared). French answer voice for multilingual concierge demos. eleven_multilingual_v2."
+ },
+ "bay-co_en": {
+  "voice_id": "k6aNMn2EN3T8vpJSBhQw",
+  "_voice_default": "Ladypatty - Warm Latin voice (ElevenLabs shared library, descriptive=warm/chill, accent=spanish, use_case=social_media, female, young).",
+  "style_notes": "Bay-co Bay demo (apps/bay-co-bay) English voice, registered 2 Sep 2026 following the voice-matches-the-brief rule (26 Aug 2026): a warm, Mediterranean/Latin-accented English read fits Bay-co Bay's own sun-drenched bay-town identity, distinct register from Holidayisle's calm Australian Joel and Cinema-group's cheerful Australian Milly. Auditioned against Vanessa (confident/social_media) and LeRu (pleasant/conversational); Ladypatty's explicit 'Warm Latin voice' billing matched the brand direction most directly. Single voice throughout the English narration. Use eleven_multilingual_v2 for long-form stability."
+ },
+ "_bay-co_bay_note": "Bay-co Bay demo (apps/bay-co-bay) is voice-per-language: EN uses 'bay-co_en' (Ladypatty), JA/KO/ZH/FR reuse the shared native-voice registrations 'ja_naomi'/'ko_sori'/'zh_susan'/'fr_johanna' above, all via eleven_multilingual_v2. Never English-voice reading translated text.",
+ "wb_blackwood": {
+  "voice_id": "agL69Vji082CshT65Tcy",
+  "_voice_default": "Blackwood - Sinister, Posh and British (ElevenLabs shared library). Registered 2026-09-03.",
+  "style_notes": "Widow's Bay Almanac cinematic trailer (apps/almanac-co-almanac) narrator. Posh-British, theatrical, faintly sinister storyteller - the gothic occult-almanac trailer register (comedy-horror). Chosen 3 Sep 2026 over George (warm storyteller) and Raymond (theatrical classical) for its arch, wry menace that fits the show's tone and the almanac's own wry-archivist voice while giving a trailer drawn-out gravitas. Single voice throughout. Rendered on eleven_v3 (Natural stability 0.5) for audio-tag expressiveness; English narration only."
+ },
+ "will": {
+  "voice_id": "bIHbv24MWmeRgasZH58o",
+  "_voice_default": "Will - Relaxed Optimist (ElevenLabs premade, US male, young, descriptive=chill, use_case=conversational). Chosen 4 Sep 2026.",
+  "style_notes": "THE playful tech-founder register: young, relaxed, optimistic American male. Chosen for the Silicon Valley / Pied Piper Fanclub trailer - a startup-pitch energy deliberately distinct from Hope's neutral narration. Single voice throughout a piece."
+ },
+ "ca-maria": {
+  "voice_id": "h2OBoQqre8SPfGehinER",
+  "_voice_default": "Melanie - Conversational, Trustworthy (ElevenLabs shared library, American female, middle_aged).",
+  "_character": "Maria Gonzales, Meridian Health Plan agent (Claims/Complaints/Grievances queues)",
+  "style_notes": "call-analysis demo corpus (apps/call-analysis) voice-cast reseed, 18 Sep 2026. Maria handles the corpus's toughest calls (billing disputes, a denied ER claim, a HIPAA grievance) so a trustworthy, composed register was chosen over anything upbeat. One voice across every call she appears in (4 of 24) - the corpus is queried with who-said-that/ask-this-call questions, so a drifting voice would break that. Rendered on eleven_turbo_v2_5."
+ },
+ "ca-darnell": {
+  "voice_id": "gZgeCxzVQJzACoAiZkVF",
+  "_voice_default": "Oliver - Warm & Conversational (ElevenLabs shared library, American male, middle_aged).",
+  "_character": "Darnell Price, Meridian Health Plan agent (Member Services/Retention/Pharmacy cross-sell queues)",
+  "style_notes": "call-analysis demo corpus (apps/call-analysis) voice-cast reseed, 18 Sep 2026. Darnell carries most of the corpus's cross-sell and retention-save calls, so a warm, easy conversational register fits his consultative pitch style. One voice across every call he appears in (5 of 24). Rendered on eleven_turbo_v2_5."
+ },
+ "ca-priya": {
+  "voice_id": "0KvU03FZJTjhzbcaS2vc",
+  "_voice_default": "Mayuri - Calm, Educational & Friendly (ElevenLabs shared library, American female, middle_aged).",
+  "_character": "Priya Nair, Meridian Health Plan agent (Clinical/Pharmacy/Billing queues)",
+  "style_notes": "call-analysis demo corpus (apps/call-analysis) voice-cast reseed, 18 Sep 2026. Priya handles prior-authorization, formulary and confused-senior calls needing a calm, patient, explain-it-clearly register. One voice across every call she appears in (5 of 24). Rendered on eleven_turbo_v2_5."
+ },
+ "ca-tom": {
+  "voice_id": "CwHAQ8PNhNqs7NaSW2ST",
+  "_voice_default": "Robert - calm, informative_educational (ElevenLabs shared library, American male, middle_aged).",
+  "_character": "Tom Whitfield, Meridian Health Plan agent (Claims/Tech Support/Enrollment/Retention queues)",
+  "style_notes": "call-analysis demo corpus (apps/call-analysis) voice-cast reseed, 18 Sep 2026. Tom's calls are mostly straightforward resolutions (claim status, portal reset, special enrollment), so a calm, competent, unhurried register fits. One voice across every call he appears in (5 of 24). Rendered on eleven_turbo_v2_5."
+ },
+ "ca-sofia": {
+  "voice_id": "lAaEXiMr0SpoeuXVOpl6",
+  "_voice_default": "Stacy - Warm Conversational Narrator (ElevenLabs shared library, American female, middle_aged).",
+  "_character": "Sofia Marchetti, Meridian Health Plan agent (Enrollment/Member Services/Billing/Dental & Vision/Claims queues)",
+  "style_notes": "call-analysis demo corpus (apps/call-analysis) voice-cast reseed, 18 Sep 2026. Sofia's calls range widest (newborn enrollment, autopay setup, a benefit transfer, a critical-illness claim), so a warm all-purpose conversational register was chosen. One voice across every call she appears in (5 of 24). Rendered on eleven_turbo_v2_5."
+ },
+ "_call_analysis_note": "call-analysis demo corpus (apps/call-analysis) is a locked 5-agent + 24 one-off-member cast, registered 18 Sep 2026 for the ElevenLabs voice-cast reseed (DAM work b74205b5) that replaced the original macOS `say` (Samantha/Alex) placeholder audio. The 5 recurring agents are registered above (ca-maria/ca-darnell/ca-priya/ca-tom/ca-sofia) because they recur across multiple calls and the corpus supports who-said-that ask-this-call questions. The 24 members never recur (one caller per call, verified via distinct memberIds), so their individual voice castings live only in apps/call-analysis/scripts_py/voice_cast.py, not here - each still gender/age-matched to their dialogue and never sharing a voice_id with that call's own agent. All American accents (fictional US health insurer). Rendered on eleven_turbo_v2_5.",
+ "arthur": {
+  "voice_id": "xhl7YnYr7oJP8I57z5cS",
+  "_voice_default": "Arthur (ElevenLabs shared library, american/middle_aged, descriptive=confident, use_case=informative_educational) - a mature male voice in his 50s, clear and authoritative. Cast 19 Sep 2026.",
+  "style_notes": "THE big-room KEYNOTE voice: measured, authoritative, unhurried - cast for the Progress ISV partner keynote (60s ERP video) over Hope (explainer register, not a room), Andy (more drive, less authority) and Daniel (British gravitas but too slow for a 60s cut). Auditioned on the film's real opening lines: videos/erp-keynote/audition/. RE-AUDITIONED and re-confirmed 23 Sep 2026 for the 3.65-minute NARRATED ERP keynote cut, against three fresh shared-library American males on the same copy: arthur 149 wpm with 10 pauses in 18s (0.55/sec), Jonathan (warm executive narrator) 136 wpm, Russ (deep American narrator) 182 wpm, Ethan (conversational announcer) 181 wpm. Arthur wins for any film whose grammar is READ-THE-EVIDENCE: the pauses are the point, because the room needs time to read what is on screen, and the ~181 wpm reads either crowd the evidence or force you to stretch beats to manufacture air. Measured pace 2.38-2.49 words/sec, so size narration at ~130-150 words per minute of film. MODEL NOTE (23 Sep 2026): for a long narration rendered as many separate lines, use eleven_multilingual_v2, NOT eleven_v3 - v3 rejects previous_text/next_text outright, and 37 renders that must sound like one take need that continuity more than they need v3's audio tags. Per-line RMS normalisation before assembly is mandatory regardless: the 37 lines came back with a 9.5 LU raw spread. Use for partner/investor/keynote pieces aimed at a US or neutral-international room. Single voice throughout a piece."
+ },
+ "mx_lazarus": {
+  "voice_id": "M9PBBTZ5jyknwzAesEA3",
+  "_voice_default": "Lazarus - Jaded, Sophisticated & Ominous (ElevenLabs shared library, male, middle_aged, descriptive=raspy, accent=standard). Cast 2026-09-20 by GM confirmation after a four-way audition.",
+  "style_notes": "THE PERFORMANCE voice for the Molyneux Files / interview-archive register: a smoky, seasoned noir baritone - an archivist who has lived with the tapes, not a vampire and not a horror-trailer read. Cast after the GM rejected a Hope-narrated cut as \"very clinical\"; the lesson is that voice is CAST for an atmospheric piece, never defaulted to the explainer voice. Deliberately outside wb_blackwood's posh-British-sinister lane - Raymond, the obvious gothic pick, was one of Widow's Bay's own audition candidates, so casting him would have been a casting echo of the reference. Auditioned against Ingmar (intimate/whispery), Jones (true-crime documentary) and Aion Seeker (solemn, sorrowful). MEASURED: 103 wpm with 0.35 internal pauses per second, against Hope's 207 wpm on identical copy - so it reads at roughly HALF explainer pace. WORD-BUDGET CONSEQUENCE: budget about half the words you would write for an explainer. 128 words runs ~75s on this voice and ~37s on Hope. Write trailer copy with the pauses written in (present-tense fragments, ellipses) and let the read set the runtime; never pad the edit to reach length. Render on eleven_v3 at Natural stability 0.5 for audio-tag expressiveness, as the approved Widow's Bay trailer did. Single voice throughout a piece. Auditions: videos/molyneux-showcase/audition/."
+ },
+ "bigbill": {
+  "voice_id": "XKAGqUbhNsxAoGIRj4OY",
+  "_voice_default": "Big Bill - Calming and confident (ElevenLabs, category=professional, british/male/middle_aged, descriptive=confident). GM-CHOSEN keynote voice, supplied 23 Sep 2026 - he rejected arthur on the narrated ERP keynote and nominated this voice by id. NOT the same voice as the existing 'bill' entry (pqHfZKP75CvOlQylNhV4, older American male, deadpan register) - two different voices with similar names, check the id.",
+  "style_notes": "THE keynote voice from 23 Sep 2026, replacing arthur for the narrated Progress ISV partner ERP keynote. British male, measured and confident. MEASURED ON THIS FACTORY'S OWN COPY (5 representative script lines, 62 words, eleven_multilingual_v2): it is a FAST reader and needs the speed lever pulled hard - 188 wpm at speed 1.0, 181 at 0.92, 160 at 0.85, 141 at 0.80, and it saturates below that (0.75 came back 145, i.e. no slower than 0.80). Run it at speed 0.82 for a keynote register near 148 wpm, which is where a room can read the evidence on screen while the line plays. Note the voice's own default settings carry speed 0.97, so it is faster still if you accept the default. Per-line RMS normalisation before assembly is mandatory as with every voice - the level lottery measured a 3.6 LU raw spread across 5 lines. Model: eleven_multilingual_v2, for previous_text/next_text continuity across many separate line renders. Accent note: British, so it is the right register for a UK or neutral-international room; the earlier ERP keynote brief specified an American read, and this supersedes that by the GM's own choice. Every take that speaks a proper noun is ASR-verified before it is kept (see videos/erp-keynote/narrate_reel.py) - the name lottery is per-render, not per-voice."
+ },
+ "brad_au": {
+  "voice_id": "oUbjcKlrUrhnYf9kwdmI",
+  "_voice_default": "Brad - Australian male narrator (ElevenLabs). Registered 28 Sep 2026 by audition for the tourism boardroom register.",
+  "style_notes": "OVERRULED BY THE GM, 28 Sep 2026 - do NOT cast this voice for an Australian piece without a fresh explicit instruction. Registered 28 Sep by audition for the tourism pitch companion film on measured pace (122 wpm with 9.5s of held pause across 33s, against david at 171 wpm), and the GM rejected the delivered film with \"The Voice is crap I think you should go back to using David\". The measurement was right and the CASTING WAS STILL WRONG: wpm and pause density test for the 'clinical explainer' failure mode, they do not test whether a voice is one the stakeholder wants representing the product, and a slow read is not automatically an authoritative one. Lesson for any future audition - a measured runner-up does not beat the GM's standing named voice for that audience unless he has heard both and said so. david is the Australian voice. Original audition record kept below.\n\nORIGINAL (superseded): Australian male, documentary-narrator register. Auditioned on the film's real opening lines against david, aimee and daryl and chosen on measured pace. Use eleven_v3 for the audio tags; single voice throughout. Same underlying voice_id as the PLACEHOLDER `jay` profile, registered separately so it is usable without touching that placeholder. Auditions: videos/tourism-provocation/audition/."
+ },
+ "alex_au": {
+  "voice_id": "REj8RmvYhs4GYVeZD6wC",
+  "_voice_default": "Alex - Modern Australian (ElevenLabs shared library, male, middle_aged, descriptive=neutral, use_case=narrative_story). Registered 9 Oct 2026 by audition for the The university demo film.",
+  "style_notes": "NOT CAST - registered as a measured AUDITION RECORD so the next Australian-audience film does not redo this work. It is the SLOW Australian male option: measured on 37 words of real script against five others on eleven_multilingual_v2, it read 132.8 wpm with a 0.90s longest internal silence pausing on 2 of 3 lines - the only one of six inside the 100-140 atmospheric/trailer band, and 43 wpm slower than david on identical copy. Register reads institutional-neutral narrative rather than ad-read or educator-explainer, which is why it was auditioned over Aussie Dan and Tristan (both advertisement) and Ian Christopher (informative_educational, which IS the explainer failure mode). WHY IT LOST: it costs 35 seconds of runtime on a 317-word script (3:32 against david's 2:57), and on that film the length was already reported to the GM. It is also structurally the same candidate as brad_au, which the GM rejected on 28 Sep after it was cast on measured pace - wpm and pause density test for the clinical-explainer failure mode, they do not test whether a voice is one the stakeholder wants representing the product. Cast it only where a SLOWER read is wanted and the runtime cost is accepted, and only with the GM having heard it against david. Takes: videos/university/audition/alex_au_*.mp3; figures videos/university/audition/measured.json."
+ },
+ "riker_au": {
+  "voice_id": "ez73iv8jg2dhgcK2MV5c",
+  "_voice_default": "Riker - Authoritative Narration (ElevenLabs shared library, male, middle_aged, descriptive=professional, use_case=narrative_story, australian accent). Registered 9 Oct 2026 by audition for the The university demo film.",
+  "style_notes": "NOT CAST - registered as a measured AUDITION RECORD. Auditioned because its listing is the closest available match to 'confident, unhurried, not an explainer voice-over'. MEASURED THE OPPOSITE OF ITS NAME ON PACE: 183.2 wpm, the FASTEST of six Australian males on identical copy, with a 0.34s longest internal silence. So 'authoritative narration' in a library listing is a description of timbre and not of pace - do not infer pace from a listing, measure it. Useful where a fast, professional Australian read is wanted and runtime is tight (it is the shortest of the six). Takes: videos/university/audition/riker_*.mp3."
+ },
+ "sa_peter": {
+  "voice_id": "wYRWpu4LwRgqnXnLyMji",
+  "_voice_default": "Peter - Natural, Confident (ElevenLabs shared library, accent=south african, male, middle_aged, descriptive=professional, use_case=informative_educational, 491 clones). CAST 16 Oct 2026 for the Fin-demo Health / ISVCO showcase film (fin-demo-showcase).",
+  "style_notes": "THE voice for a SOUTH AFRICAN audience. Cast by the joel_nz precedent: a clean native regional option exists, so it beats the Australian fallback - the brief's 'Australian English' governs SPELLING, not accent, and the audience is South African health-scheme operations teams. Of 75 en-ZA males in the shared library, Peter is the only shortlisted one billed professional / informative_educational rather than conversational or narrative_story, which is the practitioner-showcase register. MEASURED on two real lines of that script (71 words, eleven_multilingual_v2, stability 0.5 / similarity 0.75 / style 0.0 / speaker boost on, seed 20261016): 152.6 wpm overall; 7 internal pauses on the numbers line, longest 0.58s, so it breaks a roll-call into beats without leaving dead air. Against five others on identical copy - sa_dimitris 137.7, sa_leon 141.1, sa_ahmed 150.1, david 151.1, sa_ishan 153.7 wpm. BRAND-WORD CHECK, which is what separated them: an ASR round-trip of the proper noun 'Fin-demo' over three takes read correctly 3/3 for peter and 3/3 for david, 2/3 for sa_leon, 1/2 for sa_ahmed, 0/2 for sa_dimitris ('Ambuzo') and 0/2 for sa_ishan ('Ombuzo'). sa_leon was additionally rejected on a measurement: zero internal silences at any threshold down to -70 dB across 71 words, i.e. a continuous read, which cannot execute a script whose own direction is 'a list, each item its own beat'. brad_au was excluded rather than auditioned - the GM overruled it on 28 Sep 2026 and a lead's candidate list is not the fresh explicit instruction that note requires. STATED LIMIT: the builder has no audio perception. Every figure above is a measurement or a recogniser output; nobody has LISTENED to this voice, and whether the accent reads as authentic to a South African ear is unverified. Single voice throughout a piece. Audition takes: fin-demo-showcase/audition/."
+ }
+}

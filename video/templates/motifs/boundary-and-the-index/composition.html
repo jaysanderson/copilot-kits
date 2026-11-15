@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: the boundary and the index</title></head>
+<body>
+<template>
+  <style>
+    #bd-root { position: absolute; inset: 0; overflow: hidden; }
+    .bd-bnd { position: absolute; border-radius: 16px; border: 3px solid #5E719F;
+      background: rgba(0, 21, 73, 0.38); }
+    .bd-bndtab { position: absolute; height: 38px; padding: 0 16px; border-radius: 9px 9px 0 0;
+      background: #2A3A6E; color: #D7DEEA; font-family: "ProgText", sans-serif;
+      font-size: 32px; line-height: 38px; }
+    .bd-prog { border-color: #008963; background: rgba(0, 54, 42, 0.34); }
+    .bd-progtab { background: #00724F; color: #ffffff; }
+    /* the three objects reused across every panel */
+    /* FLEX-CENTRED, like .bd-mobj. .bd-objlab used to be absolutely positioned at
+       top:50% with margin-top:-11px, which assumes a SINGLE LINE - "Source documents"
+       wraps at 32px in a 220px card and the second line hung outside the card's bottom
+       edge. .bd-mobj's own comment had already diagnosed this exact trap for the mode
+       panels; the same cause was left standing on its parent class. */
+    .bd-obj { position: absolute; border-radius: 10px;
+      font-family: "ProgText", sans-serif; font-size: 32px; color: #16254A;
+      text-align: center; display: flex; align-items: center;
+      justify-content: center; padding: 0 10px; box-sizing: border-box; }
+    .bd-corpus { background: linear-gradient(175deg, #ffffff 0%, #e6ebf5 100%);
+      box-shadow: 0 10px 22px rgba(0, 10, 40, 0.42); }
+    .bd-index { background: linear-gradient(175deg, #D7DEEA 0%, #9FB0D0 100%);
+      box-shadow: 0 10px 22px rgba(0, 10, 40, 0.42); }
+    /* Green is the platform's (grammar rule 3), carried by the BORDER. The fill is
+       light so the label is legible: slate on translucent green measured 1.64:1. */
+    .bd-infer { background: linear-gradient(175deg, #EAF6F0 0%, #CFE8DC 100%);
+      border: 3px solid #00B563; color: #16254A;
+      box-shadow: 0 10px 22px rgba(0, 10, 40, 0.42); }
+    .bd-objlab { position: static; width: 100%; line-height: 1.18; }
+    /* Mode-panel objects. The same three objects as /hybrid at panel scale, so the
+       only difference between the modes is WHERE they are - the phase's whole
+       argument, and what it was missing. Flex-centred because these labels wrap and
+       .bd-objlab's -11px assumes a single line. */
+    .bd-mobj { position: absolute; width: 300px; height: 76px;
+      border-radius: 9px; font-family: "ProgText", sans-serif; font-size: 32px;
+      color: #16254A; text-align: center; display: flex; align-items: center;
+      justify-content: center; padding: 0 6px; box-sizing: border-box; }
+    /* An object OUTSIDE every boundary, grammar rule 6: neutral space, question mark,
+       never moving. Below its panel, so membership reads as unresolved. */
+    .bd-mout { top: 790px; }
+    .bd-moutlab { position: absolute; top: 878px; width: 470px; text-align: center;
+      color: #9FB0D0; font-family: "ProgText", sans-serif; font-size: 32px; }
+    /* the table that is queried where it sits */
+    .bd-table { position: absolute; border-radius: 11px; border: 2px solid #5E719F;
+      background: rgba(0, 21, 73, 0.6); }
+    .bd-trow { position: absolute; left: 16px; height: 13px; border-radius: 4px;
+      background: #9FB0D0; }
+    .bd-result { position: absolute; width: 240px; height: 152px; border-radius: 9px;
+      background: linear-gradient(175deg, #ffffff 0%, #eef2f9 100%);
+      box-shadow: 0 10px 24px rgba(0, 10, 40, 0.5); }
+    .bd-resbar { position: absolute; left: 14px; height: 8px; border-radius: 4px; background: #9FB0D0; }
+    .bd-lab { position: absolute; font-family: "ProgText", sans-serif; font-size: 32px;
+      color: #9FB0D0; letter-spacing: 0.04em; }
+    .bd-date { position: absolute; left: 0; width: 1920px; text-align: center; top: 904px;
+      font-family: "ProgText", sans-serif; font-size: 32px; color: #5E719F;
+      letter-spacing: 0.05em; }
+    /* ghost panels for the modes we do not claim */
+    /* Fill only. The NOT BUILT stroke is an SVG rect using the library dasharray,
+       because a CSS `dotted` border draws dots about the border width - 3px here, worse   (GRAMMAR-PROSE-OK: names the CSS keyword, not our stroke)
+       than the 3 9 the grammar just retired, and no dasharray can reach it. */
+    .bd-ghost { position: absolute; border-radius: 18px; border: none;
+      background: rgba(107, 114, 128, 0.10); opacity: 0.35; }
+    /* The panel is dim because it is not claimed. The LABEL is legible because the three
+       unclaimed modes are the thing an architect must read: at #6B7280 it measured
+       1.64:1 against a 4.5:1 floor. */
+    .bd-ghostlab { position: absolute; font-family: "ProgText", sans-serif; font-size: 32px;
+      color: #AFBDD6; text-align: center; }
+    /* GRAMMAR RULE 6: an object whose state we were never told. The question mark is a
+       state of our KNOWLEDGE laid over the object, never a fourth architecture stroke. */
+    /* A mode that does not exist still has a shape. Ghosting the objects inside says
+       "this would have held these and it does not exist", where an empty panel says
+       "unfinished". */
+    /* .bd-ghostobj IS RETIRED. It drew nine objects with no text: three blank boxes
+       inside each dashed panel, which a viewer cannot interpret, and which read as a
+       different KIND of thing rather than as the mode's contents. The labels existed in
+       the creation loop and were never read out of it - the plan was written and not
+       delivered.
+       These CANNOT be children of .bd-ghost: that panel carries opacity 0.35 and would
+       multiply the type down, which is the whole reason .bd-ghostlab is a sibling. So
+       .bd-gobj is positioned in PAGE coordinates as a sibling in #bd-notclaimed, and is
+       static markup rather than JS so the static interiors check can count it. */
+    .bd-gobj { position: absolute; border-radius: 7px; border: 2px solid #6B7280;
+      background: rgba(107, 114, 128, 0.16); font-family: "ProgText", sans-serif;
+      font-size: 32px; color: #AFBDD6; display: flex; align-items: center;
+      justify-content: center; box-sizing: border-box; padding: 0 10px; }
+    /* A CONFIRMED caption. Deliberately NOT .bd-unklab: that class name reads as
+       "unknown label" and this sentence states something Progress HAS confirmed. */
+    .bd-conf { position: absolute; font-family: "ProgText", sans-serif; font-size: 32px;
+      color: #9FB0D0; text-align: center; letter-spacing: 0.04em; }
+    .bd-unk { position: absolute; font-family: "ProgDisplay", sans-serif; font-size: 54px;
+      color: #D7DEEA; text-align: center; width: 60px; }
+    .bd-unklab { position: absolute; font-family: "ProgText", sans-serif; font-size: 32px;
+      color: #9FB0D0; text-align: center; letter-spacing: 0.04em; }
+    .bd-nb { position: absolute; font-family: "ProgText", sans-serif; font-size: 32px;
+      color: #B6C3DA; letter-spacing: 0.08em; text-align: center; }
+    svg.bd-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="bd-root" data-composition-id="m-bd" data-width="1920" data-height="1080"
+       data-duration="41.02">
+    <div id="bd-stage" style="position:absolute; inset:0;" data-layout-allow-overflow>
+
+      <!-- PHASE /table : queried in place, and the RESULTS leave anyway -->
+      <div id="bd-tablephase">
+        <div class="bd-bndtab" id="bd-t-tab" style="left:230px; top:262px;"
+             data-var-text="bdYourEnv">Your environment</div>
+        <div class="bd-bnd" id="bd-t-bnd" style="left:230px; top:300px; width:830px; height:560px;"></div>
+        <!-- OVERLAP-BY-DESIGN bd-t-bnd + bd-table: the table sits INSIDE the
+             boundary. They are DOM siblings but visually nested, which is the
+             picture this phase makes. -->
+        <div class="bd-table" id="bd-table" style="left:330px; top:380px; width:620px; height:380px;"></div>
+        <div class="bd-lab" id="bd-qip" style="left:1200px; top:360px;"
+             data-var-text="bdQueryInPlace">Query in place</div>
+        <div class="bd-result" id="bd-res" style="left:1200px; top:430px;"></div>
+        <div class="bd-lab" id="bd-reslab" style="left:1200px; top:600px;"
+             data-var-text="bdResults">Results</div>
+      </div>
+
+      <!-- PHASE /hybrid : the derived index CROSSES and rests; the documents' own
+           position is left UNRESOLVED (grammar rule 6) -->
+      <div id="bd-hybridphase">
+        <div class="bd-bndtab" id="bd-h-tab0" style="left:200px; top:322px;"
+             data-var-text="bdYourEnv2">Your environment</div>
+        <div class="bd-bnd" id="bd-h-bnd0" style="left:200px; top:360px; width:620px; height:400px;"></div>
+        <!-- THIS BOUNDARY WAS A 620x400 EMPTY BOX FOR THE WHOLE PHASE, about fifteen
+             seconds. The source documents are outside it by grammar rule 6 and must
+             STAY outside, so the fix is not to put them back - it is to name what IS
+             confirmed to be in there. Exactly the correction this project's own
+             d_hybrid.py figure made: "Confirmed to be here: your application, asking."
+             No colour is introduced: .bd-corpus is the neutral object fill, and a new
+             border colour here would be a grammar decision in a shared motif. -->
+        <div class="bd-conf" id="bd-h-applab" style="left:200px; top:402px; width:620px;"
+             data-var-text="bdAppRole">Confirmed here: it asks the question</div>
+        <div class="bd-obj bd-corpus" id="bd-h-app" style="left:360px; top:480px; width:300px; height:120px;">
+          <div class="bd-objlab" data-var-text="bdApp">Your application</div></div>
+        <div class="bd-bndtab bd-progtab" id="bd-h-tab1" style="left:1100px; top:322px;"
+             data-var-text="bdProgCloud">Progress cloud</div>
+        <div class="bd-bnd bd-prog" id="bd-h-bnd1" style="left:1100px; top:360px; width:620px; height:400px;"></div>
+        <!-- GRAMMAR RULE 6. The source documents sit in the NEUTRAL GAP between the two
+             boundaries, belonging to neither, because the confirmed statement says what
+             RUNS in Progress's cloud and nothing about where the corpus is STORED. They
+             never move and never acquire a boundary. -->
+        <div class="bd-obj bd-corpus" id="bd-corpus" style="left:850px; top:470px; width:220px; height:150px;">
+          <div class="bd-objlab" data-var-text="bdCorpus">Source documents</div></div>
+        <div class="bd-unk" id="bd-corpus-q" style="left:1040px; top:430px;">?</div>
+        <div class="bd-unklab" id="bd-corpus-qlab" style="left:800px; top:632px; width:320px;"
+             data-var-text="bdNotStated">Progress has not stated</div>
+        <div class="bd-obj bd-index" id="bd-idx" style="left:870px; top:640px; width:170px; height:110px;">
+          <div class="bd-objlab" data-var-text="bdIndex">Index</div></div>
+        <div class="bd-obj bd-infer" id="bd-inf" style="left:870px; top:640px; width:170px; height:110px;">
+          <div class="bd-objlab" data-var-text="bdInference">Inference</div></div>
+        <div class="bd-date" id="bd-date" data-var-text="bdDate">Confirmed 8 Oct 2026 &middot; not published</div>
+      </div>
+
+      <!-- PHASE /modes : three panels, SaaS / private cloud / hybrid. NOT rendered by
+           sa-use-cases - see README gate coverage. -->
+      <div id="bd-modesphase">
+        <!-- THE BEAT'S AXIS, CHANGED 9 Oct 2026, and this title is the change.
+             It used to argue "the modes differ in WHERE THE OBJECTS ARE". That premise
+             is FALSE: once the corpus came out of the panels - because containment
+             asserts storage and canon states only what RUNS - SaaS and hybrid were
+             visually identical, and the facts do not distinguish them on placement.
+             The premise was replaced rather than the panels. The modes differ in WHAT
+             PROGRESS HAS TOLD US, which is real, dated and drawable: SaaS stated,
+             hybrid stated WITH an exclusion ("only" these two), private cloud carrying
+             two open questions. The visual difference is the density of question marks,
+             and that is honest where a difference in object placement was not.
+             NEUTRAL WORDING IS A CONSTRAINT, not a preference: two open questions is a
+             gap in what we have been told, never a defect in private cloud, and no
+             caption may let the marks read as a scoreboard. -->
+        <div class="bd-conf" id="bd-modestitle" style="left:0; top:96px; width:1920px;"
+             data-var-text="bdModesTitle">What Progress has stated, and what it has not stated yet</div>
+        <div class="bd-bndtab bd-progtab" id="bd-m0-tab" style="left:140px; top:382px;"
+             data-var-text="bdSaas">SaaS</div>
+        <div class="bd-bnd bd-prog" id="bd-m0" style="left:140px; top:420px; width:470px; height:300px;"></div>
+        <div class="bd-bndtab" id="bd-m1-tab" style="left:726px; top:382px;"
+             data-var-text="bdPrivate">Private cloud</div>
+        <div class="bd-bnd" id="bd-m1" style="left:726px; top:420px; width:470px; height:300px;"></div>
+        <!-- GRAMMAR RULE 6 again, and NOT optional. Canon deployment_modes v6 lists as
+             UNCONFIRMED (c) where inference runs in private cloud, and (d) what a private
+             cloud boundary is and who operates it. Drawing inference seated inside this
+             boundary would assert the same class of thing the hybrid correction removed. -->
+        <!-- The question mark used to sit at 930,482 in the middle of an EMPTY panel.
+             Now that the panel has objects it was buried behind them, and its label
+             wrapped past the panel's bottom edge. The unresolved INFERENCE object below
+             carries the "where inference runs" half with its own mark, so this one is
+             scoped to the remaining unknown - who operates the boundary - and sits on
+             the boundary's own edge rather than in the content area. -->
+        <div class="bd-unk" id="bd-m1-q" style="left:1146px; top:620px;">?</div>
+        <!-- per-panel: what the record says about THIS mode. Boxes are 550 wide and
+             overhang their 470px panels into the 116px gutters, which keeps each
+             caption on one line at the 32px floor; m1's must stay one line because its
+             unresolved Inference object sits at 790 beneath it. -->
+        <div class="bd-conf" id="bd-m0-stated" style="left:100px; top:736px; width:550px;"
+             data-var-text="bdM0Stated">Stated: Progress operates it</div>
+        <div class="bd-conf" id="bd-m2-stated" style="left:1272px; top:736px; width:550px;"
+             data-var-text="bdM2Stated">Stated: only these two, and the index rests here</div>
+        <div class="bd-unklab" id="bd-m1-qlab" style="left:686px; top:736px; width:550px;"
+             data-var-text="bdPrivateUnknown">Not stated yet: who operates it</div>
+        <div class="bd-bndtab" id="bd-m2-tab" style="left:1312px; top:382px;"
+             data-var-text="bdHybrid">Hybrid</div>
+        <div class="bd-bnd" id="bd-m2" style="left:1312px; top:420px; width:470px; height:300px;"></div>
+
+        <!-- ONE CORPUS, ABOVE ALL THREE, IN NEUTRAL SPACE. Grammar rule 6: an object
+             whose state we were never told is drawn outside every boundary, carrying
+             the question mark. Its location is unstated in EVERY mode, so it is drawn
+             once rather than three times - three copies of one unknown read as three
+             separate unknowns, and a viewer counts them. -->
+        <div class="bd-obj bd-corpus bd-mobj" id="bd-m-corpus" style="left:810px; top:176px;">
+          <span data-var-text="bdCorpus">Source documents</span></div>
+        <div class="bd-unk" id="bd-m-corpusq" style="left:1124px; top:182px;">?</div>
+        <div class="bd-conf" id="bd-m-corpuslab" style="left:460px; top:272px; width:1000px;"
+             data-var-text="bdModesCorpusLab">Where the source documents are stored: Progress has not stated, in any mode</div>
+
+        <!-- THE OBJECTS. Previously absent ENTIRELY: bd-corpus, bd-idx and bd-inf are
+             declared inside #bd-hybridphase, which this phase hides on entry, so the
+             three panels rendered as empty rectangles and the shot asserted nothing.
+             Same object set in all three modes; only the POSITION differs. -->
+        <!-- THE SOURCE DOCUMENTS ARE NOT DRAWN IN ANY PANEL. They were inside SaaS
+             and inside private cloud, and containment says "stored here" - a claim
+             about STORAGE, where canon v6 states only what RUNS. The comment here used
+             to read "all three inside the Progress boundary. Confirmed." and the
+             confirmation covered the MODE, never the corpus's location within it.
+             The hybrid panel already did this correctly and the other two did not: the
+             correction went to the figure that was reported and not to the class, which
+             is how this defect always behaves.
+             The corpus now appears ONCE, above all three panels, in neutral space, with
+             one mark and one label - because the answer is the same in every mode and
+             three copies of an unknown read as three separate unknowns. -->
+        <!-- SaaS: index and inference inside the Progress boundary. -->
+        <div class="bd-obj bd-index bd-mobj" id="bd-m0-x" style="left:225px; top:444px;">
+          <span data-var-text="bdIndex">Index</span></div>
+        <div class="bd-obj bd-infer bd-mobj" id="bd-m0-f" style="left:225px; top:530px;">
+          <span data-var-text="bdInference">Inference</span></div>
+
+        <!-- Private cloud: corpus and index inside. INFERENCE IS NOT DRAWN INSIDE -
+             canon deployment_modes v6 lists where inference runs in private cloud as
+             UNCONFIRMED (c), so rule 6 puts it outside every boundary with a question
+             mark. Seating it in the panel would assert the class of thing the hybrid
+             correction removed. -->
+        <!-- The corpus was ALSO inside here, and this panel is the stronger case:
+             bd-m1-q already asks who OPERATES this boundary, so the drawing seated the
+             documents inside a boundary whose owner the film says it does not know. -->
+        <div class="bd-obj bd-index bd-mobj" id="bd-m1-x" style="left:811px; top:444px;">
+          <span data-var-text="bdIndex">Index</span></div>
+        <div class="bd-obj bd-infer bd-mobj bd-mout" id="bd-m1-f" style="left:811px;">
+          <span data-var-text="bdInference">Inference</span></div>
+        <div class="bd-unk" id="bd-m1-fq" style="left:1122px; top:784px;">?</div>
+        <div class="bd-moutlab" id="bd-m1-flab" style="left:726px;"
+             data-var-text="bdPrivateUnknown2">Not stated</div>
+
+        <!-- Hybrid: index and inference inside Progress's cloud, both confirmed. THE
+             SOURCE DOCUMENTS ARE NOT DRAWN INSIDE - canon v6 UNCONFIRMED (a), the same
+             rule-6 instance this motif exists to carry. -->
+        <div class="bd-obj bd-index bd-mobj" id="bd-m2-x" style="left:1397px; top:444px;">
+          <span data-var-text="bdIndex">Index</span></div>
+        <div class="bd-obj bd-infer bd-mobj" id="bd-m2-f" style="left:1397px; top:530px;">
+          <span data-var-text="bdInference">Inference</span></div>
+        <!-- the hybrid panel's own corpus is retired into the shared one above -->
+      </div>
+
+      <!-- PHASE /notclaimed : three named absences, stated and HELD -->
+        <!-- THE DEFAULT IS "NOT CLAIMED", NOT "NOT BUILT", 9 Oct 2026.
+           DAM fact deployment_modes v6, verified 8 Oct: "NOT COVERED by the statement
+           and claimed nowhere: full on-premises including the generative model, offline
+           operation, air-gapped operation." So we know Progress has not CLAIMED these.
+           We do not know the product cannot do them. "NOT BUILT" is a negative PRODUCT
+           claim on no evidence - fabricated even though it sounds modest, which is why
+           it survived: it is the safe-sounding half of a corrected fact.
+           Both consuming films were overriding this per-host, which means the DEFAULT
+           was still wrong and a third film would have inherited the overclaim. Fixed at
+           the source so no host has to remember. -->
+        
+      <div id="bd-notclaimed">
+        <!-- WHAT EACH UNCLAIMED MODE WOULD HAVE HELD. The same three objects as every
+             claimed mode, so the only thing this phase says about them is that the mode
+             does not exist - not that it is unfinished, and not that it is a different
+             kind of thing. Page coordinates, because #bd-notclaimed is statically
+             positioned and these resolve against #bd-stage. -->
+        <div class="bd-gobj" id="bd-g0o0" style="left:190px; top:384px; width:430px; height:60px;">Source documents</div>
+        <div class="bd-gobj" id="bd-g0o1" style="left:190px; top:452px; width:430px; height:60px;">Index</div>
+        <div class="bd-gobj" id="bd-g0o2" style="left:190px; top:520px; width:430px; height:60px;">Inference</div>
+        <div class="bd-gobj" id="bd-g1o0" style="left:746px; top:384px; width:430px; height:60px;">Source documents</div>
+        <div class="bd-gobj" id="bd-g1o1" style="left:746px; top:452px; width:430px; height:60px;">Index</div>
+        <div class="bd-gobj" id="bd-g1o2" style="left:746px; top:520px; width:430px; height:60px;">Inference</div>
+        <div class="bd-gobj" id="bd-g2o0" style="left:1302px; top:384px; width:430px; height:60px;">Source documents</div>
+        <div class="bd-gobj" id="bd-g2o1" style="left:1302px; top:452px; width:430px; height:60px;">Index</div>
+        <div class="bd-gobj" id="bd-g2o2" style="left:1302px; top:520px; width:430px; height:60px;">Inference</div>
+
+        <div class="bd-ghost" id="bd-g0" style="left:170px;  top:360px; width:470px; height:250px;"></div>
+        <div class="bd-ghostlab" id="bd-g0l" style="left:170px; top:622px; width:470px;"
+             data-var-text="bdNot0">On premises</div>
+        <!-- the NOT CLAIMED markers sit at 670, not 654: the mode label above them
+             is 40px tall at the 32px floor from top 622, so 654 overlapped it by 8px.
+             Row pitch set for smaller type, same class as every other collision the
+             floor sweep produced. -->
+        <div class="bd-nb" id="bd-g0n" style="left:170px; top:670px; width:470px;"
+             data-var-text="bdNotBuilt0">NOT CLAIMED</div>
+        <div class="bd-ghost" id="bd-g1" style="left:726px;  top:360px; width:470px; height:250px;"></div>
+        <div class="bd-ghostlab" id="bd-g1l" style="left:726px; top:622px; width:470px;"
+             data-var-text="bdNot1">Offline</div>
+        <div class="bd-nb" id="bd-g1n" style="left:726px; top:670px; width:470px;"
+             data-var-text="bdNotBuilt1">NOT CLAIMED</div>
+        <div class="bd-ghost" id="bd-g2" style="left:1282px; top:360px; width:470px; height:250px;"></div>
+        <div class="bd-ghostlab" id="bd-g2l" style="left:1282px; top:622px; width:470px;"
+             data-var-text="bdNot2">Air gapped</div>
+        <div class="bd-nb" id="bd-g2n" style="left:1282px; top:670px; width:470px;"
+             data-var-text="bdNotBuilt2">NOT CLAIMED</div>
+      </div>
+
+      <svg class="bd-svg" id="bd-svg" viewBox="0 0 1920 1080" fill="none">
+        <!-- NO STROKE, deliberately. See the note in the script: these three are NOT
+             CLAIMED, which is an absence of evidence, and GRAMMAR rule 2 gives that
+             the question mark over no stroke rather than the NOT BUILT dash. A plain
+             edge marks the panel's extent without asserting a state. -->
+        <rect id="bd-gr0" x="170"  y="360" width="470" height="250" rx="16"
+              stroke="#4A5568" stroke-width="2" fill="none"/>
+        <rect id="bd-gr1" x="726"  y="360" width="470" height="250" rx="16"
+              stroke="#4A5568" stroke-width="2" fill="none"/>
+        <rect id="bd-gr2" x="1282" y="360" width="470" height="250" rx="16"
+              stroke="#4A5568" stroke-width="2" fill="none"/>
+        <!-- the knowledge-state glyph, one per panel, per GRAMMAR rule 2 -->
+        <text id="bd-gq0" x="405"  y="348" fill="#D7DEEA" font-size="34"
+              font-family="ProgDisplay, sans-serif" text-anchor="middle">?</text>
+        <text id="bd-gq1" x="961"  y="348" fill="#D7DEEA" font-size="34"
+              font-family="ProgDisplay, sans-serif" text-anchor="middle">?</text>
+        <text id="bd-gq2" x="1517" y="348" fill="#D7DEEA" font-size="34"
+              font-family="ProgDisplay, sans-serif" text-anchor="middle">?</text>
+        <!-- the query that reaches IN to the table where it sits -->
+        <path id="bd-qpath" d="M 1190 440 L 960 520" stroke="#00B563" stroke-width="4"/>
+        <!-- the derivation line: the index came FROM the documents and stays linked to
+             them across the boundary, so nobody reads the index as the documents moving -->
+        <!-- SOLID. This was stroke-dasharray="10 9" - a dashed line used as decoration,
+             which GRAMMAR.md rule 2 forbids outright: the three strokes are reserved and
+             10 9 is none of them, sitting between the 20 12 ISV BUILDS and 6 10 NOT BUILT
+             scales and separable from neither. A viewer cannot measure a dasharray. They
+             read "dashed" as one of the two non-available states, and this derivation is
+             CONFIRMED, so both available readings were wrong. The dasharray is set from
+             the path length at runtime purely to DRAW IT ON, then left solid. -->
+        <path id="bd-deriv" d="M 1070 592 L 1192 606" stroke="#008963" stroke-width="3"/>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // ---- PHASE WINDOWS
+      //   /table       0.00 -  9.54   query in place is true of the table, not the answer
+      //   /hybrid      9.54 - 25.99   the index crosses and rests; the documents' own
+      //                                 position is left UNRESOLVED (grammar rule 6)
+      //   /notclaimed 25.99 - 31.35   three named absences, stated and HELD to the end
+      //   /modes      33.50 - 42.00   three panels (host-driven; NOT in sa-use-cases)
+      // EVENT CONSTANTS are the sa-use-cases b5 word events rebased to motif zero.
+      const AT_RESID   = 0.50;   // "Residency catches people"
+      const AT_QIP     = 3.98;   // "Query in place"
+      const AT_TABLE   = 6.07;   // "true of the table"
+      const AT_ANSWER  = 8.23;   // "true of the answer"
+      const AT_HYBRID  = 9.54;   // "In hybrid"
+      const AT_UNRESOLVED = 14.80;  // "Whether the documents themselves stay with you"
+      const AT_NOTTOLD = 18.76;  // "Progress has not told us"
+      const AT_BUILT   = 11.24;  // "index built from them"
+      const AT_RESTS   = 13.05;  // "rests in Progress's cloud"
+      const AT_OCT     = 22.16;  // "eighth of October"
+      const AT_NOPUB   = 24.23;  // "published nowhere"
+      const AT_NOT0    = 25.99;  // "No on premises"
+      const AT_NOT1    = 27.67;  // "No offline"
+      const AT_NOT2    = 29.41;  // "No air gapped"
+      // HOST-DRIVEN: the three-panel row. DO NOT LOWER BELOW 31.25 - see the guard
+      // immediately below, which throws rather than letting the sibling film break
+      // silently.
+      const AT_MODES   = 33.50;
+      // ---- CROSS-FILM GUARD, added 9 Oct 2026 after film-sa-usecases measured the
+      // margin and found it thinner than "after that film has finished" sounds.
+      // That film's m-bd clip ends at motif-local 30.85s and its last shot (B5c)
+      // EXISTS TO SHOW the three NOT BUILT panels; AT_NOT2 fires at 29.41, only 1.44s
+      // before its clip ends. The ghost clear below fires at AT_MODES - 0.4, so with
+      // AT_MODES at 33.50 the margin is 2.25s - smaller than a single pacing
+      // adjustment. If AT_MODES is ever pulled below 31.25 the clear crosses into
+      // that film's B5c and its panels vanish mid-shot, which would look like a
+      // defect in its film rather than a timing change in this one.
+      const SIBLING_CLIP_END = 30.85;   // film-sa-usecases, measured not assumed
+      if (AT_MODES - 0.4 < SIBLING_CLIP_END + 0.4) {
+        throw new Error(
+          "m-bd: AT_MODES=" + AT_MODES + " puts the notclaimed clear at " +
+          (AT_MODES - 0.4).toFixed(2) + "s, inside film-sa-usecases' clip which ends " +
+          "at " + SIBLING_CLIP_END + "s. Its B5c exists to show the NOT BUILT panels " +
+          "and they would vanish mid-shot. Raise AT_MODES above " +
+          (SIBLING_CLIP_END + 0.8).toFixed(2) + " or re-time that film's B5c first.");
+      }
+
+      // ghosted objects inside each unclaimed mode
+      // The ghost objects are now STATIC markup in #bd-notclaimed - see .bd-gobj.
+
+      const tbl = document.getElementById("bd-table");
+      for (let i = 0; i < 5; i++) {
+        const r = document.createElement("div");
+        r.className = "bd-trow"; r.style.top = (34 + i * 64) + "px";
+        r.style.width = (380 + ((i * 53) % 170)) + "px";
+        tbl.appendChild(r);
+      }
+      const res = document.getElementById("bd-res");
+      for (let i = 0; i < 4; i++) {
+        const b = document.createElement("div");
+        b.className = "bd-resbar"; b.style.top = (18 + i * 18) + "px";
+        b.style.width = (82 + ((i * 23) % 40)) + "px";
+        res.appendChild(b);
+      }
+
+      const QP = document.getElementById("bd-qpath");
+      const QPL = QP.getTotalLength();
+      QP.setAttribute("stroke-dasharray", String(QPL));
+      const DV = document.getElementById("bd-deriv");
+      const DVL = DV.getTotalLength();
+      DV.setAttribute("stroke-dasharray", String(DVL));
+
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 0.6, ease: "power3.out" } });
+
+      // ---- closed state
+      ["#bd-hybridphase", "#bd-notclaimed", "#bd-modesphase"].forEach((id) =>
+        gsap.set(id, { autoAlpha: 0 }));
+      gsap.set("#bd-t-bnd", { autoAlpha: 0 });
+      gsap.set("#bd-t-tab", { autoAlpha: 0 });
+      gsap.set("#bd-table", { autoAlpha: 0, y: 18 });
+      gsap.set(QP, { strokeDashoffset: QPL, autoAlpha: 0 });
+      ["#bd-qip", "#bd-res", "#bd-reslab"].forEach((id) => gsap.set(id, { autoAlpha: 0 }));
+      gsap.set("#bd-idx", { autoAlpha: 0 });
+      gsap.set("#bd-corpus-q", { autoAlpha: 0, scale: 0.6,
+                               transformOrigin: "50% 50%" });
+      gsap.set("#bd-corpus-qlab", { autoAlpha: 0 });
+      gsap.set("#bd-m1-q", { autoAlpha: 0, scale: 0.6,
+                           transformOrigin: "50% 50%" });
+      gsap.set("#bd-m1-qlab", { autoAlpha: 0 });
+      gsap.set("#bd-inf", { autoAlpha: 0 });
+      gsap.set("#bd-date", { autoAlpha: 0, y: 12 });
+      gsap.set(DV, { autoAlpha: 0 });
+      [0, 1, 2].forEach((i) =>
+        [0, 1, 2].forEach((k) => gsap.set("#bd-g" + i + "o" + k, { autoAlpha: 0 })));
+      [0, 1, 2].forEach((i) => {
+        gsap.set("#bd-gr" + i, { autoAlpha: 0 });
+        gsap.set("#bd-gq" + i, { autoAlpha: 0 });
+        gsap.set("#bd-g" + i, { autoAlpha: 0, y: 40 });
+        gsap.set("#bd-g" + i + "l", { autoAlpha: 0 });
+        gsap.set("#bd-g" + i + "n", { autoAlpha: 0 });
+      });
+
+      // ---- PHASE /table. The distinction in ONE frame: the table stays, the answer does
+      // not, and the boundary is intact the whole time. That is what makes the wording
+      // reassuring and wrong.
+      tl.to("#bd-t-bnd", { autoAlpha: 1, duration: 0.6 }, AT_RESID);
+      tl.to("#bd-t-tab", { autoAlpha: 1, duration: 0.45 }, AT_RESID + 0.25);
+      tl.to("#bd-table", { autoAlpha: 1, y: 0, duration: 0.6 }, AT_RESID + 0.4);
+      // Keep the wait alive without MOVING the table: its stillness is the claim this
+      // phase makes, so the rows shimmer in opacity rather than translating, and the
+      // boundary tab drifts. Before this, 2.73s passed with nothing in motion between
+      // the table landing and the query arriving (lint: motion_frozen, 2.5s ceiling).
+      document.querySelectorAll("#bd-table .bd-trow").forEach(function (r, i) {
+        tl.to(r, { opacity: 0.72, duration: 0.95, ease: "sine.inOut",
+                   yoyo: true, repeat: 3 }, AT_RESID + 0.9 + i * 0.13);
+      });
+      tl.to("#bd-t-tab", { y: "-=3", duration: 1.2, ease: "sine.inOut",
+                           yoyo: true, repeat: 3 }, AT_RESID + 1.0);
+      tl.to("#bd-qip", { autoAlpha: 1, duration: 0.45 }, AT_QIP);
+      tl.to(QP, { autoAlpha: 1, duration: 0.2 }, AT_QIP + 0.3);
+      tl.to(QP, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, AT_QIP + 0.3);
+      // the table is spotlit and does NOT move - a marker confirms it
+      tl.to("#bd-table", { borderColor: "#00B563", duration: 0.5 }, AT_TABLE);
+      tl.to("#bd-table", { boxShadow: "0 0 30px rgba(0,181,99,.4)", duration: 0.5 }, AT_TABLE);
+      tl.to("#bd-table", { borderColor: "#5E719F", boxShadow: "none", duration: 0.7 }, AT_TABLE + 1.3);
+      // the RESULTS detach and travel OUT across the boundary, which stays intact
+      tl.to("#bd-res", { autoAlpha: 1, duration: 0.4 }, AT_ANSWER - 0.5);
+      tl.to("#bd-reslab", { autoAlpha: 1, duration: 0.4 }, AT_ANSWER - 0.25);
+      tl.to("#bd-res", { x: 420, duration: 1.5, ease: "power1.inOut" }, AT_ANSWER);
+      tl.to("#bd-reslab", { x: 420, duration: 1.5, ease: "power1.inOut" }, AT_ANSWER);
+      tl.to("#bd-t-bnd", { borderColor: "#7287B5", duration: 0.4, yoyo: true, repeat: 1 }, AT_ANSWER + 0.6);
+
+      // ---- PHASE /hybrid. The index is DERIVED and it TRAVELS. The documents' own state
+      // is left UNRESOLVED (grammar rule 6): they sit in the neutral gap between the two
+      // boundaries and NEVER move, because "the source documents stay with you" is our
+      // inference from the word "only", not something Progress has stated.
+      //
+      // The earlier version of this phase settled them inside the customer boundary with
+      // the record store's weight-and-stay gesture. That gesture IS the assertion, so it
+      // is gone - not softened, gone. Do not reinstate any movement here: no drift, no
+      // lean, no settle. A direction is a claim.
+      // THE OUTGOING PHASE CLEARS AFTER THE INCOMING ONE ARRIVES, NEVER BEFORE.
+      // Clearing first leaves a bare stage at the handover - measured on 9 Oct 2026:
+      // eight of fifteen shot boundaries fell below the populated band and three
+      // were completely bare. No opening measure can see it, because the blank is in
+      // the OUTGOING shot's tail and openings are sampled from the next shot's start.
+      tl.to("#bd-tablephase", { autoAlpha: 0, duration: 0.6 }, AT_HYBRID + 0.25);
+      tl.to(QP, { autoAlpha: 0, duration: 0.4 }, AT_HYBRID - 0.5);
+      tl.to("#bd-hybridphase", { autoAlpha: 1, duration: 0.5 }, AT_HYBRID);
+      tl.fromTo("#bd-h-bnd1", { scaleX: 0.8, transformOrigin: "0% 50%" },
+                { scaleX: 1, duration: 0.7, ease: "power3.out" }, AT_HYBRID + 0.2);
+      // AT_STAY is now where the UNRESOLVED mark lands, not where the documents settle.
+      tl.to("#bd-corpus-q", { autoAlpha: 1, scale: 1, duration: 0.5,
+                              ease: "back.out(1.7)" }, AT_UNRESOLVED);
+      tl.to("#bd-corpus-qlab", { autoAlpha: 1, duration: 0.45 }, AT_NOTTOLD);
+      // "built from them": the index forms OUT of the documents. The derivation is real
+      // and stays drawn, which is what keeps the shot informative rather than merely
+      // blank - something genuinely built from them still draws from them.
+      tl.set("#bd-idx", { left: 870, top: 640 }, AT_BUILT - 0.01);
+      tl.fromTo("#bd-idx", { autoAlpha: 0, scale: 0.5, transformOrigin: "50% 50%" },
+                { autoAlpha: 1, scale: 1, duration: 0.7, ease: "power3.out" }, AT_BUILT);
+      tl.to(DV, { autoAlpha: 0.8, duration: 0.4 }, AT_BUILT + 0.5);
+      // the derivation DRAWS ON from the documents toward the index, at the moment the
+      // narration says the index is built from them. This is the motion the marching
+      // ants were standing in for, and it happens on the right word.
+      tl.fromTo(DV, { strokeDashoffset: DVL },
+                { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, AT_BUILT + 0.2);
+      // "rests in Progress's cloud": it TRAVELS across and SETTLES with weight
+      tl.to("#bd-idx", { x: 320, y: -40, duration: 1.4, ease: "power1.inOut" }, AT_RESTS);
+      tl.to("#bd-idx", { y: "-=26", duration: 0.3, ease: "power2.in" }, AT_RESTS + 1.4);
+      tl.to("#bd-idx", { y: "+=26", duration: 0.5, ease: "power3.out" }, AT_RESTS + 1.7);
+      tl.fromTo("#bd-inf", { autoAlpha: 0, x: 560, y: -40, scale: 0.6 },
+                { autoAlpha: 1, x: 560, y: -40, scale: 1, duration: 0.6 }, AT_RESTS + 0.9);
+      tl.to("#bd-date", { autoAlpha: 1, y: 0, duration: 0.5 }, AT_OCT);
+      tl.to("#bd-date", { color: "#9FB0D0", duration: 0.5 }, AT_NOPUB);
+      // the gap between "has not told us" and the date strip ran 3.27s static. The
+      // index breathes and the question mark pulses - both allowed to move. The
+      // derivation line USED to march here; that march was a dasharray, and a dashed
+      // line is never decoration (grammar rule 2). Its motion moved to a draw-on at
+      // AT_BUILT, which is where the beat actually is.
+      tl.to("#bd-idx", { y: "-=5", duration: 1.25, ease: "sine.inOut",
+                         yoyo: true, repeat: 5 }, AT_NOTTOLD + 0.2);
+      tl.to("#bd-corpus-q", { opacity: 0.7, duration: 1.15, ease: "sine.inOut",
+                              yoyo: true, repeat: 5 }, AT_NOTTOLD + 0.1);
+
+      // ---- PHASE /notclaimed. One ghost per phrase, each taking the NOT BUILT
+      // outline, then all three pushed decisively off frame right.
+      // Clear the hybrid furniture to ZERO, not to 0.22. Dimming left the Inference
+      // card sitting on top of the third ghost panel, so "Air gapped" was overprinted
+      // by "Inference" - debris over a load-bearing label, and the same class of defect
+      // as a verdict faded to 0.35 instead of cleared. The DATE STRIP stays, because it
+      // qualifies what this whole act claims.
+      ["#bd-h-tab0", "#bd-h-bnd0", "#bd-h-tab1", "#bd-h-bnd1", "#bd-corpus",
+       "#bd-corpus-q", "#bd-corpus-qlab", "#bd-idx", "#bd-inf",
+       "#bd-h-app", "#bd-h-applab"].forEach(function (id) {
+        tl.to(id, { autoAlpha: 0, duration: 0.55 }, AT_NOT0 - 0.45);
+      });
+      tl.to(DV, { autoAlpha: 0, duration: 0.5 }, AT_NOT0 - 0.45);
+      tl.to("#bd-notclaimed", { autoAlpha: 1, duration: 0.3 }, AT_NOT0 - 0.3);
+      // the set exists from the start of the phase, dim; each member LIGHTS as the
+      // narration names it. See the note above the phase for why.
+      [0, 1, 2].forEach(function (i) {
+        tl.to("#bd-g" + i, { autoAlpha: 0.14, y: 0, duration: 0.5 },
+              AT_NOT0 - 0.25 + i * 0.08);
+        tl.to("#bd-gq" + i, { autoAlpha: 0.3, duration: 0.5 },
+              AT_NOT0 - 0.25 + i * 0.08);
+        tl.to("#bd-gr" + i, { autoAlpha: 0.3, duration: 0.5 },
+              AT_NOT0 - 0.25 + i * 0.08);
+      });
+      [AT_NOT0, AT_NOT1, AT_NOT2].forEach((at, i) => {
+        tl.to("#bd-g" + i, { autoAlpha: 0.35, y: 0, duration: 0.55 }, at);
+        tl.to("#bd-gr" + i, { autoAlpha: 0.75, duration: 0.55 }, at);
+        tl.to("#bd-gq" + i, { autoAlpha: 1, duration: 0.55 }, at);
+        tl.to("#bd-g" + i + "l", { autoAlpha: 1, duration: 0.4 }, at + 0.2);
+        tl.to("#bd-g" + i + "n", { autoAlpha: 1, duration: 0.4 }, at + 0.38);
+        // the objects arrive WITH their panel. They are brighter than the 0.42 panel
+        // wash on purpose, for the same reason .bd-ghostlab is: an architect has to be
+        // able to READ what the mode would have held.
+        [0, 1, 2].forEach(function (k) {
+          tl.to("#bd-g" + i + "o" + k, { autoAlpha: 1, duration: 0.5 }, at + 0.1 + k * 0.1);
+        });
+      });
+      // NO push-off. The three ghosts rise and HOLD to the end of the shot.
+      //
+      // Two reasons, and the first is measured. With the push starting at AT_NOT2+0.7,
+      // ghost 1 was legible for 4.1s and ghost 3 for about 0.5s - the third named
+      // absence was gone before a viewer could read it, which is exactly the one an
+      // architect must not misremember. There is no room inside this shot to both hold
+      // the third and push all three.
+      //
+      // The second reason is that the push was the wrong gesture anyway. It is borrowed
+      // from body-of-knowledge, where it means "excluded from the corpus". Here the
+      // three are not dismissed, they are NOT CLAIMED - and stated-and-held says that,
+      // where swept-away says someone decided against them.
+      [0, 1, 2].forEach(function (i) {
+        tl.to("#bd-g" + i, { autoAlpha: 0.42, duration: 0.8, ease: "sine.inOut" },
+              AT_NOT2 + 0.8 + i * 0.12);
+        tl.to("#bd-gr" + i, { autoAlpha: 0.85, duration: 0.8, ease: "sine.inOut" },
+              AT_NOT2 + 0.8 + i * 0.12);
+      });
+
+      // ---- PHASE /modes. HOST-DRIVEN and NOT rendered by sa-use-cases: see README.
+      // Three panels, each filled with the same object set, so the difference between the
+      // modes is WHERE the objects are and nothing else.
+      tl.to("#bd-hybridphase", { autoAlpha: 0, duration: 0.5 }, AT_MODES - 0.4);
+      tl.to(DV, { autoAlpha: 0, duration: 0.4 }, AT_MODES - 0.4);
+      // THE MISSING CLEAR. #bd-notclaimed was shown at AT_NOT0 - 0.3 and never hidden
+      // - exactly one timeline call touched it in the whole motif. /modes hid the
+      // hybrid phase and the derivation line and left the ghosts standing, so all
+      // three NOT BUILT panels sat on top of the three mode panels for the entire
+      // shot, and the private-cloud label collided with the ghost "Offline" label.
+      // One cause, one line. Same shape as the split-parent legend in m-jy.
+      // This fires at AT_MODES - 0.4 = 33.1s, AFTER sa-use-cases has finished with
+      // this motif, so it cannot affect that film.
+      // SPLIT PARENT, THE SECOND INSTANCE OF THE SAME BUG IN THIS LIBRARY. The ghost
+      // panels' WORDS live in the #bd-notclaimed div; their NOT BUILT OUTLINES
+      // are SVG <rect> elements in the svg layer, outside that div entirely. Clearing
+      // the div hid the labels and left three dashed rectangles standing over the mode
+      // panels. Identical in shape to m-jy's legend, where the text was dismissed and
+      // the stroke swatches were orphaned - the words read as "the thing", so the
+      // artwork is the half nobody clears.
+      // FOUND BY: querying every element for stroke-dasharray. An earlier query walked
+      // `div` only, reported zero, and I nearly trusted it over my own eyes - a
+      // denominator failure, not a clean result.
+      // bd-gq0/1/2 ADDED TO THIS LIST 9 Oct 2026 - THE THIRD INSTANCE OF THE SPLIT
+      // PARENT IN THIS ONE FILE. The rule-6 question marks over the three ghost panels
+      // were added to the SVG layer, not to #bd-notclaimed, so clearing the div left
+      // three "?" glyphs standing over the /modes panels: one of them landed on top of
+      // the shared corpus label and read as "in?any mode". Same shape as the ghost
+      // OUTLINES before them and as m-jy's orphaned legend swatches. The lesson the
+      // other two did not teach: when you add an element to a phase, add it to that
+      // phase's CLEAR in the same edit, and if it cannot live in the phase's own
+      // parent, that is the reason it will be forgotten.
+      ["#bd-notclaimed", "#bd-gr0", "#bd-gr1", "#bd-gr2",
+       "#bd-gq0", "#bd-gq1", "#bd-gq2"].forEach(function (id) {
+        tl.to(id, { autoAlpha: 0, duration: 0.4 }, AT_MODES - 0.4);
+      });
+      tl.to("#bd-modesphase", { autoAlpha: 1, duration: 0.45 }, AT_MODES);
+      // GRAMMAR RULE 7, same correction film-sa-usecases made to /notclaimed. The three
+      // panels used to be CREATED one at a time (autoAlpha 0 -> 1 with a scaleX arrival,
+      // staggered 0.5s apart), so this shot opened on a bare stage: measured structure
+      // 0.0166 at +0.1s and 0.0223 at +0.4s against a 0.05 floor, near-bare for about
+      // 0.6s at the top of the beat that says where the product can live.
+      // Now all three REST from AT_MODES and the stagger LIGHTS them in turn. The scaleX
+      // arrival is gone deliberately: a panel already on screen cannot arrive. The
+      // difference between the three modes is WHERE the objects are, and that argument
+      // is easier to read when all three frames are present to be compared.
+      ["#bd-m0", "#bd-m1", "#bd-m2"].forEach(function (id) {
+        tl.to(id, { autoAlpha: 0.3, duration: 0.4 }, AT_MODES);
+      });
+      [["#bd-m0", "#bd-m0-tab"],
+       ["#bd-m1", "#bd-m1-tab"],
+       ["#bd-m2", "#bd-m2-tab"]].forEach(function (pair, i) {
+        tl.to(pair[0], { autoAlpha: 1, duration: 0.6 }, AT_MODES + 0.1 + i * 0.5);
+        tl.to(pair[1], { autoAlpha: 1, duration: 0.4 }, AT_MODES + 0.3 + i * 0.5);
+      });
+      // the private-cloud panel carries its own UNRESOLVED marks (rule 6)
+      tl.to("#bd-m1-q", { autoAlpha: 1, scale: 1, duration: 0.5,
+                          ease: "back.out(1.7)" }, AT_MODES + 1.1);
+      tl.to("#bd-m1-qlab", { autoAlpha: 1, duration: 0.45 }, AT_MODES + 1.35);
+      // the title and the two stated captions rest with the phase and light with it
+      ["#bd-modestitle", "#bd-m0-stated", "#bd-m2-stated"].forEach(function (id, k) {
+        tl.set(id, { autoAlpha: 0 }, 0);
+        tl.to(id, { autoAlpha: 0.26, duration: 0.4 }, AT_MODES);
+        tl.to(id, { autoAlpha: 1, duration: 0.45 }, AT_MODES + 0.7 + k * 0.25);
+      });
+
+      // ---- the objects arrive per panel, so the eye reads WHERE before it reads what
+      var MOBJ = [["#bd-m0-x", "#bd-m0-f"],
+                  ["#bd-m1-x", "#bd-m1-f"],
+                  ["#bd-m2-x", "#bd-m2-f"]];
+      // GRAMMAR RULE 7 again, and the panels alone were NOT enough: resting three empty
+      // rounded rectangles at 0.3 moved the opening only from structure 0.0166 to
+      // 0.0227 against a 0.05 floor, because an empty bordered box is almost no
+      // structure. The OBJECTS are what make this frame, and they are also the beat's
+      // whole argument - the same three in all three modes, differing only in WHERE.
+      // So they rest too, and the stagger lights them. The y:10 rise is gone for the
+      // same reason the panels' scaleX arrival went: a thing already there cannot
+      // arrive.
+      // the shared corpus rests and lights with the panels, like every other object
+      tl.set("#bd-m-corpus", { autoAlpha: 0 }, 0);
+      tl.to("#bd-m-corpus", { autoAlpha: 0.26, duration: 0.4 }, AT_MODES);
+      tl.to("#bd-m-corpus", { autoAlpha: 1, duration: 0.5 }, AT_MODES + 0.55);
+
+      // EVERY SELECTOR USED ABOVE MUST RESOLVE. Removing the per-panel corpora left
+      // five dead ids in these lists, and gsap on a missing selector is a SILENT no-op
+      // - the exact shape of defect this file has been chasing all day. Throw instead.
+      ["#bd-m0-x", "#bd-m0-f", "#bd-m1-x", "#bd-m1-f", "#bd-m2-x", "#bd-m2-f",
+       "#bd-m-corpus", "#bd-m-corpusq", "#bd-m-corpuslab",
+       "#bd-m1-fq", "#bd-m1-flab", "#bd-m1-q", "#bd-m1-qlab",
+       "#bd-modestitle", "#bd-m0-stated", "#bd-m2-stated"].forEach(function (sel) {
+        if (!document.querySelector(sel)) {
+          throw new Error("m-bd /modes: selector " + sel + " resolves to nothing. A "
+            + "tween on a missing element is a silent no-op, so this throws rather "
+            + "than animating nothing.");
+        }
+      });
+
+      MOBJ.forEach(function (grp, i) {
+        grp.forEach(function (id, k) {
+          tl.set(id, { autoAlpha: 0 }, 0);
+          tl.to(id, { autoAlpha: 0.26, y: 0, duration: 0.4 }, AT_MODES);
+          tl.to(id, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" },
+                AT_MODES + 0.45 + i * 0.5 + k * 0.14);
+        });
+      });
+      // the two UNRESOLVED objects get their question mark and label, never a boundary.
+      //
+      // THE MARK RESTS WITH THE OBJECT IT QUALIFIES, and that is a no-fake requirement
+      // rather than a timing preference. Resting the objects from AT_MODES (above) left
+      // these two sitting OUTSIDE their boundaries, fully drawn, unmarked, for 1.45s and
+      // 2.45s - and grammar rule 6 is that an object whose state we were never told is
+      // drawn outside every boundary CARRYING THE QUESTION MARK. Outside-and-unmarked
+      // does not read as "unresolved", it reads as "definitely outside", which is a
+      // claim about where inference runs and where the corpus is stored that nobody has
+      // made. The mark now rests at the same moment and dimness as its object and
+      // lights with it. There is no frame in which one of these objects is visible
+      // without its mark.
+      [["#bd-m1-fq", "#bd-m1-flab", AT_MODES + 1.45],
+       ["#bd-m-corpusq", "#bd-m-corpuslab", AT_MODES + 0.9]].forEach(function (t) {
+        tl.set(t[0], { autoAlpha: 0 }, 0);
+        tl.set(t[1], { autoAlpha: 0 }, 0);
+        tl.to(t[0], { autoAlpha: 0.26, duration: 0.4 }, AT_MODES);
+        tl.to(t[1], { autoAlpha: 0.26, duration: 0.4 }, AT_MODES);
+        tl.to(t[0], { autoAlpha: 1, duration: 0.4, ease: "back.out(1.7)" }, t[2]);
+        tl.to(t[1], { autoAlpha: 1, duration: 0.4 }, t[2] + 0.18);
+      });
+
+      // ---- /modes was NEARLY FROZEN: measured median frame difference 0.0014 against
+      // a film median of 0.1718, about one per cent, because every repeating gesture in
+      // this motif is anchored to AT_RESID, AT_ANSWER, AT_NOTTOLD or AT_RESTS and all of
+      // them have finished long before AT_MODES at 33.5s. The authored interiors now
+      // supply the motion, as the note below always claimed they would.
+      // CONFIRMED objects breathe. The two UNRESOLVED ones do NOT: rule 6 forbids
+      // movement on an object whose state we were never told, because a direction is a
+      // claim - and a breathe is a direction twice a second.
+      ["#bd-m0-x", "#bd-m0-f", "#bd-m1-x",
+       "#bd-m2-x", "#bd-m2-f"].forEach(function (id, k) {
+        tl.to(id, { y: k % 2 ? -4 : 4, duration: 2.1, ease: "sine.inOut",
+                    yoyo: true, repeat: 1 }, AT_MODES + 2.6 + k * 0.12);
+      });
+      // and the two question marks pulse, which is a change in opacity and not a
+      // direction, so it is allowed on an unresolved object
+      ["#bd-m1-fq", "#bd-m-corpusq"].forEach(function (id, k) {
+        tl.to(id, { opacity: 0.7, duration: 1.2, ease: "sine.inOut", yoyo: true,
+                    repeat: 1 }, AT_MODES + 3.0 + k * 0.4);
+      });
+
+      // ---- never still
+      // NO stage breathe in this motif. A uniform scale on #bd-stage moves everything
+      // inside it, including #bd-corpus - and grammar rule 6 forbids ANY movement on
+      // an object whose state we were never told, because a direction is a claim. The
+      // continuous sheen and the elements that ARE confirmed to be there carry the
+      // motion instead. Do not reinstate a stage-wide transform here.
+      // No light sweep. It existed to keep frozen windows alive and two
+      // independent viewers read it as a rendering artefact; the authored
+      // interiors supply the motion now.
+      // NO drift on #bd-corpus: rule 6 forbids movement on an unresolved object,
+      // so the stage keeps this shot alive instead and the documents hold still.
+      tl.to("#bd-corpus-q", { opacity: 0.75, duration: 1.3, ease: "sine.inOut",
+                              yoyo: true, repeat: 3 }, AT_RESTS + 0.4);
+
+      window.__timelines["m-bd"] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

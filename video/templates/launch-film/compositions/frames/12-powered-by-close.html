@@ -1,0 +1,275 @@
+<template id="f12-template" data-composition-id="12-powered-by-close" data-width="1920" data-height="1080">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+<style>
+  /* Real Progress Sans - local files, names outside the HyperFrames alias map */
+  @font-face { font-family: "ProgressSansDisplay"; src: url("assets/ProgressSansDisplayVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  @font-face { font-family: "ProgressSansText"; src: url("assets/ProgressSansTextVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  :root, #root { --pg-display: "ProgressSansDisplay", Arial, Helvetica, sans-serif; --pg-text: "ProgressSansText", Arial, Helvetica, sans-serif; }
+
+  /* Frame 12 — Powered by Progress Agentic RAG (closing still). Tokens from frame.md. */
+  #root {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    container-type: size;
+    font-family: var(--pg-text);
+  }
+  #root .clip {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* full-bleed cream ground — a clip layer, never the root */
+  #f12-ground {
+    background: #00216B;
+  }
+
+  /* atmosphere — two faint concentric closing rings, cobalt stroke, drawn once then settled at 10% */
+  #f12-rings {
+    display: block;
+    width: 1920px;
+    height: 1080px;
+    overflow: visible;
+  }
+  .f12-ring {
+    fill: none;
+    stroke: #00B563;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-opacity: 0.1;
+  }
+
+  /* the three promise lines — h2 ramp: 600, line 1.1, -0.02em, near-black, centred */
+  #f12-lines {
+    position: absolute;
+    left: 0;
+    top: 288px;
+    width: 1920px;
+    height: 252px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .f12-line {
+    display: block;
+    width: 1920px;
+    text-align: center;
+    font-size: 2.95cqw;
+    font-family: var(--pg-display);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    white-space: nowrap;
+  }
+  .f12-word {
+    color: #FFFFFF;
+  }
+
+  /* eyebrow — h4-eyebrow ramp: 600, uppercase, 0.08em, cobalt */
+  #f12-eyebrow {
+    position: absolute;
+    left: 0;
+    top: 448px;
+    width: 1920px;
+    text-align: center;
+    font-size: 1.15cqw;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #00B563;
+  }
+
+  /* the navy brand card — mirrors the opening frame: 880x260, #00123C, 14px radius, no shadow */
+  #f12-card {
+    position: absolute;
+    left: 520px;
+    top: 500px;
+    width: 880px;
+    height: 260px;
+    border-radius: 14px;
+    background: #00123C;
+    border: 1.5px solid #008963;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #f12-wordmark {
+    display: block;
+    width: 760px;
+    height: auto;
+  }
+</style>
+
+<div data-hf-id="hf-z43o" id="root" data-composition-id="12-powered-by-close" data-width="1920" data-height="1080" data-duration="11.524">
+  <!-- track 0: full-bleed ground -->
+  <div data-hf-id="hf-bmm8" id="f12-ground" class="clip" data-start="0.000" data-duration="11.524" data-track-index="0"></div>
+
+  <!-- track 1: atmosphere rings (drawn in Scene 2) -->
+  <div data-hf-id="hf-dnkm" id="f12-atmos" class="clip" data-start="0.000" data-duration="11.524" data-track-index="1">
+    <svg data-hf-id="hf-8q4u" id="f12-rings" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle data-hf-id="hf-v5vf" id="f12-ring-inner" class="f12-ring" cx="960" cy="630" r="420" transform="rotate(-90 960 630)" />
+      <circle data-hf-id="hf-3ieh" id="f12-ring-outer" class="f12-ring" cx="960" cy="630" r="540" transform="rotate(-90 960 630)" />
+    </svg>
+  </div>
+
+  <!-- track 2: the three promise lines (discrete whole-line states, one per cue) -->
+  <div data-hf-id="hf-yez4" id="f12-copy" class="clip" data-start="0.000" data-duration="11.524" data-track-index="2">
+    <div data-hf-id="hf-4zwi" id="f12-lines">
+      <div data-hf-id="hf-r1gg" id="f12-line-1" class="f12-line"></div>
+      <div data-hf-id="hf-zpcb" id="f12-line-2" class="f12-line"><span data-hf-id="hf-tnwy" id="f12-line-2a"></span><span data-hf-id="hf-q63z" id="f12-confidence" class="f12-word"></span></div>
+      <div data-hf-id="hf-vr8a" id="f12-line-3" class="f12-line"></div>
+    </div>
+  </div>
+
+  <!-- track 3: eyebrow + navy brand card (Scene 2, then held) -->
+  <div data-hf-id="hf-nput" id="f12-brand" class="clip" data-start="0.000" data-duration="11.524" data-track-index="3">
+    <div data-hf-id="hf-faqn" id="f12-eyebrow">Powered by</div>
+    <div data-hf-id="hf-6qm7" id="f12-card">
+      <img data-hf-id="hf-7th8" id="f12-wordmark" src="assets/logo-progress-arag.svg" alt="">
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var FRAME_ID = "12-powered-by-close";
+  /* == RETIMED (tools_apply_retime.py) == */
+      /* Beat times below are OLD-take time; P() maps them onto the delivered take
+         through word anchors matched by text. Generated - do not hand-edit. */
+      var __KX = [0.0000, 0.0700, 0.5100, 0.8100, 1.6200, 1.7900, 2.5700, 2.9000, 3.3300, 3.4500, 3.5000, 4.2000, 4.6400, 4.8000, 5.1200, 5.8700, 8.8700, 9.5300, 9.8770];
+      var __KY = [0.0000, 0.0460, 0.4990, 0.6150, 1.4280, 1.6830, 2.1480, 2.5770, 3.2280, 3.4370, 3.5180, 3.9710, 4.3890, 4.6440, 4.9810, 5.7120, 8.9860, 9.5320, 10.1240];
+      function __pw(t, X, Y) { if (t <= X[0]) return Y[0] + (t - X[0]); var n = X.length - 1;
+        if (t >= X[n]) return Y[n] + (t - X[n]) * (Y[n] / X[n]); var lo = 0, hi = n;
+        while (hi - lo > 1) { var m = (lo + hi) >> 1; if (X[m] <= t) lo = m; else hi = m; }
+        return Y[lo] + (t - X[lo]) / (X[hi] - X[lo]) * (Y[hi] - Y[lo]); }
+      function P(t) { return __pw(t, __KX, __KY); }   /* old take time -> delivered take time */
+      function Q(u) { return __pw(u, __KY, __KX); }   /* inverse: drivers run in new time,
+         so a threshold written in old time is compared against Q(driver.t) unedited */
+      var DURATION = 10.124;  /* measured delivered take (was 9.877) */
+
+  window.__timelines = window.__timelines || {};
+  var tl = gsap.timeline({ paused: true });
+
+  // ---- Scene 1 (0.0–6.2s): three whole-line states, one per voiceover cue ----
+  // discrete-text-sequence: sparse { t, state } array, reverse-searched on every update so
+  // each line lands as a complete state at its threshold (never typed, never smeared).
+  var T_L1 = 0.2;   // "Submit the document."
+  var T_L2 = 2.05;  // on "structured JSON"
+  var T_CONF = 3.4; // "confidence" spoken — tints cobalt
+  var T_L3 = 5.0;   // on "Keep nothing"
+  var T_POWER = 6.2; // on "Powered by"
+
+  var SEQUENCE = [
+    { t: 0.0,  l1: "",                     l2a: "",                      l2b: "",            l3: "" },
+    { t: T_L1, l1: "Submit the document.", l2a: "",                      l2b: "",            l3: "" },
+    { t: T_L2, l1: "Submit the document.", l2a: "Get JSON back, with ",  l2b: "confidence.", l3: "" },
+    { t: T_L3, l1: "Submit the document.", l2a: "Get JSON back, with ",  l2b: "confidence.", l3: "Keep none of the pages." }
+  ];
+
+  function stateAt(time) {
+    for (var i = SEQUENCE.length - 1; i >= 0; i--) {
+      if (time >= SEQUENCE[i].t) return SEQUENCE[i];
+    }
+    return SEQUENCE[0];
+  }
+
+  var l1 = document.getElementById("f12-line-1");
+  var l2a = document.getElementById("f12-line-2a");
+  var l2b = document.getElementById("f12-confidence");
+  var l3 = document.getElementById("f12-line-3");
+
+  function applyState(s) {
+    if (l1.textContent !== s.l1) l1.textContent = s.l1;
+    if (l2a.textContent !== s.l2a) l2a.textContent = s.l2a;
+    if (l2b.textContent !== s.l2b) l2b.textContent = s.l2b;
+    if (l3.textContent !== s.l3) l3.textContent = s.l3;
+  }
+  applyState(SEQUENCE[0]);
+
+  var driver = { t: 0 };
+  tl.to(driver, {
+    t: DURATION,
+    duration: DURATION,
+    ease: "none",
+    onUpdate: function () { applyState(stateAt(Q(driver.t))); }
+  }, 0);
+
+  // each landed state gets a 0.5s settle (opacity + a short rise) — the one move per state
+  tl.fromTo("#f12-line-1", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, T_L1);
+  tl.fromTo("#f12-line-2", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, T_L2);
+  tl.fromTo("#f12-line-3", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, T_L3);
+
+  // "confidence" tints cobalt as it is spoken — the single accent moment of Scene 1
+  tl.fromTo("#f12-confidence", { color: "#FFFFFF" }, { color: "#00B563", duration: 0.45, ease: "power1.out" }, T_CONF);
+
+  // ---- Scene 2 (6.2–9.6s): lines ease up 120px, the navy card fades up beneath, rings draw once ----
+  tl.to("#f12-lines", { y: -120, duration: 0.75, ease: "power2.inOut" }, T_POWER);
+
+  tl.fromTo("#f12-card",
+    { opacity: 0, scale: 0.97 },
+    { opacity: 1, scale: 1, duration: 0.85, ease: "power2.out" },
+    T_POWER + 0.15);
+
+  tl.fromTo("#f12-eyebrow",
+    { opacity: 0, y: 10 },
+    { opacity: 1, y: 0, duration: 0.5, ease: "power1.out" },
+    T_POWER + 0.4);
+
+  // svg-path-draw: measured lengths, dash = offset = length, offset tweens to 0 (power2.out).
+  // Rings start at 12 o'clock via the SVG transform attribute; staggered at ~75% of the first draw.
+  var RING_DRAW = 0.8;
+  var ringIds = ["f12-ring-inner", "f12-ring-outer"];
+  ringIds.forEach(function (id) {
+    var p = document.getElementById(id);
+    var len = p.getTotalLength() * 1.02;
+    p.style.strokeDasharray = String(len);
+    p.style.strokeDashoffset = String(len);
+  });
+  var RING_1 = T_POWER + 0.3;
+  var RING_2 = RING_1 + RING_DRAW * 0.75;
+  tl.fromTo("#f12-ring-inner", { strokeOpacity: 0.32 }, { strokeDashoffset: 0, strokeOpacity: 0.32, duration: RING_DRAW, ease: "power2.out" }, RING_1);
+  tl.fromTo("#f12-ring-outer", { strokeOpacity: 0.32 }, { strokeDashoffset: 0, strokeOpacity: 0.32, duration: RING_DRAW, ease: "power2.out" }, RING_2);
+  // settle at 10% once the last stroke lands
+  tl.to(".f12-ring", { strokeOpacity: 0.1, duration: 0.7, ease: "power1.out" }, RING_2 + RING_DRAW + 0.1);
+
+  // ---- Scene 3 (9.6–end): hold, still — the final frame ends on this held state, no exit ----
+  var hold = { v: 0 };
+  tl.to(hold, { v: 1, duration: DURATION - P(9.6), ease: "none" }, 9.6);
+
+  window.__timelines[FRAME_ID] = tl;
+
+      /* == RETIMED (tools_apply_retime.py) == beat walk == */
+      /* Every registered beat moves to its remapped position. */
+      (function () {
+        var kids = tl.getChildren(false, true, true);
+        if (!kids.length) throw new Error("retime: no children to reposition");
+        var moved = 0, over = [];
+        kids.forEach(function (c) {
+          if (c.vars && c.vars.data === "pin") return;   /* already in new-take time */
+          var s = c.startTime(), n = P(s);
+          if (Math.abs(n - s) > 0.0005) { c.startTime(n); moved++; }
+          /* Eyebrows share one zone, so at a fade boundary two of them smear. Hold
+             any eyebrow until the 0.5s transition is done. */
+          var tg = (c.targets ? c.targets() : []);
+          var nm = tg.length ? ((tg[0].id || "") + " " + (tg[0].className || "")) : "";
+          if (/-eyebrow(\s|$)/.test(nm) && c.startTime() < 0.52) {
+            c.startTime(0.52);
+          }
+          if (c.startTime() + c.duration() > 10.124 + 0.02) {
+            over.push(Math.round((c.startTime() + c.duration()) * 1000) / 1000);
+          }
+        });
+        window.__retime = window.__retime || {};
+        window.__retime["12-powered-by-close"] = { beats: kids.length, moved: moved, overrun: over };
+      })();
+
+})();
+</script>
+</template>

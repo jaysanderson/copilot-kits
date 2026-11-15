@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Westbound Student Network - Welcome desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f4efe6;--pine:#1f3d2b;--ember:#c2410c;--sand:#e6dccb;--ink:#22201c;--muted:#5d574d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:17px/1.55 'DM Sans',system-ui,sans-serif}
+a{color:var(--pine)}
+header.site{background:var(--pine);color:var(--cream)}
+header.site .in{max-width:1080px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.mark{font:700 22px/1 Fraunces,Georgia,serif;letter-spacing:.01em}
+.mark span{color:#f2b36b}
+nav a{color:var(--cream);text-decoration:none;margin-left:20px;font-size:15px}
+nav a:hover{text-decoration:underline}
+.hero{max-width:1080px;margin:0 auto;padding:56px 20px 28px}
+.hero h1{font:700 clamp(32px,5vw,54px)/1.08 Fraunces,Georgia,serif;margin:0 0 14px;max-width:16em}
+.hero p{max-width:40em;color:var(--muted);margin:0}
+.grid{max-width:1080px;margin:0 auto;padding:12px 20px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.card{min-width:0;background:#fff;border:2px solid var(--pine);border-radius:4px;padding:22px;box-shadow:6px 6px 0 var(--sand)}
+.card h2{font:700 24px/1.15 Fraunces,Georgia,serif;margin:0 0 6px}
+.card .sub{color:var(--muted);margin:0 0 16px;font-size:15px}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--sand);padding:3px 8px;margin-bottom:10px}
+section.kit{background:var(--pine);color:var(--cream);padding:40px 0}
+.kit .in{max-width:1080px;margin:0 auto;padding:0 20px}
+.kit h2{font:700 30px/1.15 Fraunces,Georgia,serif;margin:0 0 8px}
+.kit p{max-width:44em;color:#d8d2c3}
+pre{background:#14281c;color:#f4efe6;padding:16px;border-radius:4px;overflow:auto;font:14px/1.6 ui-monospace,Menlo,Consolas,monospace;margin:14px 0}
+pre b{color:#f2b36b;font-weight:500}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #3b5c48;vertical-align:top}
+th{color:#f2b36b;font-weight:700}
+td code{color:#f2b36b}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+.note{border-left:4px solid #f2b36b;padding:4px 14px;margin:18px 0 0}
+footer{max-width:1080px;margin:0 auto;padding:22px 20px 40px;color:var(--muted);font-size:14px}
+@media (max-width:820px){.grid,.cols{grid-template-columns:minmax(0,1fr)}nav a{margin:0 16px 0 0}}
+</style>
+</head>
+<body>
+<header class="site"><div class="in">
+  <div class="mark">Westbound <span>Student Network</span></div>
+  <nav aria-label="Main"><a href="#welcome">Welcome desk</a><a href="#kit">How it was added</a></nav>
+</div></header>
+
+<div class="hero">
+  <h1>New to Perth? Ask the people who have already done it.</h1>
+  <p>This is a stand-in for an independent student association site, with its own colours, fonts and layout. Its web team added the two question boxes below by pasting two lines of HTML.</p>
+</div>
+
+<main id="welcome" class="grid">
+  <article class="card">
+    <span class="tag">Arriving from overseas</span>
+    <h2>Welcome desk</h2>
+    <p class="sub">Four languages, whole of the university site, orange to match this page.</p>
+    <div data-ask-widget
+         data-langs="en,zh,ar,id"
+         data-accent="#c2410c"
+         data-placeholder="How do I apply as an international student?"></div>
+  </article>
+  <article class="card">
+    <span class="tag">Studying here</span>
+    <h2>Course help</h2>
+    <p class="sub">English only, green to match this page, answers drawn from one section of the site.</p>
+    <div data-ask-widget
+         data-langs="en"
+         data-accent="#1f3d2b"
+         data-scope="study"
+         data-scope-label="Answers from the Study section of the site only"
+         data-placeholder="What are the entry requirements?"></div>
+  </article>
+<p style="grid-column:1/-1;margin:0;color:var(--muted);font-size:15px">Try the same question in both boxes, for example: <em>What counselling and wellbeing support services does University offer?</em> The left box draws on the whole site. The right box can only cite the Study section.</p></main>
+
+<section id="kit" class="kit"><div class="in">
+  <h2>What the web team pasted</h2>
+  <p>Two lines. No framework, no build step, no package install. The styles live in a shadow root, so nothing on this page can restyle the widget and the widget cannot restyle this page.</p>
+<pre>&lt;script src="<b>{{ origin }}/static/embed/widget.js</b>" async&gt;&lt;/script&gt;
+&lt;div <b>data-ask-widget</b> data-langs="en,zh" data-accent="#c2410c"&gt;&lt;/div&gt;</pre>
+  <div class="cols"><div>
+  <p>Everything that differs between the two boxes above is a data attribute on the mount point. Nothing was forked.</p>
+  <table>
+    <tr><th>Attribute</th><th>What it changes</th></tr>
+    <tr><td><code>data-langs</code></td><td>Languages offered, first one is the default. <code>en,zh,ar,id</code></td></tr>
+    <tr><td><code>data-accent</code></td><td>Buttons, citation badges, links, focus ring.</td></tr>
+    <tr><td><code>data-placeholder</code></td><td>Copy in the question box.</td></tr>
+    <tr><td><code>data-scope</code></td><td>Which part of the site answers. Omit for the whole site, or name a section such as <code>study</code> or <code>research</code>. The server checks every cited page sits inside it.</td></tr>
+  </table></div><div>
+  <p>The page you are reading has no access to the knowledge base. The widget sends the question to the server that served the script. That server holds the credential, calls Progress Agentic RAG and returns the answer with its source pages. No key, token or knowledge base address is in this page or in the script.</p>
+  <p class="note">Every answer is a live call at the moment you ask. The sources are the real pages the answer was drawn from.</p>
+  </div></div>
+</div></section>
+<footer>Westbound Student Network is a fictional organisation used to show the embed. The answers come from the public The university website.</footer>
+<script src="/static/embed/widget.js" async></script>
+</body>
+</html>

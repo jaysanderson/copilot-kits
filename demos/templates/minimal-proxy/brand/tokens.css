@@ -1,0 +1,17 @@
+/* The university brand tokens - COLOUR-PICKED from the live site 9 Oct 2026, never
+   approximated (Field Rule 8). Source: computed styles on https://www.university.edu.au/,
+   ranked by element count; capture.json holds the full ranking and the raw values. */
+:root{
+  --mu-crimson:#E12744;   /* rgb(225,39,68)  - logo, headings, primary CTA */
+  --mu-teal:#008481;      /* rgb(0,132,129)  - secondary, links, live-chat tab */
+  --mu-teal-dark:#00737A; /* rgb(0,115,122)  - teal hover */
+  --mu-ink:#212529;       /* rgb(33,37,41)   - body text, 573 elements: the dominant colour */
+  --mu-ink-muted:#495057; /* rgb(73,80,87) */
+  --mu-grey:#ADB5BD;      /* rgb(173,181,189) */
+  --mu-rule:#DEE2E6;      /* rgb(222,226,230) */
+  --mu-paper:#FFFFFF;
+  /* The hero card is a magenta-to-crimson wash, read off the captured hero. */
+  --mu-hero-from:#A5248C;
+  --mu-hero-to:#E12744;
+  --mu-font:'Poppins',helvetica,arial,sans-serif;  /* 403 elements - the site is Poppins */
+}

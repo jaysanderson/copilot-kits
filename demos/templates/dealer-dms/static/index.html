@@ -1,0 +1,159 @@
+<title>Ignition - Coppermill Motor Group</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/css/ignition.css">
+
+<header class="topbar">
+  <a href="/" class="brand" id="brand-mark"><span>Ignition</span><small>Coppermill Motor Group</small></a>
+  <nav>
+    <a href="/" class="active">Overview</a>
+    <a href="/service-assistant">Service</a>
+    <a href="/compliance">Compliance</a>
+    <a href="/media-library">Media</a>
+    <a href="/deal-desk">Deal Desk</a>
+    <a href="/insights">Insights</a>
+  </nav>
+  <div class="right-cluster">
+    <span class="site-pill"><span class="dot"></span> Both sites online</span>
+    <button class="how-btn" id="how-it-works-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 4.9 2.3c-.9.7-1.5 1.3-1.5 2.7"/><circle cx="12" cy="17" r=".3" fill="currentColor"/></svg>
+    <span>How this works</span>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+  <div class="hero">
+    <div class="eyebrow"><span class="bar"></span> Dealer operations</div>
+    <h1>Every recon, compliance and parts record - one place to ask.</h1>
+    <p class="lede">Ignition reads across Coppermill Motor Group's recon manuals, recall
+      bulletins, consultant field notes and supplier records so anyone on the floor can get
+      a grounded, cited answer instead of hunting through five different folders.</p>
+  </div>
+
+  <div class="grid cols-4" id="summary-stats" style="margin-bottom:34px"></div>
+
+  <div class="rail">
+    <div class="rail-head"><h2>Jump into a workbench</h2></div>
+    <div class="tiles">
+      <a class="tile" href="/service-assistant">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 12 22M4 7h16M4 17h16"/></svg>
+        <div>
+          <h3>Service &amp; Recon Assistant</h3>
+          <p>Ask any recon, brake, tyre, glass or PDI question and get a cited answer from the standards library.</p>
+        </div>
+      </a>
+      <a class="tile" href="/compliance">
+        <span class="tag" id="recall-count-tag"></span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/></svg>
+        <div>
+          <h3>Compliance &amp; Recall Centre</h3>
+          <p>Every open recall, service bulletin and compliance policy, with urgency and affected models at a glance.</p>
+        </div>
+      </a>
+      <a class="tile" href="/media-library">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m8 10 5 3-5 3z"/></svg>
+        <div>
+          <h3>Media Library</h3>
+          <p>Recon documentation photos across the fleet, filterable by site, make and body type.</p>
+        </div>
+      </a>
+      <a class="tile" href="/deal-desk">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v12H8l-4 4z"/></svg>
+        <div>
+          <h3>Deal Desk</h3>
+          <p>Pick a stock number and get a grounded diagnosis of what's blocking delivery, cited to the record.</p>
+        </div>
+      </a>
+      <a class="tile" href="/insights">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+        <div>
+          <h3>Dealer Insights</h3>
+          <p>Recon issue categories and severity, extracted from consultant field notes, not from a coded field.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="rail">
+    <div class="rail-head"><h2>Stock at a glance</h2><span class="count" id="stock-count"></span></div>
+    <div class="catalogue-grid" id="stock-grid"></div>
+  </div>
+</main>
+
+<footer class="disclosure-footer">
+  Coppermill Motor Group, its sites, stock and personnel are a synthetic illustrative
+  dataset built for this demonstration. Not a real dealership.
+</footer>
+
+<div class="modal-backdrop" id="reveal-backdrop" hidden>
+  <div class="modal">
+    <div class="modal-head"><h3 class="reveal-title">How this works</h3><button class="modal-close">&times;</button></div>
+    <div class="modal-body">
+      <div class="flow-diagram"></div>
+      <div class="reveal-section"><h4>What this page does</h4><p class="reveal-what"></p></div>
+      <div class="reveal-section"><h4>Why it matters</h4><p class="reveal-why"></p></div>
+      <div class="reveal-section"><h4>The real mechanism</h4><p class="reveal-tech"></p></div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-tabs">
+  <a href="/" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></a>
+  <a href="/service-assistant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M4 7h16M4 17h16"/></svg><span>Service</span></a>
+  <a href="/compliance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/></svg><span>Compliance</span></a>
+  <a href="/media-library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m8 10 5 3-5 3z"/></svg><span>Media</span></a>
+  <a href="/deal-desk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H8l-4 4z"/></svg><span>Deals</span></a>
+  <a href="/insights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M12 20V4M20 20v-7"/></svg><span>Insights</span></a>
+</nav>
+
+<script src="/static/js/shared.js"></script>
+<script>
+document.getElementById('brand-mark').insertAdjacentHTML('afterbegin', IGN.logoSVG());
+
+async function load() {
+  const [summary, stock, facets] = await Promise.all([
+    IGN.api('/api/summary'), IGN.api('/api/stock'), IGN.api('/api/facets?kind=document'),
+  ]);
+  const recallCount = facets.doc_type.recall || 0;
+  document.getElementById('recall-count-tag').textContent =
+    `${recallCount} open recall${recallCount === 1 ? '' : 's'}`;
+  document.getElementById('summary-stats').innerHTML = `
+    <div class="stat"><div class="n accent">${summary.total_stock}</div><div class="l">Vehicles in stock</div></div>
+    <div class="stat"><div class="n" style="color:#4caf7d">${summary.ready_for_delivery}</div><div class="l">Ready for delivery</div></div>
+    <div class="stat"><div class="n amber">${summary.pdi_hold}</div><div class="l">PDI hold</div></div>
+    <div class="stat"><div class="n blue">${summary.documents_indexed}</div><div class="l">Documents indexed</div></div>
+  `;
+  document.getElementById('stock-count').textContent = `${stock.stock.length} units across ${summary.sites.join(' + ')}`;
+  const statusClass = { 'Ready for delivery': 'green', 'PDI hold': 'red', 'In recon': 'amber' };
+  document.getElementById('stock-grid').innerHTML = stock.stock.map(s => `
+    <div class="item-card" onclick="location.href='/deal-desk?stock=${s.no}'">
+      <div class="thumb">${s.thumb_url
+        ? `<img src="${s.thumb_url}" loading="lazy" alt="${s.year} ${s.make} ${s.model}">`
+        : `<div class="ph-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="9" width="18" height="8" rx="2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg><span>${s.body}</span></div>`}</div>
+      <div class="body">
+        <div class="t">${s.year} ${s.make} ${s.model}</div>
+        <div class="s">${s.no} - ${s.site} - $${s.price.toLocaleString()}</div>
+        <div class="chips">
+          <span class="chip ${statusClass[s.pdi_status] || ''}">${s.pdi_status}</span>
+          <span class="chip">${s.days_in_stock}d in stock</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+load();
+
+IGN.mountReveal({
+  title: 'How Ignition works',
+  nodes: [
+    { label: 'Browser', tag: 'You', active: false },
+    { label: 'Ignition server', tag: 'FastAPI proxy', active: true },
+    { label: 'Progress Agentic RAG', tag: 'Grounded ask + trust scoring', active: true },
+    { label: 'Coppermill records library', tag: 'Recon, compliance, supplier records', active: false },
+  ],
+  what: 'Every workbench in Ignition sends your question to this server, never directly to Progress Agentic RAG. The server calls the real Progress Agentic RAG API with the credential kept server-side, then returns a rendered answer.',
+  why: 'A dealer operations platform is only as good as the documents backing it. Ignition proves every answer traces to a real recon manual, bulletin or field note, not a guess.',
+  tech: 'This overview page reads the app\'s own live stock records (system of record) and calls Progress Agentic RAG\'s catalogue index that backs the other workbenches - no chat call happens on this page itself.',
+});
+</script>

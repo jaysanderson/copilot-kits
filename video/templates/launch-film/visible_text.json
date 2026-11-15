@@ -1,0 +1,234 @@
+{
+ "01-powered-by.html": {
+  "n": 5,
+  "texts": [
+   "POWERED BY",
+   "Handwritten forms in.",
+   "MEASURED ON THE REAL SAMPLE PACK",
+   "Structured data",
+   "out."
+  ]
+ },
+ "02-sample-pack.html": {
+  "n": 16,
+  "texts": [
+   "THE SAMPLE PACK",
+   "Nine files.",
+   "Seven kinds of trouble.",
+   "Clean scan",
+   "Missing page",
+   "3",
+   "1",
+   "4",
+   "2",
+   "Out of order",
+   "Faded blue ink",
+   "DOCX",
+   "Word file",
+   "Phone photo",
+   "28 pages · 7 applicants",
+   "Scanner batch"
+  ]
+ },
+ "03-the-hard-page.html": {
+  "n": 20,
+  "texts": [
+   "THE HARD PAGE",
+   "Medical disclosure",
+   "handwritten X",
+   "NO TICK HERE",
+   "PAGE",
+   "OCR TEXT",
+   "MEDICAL CONDITIONS DISCLOSURE FORM",
+   "MAIN MEMBER",
+   "Brain illness / disease",
+   "Serious ear conditions [}- Serious eye conditions",
+   "Serious throat conditions",
+   "Skin conditions",
+   "Lung conditions {]",
+   "Heart illness / disease",
+   "Liver conditions",
+   "Kidney conditions",
+   "Reproductive conditions",
+   "Bone / Injury conditions",
+   "é Mf",
+   "Any joint replacement surgeries"
+  ]
+ },
+ "04-step-1-split.html": {
+  "n": 8,
+  "texts": [
+   "STEP 1 OF 5",
+   "SPLIT",
+   "example-1-complete.pdf · 4 pages",
+   "page 1",
+   "page 2",
+   "page 3",
+   "page 4",
+   "→ Knowledge Box resource"
+  ]
+ },
+ "05-step-2-identify.html": {
+  "n": 11,
+  "texts": [
+   "STEP 2 OF 5",
+   "IDENTIFY",
+   "page 1",
+   "page 2",
+   "page 3",
+   "page 4",
+   "APPLICATION",
+   "UNDERTAKING",
+   "DISCLOSURE A",
+   "DISCLOSURE B",
+   "· from the image"
+  ]
+ },
+ "06-step-3-ask.html": {
+  "n": 30,
+  "texts": [
+   "STEP 3 OF 5",
+   "ASK",
+   "read from the page image",
+   "P",
+   "POST",
+   "POST /ask",
+   "POST /ask  · resourc",
+   "POST /ask  · resource:",
+   "POST /ask  · resource: page 3",
+   "answer",
+   "answer_json_sch",
+   "answer_json_schema:",
+   "disclosu",
+   "disclosure_a",
+   "ra",
+   "rag_im",
+   "rag_images_stra",
+   "rag_images_strateg",
+   "rag_images_strategies",
+   "rag_images_strategies:",
+   "rag_images_strategies: [{ name",
+   "rag_images_strategies: [{ name:",
+   "\"",
+   "\"page_im",
+   "\"page_image\"",
+   "}]",
+   "bone_injury_conditions:",
+   "true",
+   "sugar_diabetes:",
+   "vehicle_accident:"
+  ]
+ },
+ "07-step-4-score.html": {
+  "n": 14,
+  "texts": [
+   "STEP 4 OF 5",
+   "SCORE",
+   "JACOB SMITH",
+   "ID 8201025089084",
+   "CONFIDENCE CHECKS",
+   "South African ID checksum",
+   "2 notes",
+   "Date of birth and gender encoded in the ID",
+   "ID agrees across the pages",
+   "Date, email and cell formats",
+   "1 field under",
+   "70%",
+   "→",
+   "review list"
+  ]
+ },
+ "08-step-5-delete.html": {
+  "n": 6,
+  "texts": [
+   "STEP 5 OF 5",
+   "DELETE",
+   "DELETED",
+   "4 / 4",
+   "page resources deleted",
+   "deletion verified"
+  ]
+ },
+ "09-the-output.html": {
+  "n": 3,
+  "texts": [
+   "THE OUTPUT",
+   "pages 4 / 4",
+   "·"
+  ]
+ },
+ "10-measured.html": {
+  "n": 40,
+  "texts": [
+   "MEASURED, NOT ASSUMED",
+   "Five models. Same four pages.",
+   "MODEL",
+   "OVERALL",
+   "CHECKBOX F1",
+   "chatgpt-azure-5.5",
+   "0",
+   "%",
+   "1.00",
+   "claude-5-5-sonnet",
+   "claude-4-6-sonnet",
+   "gemini-2.5-flash",
+   "0.94",
+   "gemini-3.1-pro",
+   "0.88",
+   "92 to 99%",
+   "every checkbox right",
+   "One run, 16 October 2026, on the four pages of Example 1 in this sample pack. Scores vary a little run to run. These figures measure the five vision models on this scan, not Progress Agentic RAG performance.",
+   "MODELS ON THE ACCOUNT",
+   "compared on the same scan, in one click",
+   "22",
+   "75",
+   "94",
+   "53",
+   "99",
+   "87",
+   "41",
+   "97",
+   "81",
+   "95",
+   "78",
+   "91",
+   "15",
+   "93",
+   "67",
+   "92",
+   "10",
+   "46",
+   "65",
+   "72"
+  ]
+ },
+ "11-messy-ones.html": {
+  "n": 14,
+  "texts": [
+   "THE WHOLE PACK",
+   "The messy ones hold up",
+   "Missing page",
+   "FLAGGED",
+   "Shuffled scan",
+   "REASSEMBLED",
+   "Word files",
+   "CONVERTED",
+   "Phone photos",
+   "READ · DOUBTFUL FIELDS FLAGGED",
+   "28-page scanner batch",
+   "ONE PER APPLICANT",
+   "28",
+   "PAGES IN · ONE APPLICATION PER APPLICANT OUT"
+  ]
+ },
+ "12-powered-by-close.html": {
+  "n": 5,
+  "texts": [
+   "POWERED BY",
+   "Submit the document.",
+   "Get JSON back, with",
+   "confidence.",
+   "Keep none of the pages."
+  ]
+ }
+}

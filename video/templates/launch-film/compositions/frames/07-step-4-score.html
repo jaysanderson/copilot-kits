@@ -1,0 +1,547 @@
+<template id="f07-template" data-composition-id="07-step-4-score" data-width="1920" data-height="1080" data-duration="26.610">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+<style>
+  /* Composition: this frame's content measured top gap vs bottom gap as
+     bottom-heavy, leaving a dead band under it. The whole layer stack drops 67px -
+     60% of the measured difference, since optical centre sits above true centre. The
+     stage colour is pinned on #root so the strip the shift opens at the top is the
+     same navy, not a hole. */
+  #root { background: #00216B; }
+  #root > *.pg-vshift-marker, #root > * {
+    transform: translateY(67px);
+    height: calc(100% - 67px);
+  }
+
+  /* Real Progress Sans - local files, names outside the HyperFrames alias map */
+  @font-face { font-family: "ProgressSansDisplay"; src: url("assets/ProgressSansDisplayVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  @font-face { font-family: "ProgressSansText"; src: url("assets/ProgressSansTextVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  :root, #root { --pg-display: "ProgressSansDisplay", Arial, Helvetica, sans-serif; --pg-text: "ProgressSansText", Arial, Helvetica, sans-serif; }
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    font-family: var(--pg-text);
+    color: #FFFFFF;
+    --f07-bg: #00216B;
+    --f07-primary: #00B563;
+    --f07-text: #FFFFFF;
+    --f07-text-muted: #C6D5EB;
+    --f07-text-light: #9EAEC3;
+    --f07-accent-light: rgba(0, 181, 99, 0.16);
+    --f07-border: rgba(198, 213, 235, 0.26);
+    --f07-card-bg: rgba(255, 255, 255, 0.055);
+  }
+  #root .clip {
+    position: absolute;
+    inset: 0;
+  }
+  #root .f07-bg {
+    background: #00216B;
+  }
+
+  /* ---- step rail ---- */
+  .f07-eyebrow {
+    position: absolute;
+    left: 96px;
+    top: 96px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--f07-primary);
+    line-height: 1;
+  }
+  .f07-dots {
+    position: absolute;
+    left: 96px;
+    top: 150px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 28px;
+  }
+  .f07-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--f07-border);
+    box-sizing: border-box;
+    background: rgba(0, 181, 99, 0);
+  }
+  .f07-steplabel {
+    position: absolute;
+    left: 312px;
+    top: 150px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--f07-primary);
+    white-space: nowrap;
+  }
+
+  /* ---- page cards / stack ---- */
+  .f07-page {
+    position: absolute;
+    left: 360px;
+    top: 535px;
+    width: 300px;
+    height: 426px;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1.5px solid var(--f07-border);
+    border-radius: 14px;
+    background: linear-gradient(var(--f07-card-bg), var(--f07-card-bg)), var(--f07-bg);
+    will-change: transform;
+  }
+  .f07-page img {
+    display: block;
+    width: 280px;
+    height: auto;
+    border-radius: 6px;
+  }
+  .f07-page-1 { z-index: 4; }
+  .f07-page-2 { z-index: 3; }
+  .f07-page-3 { z-index: 2; }
+  .f07-page-4 { z-index: 1; }
+
+  .f07-header {
+    position: absolute;
+    left: 160px;
+    top: 252px;
+    width: 400px;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1.5px solid var(--f07-border);
+    border-radius: 14px;
+    background: linear-gradient(var(--f07-card-bg), var(--f07-card-bg)), var(--f07-bg);
+    z-index: 6;
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+  .f07-name {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    color: var(--f07-text);
+    white-space: nowrap;
+  }
+  .f07-idpill {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    color: var(--f07-text-muted);
+    /* Opaque, not a white wash: this pill drifts over the light page thumbnails. */
+    background: #00123C;
+    border: 1px solid rgba(198, 213, 235, 0.26);
+    white-space: nowrap;
+  }
+
+  /* ---- confidence checks panel ---- */
+  .f07-panel {
+    position: absolute;
+    left: 700px;
+    top: 220px;
+    width: 1100px;
+    height: 540px;
+    box-sizing: border-box;
+    padding: 44px 48px 24px 48px;
+    border: 1.5px solid var(--f07-border);
+    border-radius: 14px;
+    background: var(--f07-card-bg);
+    will-change: transform;
+  }
+  .f07-panel-eyebrow {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--f07-primary);
+    line-height: 1;
+    height: 18px;
+    margin-bottom: 20px;
+  }
+  .f07-rows {
+    display: flex;
+    flex-direction: column;
+  }
+  .f07-row {
+    display: flex;
+    align-items: center;
+    height: 84px;
+    gap: 20px;
+    border-bottom: 1px solid var(--f07-border);
+  }
+  .f07-row:last-child {
+    border-bottom: none;
+  }
+  .f07-tick {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+  }
+  .f07-tick path {
+    fill: none;
+    stroke: var(--f07-primary);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .f07-tick .f07-ring { stroke-width: 2; }
+  .f07-tick .f07-check { stroke-width: 3.5; }
+  /* The sa_id checksum FAILS on this ID. Verified two ways: Luhn over 8201025089084
+     sums to 51 (mod 10 = 1), and the app's own output screen - shown later in this
+     same film - raises two validation notes, both "13 digits but the checksum fails".
+     A green tick here asserted a pass the film itself then contradicts. */
+  .f07-tick .f07-cross { stroke-width: 3.5; stroke: #FF9AA8; }
+  .f07-row.is-flagged .f07-ring { stroke: #FF9AA8; }
+  .f07-row.is-flagged .f07-label { color: var(--f07-text); }
+  .f07-note {
+    flex: 0 0 180px;
+    width: 180px;
+    text-align: right;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1;
+    color: #FF9AA8;
+    white-space: nowrap;
+  }
+  .f07-label {
+    flex: 1 1 auto;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--f07-text-muted);
+    white-space: nowrap;
+  }
+  .f07-value {
+    flex: 0 0 132px;
+    width: 132px;
+    text-align: right;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--f07-primary);
+    font-variant-numeric: tabular-nums;
+    transform-origin: 100% 50%;
+    will-change: transform;
+  }
+  .f07-review {
+    position: absolute;
+    left: 48px;
+    right: 48px;
+    top: 452px;
+    height: 60px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 22px;
+    border-left: 4px solid var(--f07-primary);
+    border-radius: 12px;
+    background: var(--f07-accent-light);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--f07-text);
+    white-space: nowrap;
+    will-change: transform;
+  }
+  .f07-review .f07-pct {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--f07-text);
+  }
+  .f07-review .f07-tail {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--f07-text-muted);
+    will-change: transform;
+  }
+  .f07-review .f07-arrow {
+    color: var(--f07-primary);
+  }
+</style>
+
+<div data-hf-id="hf-bc1l" id="root" data-composition-id="07-step-4-score" data-width="1920" data-height="1080">
+
+  <div data-hf-id="hf-ixbx" id="f07-bg" class="clip f07-bg" data-start="0.000" data-duration="26.610" data-track-index="0"></div>
+
+  <div data-hf-id="hf-b320" id="f07-rail" class="clip" data-start="0.000" data-duration="26.610" data-track-index="1">
+    <div data-hf-id="hf-psmx" class="f07-eyebrow">Step 4 of 5</div>
+    <div data-hf-id="hf-t29m" class="f07-dots">
+      <div data-hf-id="hf-sfli" class="f07-dot" id="f07-dot-1"></div>
+      <div data-hf-id="hf-m9vp" class="f07-dot" id="f07-dot-2"></div>
+      <div data-hf-id="hf-li7w" class="f07-dot" id="f07-dot-3"></div>
+      <div data-hf-id="hf-8zpf" class="f07-dot" id="f07-dot-4"></div>
+      <div data-hf-id="hf-51le" class="f07-dot" id="f07-dot-5"></div>
+    </div>
+    <div data-hf-id="hf-oyvc" class="f07-steplabel" id="f07-steplabel">Score</div>
+  </div>
+
+  <div data-hf-id="hf-721d" id="f07-stack" class="clip" data-start="0.000" data-duration="26.610" data-track-index="2">
+    <div data-hf-id="hf-498y" class="f07-page f07-page-4" id="f07-page-4" data-target-x="1140" data-target-y="-22" data-rest-x="6" data-rest-y="6" data-rest-rot="2">
+      <img data-hf-id="hf-t0m7" src="assets/ex1-page4.png" alt="">
+    </div>
+    <div data-hf-id="hf-cj8n" class="f07-page f07-page-3" id="f07-page-3" data-target-x="780" data-target-y="-22" data-rest-x="-4" data-rest-y="4" data-rest-rot="-1.5">
+      <img data-hf-id="hf-mgq8" src="assets/ex1-page3.png" alt="">
+    </div>
+    <div data-hf-id="hf-zsez" class="f07-page f07-page-2" id="f07-page-2" data-target-x="420" data-target-y="-22" data-rest-x="4" data-rest-y="-3" data-rest-rot="1.2">
+      <img data-hf-id="hf-zkc9" src="assets/ex1-page2.png" alt="">
+    </div>
+    <div data-hf-id="hf-wwpi" class="f07-page f07-page-1" id="f07-page-1" data-target-x="60" data-target-y="-22" data-rest-x="0" data-rest-y="0" data-rest-rot="0">
+      <img data-hf-id="hf-pm0a" src="assets/ex1-page1.png" alt="">
+    </div>
+    <div data-hf-id="hf-xa4y" class="f07-header" id="f07-header">
+      <div data-hf-id="hf-u9z9" class="f07-name">JACOB SMITH</div>
+      <div data-hf-id="hf-3kpg" class="f07-idpill" id="f07-idpill">ID 8201025089084</div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-rhzo" id="f07-panel-layer" class="clip" data-start="0.000" data-duration="26.610" data-track-index="3">
+    <div data-hf-id="hf-49au" class="f07-panel" id="f07-panel">
+      <div data-hf-id="hf-ramv" class="f07-panel-eyebrow" id="f07-panel-eyebrow">Confidence checks</div>
+      <div data-hf-id="hf-er31" class="f07-rows">
+        <div data-hf-id="hf-qgi8" class="f07-row is-flagged" id="f07-row-1">
+          <svg data-hf-id="hf-e8dj" class="f07-tick" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path data-hf-id="hf-lpfu" class="f07-ring" id="f07-ring-1" d="M 22 2 A 20 20 0 1 1 21.99 2 Z" />
+            <path data-hf-id="hf-5i3v" class="f07-cross" id="f07-check-1" d="M 14 14 L 30 30 M 30 14 L 14 30" />
+          </svg>
+          <div data-hf-id="hf-jqth" class="f07-label" id="f07-label-1">South African ID checksum</div>
+          <div data-hf-id="hf-mcaa" class="f07-note" id="f07-value-1">2 notes</div>
+        </div>
+        <div data-hf-id="hf-1bzv" class="f07-row" id="f07-row-2">
+          <svg data-hf-id="hf-vwjr" class="f07-tick" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path data-hf-id="hf-hrbt" class="f07-ring" id="f07-ring-2" d="M 22 2 A 20 20 0 1 1 21.99 2 Z" />
+            <path data-hf-id="hf-umm8" class="f07-check" id="f07-check-2" d="M 13 23 L 19.5 29.5 L 31.5 15" />
+          </svg>
+          <div data-hf-id="hf-xeb6" class="f07-label" id="f07-label-2">Date of birth and gender encoded in the ID</div>
+          <div data-hf-id="hf-val2" class="f07-value" id="f07-value-2"></div>
+        </div>
+        <div data-hf-id="hf-v6a2" class="f07-row" id="f07-row-3">
+          <svg data-hf-id="hf-vi8q" class="f07-tick" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path data-hf-id="hf-gzo0" class="f07-ring" id="f07-ring-3" d="M 22 2 A 20 20 0 1 1 21.99 2 Z" />
+            <path data-hf-id="hf-xlvt" class="f07-check" id="f07-check-3" d="M 13 23 L 19.5 29.5 L 31.5 15" />
+          </svg>
+          <div data-hf-id="hf-njyi" class="f07-label" id="f07-label-3">ID agrees across the pages</div>
+          <div data-hf-id="hf-val3" class="f07-value" id="f07-value-3"></div>
+        </div>
+        <div data-hf-id="hf-em65" class="f07-row" id="f07-row-4">
+          <svg data-hf-id="hf-v3xp" class="f07-tick" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path data-hf-id="hf-d1jz" class="f07-ring" id="f07-ring-4" d="M 22 2 A 20 20 0 1 1 21.99 2 Z" />
+            <path data-hf-id="hf-mqe6" class="f07-check" id="f07-check-4" d="M 13 23 L 19.5 29.5 L 31.5 15" />
+          </svg>
+          <div data-hf-id="hf-kvta" class="f07-label" id="f07-label-4">Date, email and cell formats</div>
+          <div data-hf-id="hf-val4" class="f07-value" id="f07-value-4"></div>
+        </div>
+      </div>
+      <div data-hf-id="hf-xby2" class="f07-review" id="f07-review">
+        <span data-hf-id="hf-6io1">1 field under</span><span data-hf-id="hf-w0p5" class="f07-pct" id="f07-pct">70%</span>
+        <span data-hf-id="hf-ifpc" class="f07-tail" id="f07-review-tail"><span data-hf-id="hf-w5bk" class="f07-arrow">→</span><span data-hf-id="hf-wpbj">review list</span></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var ID = "07-step-4-score";
+  /* == RETIMED (tools_apply_retime.py) == */
+      /* Beat times below are OLD-take time; P() maps them onto the delivered take
+         through word anchors matched by text. Generated - do not hand-edit. */
+      var __KX = [0.0000, 0.0600, 0.4800, 1.2500, 1.4000, 1.7300, 2.2200, 2.4500, 2.6500, 3.4600, 3.5500, 3.8100, 3.9300, 4.6500, 4.9300, 5.0800, 5.6900, 6.0500, 6.2700, 6.8800, 7.0100, 7.2200, 7.9400, 8.6100, 8.9700, 9.1900, 9.8100, 10.8300, 11.1900, 11.3400, 11.4900, 12.0200, 12.1400, 12.6300, 13.2000, 13.3600, 13.6800, 14.1200, 14.6400, 14.9000, 15.3100, 15.5700, 16.0800, 16.3200, 16.8300, 16.9800, 17.1800, 17.5900, 18.0200, 18.0600, 18.5200, 19.0700, 19.3100, 19.6600, 20.4200, 20.9600, 21.8700, 22.1700, 22.3800, 22.3900, 22.8400, 23.3170];
+      var __KY = [0.0000, 0.0460, 0.4180, 1.2890, 1.5440, 2.1010, 2.6700, 3.0300, 3.2390, 4.1220, 4.3540, 4.5510, 4.9920, 5.3060, 5.6080, 5.7240, 6.3160, 6.7110, 7.3030, 7.8600, 8.2310, 8.3940, 8.8820, 9.6480, 9.8340, 10.1010, 10.4840, 11.9120, 12.1090, 12.4230, 12.6080, 13.0730, 13.3280, 14.0600, 14.8260, 14.9540, 15.1400, 16.0800, 16.4860, 16.7190, 17.2530, 17.7870, 18.1230, 18.2510, 19.3310, 19.5860, 19.7490, 20.2710, 20.4690, 20.8290, 21.2350, 21.6990, 21.8850, 22.1750, 22.9300, 23.4410, 24.4860, 24.7530, 24.8570, 24.9270, 25.2290, 25.9600];
+      function __pw(t, X, Y) { if (t <= X[0]) return Y[0] + (t - X[0]); var n = X.length - 1;
+        if (t >= X[n]) return Y[n] + (t - X[n]) * (Y[n] / X[n]); var lo = 0, hi = n;
+        while (hi - lo > 1) { var m = (lo + hi) >> 1; if (X[m] <= t) lo = m; else hi = m; }
+        return Y[lo] + (t - X[lo]) / (X[hi] - X[lo]) * (Y[hi] - Y[lo]); }
+      function P(t) { return __pw(t, __KX, __KY); }   /* old take time -> delivered take time */
+      function Q(u) { return __pw(u, __KY, __KX); }   /* inverse: drivers run in new time,
+         so a threshold written in old time is compared against Q(driver.t) unedited */
+      var DUR = 25.960;  /* measured delivered take (was 23.317) */
+  var COBALT = "#00B563";
+  var MUTED = "#C6D5EB";
+
+  window.__timelines = window.__timelines || {};
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines[ID] = tl;
+
+  var q = function (sel) { return document.querySelector(sel); };
+  var qa = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
+
+  /* ---------- Scene 1 (0.0–5.6s): rail lights, pages converge, header pops ---------- */
+
+  // "Step four" — fourth dot fills cobalt, label arrives.
+  tl.fromTo("#f07-dot-4",
+    { backgroundColor: "rgba(0, 181, 99, 0)", borderColor: "rgba(198, 213, 235, 0.26)" },
+    { backgroundColor: COBALT, borderColor: COBALT, duration: 0.4, ease: "power2.out" },
+    0.3);
+  tl.fromTo("#f07-steplabel",
+    { opacity: 0, x: -10 },
+    { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" },
+    0.42);
+
+  // "the pages regroup into one application" — center-outward-expansion, reversed:
+  // each card starts at its Frame-4 slot offset (data-target) and lerps to the shared stack
+  // center with a power3 long tail; xPercent/yPercent -50 bake the self-centering.
+  var CONVERGE_AT = 1.3;
+  var CONVERGE_DUR = 1.7;
+  var STAGGER = 0.06;
+  qa(".f07-page").forEach(function (el, i) {
+    var tx = Number(el.dataset.targetX);
+    var ty = Number(el.dataset.targetY);
+    tl.fromTo(el,
+      { xPercent: -50, yPercent: -50, x: tx, y: ty, rotation: 0 },
+      {
+        x: Number(el.dataset.restX),
+        y: Number(el.dataset.restY),
+        rotation: Number(el.dataset.restRot),
+        duration: CONVERGE_DUR,
+        ease: "power3.out"
+      },
+      CONVERGE_AT + i * STAGGER);
+  });
+
+  // "by the ID number" — application header card spring-pops above the stack (no overshoot).
+  tl.fromTo("#f07-header",
+    { scale: 0, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.55, ease: "power3.out" },
+    3.7);
+
+  // "written on them" — the ID digits tint cobalt (tag-pill resolves to its accent state).
+  tl.fromTo("#f07-idpill",
+    /* Opaque at both ends (#00B563 x0.16 over #00123C = #002C42): identical look,
+       no longer borrowing contrast from whichever page drifts underneath. */
+    { color: MUTED, backgroundColor: "#00123C" },
+    { color: COBALT, backgroundColor: "#002C42", duration: 0.5, ease: "power2.out" },
+    4.6);
+
+  /* ---------- Scene 2 (5.6–20.3s): checklist panel, one row per cue ---------- */
+
+  // "Then every field earns its confidence score" — panel fades in, eyebrow follows.
+  tl.fromTo("#f07-panel",
+    { opacity: 0, y: 18 },
+    { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+    5.7);
+  tl.fromTo("#f07-panel-eyebrow",
+    { opacity: 0, y: 8 },
+    { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+    6.1);
+
+  // svg-path-draw setup: measured lengths, dash fully offset so every tick starts invisible.
+  var RING_FALLBACK = 2 * Math.PI * 20;
+  var CHECK_FALLBACK = 30.5;
+  qa(".f07-tick path").forEach(function (p) {
+    var len = 0;
+    try { len = p.getTotalLength(); } catch (e) { len = 0; }
+    if (!len || !isFinite(len)) {
+      len = p.classList.contains("f07-ring") ? RING_FALLBACK : CHECK_FALLBACK;
+    }
+    len = len * 1.02;
+    p.style.strokeDasharray = String(len);
+    p.style.strokeDashoffset = String(len);
+  });
+
+  // One row per voiceover cue (real word timings): checksum / encoded in that ID /
+  // agrees across the pages / every date, email and cell number.
+  var ROW_CUES = [9.7, 12.5, 15.2, 17.9];
+  var COUNT_DUR = 1.2;
+  var START_SCALE = 0.5;
+
+  ROW_CUES.forEach(function (at, idx) {
+    var n = idx + 1;
+    var ring = q("#f07-ring-" + n);
+    var mark = q("#f07-check-" + n);
+    var label = q("#f07-label-" + n);
+    var value = q("#f07-value-" + n);
+
+    // Ring then mark. Row 1's mark is a cross and its ring is red: the checksum fails.
+    tl.to(ring, { strokeDashoffset: 0, duration: 0.45, ease: "power2.out" }, at);
+    tl.to(mark, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, at + 0.34);
+
+    // Body line slides in beside the mark.
+    tl.fromTo(label,
+      { opacity: 0, x: -14 },
+      { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" },
+      at + 0.05);
+
+    // No counting figure. The four per-check scores that used to animate here (0.94,
+    // 0.95, 0.95, 0.90) were invented - the app publishes a confidence per FIELD and an
+    // overall, never a score per check, and a deterministic checksum cannot score 0.94
+    // at all. Row 1 now carries the app's own count of validation notes; rows 2 to 4
+    // carry no number, because there is no real number to carry.
+    tl.fromTo(value,
+      { opacity: 0, x: 8 },
+      { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" },
+      at + 0.45);
+  });
+
+  /* ---------- Scene 3 (20.3s–end): split-highlight review row, then hold ---------- */
+
+  // "Anything under seventy percent" — the highlight row appears at the bottom of the panel.
+  tl.fromTo("#f07-review",
+    { opacity: 0, x: -18 },
+    { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" },
+    20.8);
+  // "70%" tints cobalt on the word.
+  tl.fromTo("#f07-pct",
+    { color: "#FFFFFF" },
+    { color: COBALT, duration: 0.4, ease: "power2.out" },
+    21.5);
+  // "goes on a review list" — the consequence arrives after the threshold.
+  tl.fromTo("#f07-review-tail",
+    { opacity: 0, x: -12 },
+    { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" },
+    22.2);
+
+  // Pin the registered duration to the packet's length (hold to the end, no exit).
+  tl.set({}, { data: "pin" }, DUR);
+
+  // The eyebrow had no entrance, so it was up during the incoming cross-fade,
+  // over the outgoing frame's eyebrow. Same entrance as every other frame.
+  tl.fromTo(".f07-eyebrow", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.05);
+
+      /* == RETIMED (tools_apply_retime.py) == beat walk == */
+      /* Every registered beat moves to its remapped position. */
+      (function () {
+        var kids = tl.getChildren(false, true, true);
+        if (!kids.length) throw new Error("retime: no children to reposition");
+        var moved = 0, over = [];
+        kids.forEach(function (c) {
+          if (c.vars && c.vars.data === "pin") return;   /* already in new-take time */
+          var s = c.startTime(), n = P(s);
+          if (Math.abs(n - s) > 0.0005) { c.startTime(n); moved++; }
+          /* Eyebrows share one zone, so at a fade boundary two of them smear. Hold
+             any eyebrow until the 0.5s transition is done. */
+          var tg = (c.targets ? c.targets() : []);
+          var nm = tg.length ? ((tg[0].id || "") + " " + (tg[0].className || "")) : "";
+          if (/-eyebrow(\s|$)/.test(nm) && c.startTime() < 0.52) {
+            c.startTime(0.52);
+          }
+          if (c.startTime() + c.duration() > 25.960 + 0.02) {
+            over.push(Math.round((c.startTime() + c.duration()) * 1000) / 1000);
+          }
+        });
+        window.__retime = window.__retime || {};
+        window.__retime["07-step-4-score"] = { beats: kids.length, moved: moved, overrun: over };
+      })();
+
+})();
+</script>
+</template>

@@ -1,0 +1,14 @@
+<h2>How this works</h2>
+<p>This is one section of the site with the ask built into the page, in the middle of the content rather than in a separate window. The answer is drawn only from this section, and that limit is enforced on the server, not in your browser.</p>
+<div class="flow">
+ <div class="step"><b>1. The page</b><small>The list of pages below the ask is this section's own page directory, taken from the knowledge base of crawled University pages. The ask box is the same embeddable widget that ships to other sites: one script tag and one mount point.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step srv"><b>2. This app's own server</b><small>The widget names its section. The server checks that name against a fixed list and rejects an unknown one rather than answering from the whole site. It holds the credentials, so no key reaches your browser.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step srv"><b>3. Progress Agentic RAG</b><small>Retrieval is limited to pages whose address starts with this section's path, then a cited answer is generated with a low-cost model in your language.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step srv"><b>4. Back on the server</b><small>Every page the answer cites is checked to sit inside the section. If any falls outside it, or nothing sourced is found, the whole response is withheld rather than shown.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step"><b>5. Your answer, in place</b><small>Numbered citations at the claims, the source pages, and a link to University's own page for the real next step. The suggested questions change with the language you pick.</small></div>
+</div>
+<p style="margin-top:18px"><small>The official page for this section is one click away at the top of the page. Nothing here applies, enrols or pays on your behalf.</small></p>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: body of knowledge</title></head>
+<body>
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    .bok-tile { position: absolute; width: 86px; height: 108px; border-radius: 10px;
+      background: linear-gradient(175deg, #ffffff 0%, #eef2f9 100%);
+      box-shadow: 0 10px 24px rgba(0, 10, 40, 0.45); opacity: 0.96; }
+    .bok-tile .bok-bar { position: absolute; left: 12px; height: 7px; border-radius: 4px;
+      background: #9FB0D0; }
+    .bok-tile .bok-fam { position: absolute; }
+    .bok-grey { position: absolute; width: 74px; height: 92px; border-radius: 10px;
+      background: #79818F; opacity: 0.62; box-shadow: 0 8px 18px rgba(0,8,36,.35); }
+    .bok-sweep { position: absolute; top: 140px; width: 130px; height: 800px;
+      background: linear-gradient(90deg, rgba(0,181,99,0) 0%, rgba(0,181,99,0.30) 50%, rgba(0,181,99,0) 100%);
+      filter: blur(6px); }
+    .bok-chip { position: absolute; top: 246px; height: 44px; padding: 0 20px;
+      border-radius: 22px; background: rgba(0, 137, 99, 0.25); border: 1px solid #008963;
+      color: #D7DEEA; font-family: "ProgText", sans-serif; font-size: 24px;
+      line-height: 44px; letter-spacing: 0.04em; }
+    .bok-tab { position: absolute; left: 540px; top: 206px; height: 40px; padding: 0 18px;
+      border-radius: 10px 10px 0 0; background: #00724F; color: #ffffff;
+      font-family: "ProgText", sans-serif; font-size: 23px; line-height: 40px; }
+    .bok-netlabel { position: absolute; left: 300px; top: 836px; color: #AEBDD8;
+      font-family: "ProgText", sans-serif; font-size: 27px; letter-spacing: 0.04em; }
+    .bok-sheen { position: absolute; top: -200px; left: -300px; width: 220px; height: 1500px;
+      transform: rotate(18deg); background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%); }
+    svg.bok-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="root" data-composition-id="m-bok" data-width="1920" data-height="1080" data-duration="11.2">
+    <div id="bok-stage" style="position:absolute; inset:0;"></div>
+    <svg class="bok-svg" id="bok-svg" viewBox="0 0 1920 1080" fill="none">
+      <rect id="bok-boundary" x="508" y="226" width="906" height="628" rx="30"
+            stroke="#00B563" stroke-width="3" fill="none"/>
+    </svg>
+    <div class="bok-sweep" id="bok-sweep1" style="left:380px;"></div>
+    <div class="bok-sweep" id="bok-sweep2" style="left:380px;"></div>
+    <div class="bok-tab" id="bok-tab" data-var-text="bokTab">Your content</div>
+    <div class="bok-netlabel" id="bok-netlabel" data-var-text="bokOutside">Open internet</div>
+    <div class="bok-sheen" id="bok-sheen"></div>
+  </div>
+
+  <script>
+    (function () {
+      // Seeded LCG - deterministic, no Math.random.
+      let bokSeed = 20261004;
+      const rnd = () => (bokSeed = (bokSeed * 1664525 + 1013904223) % 4294967296) / 4294967296;
+
+      const stage = document.getElementById("bok-stage");
+      const FAM = ["policy", "guide", "contract", "page", "call"];
+      const LABELS = ["Policy", "Product", "2026", "Contract", "Calls"];
+
+      function famDecor(el, fam) {
+        if (fam === "policy") {
+          const t = document.createElement("div"); t.className = "bok-fam";
+          t.style.cssText = "right:10px;top:10px;width:22px;height:14px;border-radius:3px;background:#008963;";
+          el.appendChild(t);
+        } else if (fam === "guide") {
+          const t = document.createElement("div"); t.className = "bok-fam";
+          t.style.cssText = "left:0;top:0;bottom:0;width:10px;border-radius:10px 0 0 10px;background:#00206B;opacity:.75;";
+          el.appendChild(t);
+        } else if (fam === "contract") {
+          const t = document.createElement("div"); t.className = "bok-fam";
+          t.style.cssText = "left:12px;bottom:12px;width:40px;height:3px;background:#5E719F;transform:rotate(-6deg);";
+          el.appendChild(t);
+        } else if (fam === "page") {
+          const t = document.createElement("div"); t.className = "bok-fam";
+          t.style.cssText = "left:0;top:0;right:0;height:14px;border-radius:10px 10px 0 0;background:#D7DEEA;";
+          el.appendChild(t);
+        } else {
+          for (let k = 0; k < 4; k++) {
+            const t = document.createElement("div"); t.className = "bok-fam";
+            t.style.cssText = "bottom:12px;width:5px;border-radius:2px;background:#008963;" +
+              "left:" + (14 + k * 10) + "px;height:" + (10 + ((k * 7) % 16)) + "px;";
+            el.appendChild(t);
+          }
+        }
+      }
+
+      const tiles = [];
+      const COLS = 7, ROWS = 4;
+      for (let i = 0; i < COLS * ROWS; i++) {
+        const el = document.createElement("div");
+        el.className = "bok-tile"; el.id = "bok-t" + i;
+        const fam = FAM[i % 5];
+        for (let b = 0; b < 3; b++) {
+          const bar = document.createElement("div"); bar.className = "bok-bar";
+          bar.style.top = (34 + b * 16) + "px";
+          bar.style.width = (36 + ((i * 13 + b * 29) % 34)) + "px";
+          el.appendChild(bar);
+        }
+        famDecor(el, fam);
+        // Pile position (left/top static; motion via transforms only).
+        const px = 700 + rnd() * 520, py = 420 + rnd() * 330;
+        el.style.left = px + "px"; el.style.top = py + "px";
+        const col = i % COLS, row = (i - col) / COLS;
+        const gx = 560 + col * 120, gy = 300 + row * 136;
+        tiles.push({ el, px, py, gx, gy, rot: -14 + rnd() * 28, col });
+        stage.appendChild(el);
+      }
+
+      // Grey open-internet tiles, outside the boundary.
+      const greys = [];
+      for (let g = 0; g < 6; g++) {
+        const el = document.createElement("div");
+        el.className = "bok-grey"; el.id = "bok-g" + g;
+        const gx = g < 3 ? 350 + rnd() * 90 : 1440 + rnd() * 80;
+        const gy = 260 + rnd() * 560;
+        el.style.left = gx + "px"; el.style.top = gy + "px";
+        el.style.transform = "rotate(" + (-10 + rnd() * 20) + "deg)";
+        greys.push({ el, dir: g < 3 ? -1 : 1 });
+        stage.appendChild(el);
+      }
+
+      // Label chips.
+      LABELS.forEach((txt, i) => {
+        const c = document.createElement("div");
+        c.className = "bok-chip"; c.id = "bok-chip" + i;
+        c.setAttribute("data-var-text", "bokLabel" + (i + 1));
+        c.style.left = (556 + i * 172) + "px";
+        c.textContent = txt;
+        stage.appendChild(c);
+      });
+
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 0.6, ease: "power3.out" } });
+
+      // Open: pile drifting gently, boundary/chips/tab hidden.
+      tiles.forEach((t, i) => {
+        tl.set(t.el, { rotation: t.rot, scale: 0.98 }, 0);
+        tl.to(t.el, { y: (i % 2 ? 8 : -8), duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 1 }, (i % 5) * 0.12);
+      });
+      const bRect = document.getElementById("bok-boundary");
+      const perim = 2 * (906 + 628);
+      bRect.setAttribute("stroke-dasharray", String(perim));
+      tl.set(bRect, { strokeDashoffset: perim, autoAlpha: 1 }, 0);
+      tl.set(["#bok-tab", "#bok-netlabel"], { autoAlpha: 0 }, 0);
+      LABELS.forEach((_, i) => tl.set("#bok-chip" + i, { autoAlpha: 0, y: 16 }, 0));
+
+      // Sweeps 0.6-2.4.
+      tl.fromTo("#bok-sweep1", { x: 0, autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.6);
+      tl.to("#bok-sweep1", { x: 1150, duration: 1.6, ease: "power1.inOut" }, 0.6);
+      tl.to("#bok-sweep1", { autoAlpha: 0, duration: 0.25 }, 2.0);
+      tl.fromTo("#bok-sweep2", { x: 0, autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 1.1);
+      tl.to("#bok-sweep2", { x: 1150, duration: 1.5, ease: "power1.inOut" }, 1.1);
+      tl.to("#bok-sweep2", { autoAlpha: 0, duration: 0.25 }, 2.45);
+
+      // Snap to grid as the sweep passes each column: 1.0 + col*0.34.
+      tiles.forEach((t) => {
+        const at = 1.0 + t.col * 0.34;
+        tl.to(t.el, { x: t.gx - t.px, y: t.gy - t.py, rotation: 0, scale: 1,
+                      duration: 0.9, ease: "power3.inOut" }, at);
+      });
+
+      // Labels land 2.0-4.6.
+      LABELS.forEach((_, i) => {
+        tl.to("#bok-chip" + i, { autoAlpha: 1, y: 0, duration: 0.5 }, 2.0 + i * 0.6);
+      });
+
+      // Boundary draws at 5.3-6.6; tab lands.
+      tl.to(bRect, { strokeDashoffset: 0, duration: 1.3, ease: "power2.inOut" }, 5.3);
+      tl.to("#bok-tab", { autoAlpha: 1, duration: 0.4 }, 6.2);
+
+      // "Not from the open internet": the grey web is fully legible FIRST,
+      // then visibly pushed outside the boundary - the picture asserts the claim.
+      tl.to("#bok-netlabel", { autoAlpha: 1, duration: 0.4 }, 4.6);
+      greys.forEach((g) => {
+        tl.to(g.el, { autoAlpha: 0.85, scale: 1.1, duration: 0.4, ease: "power2.out" }, 4.8);
+      });
+      greys.forEach((g, i) => {
+        tl.to(g.el, { x: g.dir * 300, autoAlpha: 0.3, scale: 1.0, duration: 1.2, ease: "power2.inOut" }, 5.6 + i * 0.1);
+      });
+      tl.to("#bok-netlabel", { x: -210, duration: 1.2, ease: "power2.inOut" }, 5.8);
+      tl.to("#bok-netlabel", { autoAlpha: 0.25, duration: 0.5 }, 8.3);
+
+      // Settle: breathe + sheen traverse, alive to the end.
+      tl.to("#bok-stage", { scale: 1.015, transformOrigin: "50% 50%", duration: 3.4, ease: "sine.inOut" }, 7.3);
+      tl.fromTo("#bok-sheen", { x: 0 }, { x: 2400, duration: 3.6, ease: "sine.inOut" }, 7.4);
+      tiles.forEach((t, i) => {
+        if (i % 6 === 0) tl.to(t.el, { y: "-=5", duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, 7.6 + (i % 4) * 0.3);
+      });
+
+      window.__timelines["m-bok"] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

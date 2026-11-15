@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The university - Ask this page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/page.css">
+</head>
+<body class="pagemode">
+<header class="site">
+  <div class="wrap mainbar">
+    <a href="/" class="logo"><img src="/static/mu-logo.svg" alt="The university" width="200" height="42"></a>
+    <nav class="main" aria-label="Main">
+      <a href="/" id="nav-all">Ask the whole site</a>
+      <a href="https://www.university.edu.au/study" rel="noopener" id="nav-study">Study</a>
+    </nav>
+    <button class="how" id="how-btn" type="button" aria-haspopup="dialog">How this works</button>
+  </div>
+</header>
+<main class="wrap pm">
+  <div class="pm-head" id="pm-head">
+    <h1 id="pm-h1">Ask this page</h1>
+    <p id="pm-lead">Read a University page on the left. Ask about it, in your own language, on the right. The answer points to the passage it came from.</p>
+  </div>
+  <div class="pm-tabs" id="tabs" role="tablist" aria-label="Page">
+    {% for k, label in pages %}<button type="button" role="tab" data-page="{{ k }}" aria-selected="{{ 'true' if loop.first else 'false' }}">{{ label }}</button>{% endfor %}
+  </div>
+  <div class="pm-grid">
+    <article class="pm-page" id="pm-page" aria-label="Page content">
+      <div class="pm-bar"><span id="pm-label"></span><a id="pm-open" href="#" target="_blank" rel="noopener">Open on university.edu.au</a></div>
+      <div class="pm-body" id="pm-body"><p class="pm-load">Loading the page...</p></div>
+    </article>
+    <aside class="pm-ask" id="pm-ask">
+      <div class="langs" role="radiogroup" aria-label="Language" id="langs">
+        <button type="button" role="radio" data-lang="en" aria-checked="true">English</button>
+        <button type="button" role="radio" data-lang="zh" aria-checked="false" lang="zh">中文</button>
+        <button type="button" role="radio" data-lang="ar" aria-checked="false" lang="ar">العربية</button>
+        <button type="button" role="radio" data-lang="id" aria-checked="false" lang="id">Bahasa Indonesia</button>
+      </div>
+      <form id="ask-form" autocomplete="off">
+        <label class="sr" for="q">Your question</label>
+        <input id="q" maxlength="500" placeholder="Ask about this page" required>
+        <button type="submit" id="go">Ask</button>
+      </form>
+      <div class="chips" id="chips"></div>
+      <div class="pm-result" id="pm-result" aria-live="polite" hidden></div>
+    </aside>
+  </div>
+</main>
+<footer class="site"><div class="wrap"><p id="pm-foot">Demonstration built on content from university.edu.au. Answers come from the page shown; always confirm details on university.edu.au. Not an official The university service.</p></div></footer>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="How this works">
+  <div class="modal-body"><button type="button" class="close" id="modal-close" aria-label="Close">&times;</button><div id="modal-content">Loading...</div></div>
+</div>
+<script src="/static/mdlite.js"></script>
+<script src="/static/page.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: a language it cannot hear</title></head>
+<body>
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    /* The page plate. A SIMPLIFIED site, authored with its interior present -
+       header, nav, a field with a real caret, three content cards with ruled
+       lines - because a labelled rectangle is not a page. */
+    .lg-plate { position: absolute; left: 740px; top: 150px; width: 1120px; height: 700px;
+      border-radius: 16px; background: #F7F9FC; box-shadow: 0 26px 70px rgba(0,8,36,.55); }
+    .lg-head { position: absolute; left: 0; top: 0; width: 100%; height: 72px;
+      border-radius: 16px 16px 0 0; background: #ffffff;
+      border-bottom: 1px solid #E3E9F2; }
+    .lg-mark { position: absolute; left: 34px; top: 24px; width: 136px; height: 24px;
+      border-radius: 4px; background: #B9C6DC; }
+    .lg-nav { position: absolute; height: 12px; border-radius: 3px; background: #C9D4E5; }
+    .lg-field { position: absolute; left: 60px; top: 122px; width: 960px; height: 76px;
+      border-radius: 38px; background: #ffffff; border: 2px solid #D7DEEA; }
+    .lg-caret { position: absolute; left: 92px; top: 142px; width: 3px; height: 36px;
+      background: #5A6B93; }
+    .lg-card { position: absolute; width: 300px; height: 200px; border-radius: 12px;
+      background: #ffffff; border: 1px solid #E3E9F2; }
+    .lg-card .lg-ln { position: absolute; left: 22px; height: 10px; border-radius: 3px;
+      background: #CBD6E6; }
+    .lg-card .lg-ln.t { background: #94A5C4; height: 14px; }
+    /* Results. Four real rows for English, ONE empty ruled row for the language
+       the page cannot serve - drawn, not absent, because "it returned nothing"
+       has to be seen. */
+    .lg-res { position: absolute; left: 60px; height: 44px; border-radius: 8px;
+      background: #ffffff; border: 1px solid #E3E9F2; opacity: 0; }
+    .lg-res .lg-rl { position: absolute; left: 18px; top: 13px; height: 9px;
+      border-radius: 3px; background: #9FB0D0; }
+    .lg-empty { position: absolute; left: 60px; top: 236px; width: 960px; height: 44px;
+      border-radius: 8px; border: 1px dashed #C2CEE0; background: transparent; opacity: 0; }
+    /* MUST READ: the four question pills, 54px authored. */
+    .lg-pill { position: absolute; height: 82px; padding: 0 34px; border-radius: 41px;
+      border: 2px solid #D7DEEA; background: rgba(0,22,85,.72); color: #fff;
+      font-family: "ProgDisplay", sans-serif; font-size: 54px; font-weight: 500;
+      line-height: 78px; white-space: nowrap; }
+    .lg-pill.rtl { direction: rtl; }
+    svg.lg-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="root" data-composition-id="m-lg" data-width="1920" data-height="1080"
+       data-duration="9.0">
+    <div class="lg-plate" id="lg-plate">
+      <div class="lg-head"><div class="lg-mark"></div></div>
+      <div class="lg-field" id="lg-field"></div>
+      <div class="lg-caret" id="lg-caret"></div>
+      <div class="lg-empty" id="lg-empty"></div>
+    </div>
+    <svg class="lg-svg" id="lg-svg" viewBox="0 0 1920 1080" fill="none"></svg>
+    <div class="lg-pill" id="lg-p0" data-var-text="lgEn">How do I apply?</div>
+    <div class="lg-pill" id="lg-p1">国际学生如何申请？</div>
+    <div class="lg-pill rtl" id="lg-p2">كيف أتقدم بطلب؟</div>
+    <div class="lg-pill" id="lg-p3">Cara mendaftar?</div>
+  </div>
+
+  <script>
+  (function () {
+    const plate = document.getElementById("lg-plate");
+    const PL = 740, PT = 150;                 // plate origin in frame space
+    // Pills live in 60..700, the plate starts at 740. The margin is checked as
+    // ARITHMETIC rather than discovered in a render: the longest pill at 54px is
+    // about 520px of glyphs plus 68px of padding, so it clears 700 with room.
+    // --- interior: nav, cards, result rows -----------------------------------
+    [0, 1, 2, 3, 4].forEach((i) => {
+      const n = document.createElement("div");
+      n.className = "lg-nav";
+      n.style.left = (210 + i * 104) + "px"; n.style.top = "30px";
+      n.style.width = (62 - (i % 3) * 9) + "px";
+      plate.querySelector(".lg-head").appendChild(n);
+    });
+    for (let c = 0; c < 3; c++) {
+      const card = document.createElement("div");
+      card.className = "lg-card";
+      card.style.left = (60 + c * 330) + "px"; card.style.top = "452px";
+      [[26, 180, 1], [66, 240, 0], [92, 210, 0], [118, 164, 0]].forEach((l) => {
+        const ln = document.createElement("div");
+        ln.className = "lg-ln" + (l[2] ? " t" : "");
+        ln.style.top = l[0] + "px"; ln.style.width = (l[1] - c * 14) + "px";
+        card.appendChild(ln);
+      });
+      plate.appendChild(card);
+    }
+    const rows = [];
+    for (let r = 0; r < 4; r++) {
+      const el = document.createElement("div");
+      el.className = "lg-res";
+      el.style.top = (236 + r * 52) + "px"; el.style.width = "960px";
+      [[0, 300], [1, 520]].forEach(([k, w]) => {
+        const l = document.createElement("div");
+        l.className = "lg-rl"; l.style.top = (13 + k * 16) + "px";
+        l.style.width = (w - r * 46) + "px"; l.style.height = k ? "7px" : "9px";
+        el.appendChild(l);
+      });
+      plate.appendChild(el); rows.push(el);
+    }
+    const empty = document.getElementById("lg-empty");
+    const field = document.getElementById("lg-field");
+    const caret = document.getElementById("lg-caret");
+    const pills = [0, 1, 2, 3].map((i) => document.getElementById("lg-p" + i));
+
+    // Resting positions: all four pills PRESENT at t=0, in the dead margin.
+    const HOME = [[60, 196], [60, 356], [60, 516], [60, 676]];
+    pills.forEach((p, i) => {
+      p.style.left = HOME[i][0] + "px"; p.style.top = HOME[i][1] + "px";
+      if (i) p.style.opacity = ".55";
+    });
+    // The field's seat, in frame space.
+    const SEAT = [PL + 70, PT + 124];
+
+    const AT_SUBJ = 0.50, AT_EN = 1.70, AT_ZH = 3.30, AT_AR = 4.40, AT_OUT = 5.60;
+    const tl = gsap.timeline({ paused: true,
+      defaults: { duration: 0.6, ease: "power3.out" } });
+
+    // Alive from frame zero.
+    tl.to(plate, { y: -8, duration: 9.0, ease: "sine.inOut" }, 0);
+    tl.fromTo(caret, { opacity: 1 }, { opacity: 0, duration: .45, repeat: 19,
+      yoyo: true, ease: "none" }, 0);
+
+    // 1. The subject identifies itself BEFORE anything moves.
+    tl.to(pills[2], { opacity: 1, scale: 1.06, duration: .45 }, AT_SUBJ);
+    tl.to(pills[2], { scale: 1.0, duration: .4 }, AT_SUBJ + .45);
+
+    // 2. English seats and the page ANSWERS. This is what working looks like,
+    //    and it has to be shown or the failure has nothing to be measured against.
+    tl.to(pills[0], { left: SEAT[0], top: SEAT[1], duration: .55,
+                      ease: "power2.inOut" }, AT_EN);
+    tl.to(rows, { opacity: 1, y: 0, duration: .34, stagger: .07 }, AT_EN + .5);
+    tl.fromTo(rows, { y: 14 }, { y: 0, duration: .34, stagger: .07 }, AT_EN + .5);
+
+    // 3. Mandarin seats and the results COLLAPSE to one empty ruled row.
+    tl.to(pills[0], { left: HOME[0][0], top: HOME[0][1], opacity: .55,
+                      duration: .45 }, AT_ZH);
+    tl.to(pills[1], { opacity: 1, left: SEAT[0], top: SEAT[1], duration: .5,
+                      ease: "power2.inOut" }, AT_ZH + .15);
+    tl.to(rows, { opacity: 0, duration: .3, stagger: .04 }, AT_ZH + .5);
+    tl.to(empty, { opacity: 1, duration: .35 }, AT_ZH + .75);
+
+    // 4. Arabic CANNOT SEAT. The caret is on the LEFT while the glyphs run right
+    //    to left, so the pill stops dead at the field's right edge and recoils.
+    //    The specific, true, unglamorous detail is the whole point of the shot.
+    tl.to(pills[1], { left: HOME[1][0], top: HOME[1][1], opacity: .55,
+                      duration: .45 }, AT_AR);
+    tl.to(pills[2], { opacity: 1, duration: .3 }, AT_AR);
+    // The Arabic pill travels to the field's RIGHT edge and stops dead there,
+    // because that is where its text would begin and the caret is at the left.
+    tl.to(pills[2], { left: PL + 1120 - 60 - 470, top: SEAT[1], duration: .55,
+                      ease: "power2.out" }, AT_AR + .15);
+    tl.to(pills[2], { left: PL + 1120 - 60 - 440, duration: .18,
+                      ease: "power3.out" }, AT_AR + .72);   // the stop, then recoil
+    tl.to(field, { borderColor: "#E5484D", duration: .25 }, AT_AR + .72);
+    tl.to(caret, { backgroundColor: "#E5484D", scaleY: 1.25, duration: .25 },
+          AT_AR + .72);
+
+    // 5. All three non-English questions end up OUTSIDE the page, in dead space.
+    tl.to([pills[1], pills[2], pills[3]],
+          { left: 60, opacity: .32, duration: .7, stagger: .09,
+            ease: "power2.inOut" }, AT_OUT);
+    tl.to(pills[2], { top: HOME[2][1], duration: .7 }, AT_OUT);
+    tl.to(field, { borderColor: "#D7DEEA", duration: .6 }, AT_OUT + .3);
+    tl.to(caret, { backgroundColor: "#5A6B93", scaleY: 1, duration: .6 }, AT_OUT + .3);
+    tl.to(empty, { opacity: .5, duration: .6 }, AT_OUT + .3);
+    tl.to(pills[0], { opacity: 1, duration: .4 }, AT_OUT + .5);
+
+    window.__motifTimeline = tl;
+    if (window.hyperframes && window.hyperframes.register) {
+      window.hyperframes.register(tl);
+    }
+  })();
+  </script>
+</template>
+</body>
+</html>

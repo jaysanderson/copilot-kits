@@ -1,0 +1,188 @@
+[
+  {
+    "target": "DOC_ROTATED (legibility.assess_page)",
+    "kind": "status=Unclear",
+    "ok": true,
+    "detail": {
+      "status": "ISSUES_FOUND",
+      "issues": [
+        "DOC_ROTATED"
+      ],
+      "metrics": {
+        "sharpness_variance": 167.3,
+        "mean_brightness": 229.5,
+        "edge_content_ratio": 0.269,
+        "aspect_ratio": 1.413
+      }
+    },
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_DARK_OR_LOW_QUALITY (legibility.assess_page)",
+    "kind": "status=Unclear",
+    "ok": true,
+    "detail": {
+      "status": "ISSUES_FOUND",
+      "issues": [
+        "DOC_BLURRED",
+        "DOC_TOO_DARK"
+      ],
+      "metrics": {
+        "sharpness_variance": 13.1,
+        "mean_brightness": 63.9,
+        "edge_content_ratio": 0.268,
+        "aspect_ratio": 0.708
+      }
+    },
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_FILE_TYPE_NOT_SUPPORTED (_validate_files)",
+    "kind": "unsupported extension rejected",
+    "ok": true,
+    "detail": [
+      "DOC_FILE_TYPE_NOT_SUPPORTED"
+    ],
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_FILE_SIZE_EXCEEDED (_validate_files, 9-page PDF)",
+    "kind": "over 8-page limit rejected",
+    "ok": true,
+    "detail": [
+      "DOC_FILE_SIZE_EXCEEDED"
+    ],
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_FIRST_NAME_MISMATCH (transliteration.match_name, unit)",
+    "kind": "first differs, last matches",
+    "ok": true,
+    "detail": {
+      "status": "MISMATCH",
+      "score": 0.69,
+      "compared_as": {
+        "declared": "Daniel Sullivan",
+        "extracted": "Michael Sullivan"
+      },
+      "transliterated": null,
+      "first_name_match": {
+        "status": "MISMATCH",
+        "score": 0.29
+      },
+      "last_name_match": {
+        "status": "MATCH",
+        "score": 1.0
+      }
+    },
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_LAST_NAME_MISMATCH (transliteration.match_name, unit)",
+    "kind": "first matches, last differs",
+    "ok": true,
+    "detail": {
+      "status": "MISMATCH",
+      "score": 0.5,
+      "compared_as": {
+        "declared": "Daniel Sullivan",
+        "extracted": "Daniel Whitfield"
+      },
+      "transliterated": null,
+      "first_name_match": {
+        "status": "MATCH",
+        "score": 1.0
+      },
+      "last_name_match": {
+        "status": "MISMATCH",
+        "score": 0.11
+      }
+    },
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_MISSING_INSTITUTION_NAME_APPRO",
+    "kind": "diploma+transcript, different institutions, no cert",
+    "ok": true,
+    "detail": "{'DOC_MISSING_NAME_CHANGE_CERTIFICATE', 'DOC_CAN_SUBMIT_WITH_WARNINGS', 'DOC_MISSING_INSTITUTION_NAME_APPRO'}",
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_INSTITUTION_NAME_MISMATCH",
+    "kind": "same scenario + institution name-change cert present",
+    "ok": true,
+    "detail": "{'DOC_INSTITUTION_NAME_MISMATCH', 'DOC_CAN_SUBMIT_WITH_WARNINGS', 'DOC_STAMP_MISSING'}",
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_DUPLICATE_TYPE / status Duplicate",
+    "kind": "two diplomas in one submission",
+    "ok": true,
+    "detail": [
+      "{'DOC_MISSING_TRANSCRIPT', 'DOC_DUPLICATE_TYPE', 'DOC_CAN_SUBMIT_WITH_WARNINGS'}",
+      "{'Duplicate'}"
+    ],
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_ROTATED / status Unclear (live, not just the local legibility unit test)",
+    "kind": "a genuinely ~90-degree-rotated page, still correctly classified as DIPLOMA",
+    "ok": true,
+    "detail": [
+      "{'DOC_MISSING_TRANSCRIPT', 'DOC_CAN_SUBMIT_WITH_WARNINGS', 'DOC_ROTATED', 'DOC_STAMP_MISSING'}",
+      "{'Unclear'}"
+    ],
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_LANGUAGE_UNSUPPORTED / status Manual Review Required",
+    "kind": "German-language diploma",
+    "ok": true,
+    "detail": [
+      "{'DOC_MISSING_TRANSCRIPT', 'DOC_CAN_SUBMIT_WITH_WARNINGS', 'DOC_STAMP_MISSING', 'DOC_LANGUAGE_UNSUPPORTED'}",
+      "{'Manual Review Required'}"
+    ],
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_INSTITUTION_NOT_CLEAR / DOC_DEGREE_NOT_CLEAR / DOC_DATE_NOT_CLEAR / status Partially Valid",
+    "kind": "no institution/degree/date on the page",
+    "ok": true,
+    "detail": [
+      "{'DOC_MISSING_TRANSCRIPT', 'DOC_INSTITUTION_NOT_CLEAR', 'DOC_DEGREE_NOT_CLEAR', 'DOC_CAN_SUBMIT_WITH_WARNINGS', 'DOC_DATE_NOT_CLEAR'}",
+      "{'Partially Valid'}"
+    ],
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_STAMP_NOT_CLEAR / status Invalid-Unidentified Stamp",
+    "kind": "overlapping garbled seal graphic",
+    "ok": false,
+    "detail": "{'DOC_MISSING_TRANSCRIPT', 'DOC_CAN_SUBMIT_WITH_WARNINGS', 'DOC_STAMP_MISSING'}",
+    "honest_gap": true
+  },
+  {
+    "target": "DOC_MISSING_NAME_CHANGE / DOC_MISSING_NAME_CHANGE_CERTIFICATE / status Additional Document Required",
+    "kind": "name mismatch, no name-change cert anywhere",
+    "ok": true,
+    "detail": [
+      "{'DOC_MISSING_NAME_CHANGE_CERTIFICATE', 'DOC_MISSING_NAME_CHANGE', 'DOC_NAME_TRANSLATION_MISMATCH', 'DOC_LAST_NAME_MISMATCH', 'DOC_CAN_SUBMIT_WITH_WARNINGS'}",
+      "{'Additional Document Required'}"
+    ],
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_FIRST_NAME_MISMATCH only (live)",
+    "kind": "declared Daniel Sullivan vs doc Michael Sullivan",
+    "ok": true,
+    "detail": "{'DOC_MISSING_TRANSCRIPT', 'DOC_MISSING_NAME_CHANGE_CERTIFICATE', 'DOC_MISSING_NAME_CHANGE', 'DOC_FIRST_NAME_MISMATCH', 'DOC_NAME_TRANSLATION_MISMATCH', 'DOC_CAN_SUBMIT_WITH_WARNINGS'}",
+    "honest_gap": false
+  },
+  {
+    "target": "DOC_LAST_NAME_MISMATCH only (live)",
+    "kind": "declared Daniel Sullivan vs doc Daniel Whitfield",
+    "ok": true,
+    "detail": "{'DOC_MISSING_TRANSCRIPT', 'DOC_MISSING_NAME_CHANGE_CERTIFICATE', 'DOC_MISSING_NAME_CHANGE', 'DOC_NAME_TRANSLATION_MISMATCH', 'DOC_LAST_NAME_MISMATCH', 'DOC_CAN_SUBMIT_WITH_WARNINGS'}",
+    "honest_gap": false
+  }
+]

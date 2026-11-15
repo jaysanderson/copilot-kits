@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en" data-composition-variables='[
+  {"id":"kicker","type":"string","label":"Kicker","default":"PROGRESS AGENTIC RAG"},
+  {"id":"headline","type":"string","label":"Headline","default":"Answers grounded in your own content"},
+  {"id":"payoff","type":"string","label":"Payoff","default":"Every claim carries its source"},
+  {"id":"accent","type":"color","label":"Accent","default":"#5ce07a"}
+]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Starter composition</title>
+
+    <!-- GSAP is vendored LOCALLY and referenced ROOT-RELATIVE.
+         A CDN reference renders a silently frozen video if the network is unavailable
+         at render time, and `../` trips lint invalid_parent_traversal_in_asset_path. -->
+    <script src="assets/gsap.min.js"></script>
+
+    <style>
+      /* FONTS - a local @font-face is the ONLY way to control the rendered typeface.
+         Declaring `font-family: Arial` gets you INTER: the compiler rewrites every
+         system font through a hardcoded alias map and fetches a Google webfont
+         substitute. Drop the real .woff2 in assets/ and name the family something
+         that is not in that map. Delete this block only if you accept Inter. */
+      @font-face {
+        font-family: "BrandDisplay";
+        src: url("assets/BrandDisplay.woff2") format("woff2");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "BrandText";
+        src: url("assets/BrandText.woff2") format("woff2");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+
+      :root {
+        --ink: #ffffff;
+        --ink-soft: #9fb4d6;
+        --stage: #0b1424;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--stage); }
+
+      /* The root needs an explicit pixel box and an OPAQUE background.
+         The background doubles as the seam guard between scenes. */
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--stage);
+        color: var(--ink);
+        font-family: "BrandText", sans-serif;
+      }
+
+      .clip {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 160px;
+      }
+
+      .kicker {
+        margin: 0 0 28px;
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        color: var(--accent);
+      }
+      h1 {
+        margin: 0;
+        max-width: 1400px;
+        font-family: "BrandDisplay", sans-serif;
+        font-size: 118px;
+        font-weight: 700;
+        line-height: 1.05;
+      }
+      .rule {
+        display: block;          /* a transformed element MUST be block-level and sized */
+        width: 520px;
+        height: 10px;
+        margin-top: 44px;
+        background: var(--accent);
+      }
+      .payoff {
+        margin: 0;
+        max-width: 1300px;
+        font-family: "BrandDisplay", sans-serif;
+        font-size: 96px;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+      .note { margin-top: 36px; font-size: 32px; color: var(--ink-soft); }
+    </style>
+  </head>
+
+  <body>
+    <!-- Standalone root: directly in <body>, NO <template> wrapper.
+         data-duration here is the RENDER LENGTH and is read once at compile time -
+         a script cannot change it. -->
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-duration="12"
+    >
+      <!-- Scene 1. Windows overlap by the transition length so the handoff is one move. -->
+      <section id="s1" class="clip" data-start="0" data-duration="6.5" data-track-index="1">
+        <p class="kicker" id="s1-kicker" data-var-text="kicker">PROGRESS AGENTIC RAG</p>
+        <h1 id="s1-headline" data-var-text="headline">Answers grounded in your own content</h1>
+        <span class="rule" id="s1-rule"></span>
+      </section>
+
+      <!-- Scene 2 starts 0.5s before scene 1's window ends - that overlap IS the transition. -->
+      <section id="s2" class="clip" data-start="6" data-duration="6" data-track-index="1">
+        <p class="payoff" id="s2-payoff" data-var-text="payoff">Every claim carries its source</p>
+        <p class="note" id="s2-note">Retrieved, cited, and checked on every query</p>
+      </section>
+
+      <!-- Narration. EVERY <audio> needs a unique id. Never add crossorigin.
+           One voice per piece, ElevenLabs, and NEVER music. -->
+      <audio id="vo-1" src="assets/vo_s1.mp3" data-start="0.4" data-duration="5.6"
+             data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-2" src="assets/vo_s2.mp3" data-start="6.4" data-duration="5.2"
+             data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      // ONE paused timeline, keyed by the root's data-composition-id.
+      // The defaults line IS the motion system - set it once, deviate deliberately.
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { duration: 0.6, ease: "power3.out" },
+      });
+
+      // Scene 1 entrances. fromTo with explicit from-states, so t=0 is correct under seek.
+      // Animate LEAF elements individually, never a wrapper's autoAlpha to reveal a group.
+      tl.fromTo("#s1-kicker",   { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6 }, 0.15);
+      tl.fromTo("#s1-headline", { y: 56, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.9 }, 0.35);
+      tl.fromTo("#s1-rule",
+        { scaleX: 0, transformOrigin: "left center" },
+        { scaleX: 1, duration: 1.6, ease: "power2.inOut" }, 0.8);
+
+      // Keep the shot alive through the hold so it does not freeze on a settled frame -
+      // a slow drift on the headline, finite and deterministic.
+      tl.to("#s1-headline", { y: -18, duration: 3.6, ease: "sine.inOut" }, 1.6);
+
+      // THE TRANSITION. Outgoing and incoming move at the SAME time T.
+      // Do not fade scene 1 out first and then animate scene 2 in - that is a jump cut.
+      const T = 6.0;
+      tl.to("#s1",   { yPercent: -12, autoAlpha: 0, filter: "blur(10px)",
+                       duration: 0.5, ease: "power3.in" }, T);
+      tl.fromTo("#s2", { yPercent: 10, autoAlpha: 0, filter: "blur(10px)" },
+                       { yPercent: 0,  autoAlpha: 1, filter: "blur(0px)",
+                         duration: 0.5, ease: "power3.out" }, T);
+
+      tl.fromTo("#s2-payoff", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8 }, T + 0.25);
+      tl.fromTo("#s2-note",   { y: 28, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7 }, T + 0.55);
+      tl.to("#s2-payoff", { y: -14, duration: 3.2, ease: "sine.inOut" }, T + 1.2);
+
+      // Final scene MAY fade out. Only the final scene.
+      tl.to("#s2", { autoAlpha: 0, duration: 0.5, ease: "power2.in" }, 11.4);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+/* Results page. Built for the answer: full width, conversation first, composer always in reach. */
+body.answers{background:#f6f6f8;min-height:100vh;padding-bottom:96px}
+.ahead{background:#fff;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:20}
+.ahead-in{display:flex;align-items:center;gap:20px;height:68px}
+.ahead .logo img{display:block;height:34px;width:auto}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--ink);text-decoration:none;font:600 14px var(--font);padding:8px 12px;border-radius:20px}
+.back:hover{background:#f1f1f4;color:var(--crimson)}
+[dir=rtl] .back svg{transform:scaleX(-1)}
+.ahead .langs{margin-inline-start:auto;display:flex;gap:6px}
+.langs.sm button{font:600 13px var(--font);padding:7px 12px;border-radius:18px;border:1.5px solid var(--rule);background:#fff;color:var(--ink);cursor:pointer}
+.langs.sm button[aria-checked=true]{background:var(--crimson);border-color:var(--crimson);color:#fff}
+.amain{max-width:1040px;padding-top:24px}
+.empty{padding:36px 8px 20px;text-align:center}
+.empty h1{font:700 32px/1.2 var(--font);margin:0 0 10px;color:var(--ink)}
+.empty p{margin:0 auto 22px;max-width:560px;color:var(--muted)}
+.empty .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.empty .chips button{font:500 15px var(--font);background:#fff;color:var(--ink);border:1.5px solid var(--rule);border-radius:24px;padding:10px 16px;cursor:pointer}
+.empty .chips button:hover{border-color:var(--crimson);color:var(--crimson)}
+.answers .chat{margin:0;padding:0}
+.answers .chat-card{box-shadow:none;border:0;background:transparent;overflow:visible}
+.answers .chat-head{background:transparent;border:0;padding:0 4px 6px}
+.answers .thread{padding:6px 4px 12px;gap:28px}
+.answers .msg.user{background:none;color:var(--ink);padding:0;max-width:none;align-self:stretch;border-radius:0}
+.answers .msg.user .who{color:var(--muted)}
+.answers .msg.user p{font:700 26px/1.25 var(--font)}
+.answers .msg.bot{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:22px 24px;box-shadow:0 2px 12px rgba(33,37,41,.05)}
+.answers .text{font-size:17px}
+.answers .composer.dock{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);border-top:1px solid var(--rule);padding:12px 0;z-index:15;backdrop-filter:none}
+.answers .dock-in{display:flex;gap:10px;max-width:1040px}
+@media (max-width:800px){.ahead-in{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:10px;gap:8px}.ahead .langs{order:5;margin:0;flex-basis:100%;overflow-x:auto}.back span{display:none}.answers .msg.bot{padding:16px}.answers .msg.user p{font-size:21px}.empty h1{font-size:25px}}
+.answers .composer.dock{display:block}.answers .composer.dock .wrap{padding:0 20px}
+.answers .msg.user{scroll-margin-top:84px}
+.answers #empty:not([hidden]) ~ .chat{display:none}

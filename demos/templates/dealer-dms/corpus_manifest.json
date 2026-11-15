@@ -1,0 +1,667 @@
+{
+  "stock": [
+    {
+      "no": "CM-5102",
+      "year": 2023,
+      "make": "Toyota",
+      "model": "RAV4 GXL",
+      "body": "SUV",
+      "site": "Riverside",
+      "colour": "Silver Sky",
+      "odo": 4200,
+      "price": 42990,
+      "days_in_stock": 6,
+      "pdi_status": "In recon",
+      "recon_status": "Brake pads on order (BR-2210)",
+      "blocker": "Front brake pads below 3mm threshold"
+    },
+    {
+      "no": "CM-5118",
+      "year": 2022,
+      "make": "Ford",
+      "model": "Ranger XLT",
+      "body": "Ute",
+      "site": "Northgate",
+      "colour": "Meteor Grey",
+      "odo": 18900,
+      "price": 48990,
+      "days_in_stock": 11,
+      "pdi_status": "PDI hold",
+      "recon_status": "Recall remedy scheduled",
+      "blocker": "Open recall - rear differential seal, remedy not yet applied"
+    },
+    {
+      "no": "CM-5124",
+      "year": 2023,
+      "make": "Mazda",
+      "model": "CX-5 Touring",
+      "body": "SUV",
+      "site": "Riverside",
+      "colour": "Soul Red Crystal",
+      "odo": 6100,
+      "price": 46490,
+      "days_in_stock": 4,
+      "pdi_status": "In recon",
+      "recon_status": "Infotainment update pending",
+      "blocker": "Software update required before delivery"
+    },
+    {
+      "no": "CM-5137",
+      "year": 2021,
+      "make": "Hyundai",
+      "model": "i30 Active",
+      "body": "Hatch",
+      "site": "Northgate",
+      "colour": "Phantom Black",
+      "odo": 31200,
+      "price": 24990,
+      "days_in_stock": 19,
+      "pdi_status": "Ready for delivery",
+      "recon_status": "Tensioner replacement complete",
+      "blocker": null
+    },
+    {
+      "no": "CM-5145",
+      "year": 2023,
+      "make": "Isuzu",
+      "model": "D-Max SX",
+      "body": "Ute",
+      "site": "Riverside",
+      "colour": "Splash White",
+      "odo": 9800,
+      "price": 58990,
+      "days_in_stock": 3,
+      "pdi_status": "Ready for delivery",
+      "recon_status": "DPF regeneration complete",
+      "blocker": null
+    },
+    {
+      "no": "CM-5150",
+      "year": 2022,
+      "make": "Kia",
+      "model": "Sportage SX",
+      "body": "SUV",
+      "site": "Northgate",
+      "colour": "Gravity Blue",
+      "odo": 22400,
+      "price": 36990,
+      "days_in_stock": 8,
+      "pdi_status": "PDI hold",
+      "recon_status": "Firmware remedy applied, awaiting re-verification",
+      "blocker": "Open recall - airbag control unit, remedy applied, PDI re-check pending"
+    },
+    {
+      "no": "CM-5163",
+      "year": 2023,
+      "make": "Yamaha",
+      "model": "MT-07",
+      "body": "Motorcycle",
+      "site": "Riverside",
+      "colour": "Icon Blue",
+      "odo": 1400,
+      "price": 13990,
+      "days_in_stock": 2,
+      "pdi_status": "Ready for delivery",
+      "recon_status": "Standard detail only",
+      "blocker": null
+    },
+    {
+      "no": "CM-5171",
+      "year": 2021,
+      "make": "Subaru",
+      "model": "Outback Sport",
+      "body": "Wagon",
+      "site": "Northgate",
+      "colour": "Autumn Green",
+      "odo": 28700,
+      "price": 28990,
+      "days_in_stock": 24,
+      "pdi_status": "Ready for delivery",
+      "recon_status": "Disclosure prepared - prior repaint",
+      "blocker": null
+    },
+    {
+      "no": "CM-5184",
+      "year": 2023,
+      "make": "Toyota",
+      "model": "HiLux SR5",
+      "body": "Ute",
+      "site": "Riverside",
+      "colour": "Feverish Red",
+      "odo": 5300,
+      "price": 54990,
+      "days_in_stock": 9,
+      "pdi_status": "PDI hold",
+      "recon_status": "Recall remedy applied, road test logged",
+      "blocker": "Open recall - fuel pump control module, awaiting final sign-off"
+    },
+    {
+      "no": "CM-5192",
+      "year": 2022,
+      "make": "Honda",
+      "model": "CR-V VTi-L",
+      "body": "SUV",
+      "site": "Northgate",
+      "colour": "Platinum White",
+      "odo": 17600,
+      "price": 39990,
+      "days_in_stock": 14,
+      "pdi_status": "Ready for delivery",
+      "recon_status": "ADAS recalibration passed (2nd attempt)",
+      "blocker": null
+    },
+    {
+      "no": "CM-5205",
+      "year": 2023,
+      "make": "Suzuki",
+      "model": "Swift GL+",
+      "body": "Hatch",
+      "site": "Riverside",
+      "colour": "Speedy Blue",
+      "odo": 2100,
+      "price": 21990,
+      "days_in_stock": 5,
+      "pdi_status": "Ready for delivery",
+      "recon_status": "Standard detail only",
+      "blocker": null
+    },
+    {
+      "no": "CM-5213",
+      "year": 2021,
+      "make": "Ford",
+      "model": "Everest Trend",
+      "body": "SUV",
+      "site": "Northgate",
+      "colour": "Arctic White",
+      "odo": 33900,
+      "price": 44990,
+      "days_in_stock": 21,
+      "pdi_status": "Ready for delivery",
+      "recon_status": "Preventative seal replacement complete",
+      "blocker": null
+    },
+    {
+      "no": "CM-5226",
+      "year": 2023,
+      "make": "Kawasaki",
+      "model": "Ninja 650",
+      "body": "Motorcycle",
+      "site": "Riverside",
+      "colour": "Lime Green",
+      "odo": 800,
+      "price": 16990,
+      "days_in_stock": 1,
+      "pdi_status": "Ready for delivery",
+      "recon_status": "Standard detail only",
+      "blocker": null
+    },
+    {
+      "no": "CM-5234",
+      "year": 2022,
+      "make": "Mitsubishi",
+      "model": "Triton GLS",
+      "body": "Ute",
+      "site": "Northgate",
+      "colour": "Graphite Grey",
+      "odo": 20100,
+      "price": 37990,
+      "days_in_stock": 17,
+      "pdi_status": "In recon",
+      "recon_status": "Alignment correction before tyre fitment",
+      "blocker": "Rear alignment out of spec - correct before fitting new tyres"
+    }
+  ],
+  "docs": [
+    {
+      "file": "recon-manual-full-detail-paint-correction.md",
+      "title": "Recon Manual - Full Detail and Paint Correction Standard",
+      "doc_type": "recon-manual",
+      "tags": [
+        "recon",
+        "manual"
+      ]
+    },
+    {
+      "file": "recon-manual-windscreen-adas-calibration.md",
+      "title": "Recon Manual - Windscreen Replacement and ADAS Calibration Requirement",
+      "doc_type": "recon-manual",
+      "tags": [
+        "recon",
+        "manual"
+      ]
+    },
+    {
+      "file": "recon-manual-brake-pad-rotor-service.md",
+      "title": "Recon Manual - Brake Pad and Rotor Service Standard",
+      "doc_type": "recon-manual",
+      "tags": [
+        "recon",
+        "manual"
+      ]
+    },
+    {
+      "file": "recon-manual-pdi-standard.md",
+      "title": "Recon Manual - Pre-Delivery Inspection (PDI) Standard",
+      "doc_type": "recon-manual",
+      "tags": [
+        "recon",
+        "manual"
+      ]
+    },
+    {
+      "file": "recon-manual-tyre-wheel-alignment.md",
+      "title": "Recon Manual - Tyre and Wheel Alignment Standard",
+      "doc_type": "recon-manual",
+      "tags": [
+        "recon",
+        "manual"
+      ]
+    },
+    {
+      "file": "bulletin-toyota-fuel-pump-control-module.md",
+      "title": "Recall Bulletin - Toyota RAV4 and HiLux - Fuel Pump Control Module",
+      "doc_type": "recall",
+      "urgency": "high",
+      "tags": [
+        "compliance",
+        "recall"
+      ]
+    },
+    {
+      "file": "bulletin-ford-rear-differential-seal.md",
+      "title": "Recall Bulletin - Ford Ranger and Everest - Rear Differential Seal",
+      "doc_type": "recall",
+      "urgency": "high",
+      "tags": [
+        "compliance",
+        "recall"
+      ]
+    },
+    {
+      "file": "bulletin-mazda-infotainment-update.md",
+      "title": "Service Bulletin - Mazda CX-5 - Infotainment Software Update",
+      "doc_type": "service-bulletin",
+      "urgency": "low",
+      "tags": [
+        "compliance",
+        "service-bulletin"
+      ]
+    },
+    {
+      "file": "bulletin-hyundai-timing-chain-tensioner.md",
+      "title": "Service Bulletin - Hyundai i30 - Timing Chain Tensioner Noise",
+      "doc_type": "service-bulletin",
+      "urgency": "medium",
+      "tags": [
+        "compliance",
+        "service-bulletin"
+      ]
+    },
+    {
+      "file": "bulletin-kia-airbag-control-unit.md",
+      "title": "Recall Bulletin - Kia Sportage - Airbag Control Unit",
+      "doc_type": "recall",
+      "urgency": "high",
+      "tags": [
+        "compliance",
+        "recall"
+      ]
+    },
+    {
+      "file": "bulletin-isuzu-dpf-regeneration.md",
+      "title": "Service Bulletin - Isuzu D-Max - DPF Regeneration Cycle Advisory",
+      "doc_type": "service-bulletin",
+      "urgency": "medium",
+      "tags": [
+        "compliance",
+        "service-bulletin"
+      ]
+    },
+    {
+      "file": "compliance-fi-disclosure.md",
+      "title": "Compliance Policy - Finance and Insurance Disclosure Requirements",
+      "doc_type": "compliance",
+      "tags": [
+        "compliance"
+      ]
+    },
+    {
+      "file": "compliance-pdi-signoff.md",
+      "title": "Compliance Standard - Pre-Delivery Inspection Sign-Off Requirements",
+      "doc_type": "compliance",
+      "tags": [
+        "compliance"
+      ]
+    },
+    {
+      "file": "compliance-adr-modification-disclosure.md",
+      "title": "Compliance Note - Australian Design Rule (ADR) Modification Disclosure",
+      "doc_type": "compliance",
+      "tags": [
+        "compliance"
+      ]
+    },
+    {
+      "file": "compliance-consumer-guarantee-cooling-off.md",
+      "title": "Compliance Policy - Consumer Guarantee and Cooling-Off Disclosure",
+      "doc_type": "compliance",
+      "tags": [
+        "compliance"
+      ]
+    },
+    {
+      "file": "supplier-radiant-auto-glass.md",
+      "title": "Supplier Reliability Record - Radiant Auto Glass",
+      "doc_type": "supplier-record",
+      "tags": [
+        "supplier"
+      ]
+    },
+    {
+      "file": "supplier-trackgrip-tyres.md",
+      "title": "Supplier Reliability Record - TrackGrip Tyres",
+      "doc_type": "supplier-record",
+      "tags": [
+        "supplier"
+      ]
+    },
+    {
+      "file": "supplier-meridian-brake-components.md",
+      "title": "Supplier Reliability Record - Meridian Brake Components",
+      "doc_type": "supplier-record",
+      "tags": [
+        "supplier"
+      ]
+    },
+    {
+      "file": "supplier-solstice-paint-coatings.md",
+      "title": "Supplier Reliability Record - Solstice Paint and Coatings",
+      "doc_type": "supplier-record",
+      "tags": [
+        "supplier"
+      ]
+    },
+    {
+      "file": "parts-ws4410-windscreen-adas.md",
+      "title": "Parts Cross-Reference - WS-4410 Windscreen and ADAS Calibration Requirement",
+      "doc_type": "parts-reference",
+      "tags": [
+        "parts"
+      ]
+    },
+    {
+      "file": "parts-br2210-brake-pad-compatibility.md",
+      "title": "Parts Cross-Reference - BR-2210 Brake Pad Set Compatibility",
+      "doc_type": "parts-reference",
+      "tags": [
+        "parts"
+      ]
+    },
+    {
+      "file": "parts-tr1180-tyre-compatibility.md",
+      "title": "Parts Cross-Reference - TR-1180 Tyre Compatibility and Load Rating",
+      "doc_type": "parts-reference",
+      "tags": [
+        "parts"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5102.md",
+      "title": "Consultant Field Note - Stock CM-5102 (2023 Toyota RAV4 GXL)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5102",
+      "site": "Riverside",
+      "make": "Toyota",
+      "tags": [
+        "consultant-note",
+        "riverside"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5118.md",
+      "title": "Consultant Field Note - Stock CM-5118 (2022 Ford Ranger XLT)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5118",
+      "site": "Northgate",
+      "make": "Ford",
+      "tags": [
+        "consultant-note",
+        "northgate"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5124.md",
+      "title": "Consultant Field Note - Stock CM-5124 (2023 Mazda CX-5 Touring)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5124",
+      "site": "Riverside",
+      "make": "Mazda",
+      "tags": [
+        "consultant-note",
+        "riverside"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5137.md",
+      "title": "Consultant Field Note - Stock CM-5137 (2021 Hyundai i30 Active)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5137",
+      "site": "Northgate",
+      "make": "Hyundai",
+      "tags": [
+        "consultant-note",
+        "northgate"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5145.md",
+      "title": "Consultant Field Note - Stock CM-5145 (2023 Isuzu D-Max SX)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5145",
+      "site": "Riverside",
+      "make": "Isuzu",
+      "tags": [
+        "consultant-note",
+        "riverside"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5150.md",
+      "title": "Consultant Field Note - Stock CM-5150 (2022 Kia Sportage SX)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5150",
+      "site": "Northgate",
+      "make": "Kia",
+      "tags": [
+        "consultant-note",
+        "northgate"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5163.md",
+      "title": "Consultant Field Note - Stock CM-5163 (2023 Yamaha MT-07)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5163",
+      "site": "Riverside",
+      "make": "Yamaha",
+      "tags": [
+        "consultant-note",
+        "riverside"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5171.md",
+      "title": "Consultant Field Note - Stock CM-5171 (2021 Subaru Outback Sport)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5171",
+      "site": "Northgate",
+      "make": "Subaru",
+      "tags": [
+        "consultant-note",
+        "northgate"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5184.md",
+      "title": "Consultant Field Note - Stock CM-5184 (2023 Toyota HiLux SR5)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5184",
+      "site": "Riverside",
+      "make": "Toyota",
+      "tags": [
+        "consultant-note",
+        "riverside"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5192.md",
+      "title": "Consultant Field Note - Stock CM-5192 (2022 Honda CR-V VTi-L)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5192",
+      "site": "Northgate",
+      "make": "Honda",
+      "tags": [
+        "consultant-note",
+        "northgate"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5205.md",
+      "title": "Consultant Field Note - Stock CM-5205 (2023 Suzuki Swift GL+)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5205",
+      "site": "Riverside",
+      "make": "Suzuki",
+      "tags": [
+        "consultant-note",
+        "riverside"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5213.md",
+      "title": "Consultant Field Note - Stock CM-5213 (2021 Ford Everest Trend)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5213",
+      "site": "Northgate",
+      "make": "Ford",
+      "tags": [
+        "consultant-note",
+        "northgate"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5226.md",
+      "title": "Consultant Field Note - Stock CM-5226 (2023 Kawasaki Ninja 650)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5226",
+      "site": "Riverside",
+      "make": "Kawasaki",
+      "tags": [
+        "consultant-note",
+        "riverside"
+      ]
+    },
+    {
+      "file": "consultant-note-cm-5234.md",
+      "title": "Consultant Field Note - Stock CM-5234 (2022 Mitsubishi Triton GLS)",
+      "doc_type": "consultant-note",
+      "stock_no": "CM-5234",
+      "site": "Northgate",
+      "make": "Mitsubishi",
+      "tags": [
+        "consultant-note",
+        "northgate"
+      ]
+    },
+    {
+      "file": "spec-sheet-toyota-rav4-gxl.md",
+      "title": "Marketing Spec Sheet - Toyota RAV4 GXL (2023)",
+      "doc_type": "spec-sheet",
+      "tags": [
+        "marketing",
+        "toyota"
+      ]
+    },
+    {
+      "file": "spec-sheet-ford-ranger-xlt.md",
+      "title": "Marketing Spec Sheet - Ford Ranger XLT (2022)",
+      "doc_type": "spec-sheet",
+      "tags": [
+        "marketing",
+        "ford"
+      ]
+    },
+    {
+      "file": "spec-sheet-mazda-cx-5-touring.md",
+      "title": "Marketing Spec Sheet - Mazda CX-5 Touring (2023)",
+      "doc_type": "spec-sheet",
+      "tags": [
+        "marketing",
+        "mazda"
+      ]
+    },
+    {
+      "file": "spec-sheet-hyundai-i30-active.md",
+      "title": "Marketing Spec Sheet - Hyundai i30 Active (2021)",
+      "doc_type": "spec-sheet",
+      "tags": [
+        "marketing",
+        "hyundai"
+      ]
+    },
+    {
+      "file": "spec-sheet-isuzu-d-max-sx.md",
+      "title": "Marketing Spec Sheet - Isuzu D-Max SX (2023)",
+      "doc_type": "spec-sheet",
+      "tags": [
+        "marketing",
+        "isuzu"
+      ]
+    },
+    {
+      "file": "spec-sheet-kia-sportage-sx.md",
+      "title": "Marketing Spec Sheet - Kia Sportage SX (2022)",
+      "doc_type": "spec-sheet",
+      "tags": [
+        "marketing",
+        "kia"
+      ]
+    },
+    {
+      "file": "spec-sheet-yamaha-mt-07.md",
+      "title": "Marketing Spec Sheet - Yamaha MT-07 (2023)",
+      "doc_type": "spec-sheet",
+      "tags": [
+        "marketing",
+        "yamaha"
+      ]
+    },
+    {
+      "file": "spec-sheet-subaru-outback-sport.md",
+      "title": "Marketing Spec Sheet - Subaru Outback Sport (2021)",
+      "doc_type": "spec-sheet",
+      "tags": [
+        "marketing",
+        "subaru"
+      ]
+    },
+    {
+      "file": "spec-sheet-toyota-hilux-sr5.md",
+      "title": "Marketing Spec Sheet - Toyota HiLux SR5 (2023)",
+      "doc_type": "spec-sheet",
+      "tags": [
+        "marketing",
+        "toyota"
+      ]
+    },
+    {
+      "file": "spec-sheet-honda-cr-v-vti-l.md",
+      "title": "Marketing Spec Sheet - Honda CR-V VTi-L (2022)",
+      "doc_type": "spec-sheet",
+      "tags": [
+        "marketing",
+        "honda"
+      ]
+    }
+  ]
+}

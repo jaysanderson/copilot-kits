@@ -1,0 +1,13 @@
+{
+  "name": "hyperframes-video-build",
+  "private": true,
+  "version": "1.0.0",
+  "description": "HyperFrames video build. Pins are the newest mirror-approved versions (public npm is blocked; the corporate mirror 403s anything inside its ~14-day cooldown). Test a tarball's HTTP code before bumping either pin. gsap is a real dependency because every project vendors node_modules/gsap/dist/gsap.min.js into its own assets/ - a CDN reference renders a silently frozen video when the network is unavailable at render time.",
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "hyperframes": "0.8.15"
+  },
+  "overrides": {
+    "sharp": "0.34.2"
+  }
+}

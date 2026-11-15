@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: the maze of everything</title></head>
+<body>
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    /* Texture. These 186 labels must read as a MASS of content and never as
+       words - they are declared texture-exempt in STORYBOARD.json, and raising
+       them to a legibility floor would destroy the shot by turning a site into
+       a list. */
+    .mz-h { position: absolute; height: 34px; border-radius: 5px;
+      background: #8EA0C6; opacity: .92; }
+    .mz-c { position: absolute; height: 20px; border-radius: 4px;
+      background: #6E80AA; opacity: .80; }
+    .mz-g { position: absolute; height: 13px; border-radius: 3px;
+      background: #5A6B93; opacity: .62; }
+    /* The tree has to READ as a tree. Without these it is six columns of bars:
+       a spine down each section, and a tick from every child into its own
+       children, so nesting is visible rather than implied by indentation. */
+    .mz-spine { position: absolute; width: 2px; border-radius: 1px;
+      background: #46548059; }
+    .mz-tick { position: absolute; height: 2px; border-radius: 1px;
+      background: #46548073; }
+    /* The one page the visitor wants. Paper-bright from frame zero: it is
+       content that EXISTS, and the cruelty of the shot is that it stays lit
+       and unreached. */
+    .mz-target { background: #FFFFFF !important; opacity: 1 !important;
+      box-shadow: 0 0 22px rgba(255,255,255,.55); }
+    /* An opened branch that contains nothing. Not a missing row - a drawn,
+       empty one, because "the branch was empty" has to be SEEN. */
+    .mz-empty { position: absolute; height: 13px; border-radius: 3px;
+      border: 1px dashed #4C5B80; background: transparent; opacity: 0; }
+    .mz-disc { position: absolute; width: 34px; height: 34px; border-radius: 50%;
+      background: #FFFFFF; box-shadow: 0 6px 20px rgba(0,8,36,.6); }
+    .mz-disc::after { content: ""; position: absolute; inset: 11px;
+      border-radius: 50%; background: #00206B; }
+    .mz-trail { position: absolute; width: 10px; height: 10px; border-radius: 50%;
+      background: #FFFFFF; opacity: 0; }
+    /* MUST READ: 54px authored, which is ~11px delivered at 390 CSS px. */
+    .mz-pill { position: absolute; height: 84px; padding: 0 36px; border-radius: 42px;
+      border: 2px solid #D7DEEA; background: rgba(0,22,85,.62); color: #fff;
+      font-family: "ProgDisplay", sans-serif; font-size: 54px; font-weight: 500;
+      line-height: 80px; white-space: nowrap; }
+    .mz-count { position: absolute; font-family: "ProgDisplay", sans-serif;
+      font-size: 72px; font-weight: 600; color: #FFFFFF; letter-spacing: -.01em;
+      opacity: 0; }
+    .mz-count small { font-size: 34px; font-weight: 400; color: #9FB0D0;
+      margin-left: 14px; letter-spacing: 0; }
+    .mz-title { position: absolute; font-family: "ProgDisplay", sans-serif;
+      font-size: 58px; font-weight: 600; color: #fff; opacity: 0; }
+    .mz-title span { display: block; font-family: "ProgText", sans-serif;
+      font-size: 26px; font-weight: 400; color: #9FB0D0; margin-top: 10px; }
+    svg.mz-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="root" data-composition-id="m-mz" data-width="1920" data-height="1080"
+       data-duration="10.0">
+    <div id="mz-tree" style="position:absolute; inset:0;"></div>
+    <svg class="mz-svg" id="mz-svg" viewBox="0 0 1920 1080" fill="none"></svg>
+    <div class="mz-pill" id="mz-pill" data-var-text="mzQuestion">How do I apply?</div>
+    <div class="mz-disc" id="mz-disc"></div>
+    <div class="mz-count" id="mz-count"><span id="mz-countn">343</span><small>pages</small></div>
+    <div class="mz-title" id="mz-title" data-var-text="mzTitle">What University says<span
+      data-var-text="mzSub">a university site, with one change</span></div>
+  </div>
+
+  <script>
+  (function () {
+    // ---- geometry -------------------------------------------------------
+    const COLS = 6, CHILD = 5, GRAND = 5;     // 6 + 30 + 150 = 186 labels
+    const COLW = 200, GAP = 24;
+    const X0 = (1920 - (COLS * COLW + (COLS - 1) * GAP)) / 2;   // 300
+    const HY = 196;                            // header row
+    const CY = 250;                            // first child row
+    const CH = 28, CGAP = 6, GH = 13, GGAP = 6;
+    const IND_C = 26, IND_G = 56;   // deeper indents: 16/34 did not read as nesting
+    const BLOCK = CH + CGAP + GRAND * (GH + GGAP);              // one child block
+    const tree = document.getElementById("mz-tree");
+    const svg = document.getElementById("mz-svg");
+    let seed = 20261009;
+    const rnd = () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296;
+
+    const heads = [], kids = [], grands = [];
+    for (let c = 0; c < COLS; c++) {
+      const x = X0 + c * (COLW + GAP);
+      const h = document.createElement("div");
+      h.className = "mz-h"; h.id = "mz-h" + c;
+      h.style.left = x + "px"; h.style.top = HY + "px";
+      h.style.width = (COLW - 30 - rnd() * 40) + "px";
+      tree.appendChild(h); heads.push(h);
+      const spine = document.createElement("div");
+      spine.className = "mz-spine";
+      spine.style.left = (x + 6) + "px"; spine.style.top = (HY + 34) + "px";
+      spine.style.height = (CHILD * BLOCK - 10) + "px";
+      tree.appendChild(spine);
+      for (let k = 0; k < CHILD; k++) {
+        const ky = CY + k * BLOCK;
+        const kd = document.createElement("div");
+        kd.className = "mz-c"; kd.id = `mz-c${c}-${k}`;
+        kd.style.left = (x + IND_C) + "px"; kd.style.top = ky + "px";
+        kd.style.width = (COLW - IND_C - 30 - rnd() * 44) + "px";
+        tree.appendChild(kd); kids.push(kd);
+        for (let g = 0; g < GRAND; g++) {
+          const gd = document.createElement("div");
+          gd.className = "mz-g"; gd.id = `mz-g${c}-${k}-${g}`;
+          gd.style.left = (x + IND_G) + "px";
+          gd.style.top = (ky + CH + CGAP + g * (GH + GGAP)) + "px";
+          gd.style.width = (COLW - IND_G - 26 - rnd() * 44) + "px";
+          tree.appendChild(gd); grands.push(gd);
+          const tick = document.createElement("div");
+          tick.className = "mz-tick";
+          tick.style.left = (x + IND_C + 4) + "px";
+          tick.style.top = (ky + CH + CGAP + g * (GH + GGAP) + 6) + "px";
+          tick.style.width = (IND_G - IND_C - 8) + "px";
+          tree.appendChild(tick);
+        }
+        const kspine = document.createElement("div");
+        kspine.className = "mz-spine";
+        kspine.style.left = (x + IND_C + 4) + "px";
+        kspine.style.top = (ky + CH + CGAP) + "px";
+        kspine.style.height = (GRAND * (GH + GGAP) - GGAP + 6) + "px";
+        tree.appendChild(kspine);
+      }
+    }
+    // The page the visitor wants: column 5, child 4, grandchild 3. Deep, far
+    // from where the disc starts, and lit from the first frame.
+    const target = document.getElementById("mz-g4-3-2");
+    target.classList.add("mz-target");
+
+    // The empty branch. Drawn where column 4 / child 2's grandchildren are, so
+    // when the disc opens it there is a visible row with nothing in it.
+    const emptyX = X0 + 3 * (COLW + GAP) + 34;
+    const emptyY = CY + 2 * BLOCK + CH + CGAP;
+    const empty = document.createElement("div");
+    empty.className = "mz-empty"; empty.id = "mz-empty";
+    empty.style.left = emptyX + "px"; empty.style.top = emptyY + "px";
+    empty.style.width = (COLW - 70) + "px";
+    tree.appendChild(empty);
+
+    const pill = document.getElementById("mz-pill");
+    const disc = document.getElementById("mz-disc");
+    const count = document.getElementById("mz-count");
+    const title = document.getElementById("mz-title");
+    pill.style.left = "300px"; pill.style.top = "78px";
+    count.style.left = "300px"; count.style.top = "952px";
+    title.style.left = "1180px"; title.style.top = "930px";
+    // The disc is ON SCREEN AT t=0 (GRAMMAR rule 7). The first word event moves
+    // it; it does not arrive on one.
+    const HOME = { x: X0 - 62, y: HY - 2 };
+    disc.style.left = HOME.x + "px"; disc.style.top = HOME.y + "px";
+
+    const colOf = (c) => X0 + c * (COLW + GAP);
+    const path = (el, x, y) => ({ el, x, y });
+
+    // ---- event constants. Rebased from the narration alignment when reused --
+    const AT_RIPPLE = 0.55, AT_COUNT = 1.30, AT_TARGET = 2.60,
+          AT_DESCEND = 4.10, AT_D2 = 5.00, AT_D3 = 5.70, AT_EMPTY = 6.45,
+          AT_RECOIL = 7.50, AT_TITLE = 8.40;
+
+    const tl = gsap.timeline({ paused: true,
+      defaults: { duration: 0.6, ease: "power3.out" } });
+
+    // The tree is ALIVE from frame zero: a slow parallax drift so the shot is
+    // never perceptually still even while nothing is happening.
+    tl.to(tree, { y: -14, duration: 10.0, ease: "sine.inOut" }, 0);
+
+    // 1. The scale reads as a COUNT, not a texture: a ripple from the top left.
+    tl.to(heads, { opacity: 1, duration: .28, stagger: .035 }, AT_RIPPLE);
+    tl.to(kids, { opacity: .95, duration: .26, stagger: .006 }, AT_RIPPLE + .1);
+    tl.to(grands, { opacity: .82, duration: .26, stagger: .0022 }, AT_RIPPLE + .18);
+    tl.to(kids, { opacity: .80, duration: .5 }, AT_RIPPLE + .9);
+    tl.to(grands, { opacity: .62, duration: .5 }, AT_RIPPLE + .9);
+
+    // 2. The counter sets.
+    tl.fromTo(count, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .5 }, AT_COUNT);
+
+    // 3. The target identifies itself WITHOUT a word naming it.
+    tl.to(target, { scale: 1.9, duration: .34, ease: "power2.out" }, AT_TARGET);
+    tl.to(target, { scale: 1.35, duration: .5 }, AT_TARGET + .34);
+
+    // 4. Four descents. Each opens a branch that does not contain the target.
+    const trails = [];
+    for (let i = 0; i < 5; i++) {
+      const d = document.createElement("div");
+      d.className = "mz-trail"; tree.appendChild(d); trails.push(d);
+    }
+    let hopN = 0;
+    const hop = (t, x, y, dim) => {
+      // A trail dot left at the point of departure, so a STILL frame shows that
+      // the disc has been travelling rather than sitting.
+      const from = trails[hopN++];
+      if (from) {
+        tl.set(from, { left: () => parseFloat(disc.style.left) + 12,
+                       top: () => parseFloat(disc.style.top) + 12 }, t);
+        tl.to(from, { opacity: .5, duration: .2 }, t);
+        tl.to(from, { opacity: .14, duration: 1.2 }, t + .5);
+      }
+      tl.to(disc, { left: x, top: y, duration: .42, ease: "power2.inOut" }, t);
+      if (dim) tl.to(dim, { opacity: .18, duration: .4 }, t);
+    };
+    const otherCols = [];
+    for (let c = 0; c < COLS; c++) if (c !== 1) otherCols.push(heads[c]);
+    const colKids = (c) => kids.filter((k) => k.id.startsWith(`mz-c${c}-`));
+    const colGr = (c) => grands.filter((g) => g.id.startsWith(`mz-g${c}-`));
+
+    hop(AT_DESCEND, colOf(1) - 48, HY - 2);
+    tl.to([...colKids(1), ...colGr(1)], { opacity: 1, duration: .35 }, AT_DESCEND + .15);
+    tl.to(otherCols.concat(colGr(0), colGr(2), colGr(4), colGr(5))
+            .filter((e) => e !== target),
+          { opacity: .16, duration: .5 }, AT_DESCEND + .2);
+
+    hop(AT_D2, colOf(1) + 2, CY + 2 * BLOCK);
+    hop(AT_D3, colOf(1) + 20, CY + 2 * BLOCK + CH + CGAP + 2 * (GH + GGAP));
+
+    // 5. The fourth branch is EMPTY - drawn, and with nothing inside it.
+    hop(AT_EMPTY, colOf(3) + 2, CY + 2 * BLOCK);
+    tl.to([heads[3], ...colKids(3)], { opacity: 1, duration: .3 }, AT_EMPTY + .1);
+    tl.to([heads[1], ...colKids(1), ...colGr(1)], { opacity: .16, duration: .4 },
+          AT_EMPTY);
+    tl.to(empty, { opacity: 1, duration: .35 }, AT_EMPTY + .25);
+
+    // 6. The recoil. The disc gives up and returns to where it started, and the
+    //    tree comes back to uniform - with the target still lit and unvisited.
+    tl.to(disc, { left: colOf(3) + 2, top: CY + 2 * BLOCK - 42,
+                  duration: .22, ease: "power3.out" }, AT_RECOIL);
+    tl.to(disc, { left: HOME.x, top: HOME.y, duration: .9,
+                  ease: "power2.inOut" }, AT_RECOIL + .22);
+    tl.to([...heads, ...kids], { opacity: .8, duration: .7 }, AT_RECOIL + .3);
+    tl.to(grands.filter((g) => g !== target), { opacity: .62, duration: .7 },
+          AT_RECOIL + .3);
+    tl.to(empty, { opacity: 0, duration: .5 }, AT_RECOIL + .3);
+    tl.to(target, { scale: 1.6, duration: .5, ease: "power2.out" }, AT_RECOIL + .6);
+    tl.to(target, { scale: 1.35, duration: .8 }, AT_RECOIL + 1.1);
+
+    // 7. The film's title sets late, over the pain, never before it.
+    tl.fromTo(title, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .7 }, AT_TITLE);
+
+    window.__motifTimeline = tl;
+    if (window.hyperframes && window.hyperframes.register) {
+      window.hyperframes.register(tl);
+    }
+  })();
+  </script>
+</template>
+</body>
+</html>

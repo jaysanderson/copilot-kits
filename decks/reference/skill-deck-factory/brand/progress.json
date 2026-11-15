@@ -1,0 +1,18 @@
+{
+  "domain": "progress.com",
+  "logo": "progress-com-logo.png",
+  "primary": "#5ce500",
+  "ink": "#151950",
+  "palette": [
+    "#5ce500",
+    "#151950",
+    "#4b3fe4",
+    "#e7eaf4",
+    "#110a3c"
+  ],
+  "fonts": {
+    "body": "ProgressText, Roboto, Arial, Helvetica, sans-serif",
+    "heading": "ProgressDisplay, Metric, Arial, Helvetica, sans-serif"
+  },
+  "captured_at": "2026-07-03T04:12:24.745490+00:00"
+}

@@ -1,0 +1,21 @@
+<h2>How this works</h2>
+<p>Every answer on this page comes from a real request to Progress Agentic RAG, run over a knowledge base of 343 pages crawled from university.edu.au. Nothing is pre-written.</p>
+<div class="flow">
+ <div class="step"><b>1. Your browser</b><small>You ask in English, Chinese, Arabic or Bahasa Indonesia on the home page. Asking opens a results page that carries your question and language in its address. The question is sent as typed. It is not translated first.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step srv"><b>2. This app's own server</b><small>Holds the credentials, so no key ever reaches your browser. It pins a low-cost generative model and sends one request.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step srv"><b>3. Progress Agentic RAG: retrieval and generation</b><small>A multilingual semantic index matches your question, in any of the four languages, to the English pages. A cited answer is generated in your language, and each claim is tied to the passages that support it.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step srv"><b>4. Back on the server</b><small>Citation positions become numbered markers at the claims they support, each resolved to the real university.edu.au page. If nothing sourced is found, the whole response is withheld rather than guessed.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step"><b>5. Your answer</b><small>The answer streams onto the results page as it is generated, with numbered citations at the claim, a source list, follow-up questions in the same conversation, and a next step that links out to University's own application, course or scholarship pages. Arabic answers display right to left.</small></div>
+</div>
+<h2 style="margin-top:22px">Put it on your own site</h2>
+<p>The same ask, language choice and cited answer ship as an embeddable widget: one script tag and one mount point. It talks only to this server, so no key or knowledge base address is ever in your page.</p>
+<pre style="background:#f6f7f8;border-radius:8px;padding:14px;overflow:auto;font-size:13px">&lt;script src="https://your-app.fly.dev/static/embed/widget.js" async&gt;&lt;/script&gt;
+&lt;div data-ask-widget data-langs="en,zh,ar,id"&gt;&lt;/div&gt;</pre>
+<p><small>Optional <code>data-scope</code> limits answers to a section of the site (study, scholarships, how-to-apply, international). Unknown scopes are rejected rather than answered unscoped. For this demonstration the widget accepts requests from any website on purpose, so it can mount anywhere; a production deployment restricts it to your own domains.</small></p>
+<h2 style="margin-top:22px">The next step is your own content</h2>
+<p>This ran on University's public pages, so you could see it work with nothing to set up. The question that matters is what it does on the content your students and staff actually ask about: your course guides, policies, fee schedules, even recorded sessions. Bring a sample, and we will stand this up on it, in the languages you serve, with the same cited answers.</p>
+<p><small>This is a demonstration on public University content, rebuilt on your own content on request. No application is taken or processed here.</small></p>

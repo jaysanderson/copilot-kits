@@ -1,0 +1,152 @@
+[
+  {
+    "tenant": "university-vet",
+    "file": "content/seed/vet/hendra-virus-exposure-protocol.md",
+    "title": "Hendra Virus Exposure Protocol for Equine Referrals",
+    "topic": "biosecurity-emerging-disease",
+    "published": "2026-02-11",
+    "type": "protocol",
+    "summary": "Standing procedure for receiving a horse with acute febrile neurological or respiratory signs where Hendra virus has not been excluded, covering vaccination-status triage, personal protective equipment, sampling order and the point at which a case is refused admission.",
+    "keyFacts": [
+      "An unvaccinated horse with acute febrile neurological signs is handled as a suspect case until laboratory exclusion.",
+      "Sampling order places EDTA blood before nasal swab to limit aerosol generation during restraint.",
+      "A case cannot be admitted to the general equine ward before exclusion, regardless of referring practice assurance."
+    ],
+    "synthetic": true
+  },
+  {
+    "tenant": "university-vet",
+    "file": "content/seed/vet/canine-cruciate-surgical-case-review.md",
+    "title": "Cranial Cruciate Ligament Repair: Twelve-Month Case Review",
+    "topic": "companion-animal",
+    "published": "2025-11-03",
+    "type": "case-review",
+    "summary": "A review of cranial cruciate ligament repairs performed in the small animal surgical unit over twelve months, comparing tibial plateau levelling osteotomy against extracapsular stabilisation by bodyweight band, with complication types and return-to-function timelines.",
+    "keyFacts": [
+      "Tibial plateau levelling osteotomy was selected for the large-breed band in most cases.",
+      "Extracapsular stabilisation showed comparable outcomes below the small-breed weight threshold.",
+      "Surgical site infection was the most frequently recorded complication across both techniques."
+    ],
+    "synthetic": true
+  },
+  {
+    "tenant": "university-vet",
+    "file": "content/seed/vet/wa-wildlife-triage-guideline.md",
+    "title": "Triage Guideline for Western Australian Native Wildlife Admissions",
+    "topic": "wildlife-conservation",
+    "published": "2026-01-19",
+    "type": "guideline",
+    "summary": "Guidance for first assessment of native wildlife presented by the public or by rescue groups, covering species-specific handling risk, the criteria that make euthanasia the correct first decision, and the records required before a release-track animal enters rehabilitation.",
+    "keyFacts": [
+      "Handling risk is assessed before clinical assessment for raptors, macropods and monitors.",
+      "Release prospect is recorded at admission and drives the treatment plan from the first hour.",
+      "An animal with no realistic release prospect is not placed on a rehabilitation pathway."
+    ],
+    "synthetic": true
+  },
+  {
+    "tenant": "university-vet",
+    "file": "content/seed/vet/antimicrobial-stewardship-teaching-hospital.md",
+    "title": "Antimicrobial Stewardship in the Teaching Hospital",
+    "topic": "clinical-practice",
+    "published": "2025-08-27",
+    "type": "policy",
+    "summary": "The hospital's prescribing policy, setting out which antimicrobial classes are unrestricted, which require senior approval, and which are not prescribed at all, with the rationale that a teaching hospital's prescribing habits become the profession's prescribing habits.",
+    "keyFacts": [
+      "Third-generation cephalosporins and fluoroquinolones require senior clinician approval before dispensing.",
+      "Culture and sensitivity is required before any restricted-class course beyond 48 hours.",
+      "Prescribing is audited monthly and the audit is taught rather than filed."
+    ],
+    "synthetic": true
+  },
+  {
+    "tenant": "university-vet",
+    "file": "content/seed/vet/ovine-footrot-district-survey.md",
+    "title": "Virulent Footrot in a Southern Grazing District: Survey and Control Outcomes",
+    "topic": "animal-health-production",
+    "published": "2025-06-30",
+    "type": "report",
+    "summary": "A district survey of virulent footrot across sheep enterprises following an unusually wet spring, reporting spread patterns, the effect of early versus delayed inspection, and the farm-level factors that separated properties that eradicated from those that did not.",
+    "keyFacts": [
+      "Properties inspecting within two weeks of the first lameness report had materially better eradication outcomes.",
+      "Shared transport and agistment were the two most frequently identified introduction routes.",
+      "Eradication succeeded only where a property committed to a full inspection of every animal."
+    ],
+    "synthetic": true
+  },
+  {
+    "tenant": "university-vet",
+    "file": "content/seed/vet/equine-colic-referral-decision.md",
+    "title": "Deciding to Refer: Equine Colic in First-Opinion Practice",
+    "topic": "equine",
+    "published": "2025-10-14",
+    "type": "guideline",
+    "summary": "Decision guidance for first-opinion practitioners on when an equine colic case should be referred for surgical assessment, written around the finding that the cost of a late referral falls almost entirely on the horse rather than on the decision-maker.",
+    "keyFacts": [
+      "Persistent pain despite adequate analgesia is the single strongest indication for referral.",
+      "Transport time is factored into the decision rather than used to defer it.",
+      "A referral that turns out to be unnecessary is a better outcome than a late one."
+    ],
+    "synthetic": true
+  },
+  {
+    "tenant": "university-vet",
+    "file": "content/seed/vet/diagnostic-imaging-request-quality.md",
+    "title": "Why Imaging Requests Get Rejected: A Review of Returned Submissions",
+    "topic": "diagnostics-pathology",
+    "published": "2026-03-05",
+    "type": "report",
+    "summary": "An audit of diagnostic imaging requests returned to the submitting clinician without a report, identifying the four reasons that account for most rejections and the consequences of each for the patient and for turnaround time.",
+    "keyFacts": [
+      "Absent clinical history was the most common single reason a request was returned.",
+      "A request naming no specific question cannot be prioritised against other work.",
+      "Rejections concentrate in after-hours submissions rather than in any particular service."
+    ],
+    "synthetic": true
+  },
+  {
+    "tenant": "university-vet",
+    "file": "content/seed/vet/clinical-rotation-assessment-rubric.md",
+    "title": "Assessing a Student on Clinical Rotation: What Is Actually Being Marked",
+    "topic": "teaching-clinical-training",
+    "published": "2025-09-08",
+    "type": "guideline",
+    "summary": "The assessment rubric for final-year clinical rotations, written to make explicit what supervising clinicians are marking, with particular attention to the difference between a student who does not know something and one who does not know that they do not know it.",
+    "keyFacts": [
+      "Recognising the limit of one's own competence is assessed separately from clinical knowledge.",
+      "A student who asks for help at the right moment is marked up, not down.",
+      "A single unsafe act is not averaged against good performance elsewhere."
+    ],
+    "synthetic": true
+  },
+  {
+    "tenant": "university-vet",
+    "file": "content/seed/vet/paralysis-tick-seasonal-advisory.md",
+    "title": "Paralysis Tick Presentations: Seasonal Advisory and Owner Guidance",
+    "topic": "companion-animal",
+    "published": "2025-12-02",
+    "type": "advisory",
+    "summary": "Seasonal advisory on paralysis tick presentations in companion animals, covering the clinical progression owners most often miss, why searching is not a substitute for prevention, and the handling of animals presented from outside the usual distribution.",
+    "keyFacts": [
+      "Voice change and an altered swallow commonly precede visible limb weakness.",
+      "A negative owner search does not exclude tick paralysis.",
+      "Travel history is taken in every suspect case, including from outside the usual distribution."
+    ],
+    "synthetic": true
+  },
+  {
+    "tenant": "university-vet",
+    "file": "content/seed/vet/necropsy-submission-standards.md",
+    "title": "Necropsy Submission Standards for Production Animal Cases",
+    "topic": "diagnostics-pathology",
+    "published": "2026-04-21",
+    "type": "protocol",
+    "summary": "Standards for submitting production animal carcases and tissue for post-mortem examination, covering the cold chain, which tissues must be submitted fresh and which fixed, and why a submission without a history is frequently unanswerable.",
+    "keyFacts": [
+      "Fixed and fresh tissue are submitted in separate containers and never in the same bag.",
+      "Autolysis, not disease, is the most common reason a submission cannot be interpreted.",
+      "A submission without a history and a differential list is frequently unanswerable."
+    ],
+    "synthetic": true
+  }
+]

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: pages nobody can reach</title></head>
+<body>
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    /* 287 page tiles. Texture by declaration: they must read as a FIELD of
+       content, never as words, so the title rule inside each is a rule and not
+       type. Raising these to a legibility floor would destroy the shot. */
+    .nv-t { position: absolute; width: 54px; height: 30px; border-radius: 4px;
+      background: #35477A; }
+    .nv-t i { position: absolute; left: 7px; top: 9px; height: 5px; border-radius: 2px;
+      background: #5E739F; display: block; }
+    .nv-lit { background: #00B563 !important; box-shadow: 0 0 26px rgba(0,181,99,.75); }
+    .nv-lit i { background: #CFFFE6 !important; }
+    .nv-reach { background: #16734E !important; }
+    .nv-reach i { background: #6FD9A8 !important; }
+    /* MUST READ: both counters. */
+    .nv-count { position: absolute; font-family: "ProgDisplay", sans-serif;
+      font-weight: 600; color: #FFFFFF; opacity: 0; }
+    .nv-count small { font-family: "ProgText", sans-serif; font-weight: 400;
+      color: #9FB0D0; letter-spacing: .04em; margin-left: 14px; }
+    #nv-c1 { left: 180px; top: 918px; font-size: 72px; }
+    #nv-c1 small { font-size: 30px; }
+    #nv-c2 { left: 700px; top: 934px; font-size: 54px; }
+    #nv-c2 small { font-size: 24px; }
+    svg.nv-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="root" data-composition-id="m-nv" data-width="1920" data-height="1080"
+       data-duration="10.5">
+    <div id="nv-field" style="position:absolute; inset:0;"></div>
+    <svg class="nv-svg" id="nv-svg" viewBox="0 0 1920 1080" fill="none"></svg>
+    <div class="nv-count" id="nv-c1">287<small data-var-text="nvTotal">pages</small></div>
+    <div class="nv-count" id="nv-c2">14<small data-var-text="nvReached">reached by the menu</small></div>
+  </div>
+
+  <script>
+  (function () {
+    const field = document.getElementById("nv-field");
+    const svg = document.getElementById("nv-svg");
+    const COLS = 21, N = 287;                 // 21 x 14 grid less seven
+    const TW = 54, TH = 30, GX = 12, GY = 12;
+    const W = COLS * TW + (COLS - 1) * GX;    // 1374
+    const X0 = (1920 - W) / 2, Y0 = 150;
+    let seed = 20261010;
+    const rnd = () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296;
+
+    const tiles = [];
+    for (let i = 0; i < N; i++) {
+      const c = i % COLS, r = (i - c) / COLS;
+      const el = document.createElement("div");
+      el.className = "nv-t"; el.id = "nv-t" + i;
+      el.style.left = (X0 + c * (TW + GX)) + "px";
+      el.style.top = (Y0 + r * (TH + GY)) + "px";
+      const bar = document.createElement("i");
+      bar.style.width = (22 + rnd() * 24) + "px";
+      el.appendChild(bar);
+      field.appendChild(el); tiles.push(el);
+    }
+    // The page the visitor is on: middle of the field, lit from frame zero.
+    const HOME = 7 * COLS + 10;
+    tiles[HOME].classList.add("nv-lit");
+
+    // The fourteen the MENU reaches in two steps. Deliberately CLUSTERED around
+    // the home tile, because that is what a menu does - it reaches its own
+    // neighbourhood. Scattering them would make the island look like coverage.
+    const REACH = [HOME - COLS - 1, HOME - COLS, HOME - COLS + 1,
+                   HOME - 1, HOME + 1,
+                   HOME + COLS - 1, HOME + COLS, HOME + COLS + 1,
+                   HOME - 2 * COLS, HOME + 2 * COLS,
+                   HOME - 2, HOME + 2, HOME - 2 * COLS + 1, HOME + 2 * COLS - 1];
+
+    const mk = (a, b) => {
+      const ax = parseFloat(tiles[a].style.left) + TW / 2;
+      const ay = parseFloat(tiles[a].style.top) + TH / 2;
+      const bx = parseFloat(tiles[b].style.left) + TW / 2;
+      const by = parseFloat(tiles[b].style.top) + TH / 2;
+      const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      p.setAttribute("d", `M ${ax} ${ay} L ${bx} ${by}`);
+      p.setAttribute("stroke", "#00B563"); p.setAttribute("stroke-width", "2.4");
+      p.setAttribute("fill", "none"); p.setAttribute("stroke-linecap", "round");
+      svg.appendChild(p);
+      const L = p.getTotalLength();
+      p.style.strokeDasharray = L; p.style.strokeDashoffset = L;
+      return p;
+    };
+    const links = REACH.map((r) => mk(HOME, r));
+
+    const c1 = document.getElementById("nv-c1"), c2 = document.getElementById("nv-c2");
+    const AT_COUNT = 1.10, AT_PULSE = 3.20, AT_DRAW = 4.10, AT_DIM = 5.60;
+    const tl = gsap.timeline({ paused: true,
+      defaults: { duration: 0.6, ease: "power3.out" } });
+
+    // The field is alive from frame zero.
+    tl.to(field, { y: -12, duration: 10.5, ease: "sine.inOut" }, 0);
+    tl.to(tiles[HOME], { scale: 1.25, duration: 1.4, ease: "sine.inOut",
+                         repeat: 6, yoyo: true }, 0);
+
+    // 1. The count reads as THIS field, not as a statistic: a ripple outward
+    //    from the lit tile, then the number.
+    tiles.forEach((el, i) => {
+      const c = i % COLS, r = (i - c) / COLS;
+      const d = Math.hypot(c - (HOME % COLS), r - Math.floor(HOME / COLS));
+      tl.fromTo(el, { filter: "brightness(1)" },
+                { filter: "brightness(1.75)", duration: .18, yoyo: true, repeat: 1 },
+                AT_COUNT + d * 0.035);
+    });
+    tl.fromTo(c1, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .55 },
+              AT_COUNT + .3);
+
+    // 2. The menu reaches. Fourteen tiles light, counted ON SCREEN as they go.
+    tl.to(tiles[HOME], { scale: 1.35, duration: .3 }, AT_PULSE);
+    tl.to(tiles[HOME], { scale: 1.15, duration: .4 }, AT_PULSE + .3);
+    links.forEach((p, i) => {
+      tl.to(p, { strokeDashoffset: 0, duration: .26, ease: "power2.out" },
+            AT_DRAW + i * 0.04);
+      // tl.set, NOT tl.add(callback). A callback fires on PLAYBACK and does not
+      // re-run when a paused timeline is seeked, so on every sampled frame the
+      // reached tiles were still the base colour - the second instance of this
+      // exact class in one sitting (the view counter was the first). Anything
+      // that must be TRUE AT A TIME is a tween or a set, never a callback.
+      tl.set(tiles[REACH[i]], { backgroundColor: "#16734E" },
+             AT_DRAW + i * 0.04 + .2);
+      tl.set(tiles[REACH[i]].firstChild, { backgroundColor: "#6FD9A8" },
+             AT_DRAW + i * 0.04 + .2);
+      tl.set(c2.firstChild, { textContent: String(i + 1) }, AT_DRAW + i * 0.04 + .2);
+    });
+    tl.fromTo(c2, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .4 }, AT_DRAW);
+
+    // 3. The other 273 go DEAD GREY at once. The ratio is now a picture: a
+    //    fourteen-tile island in a field of 287. The pain STOPS here - the
+    //    threads that reach 213 belong to the live footage, so this animation
+    //    never performs the solution.
+    const dead = tiles.filter((_, i) => i !== HOME && !REACH.includes(i));
+    tl.to(dead, { backgroundColor: "#232D45", duration: .7 }, AT_DIM);
+    tl.to(dead.map((d) => d.firstChild), { backgroundColor: "#2F3A55", duration: .7 },
+          AT_DIM);
+    tl.to(dead, { opacity: .5, duration: .7 }, AT_DIM);
+
+    window.__motifTimeline = tl;
+    if (window.hyperframes && window.hyperframes.register) {
+      window.hyperframes.register(tl);
+    }
+  })();
+  </script>
+</template>
+</body>
+</html>

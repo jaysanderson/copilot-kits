@@ -1,0 +1,88 @@
+[
+  {
+    "layout": "1_Product Slide - Sitefinity",
+    "text": {
+      "0": "Sitefinity CMS: The Agentic RAG Connector",
+      "16": "Turning your CMS content into grounded, cited AI answers"
+    },
+    "notes": "[0:00-0:12] OPEN. Plain, confident.\nSitefinity CMS has a native connector into Progress Agentic RAG. This is what it does, how it's set up, and what it's honestly not yet covering."
+  },
+  {
+    "layout": "Title and Content with Bullets",
+    "text": {
+      "0": "A native integration, not a bolt-on",
+      "10": [
+        "Sitefinity indexes selected content types from the sites you choose",
+        "Content is sent to a Progress Agentic RAG knowledge box as resources",
+        "Each resource is split into searchable text blocks for retrieval and grounded answers"
+      ]
+    },
+    "notes": "[0:12-0:32] WHAT IT IS.\nThis is a native integration built into Sitefinity Cloud. Once you connect it, Sitefinity automatically indexes the content types you've selected, from the sites you've selected, and sends them to a Progress Agentic RAG knowledge box as resources. Each one gets split into searchable text blocks, ready for retrieval and grounded answers, not just keyword matching."
+  },
+  {
+    "layout": "Two columns",
+    "text": {
+      "0": "What gets indexed",
+      "12": [
+        "Content types",
+        "Videos",
+        "Static HTML",
+        "News items",
+        "Lists and list items",
+        "Images, events, documents",
+        "Content blocks, blogs, blog posts",
+        "Dynamic content types"
+      ],
+      "11": [
+        "Field types",
+        "Short text fields",
+        "Long text fields",
+        "Number fields",
+        "Tags",
+        "Categories",
+        "Custom classifications (from v15.4.8627)"
+      ]
+    },
+    "notes": "[0:32-0:50] COVERAGE.\nCoverage is broad on both sides. On content, it spans video, static HTML, news, lists, images, events, documents, content blocks and blogs, plus dynamic content types. On fields, it picks up short and long text, numbers, tags, categories, and from version 15.4.8627, custom classifications too."
+  },
+  {
+    "layout": "Title and Content with Bullets",
+    "text": {
+      "0": "Set it up in six steps",
+      "10": [
+        "Administration -> Agentic RAG connection",
+        "Click Create a connection, name it",
+        "Select the content types and source sites to index",
+        "Enter your knowledge box's NucliaDB endpoint",
+        "Add the knowledge box UID and a Writer API key",
+        "Click Create - indexing starts automatically"
+      ]
+    },
+    "notes": "[0:50-1:12] SETUP.\nSetup is six steps, all inside Sitefinity. Go to Administration, then Agentic RAG connection, and create a connection. Name it, pick your content types and source sites, then hand it three things from your Progress Agentic RAG knowledge box: the NucliaDB endpoint, the knowledge box UID, and an API key with Writer permissions. Click Create, and indexing starts."
+  },
+  {
+    "layout": "Title and Content with Bullets",
+    "text": {
+      "0": "What it enables",
+      "10": [
+        "AI-powered search queries over your indexed content",
+        "Context-aware responses, not just keyword matches",
+        "LLM-based content retrieval, grounded in your own CMS",
+        "Surfaced through the AI Assistant widget and AI Search widget"
+      ]
+    },
+    "notes": "[1:12-1:32] WHAT IT ENABLES.\nOnce content's indexed, it powers AI search queries, context-aware responses and LLM-based retrieval, grounded in your own CMS content, not a generic model guess. In practice, that shows up through two widgets: an AI Assistant for conversational search, and an AI Search widget for a more traditional context-aware search box."
+  },
+  {
+    "layout": "Statement slide 1",
+    "text": {
+      "0": "One honest caveat: third-party resources need a manual fix"
+    },
+    "notes": "[1:32-1:48] THE CAVEAT.\nOne thing worth knowing before you roll this out: third-party resources don't get an Original file path field populated automatically by Sitefinity. Without it, they're left out of AI Search results, until someone corrects that field by hand."
+  },
+  {
+    "layout": "1_Closing Slide",
+    "text": {},
+    "notes": "[1:48-2:00] CLOSE.\nThat's the Sitefinity Agentic RAG connector: native indexing, a six-step setup, and two widgets that turn your CMS content into grounded, cited answers."
+  }
+]

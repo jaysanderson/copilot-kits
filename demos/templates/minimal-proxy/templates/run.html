@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Run sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/run.css">
+</head>
+<body>
+<header class="rs-top"><div class="rs-in">
+  <h1>Run sheet</h1>
+  <nav aria-label="Steps">{% for s in steps %}<a href="#{{ s.id }}">{{ s.n }}</a>{% endfor %}</nav>
+</div></header>
+<main class="rs-in">
+  <p class="rs-intro">The demonstration in running order, about twelve minutes. Each step says what to open, what to type, what to expect and a line worth saying. Links open in a new tab. Steps marked optional can be skipped.</p>
+  {% for s in steps %}
+  <section class="rs-step" id="{{ s.id }}" aria-labelledby="h-{{ s.id }}">
+    <div class="rs-head"><span class="rs-n">{{ s.n }}</span><h2 id="h-{{ s.id }}">{{ s.title }}</h2>{% if s.optional %}<span class="rs-opt">Optional: {{ s.optional }}</span>{% endif %}</div>
+    <dl>
+      <dt>What it shows</dt><dd>{{ s.does }}</dd>
+      {% if s.where %}<dt>Open</dt><dd class="rs-links">{% for label, url in s.where %}<a href="{{ url }}" target="_blank" rel="noopener">{{ label }}</a>{% endfor %}</dd>{% endif %}
+      {% if s.type %}<dt>Type</dt><dd><ul class="rs-q">
+        {% for q in s.type %}<li>
+          <span class="rs-lang">{{ q.label }}</span>
+          <span class="rs-text" dir="{{ q.dir }}" lang="{{ 'zh-Hans' if q.lang == 'zh' else q.lang }}">{{ q.text }}</span>
+          <span class="rs-acts"><button type="button" class="rs-copy" data-copy="{{ q.text }}">Copy</button>{% if q.open %}<a href="{{ q.open }}" target="_blank" rel="noopener">Open pre-filled</a>{% endif %}</span>
+        </li>{% endfor %}
+      </ul></dd>{% endif %}
+      <dt>Expect</dt><dd>{% if s.expect is string %}{{ s.expect }}{% else %}<ul class="rs-ex">{% for e in s.expect %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}</dd>
+      <dt>Worth saying</dt><dd>{% for l in s.say %}<blockquote>{{ l }}</blockquote>{% endfor %}</dd>
+    </dl>
+  </section>
+  {% endfor %}
+  <section class="rs-keep" aria-labelledby="h-keep">
+    <h2 id="h-keep">Keep in view</h2>
+    <ul>{% for k in keep %}<li>{{ k }}</li>{% endfor %}</ul>
+  </section>
+</main>
+<div class="rs-toast" id="rs-toast" role="status" aria-live="polite" hidden>Copied</div>
+<script src="/static/run.js"></script>
+</body>
+</html>

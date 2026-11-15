@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What people ask your site - The university</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--crimson:#E12744;--teal:#008481;--ink:#212529;--muted:#495057;--rule:#DEE2E6;--grey:#ADB5BD;--wash:#F8F9FA;--font:'Poppins',helvetica,arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--ink);background:#fff;line-height:1.55;-webkit-text-size-adjust:100%}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.top{border-bottom:1px solid var(--rule);height:72px;display:flex;align-items:center}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;width:100%}
+.top img{height:38px;display:block}
+.top a.back{font-size:14px;font-weight:600;color:var(--teal);text-decoration:none}
+h1{font-size:clamp(26px,4vw,38px);line-height:1.15;margin:40px 0 10px;color:var(--ink)}
+h2{font-size:22px;margin:0 0 6px}
+.lede{font-size:18px;color:var(--muted);max-width:760px;margin:0 0 22px}
+.priv{border-left:4px solid var(--teal);background:var(--wash);padding:12px 16px;font-size:14.5px;max-width:760px;margin:0 0 20px}
+.priv b{color:var(--teal)}
+.prov{display:flex;flex-wrap:wrap;gap:10px 28px;padding:16px 18px;border:1px solid var(--rule);border-radius:8px;margin:0 0 36px;font-size:14.5px}
+.prov strong{font-size:22px;display:block;line-height:1.1}
+.prov span.l{color:var(--muted)}
+section{margin:0 0 44px}
+.sub{color:var(--muted);font-size:14.5px;margin:0 0 16px;max-width:760px}
+.gap{border:2px solid var(--crimson);border-radius:10px;padding:22px 22px 8px}
+.gap h2{color:var(--crimson)}
+ul.q{list-style:none;margin:0;padding:0}
+ul.q li{padding:12px 0;border-top:1px solid var(--rule);display:flex;gap:14px;justify-content:space-between;align-items:baseline;flex-wrap:wrap}
+ul.q li:first-child{border-top:0}
+.qt{font-size:16.5px;font-weight:500;flex:1 1 320px;overflow-wrap:anywhere}
+.meta{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;border-radius:12px;padding:1px 9px;border:1px solid var(--grey);color:var(--muted);margin-left:6px}
+.tag.team{border-color:var(--teal);color:var(--teal)}
+.hint{font-size:13.5px;color:var(--muted);margin:10px 0 18px}
+.empty{padding:22px;border:1px dashed var(--grey);border-radius:8px;color:var(--muted);margin-bottom:18px}
+.bar{display:flex;height:48px;border-radius:6px;overflow:hidden;margin:6px 0 10px}
+.bar div{display:flex;align-items:center;padding:0 10px;color:#fff;font-weight:600;font-size:13px;white-space:nowrap;min-width:0;overflow:hidden}
+.c0{background:var(--crimson)}.c1{background:var(--teal)}.c2{background:#A5248C}.c3{background:#495057}
+.leg{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:14.5px}
+.leg i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th{text-align:left;font-size:12.5px;color:var(--muted);font-weight:600;border-bottom:2px solid var(--rule);padding:6px 8px}
+td{padding:9px 8px;border-bottom:1px solid var(--rule);vertical-align:top;overflow-wrap:anywhere}
+td.n,th.n{text-align:right;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:34px}
+details{border-top:1px solid var(--rule);padding:10px 0}
+summary{cursor:pointer;font-weight:600}
+a{color:var(--teal)}
+.nav{display:flex;align-items:center;gap:14px}
+.how{font:600 13px var(--font);background:#fff;color:var(--crimson);border:1.5px solid var(--crimson);border-radius:20px;padding:7px 14px;cursor:pointer}
+.how:hover{background:var(--crimson);color:#fff}
+#modal{position:fixed;inset:0;background:rgba(33,37,41,.6);display:none;align-items:flex-start;justify-content:center;padding:5vh 16px;overflow:auto;z-index:50}
+#modal.open{display:flex}
+#modal .box{background:#fff;border-radius:10px;max-width:640px;width:100%;padding:26px 26px 20px;position:relative}
+#modal h2{color:var(--crimson)}
+#modal .x{position:absolute;top:10px;right:12px;border:0;background:none;font-size:26px;line-height:1;cursor:pointer;color:var(--muted)}
+.step{border:1px solid var(--rule);border-radius:8px;padding:10px 14px;font-size:14.5px}
+.step b{display:block}.step.srv{border-color:var(--teal)}
+.arrow{text-align:center;color:var(--grey);line-height:1.2}
+@media(max-width:560px){.nav{gap:8px}.how{padding:6px 10px;font-size:12px}.top a.back{display:none}.top img{height:30px}}
+footer{border-top:1px solid var(--rule);padding:20px 0 40px;font-size:13px;color:var(--muted)}
+@media(max-width:560px){.meta{white-space:normal}.gap{padding:16px 14px 4px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><a href="/"><img src="/static/mu-logo.svg" alt="The university - student front door"></a><span class="nav"><a class="back" href="/">Student front door</a><button class="how" id="how-btn" type="button" aria-haspopup="dialog">How this works</button></span></div></div>
+<main class="wrap">
+<h1>What people ask your site, and where it falls short</h1>
+<p class="lede">Analytics tell you which pages were visited. This shows what people were trying to find out, in their own words and their own language, and where your content did not answer them.</p>
+
+<p class="priv"><b>What is stored:</b> the question text, the language chosen, whether it was answered, how many pages it cited and how long it took. <b>Not stored:</b> IP address, device details, cookies, account or session identifier. Nothing here can be traced to a person.</p>
+
+{% if s.n == 0 %}
+<div class="empty"><b>No questions logged yet.</b> This page fills only from real asks made on the student front door. Nothing on it is sample data.</div>
+{% else %}
+<div class="prov">
+ <div><strong>{{ s.n }}</strong><span class="l">questions logged</span></div>
+ <div><strong>{{ s.n_team }}</strong><span class="l">asked by the build team through the same live endpoint</span></div>
+ <div><strong>{{ s.n_visitor }}</strong><span class="l">asked directly on the site</span></div>
+ <div><strong>{{ s.n_page }}</strong><span class="l">asked of a single page</span></div>
+ <div style="flex-basis:100%"><span class="l">{% if s.n_visitor == 0 %}<b>Every question here was asked by the team building this demo, to show you the shape of this view. This site has had no public visitors.</b>{% else %}<b>{{ s.n_team }} of these were asked by the team building this demo, to show you the shape of this view.</b> The other {{ s.n_visitor }} were asked directly on the site by someone who is not identified: a presenter, a tester or a visitor, and this log cannot tell which because it identifies nobody.{% endif %} Every row is a real ask. Logged from {{ ts_fmt(s.first) }} to {{ ts_fmt(s.last) }}. Rows are tagged <span class="tag team">team</span> or <span class="tag">direct</span> wherever they appear.</span></div>
+</div>
+
+<section class="gap">
+<h2>{{ s.declined_groups|length }} distinct question{{ '' if s.declined_groups|length == 1 else 's' }} the site could not answer</h2>
+<p class="sub">Each is a question asked of the site that nothing on it supports, so it declined rather than guess. This is the honest record of every decline. Some will be pages worth writing; some will be out of scope. That call belongs to your content team. Where the asker was reading one page, the nearest page is named.</p>
+{% if s.declined %}
+<ul class="q">
+{% for r in s.declined_groups %}
+ <li><span class="qt">{{ r.q }}</span><span class="meta">{{ ts_fmt(r.ts) }} &middot; {{ {'en':'English','zh':'Chinese','ar':'Arabic','id':'Bahasa Indonesia'}[r.lang] }}{% if r.count > 1 %} &middot; asked {{ r.count }} times{% endif %}{% if r.scope == 'page' %} &middot; nearest page: {{ r.page }}{% endif %}<span class="tag {{ r.source if r.source == 'team' else '' }}">{{ 'team' if r.source == 'team' else 'direct' }}</span></span></li>
+{% endfor %}
+</ul>
+{% if s.declined|selectattr('source','equalto','team')|list %}<p class="hint">Rows tagged <span class="tag team">team</span> were asked by the build team to show the shape of this view; they are not public visitors. On your own traffic, every row here would be a question one of your visitors asked.</p>{% endif %}
+{% else %}
+<div class="empty">No declined questions in this log so far. Every question logged received a sourced answer.</div>
+{% endif %}
+</section>
+
+<section>
+<h2>The audience you could not see before</h2>
+<p class="sub">The language each person chose to ask in. A search box and a page view record none of this. Declined counts show where a language is being let down.</p>
+<div class="bar" role="img" aria-label="Questions by language">
+{% for name, n, d in s.langs %}<div class="c{{ loop.index0 % 4 }}" style="flex:{{ n }}">{{ (n * 100 / s.n)|round|int }}%</div>{% endfor %}
+</div>
+<div class="leg">
+{% for name, n, d in s.langs %}<span><i class="c{{ loop.index0 % 4 }}"></i>{{ name }}: {{ n }} question{{ '' if n == 1 else 's' }}{% if d %}, {{ d }} declined{% endif %}</span>{% endfor %}
+</div>
+</section>
+
+<section>
+<h2>What was asked, and answered</h2>
+<p class="sub">{{ s.answered_distinct }} distinct question{{ '' if s.answered_distinct == 1 else 's' }} answered. Grouped by the first page each answer cited, so the grouping comes from the site's own structure and not from a label we invented.</p>
+{% if s.sections %}
+{% for name, rs in s.sections %}
+<details{% if loop.first %} open{% endif %}><summary>{{ name }} ({{ rs|length }})</summary>
+<ul class="q">{% for r in rs %}<li><span class="qt">{{ r.q }}</span><span class="meta">{{ ts_fmt(r.ts) }}{% if r.count > 1 %} &middot; asked {{ r.count }} times{% endif %}<span class="tag {{ r.source if r.source == 'team' else '' }}">{{ 'team' if r.source == 'team' else 'direct' }}</span></span></li>{% endfor %}</ul></details>
+{% endfor %}
+{% else %}<div class="empty">No answered site questions yet.</div>{% endif %}
+</section>
+
+<div class="grid">
+<section>
+<h2>What is actually load-bearing on your site</h2>
+<p class="sub">Evidence, not opinion: the pages answers cite most are the ones people depend on. Protect these.</p>
+{% if s.pages %}
+<table><tr><th>Page</th><th class="n">Times cited</th></tr>
+{% for (title, url), n in s.pages %}<tr><td><a href="{{ url }}" rel="noopener" target="_blank">{{ title or url }}</a></td><td class="n">{{ n }}</td></tr>{% endfor %}
+</table>
+{% else %}<div class="empty">No citations yet.</div>{% endif %}
+</section>
+
+<section>
+<h2>Response times</h2>
+{% if s.timing %}
+<p class="sub">Measured server-side, from the ask arriving to the answer leaving, across {{ s.timing.n }} ask{{ '' if s.timing.n == 1 else 's' }} that completed.</p>
+<table>
+<tr><td>Median</td><td class="n">{{ '%.1f'|format(s.timing.median / 1000) }} s</td></tr>
+{% if s.timing.p90 is not none %}<tr><td>Slowest 10 per cent begin at</td><td class="n">{{ '%.1f'|format(s.timing.p90 / 1000) }} s</td></tr>{% endif %}
+<tr><td>Slowest</td><td class="n">{{ '%.1f'|format(s.timing.max / 1000) }} s</td></tr>
+</table>
+{% if s.errors %}<p class="hint">{{ s.errors|length }} ask{{ '' if s.errors|length == 1 else 's' }} failed upstream (timeout or service error). These are not declines and are excluded from timings.</p>{% endif %}
+{% else %}<div class="empty">No completed asks yet.</div>{% endif %}
+</section>
+</div>
+{% endif %}
+</main>
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="mh"><div class="box">
+<button class="x" id="mx" type="button" aria-label="Close">&times;</button>
+<h2 id="mh">How this works</h2>
+<p class="sub">Everything on this page is read from the app's own log of questions asked on the student front door. Nothing is sample data.</p>
+<div class="step"><b>1. Someone asks</b>The question goes from their browser to this app's own server, in whichever language they chose.</div>
+<div class="arrow">&darr;</div>
+<div class="step srv"><b>2. Progress Agentic RAG answers, or declines</b>The server asks it over the site's content. The answer comes back with citations, or with a decline when nothing sourced supports one. The server itself labels which.</div>
+<div class="arrow">&darr;</div>
+<div class="step srv"><b>3. The app logs one row</b>A small logger on the same server notes: the question text, the language chosen, answered or declined (that server label), how many pages were cited and their addresses, and the time taken. A failed request is logged as an error, never as a decline.</div>
+<div class="arrow">&darr;</div>
+<div class="step"><b>4. This page reads the log</b>Counts, groups and the language split are calculated from those rows when the page loads. The team tag is set only when a request carries a secret key held by the build team. Any other question is tagged direct: the log identifies nobody, so it cannot tell a presenter, a tester and a visitor apart, and it does not pretend to.</div>
+<p class="sub" style="margin-top:14px"><b>What is never recorded:</b> IP address, device or browser details, cookies, account or session identifiers. A row cannot be traced to a person.</p>
+</div></div>
+<script>
+(function(){var m=document.getElementById('modal'),b=document.getElementById('how-btn');
+function o(){m.classList.add('open');document.getElementById('mx').focus()}function c(){m.classList.remove('open');b.focus()}
+b.addEventListener('click',o);document.getElementById('mx').addEventListener('click',c);
+m.addEventListener('click',function(e){if(e.target===m)c()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('open'))c()});})();
+</script>
+<footer><div class="wrap">Questions are answered from university.edu.au content by Progress Agentic RAG. This page is a live read of the question log: it contains only questions that were actually asked.</div></footer>
+</body>
+</html>

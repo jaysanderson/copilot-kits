@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Progress Agentic RAG brand palette, mapped onto the shadcn design tokens
+   (see .claude/skills/progress-arag-branding for the source of truth).
+   Blues and greens predominate; green is a fill/badge accent only, never
+   foreground text on a light surface (it fails WCAG AA at that contrast). */
+@layer base {
+  :root {
+    --background: 207 100% 98%;      /* Grey S4 #F4FAFF */
+    --foreground: 0 0% 0%;           /* type is black by default */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 240 61% 43%;          /* Blue P2 #2B2BB2 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 213 100% 93%;       /* Blue P5 #DCECFF */
+    --secondary-foreground: 221 100% 21%; /* Blue P1 #00216B */
+    --muted: 210 60% 95%;
+    --muted-foreground: 240 4% 25%;  /* #3D3D42 */
+    --accent: 213 100% 93%;          /* Blue P5, used as a hover fill - never as text */
+    --accent-foreground: 221 100% 21%;
+    --destructive: 352 64% 34%;      /* #8C1F2E */
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 52% 86%;           /* #C9D9EE */
+    --input: 214 52% 86%;
+    --ring: 240 91% 63%;             /* Blue P3 #4B4BF7 */
+    --radius: 0.5rem;
+
+    --arag-success-fg: 154 100% 20%;
+    --arag-success-bg: 117 100% 90%;
+    --arag-warning-fg: 44 100% 21%;
+    --arag-warning-bg: 48 100% 88%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Progress Sans Text', Arial, sans-serif;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Progress Sans Display', Arial, sans-serif;
+  }
+}
+
+/* Radix ScrollArea wraps its content in an internal div styled
+   `display: table; min-width: 100%`, which sizes that div to its content's
+   natural width instead of the viewport - any `truncate` text inside it
+   never actually overflows its own box, so the ellipsis never fires (it
+   just clips against the ScrollArea's own overflow:hidden instead). This
+   is the documented Radix workaround: force that wrapper to size like a
+   normal block so truncation works at any width, including on mobile. */
+[data-radix-scroll-area-viewport] > div {
+  display: block !important;
+}

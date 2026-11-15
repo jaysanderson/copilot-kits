@@ -1,0 +1,153 @@
+<title>Deal Desk - Ignition</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/css/ignition.css">
+
+<header class="topbar">
+  <a href="/" class="brand" id="brand-mark"><span>Ignition</span><small>Coppermill Motor Group</small></a>
+  <nav>
+    <a href="/">Overview</a>
+    <a href="/service-assistant">Service</a>
+    <a href="/compliance">Compliance</a>
+    <a href="/media-library">Media</a>
+    <a href="/deal-desk" class="active">Deal Desk</a>
+    <a href="/insights">Insights</a>
+  </nav>
+  <div class="right-cluster">
+    <span class="site-pill"><span class="dot"></span> Both sites online</span>
+    <button class="how-btn" id="how-it-works-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 4.9 2.3c-.9.7-1.5 1.3-1.5 2.7"/><circle cx="12" cy="17" r=".3" fill="currentColor"/></svg>
+    <span>How this works</span>
+    </button>
+  </div>
+</header>
+
+<main class="page narrow">
+  <div class="hero">
+    <div class="eyebrow"><span class="bar"></span> Deal desk diagnostics</div>
+    <h1>What's blocking this vehicle?</h1>
+    <p class="lede">Pick a stock number and Ignition fuses the vehicle's own record with
+      its consultant field note and the relevant recon standard or recall bulletin into one
+      cited diagnosis.</p>
+  </div>
+
+  <div class="ask-box">
+    <select id="stock-select"></select>
+  </div>
+
+  <div id="deal-wrap"></div>
+</main>
+
+<footer class="disclosure-footer">
+  Coppermill Motor Group, its sites, stock and personnel are a synthetic illustrative dataset built for this demonstration. Not a real dealership.
+</footer>
+
+<div class="modal-backdrop" id="reveal-backdrop" hidden>
+  <div class="modal">
+    <div class="modal-head"><h3 class="reveal-title">How this works</h3><button class="modal-close">&times;</button></div>
+    <div class="modal-body">
+      <div class="flow-diagram"></div>
+      <div class="reveal-section"><h4>What this page does</h4><p class="reveal-what"></p></div>
+      <div class="reveal-section"><h4>Why it matters</h4><p class="reveal-why"></p></div>
+      <div class="reveal-section"><h4>The real mechanism</h4><p class="reveal-tech"></p></div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-tabs">
+  <a href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></a>
+  <a href="/service-assistant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M4 7h16M4 17h16"/></svg><span>Service</span></a>
+  <a href="/compliance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/></svg><span>Compliance</span></a>
+  <a href="/media-library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m8 10 5 3-5 3z"/></svg><span>Media</span></a>
+  <a href="/deal-desk" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H8l-4 4z"/></svg><span>Deals</span></a>
+  <a href="/insights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M12 20V4M20 20v-7"/></svg><span>Insights</span></a>
+</nav>
+
+<script src="/static/js/shared.js"></script>
+<script>
+document.getElementById('brand-mark').insertAdjacentHTML('afterbegin', IGN.logoSVG());
+
+const STATUS_CLASS = { 'Ready for delivery': 'green', 'PDI hold': 'red', 'In recon': 'amber' };
+
+async function init() {
+  const { stock } = await IGN.api('/api/stock');
+  const sel = document.getElementById('stock-select');
+  sel.innerHTML = stock.map(s => `<option value="${s.no}">${s.no} - ${s.year} ${s.make} ${s.model} (${s.site})</option>`).join('');
+  const params = new URLSearchParams(location.search);
+  const preselect = params.get('stock');
+  if (preselect) sel.value = preselect;
+  sel.addEventListener('change', () => loadDeal(sel.value));
+  loadDeal(sel.value);
+}
+
+async function loadDeal(stockNo) {
+  const wrap = document.getElementById('deal-wrap');
+  wrap.innerHTML = `<div class="loading"><span class="spinner"></span> Fusing the record with the standards library...</div>`;
+  try {
+    const d = await IGN.api(`/api/deal/${stockNo}`);
+    const s = d.stock;
+    const diag = d.diagnosis || {};
+    wrap.innerHTML = `
+      <div class="panel" style="margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+          <div>
+            <h2 style="margin-bottom:4px">${s.year} ${s.make} ${s.model}</h2>
+            <div style="color:var(--steel-400);font-size:.86rem">${s.no} - ${s.site} - $${s.price.toLocaleString()} - ${s.odo.toLocaleString()} km</div>
+          </div>
+          <span class="chip ${STATUS_CLASS[s.pdi_status]||''}" style="font-size:.8rem;padding:7px 14px">${s.pdi_status}</span>
+        </div>
+      </div>
+      <div class="answer-card">
+        <div class="answer-top"><h3 style="margin:0;text-transform:none;color:#fff;font-family:var(--font-head);font-size:1rem">Blocker diagnosis</h3></div>
+        <div class="answer-body">${IGN.renderMarkdown(diag.blocker_summary || 'No blocking issue identified from the available records.')}</div>
+        ${(diag.required_actions||[]).length ? `
+          <div style="margin-top:14px">
+            <h4 style="font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--steel-400);margin-bottom:8px">Required actions</h4>
+            <ul style="padding-left:1.2em;color:var(--paper)">${diag.required_actions.map(a=>`<li style="margin-bottom:6px">${IGN.cleanText(a)}</li>`).join('')}</ul>
+          </div>` : ''}
+        ${diag.compliance_note ? `
+          <div style="margin-top:14px;padding:12px 14px;background:var(--graphite-950);border-radius:var(--radius-md);border:1px solid var(--graphite-700)">
+            <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--amber-500);font-weight:700;margin-bottom:4px">Compliance note</div>
+            <div style="font-size:.88rem;color:var(--steel-200)">${IGN.cleanText(diag.compliance_note)}</div>
+          </div>` : ''}
+        ${d.sources && d.sources.length ? `
+          <div class="sources-strip">
+            <div class="sources-head"><h4>Sources (${d.sources.length})</h4></div>
+            <div class="sources-grid">
+              ${d.sources.map(src => `
+                <div class="source-tile" data-href="${IGN.escHtml(IGN.sourceHref(src))}">
+                  <span class="num">${src.num}</span>
+                  <div class="t">${IGN.escHtml(src.title.replace(/\.md$/, ''))}</div>
+                  <div class="rel">Coppermill records library</div>
+                </div>`).join('')}
+            </div>
+          </div>` : ''}
+      </div>`;
+  } catch (e) {
+    wrap.innerHTML = `<div class="empty-state">Could not reach the diagnosis service. Try again shortly.</div>`;
+  }
+}
+
+// Event delegation on the never-replaced #deal-wrap container, bound ONCE at
+// script load - not a per-render querySelectorAll+addEventListener pass,
+// which a re-test found dead after the ~10s /api/deal fetch re-rendered the
+// tiles (the container itself never gets swapped, only its innerHTML, so one
+// delegated listener here survives every re-render regardless of timing).
+document.getElementById('deal-wrap').addEventListener('click', (e) => {
+  const tile = e.target.closest('.source-tile[data-href]');
+  if (tile) window.location = tile.dataset.href;
+});
+init();
+
+IGN.mountReveal({
+  title: 'How Deal Desk works',
+  nodes: [
+    { label: 'Pick a stock number', tag: 'Browser', active: false },
+    { label: 'Ignition server', tag: 'System-of-record + grounded call', active: true },
+    { label: 'Progress Agentic RAG', tag: 'Structured JSON + citations', active: true },
+  ],
+  what: 'Ignition fuses this vehicle\'s own record (its own system of record - price, status, odometer) with a genuine Progress Agentic RAG call over its consultant field note and any matching recon standard or recall bulletin.',
+  why: 'A stock number alone does not tell a consultant what to do next. This page turns a scattered field note and a 40-page standards manual into one specific answer: what is blocking delivery and what to do about it.',
+  tech: 'This is app-orchestrated fusion, not an autonomous agent: the server makes two parallel Progress Agentic RAG calls - one with an answer_json_schema for the structured diagnosis, one for citations (the two cannot be combined in a single call on this platform) - and fuses both with the vehicle\'s own record.',
+});
+</script>

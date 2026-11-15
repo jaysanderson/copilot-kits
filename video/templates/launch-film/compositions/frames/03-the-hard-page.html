@@ -1,0 +1,469 @@
+<template id="f03-the-hard-page-template" data-composition-id="03-the-hard-page" data-width="1920" data-height="1080" data-duration="16.207">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+<style>
+  /* Real Progress Sans - local files, names outside the HyperFrames alias map */
+  @font-face { font-family: "ProgressSansDisplay"; src: url("assets/ProgressSansDisplayVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  @font-face { font-family: "ProgressSansText"; src: url("assets/ProgressSansTextVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  :root, #root { --pg-display: "ProgressSansDisplay", Arial, Helvetica, sans-serif; --pg-text: "ProgressSansText", Arial, Helvetica, sans-serif; }
+
+  /* Blue Professional tokens (frame.md frontmatter) */
+  #root {
+    --f03-bg: #00216B;
+    --f03-primary: #00B563;
+    --f03-text: #FFFFFF;
+    --f03-text-muted: #C6D5EB;
+    --f03-text-light: #9EAEC3;
+    --f03-accent-light: rgba(0, 181, 99, 0.16);
+    --f03-border: rgba(198, 213, 235, 0.26);
+    --f03-card-bg: rgba(255, 255, 255, 0.055);
+    --f03-negative: #FF9AA8;
+    --f03-sans: var(--pg-text);
+    --f03-mono: ui-monospace, Menlo, monospace;
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    font-family: var(--f03-sans);
+    color: var(--f03-text);
+  }
+  #root * {
+    box-sizing: border-box;
+  }
+  #root .clip {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* ground: cream + two faint cobalt blooms (one per side of the split) */
+  .f03-ground {
+    background: var(--f03-bg);
+  }
+  .f03-bloom {
+    position: absolute;
+    width: 1100px;
+    height: 1100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 181, 99, 0.10) 0%, rgba(0, 181, 99, 0) 62%);
+  }
+  .f03-bloom-left {
+    left: 580px;
+    top: 530px;
+    margin-left: -550px;
+    margin-top: -550px;
+  }
+  .f03-bloom-right {
+    left: 1344px;
+    top: 530px;
+    margin-left: -550px;
+    margin-top: -550px;
+  }
+
+  /* slide-header */
+  .f03-eyebrow {
+    position: absolute;
+    left: 96px;
+    top: 74px;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--f03-primary);
+    line-height: 1;
+  }
+  .f03-h2 {
+    position: absolute;
+    left: 96px;
+    /* 136, not 104: the entrance lifts this 26px into the eyebrow's box. */
+    top: 136px;
+    font-size: 50px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--f03-text);
+    font-family: var(--pg-display);
+  }
+
+  /* left card: the scanned page, cropped to the two body-diagram columns */
+  .f03-page-card {
+    position: absolute;
+    left: 96px;
+    top: 200px;
+    width: 832px;
+    height: 660px;
+    border: 1.5px solid var(--f03-border);
+    border-radius: 14px;
+    background: var(--f03-card-bg);
+    overflow: hidden;
+  }
+  .f03-page-img {
+    position: absolute;
+    display: block;
+    /* 1067px scan x 0.84 ; crop origin (40, 350) in image px */
+    width: 896.28px;
+    height: auto;
+    left: -33.6px;
+    top: -294px;
+  }
+  .f03-page-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 72px;
+    background: linear-gradient(to bottom, rgba(0, 33, 107, 0) 0%, rgba(0, 33, 107, 1) 100%);
+  }
+  .f03-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 829px;
+    height: 657px;
+    overflow: visible;
+  }
+  .f03-col-bracket {
+    fill: none;
+    stroke: var(--f03-primary);
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+  .f03-ring {
+    fill: var(--f03-primary);
+    fill-opacity: 0;
+    stroke: var(--f03-primary);
+    stroke-width: 3.5;
+    stroke-linecap: round;
+  }
+
+  /* tag-pill overlays on the page (opaque cream so they read over the scan) */
+  .f03-pill {
+    position: absolute;
+    display: inline-block;
+    padding: 5px 13px;
+    border-radius: 100px;
+    background: #0A2A6E;
+    border: 1px solid var(--f03-border);
+    color: var(--f03-primary);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  /* right card: the OCR dump */
+  .f03-ocr-card {
+    position: absolute;
+    left: 1080px;
+    top: 200px;
+    width: 744px;
+    height: 660px;
+    border: 1.5px solid var(--f03-border);
+    border-radius: 14px;
+    background: var(--f03-card-bg);
+    padding: 50px 36px 36px 40px;
+    font-family: var(--f03-mono);
+    font-size: 26px;
+    color: var(--f03-text-muted);
+  }
+  .f03-ocr-line {
+    position: relative;
+    display: block;
+    min-width: 100%;
+    height: 40px;
+    line-height: 40px;
+    white-space: pre;
+  }
+  .f03-ocr-txt {
+    display: inline;
+  }
+  .f03-ocr-garble {
+    position: relative;
+    display: inline-block;
+    color: var(--f03-text);
+    font-weight: 600;
+  }
+  .f03-garble-svg {
+    position: absolute;
+    left: -9px;
+    right: -9px;
+    top: 2px;
+    bottom: 2px;
+    width: calc(100% + 18px);
+    height: calc(100% - 4px);
+    overflow: visible;
+    pointer-events: none;
+  }
+  .f03-garble-rect {
+    fill: none;
+    stroke: var(--f03-negative);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+  }
+  .f03-notick {
+    position: absolute;
+    left: calc(100% + 18px);
+    top: 50%;
+    margin-top: -10px;
+    height: 20px;
+    line-height: 20px;
+    font-family: var(--f03-sans);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--f03-negative);
+    white-space: nowrap;
+  }
+  .f03-cursor {
+    display: inline-block;
+    width: 13px;
+    height: 24px;
+    margin-left: 2px;
+    vertical-align: -4px;
+    background: var(--f03-primary);
+    opacity: 0;
+  }
+
+  /* badges: pills that sit on each card's top edge, inner side */
+  .f03-badge {
+    position: absolute;
+    top: 186px;
+    height: 28px;
+    padding: 0 16px;
+    border-radius: 100px;
+    background: var(--f03-primary);
+    color: var(--f03-bg);
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 28px;
+    white-space: nowrap;
+    transform-origin: 50% 50%;
+  }
+  .f03-badge-page {
+    left: 804px;
+  }
+  .f03-badge-ocr {
+    left: 1108px;
+  }
+</style>
+
+<div data-hf-id="hf-npcs" id="root" data-composition-id="03-the-hard-page" data-start="0" data-duration="15.796" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-7fec" id="f03-ground" class="clip f03-ground" data-start="0.000" data-duration="16.207" data-track-index="0">
+    <div data-hf-id="hf-omuu" class="f03-bloom f03-bloom-left"></div>
+    <div data-hf-id="hf-q1ot" class="f03-bloom f03-bloom-right"></div>
+  </div>
+
+  <div data-hf-id="hf-vodq" id="f03-header" class="clip" data-start="0.000" data-duration="16.207" data-track-index="1">
+    <div data-hf-id="hf-41rz" id="f03-eyebrow" class="f03-eyebrow">The hard page</div>
+    <div data-hf-id="hf-ruma" id="f03-h2" class="f03-h2">Medical disclosure</div>
+  </div>
+
+  <div data-hf-id="hf-y7vy" id="f03-page" class="clip" data-start="2.755" data-duration="13.452" data-track-index="2">
+    <div data-hf-id="hf-rjte" id="f03-page-card" class="f03-page-card">
+      <img data-hf-id="hf-1l6l" class="f03-page-img" src="assets/form-page3.png" alt="" data-layout-allow-overflow="">
+      <div data-hf-id="hf-flnm" class="f03-page-fade"></div>
+      <svg data-hf-id="hf-aa0h" id="f03-overlay" class="f03-overlay" viewBox="0 0 829 657" xmlns="http://www.w3.org/2000/svg">
+        <rect data-hf-id="hf-1qgv" id="f03-col-left" class="f03-col-bracket" x="12" y="60" width="404" height="450" rx="8" />
+        <rect data-hf-id="hf-lpfr" id="f03-col-right" class="f03-col-bracket" x="424" y="60" width="398" height="450" rx="8" />
+        <circle data-hf-id="hf-ewl9" id="f03-ring-1" class="f03-ring" r="16" />
+        <circle data-hf-id="hf-3f40" id="f03-ring-2" class="f03-ring" r="16" />
+        <circle data-hf-id="hf-dekk" id="f03-ring-3" class="f03-ring" r="19" />
+      </svg>
+      <div data-hf-id="hf-dfx7" id="f03-pill-x" class="f03-pill">handwritten X</div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-n9nn" id="f03-ocr" class="clip" data-start="10.573" data-duration="5.634" data-track-index="3">
+    <div data-hf-id="hf-3682" id="f03-ocr-card" class="f03-ocr-card">
+      <div data-hf-id="hf-bym9" class="f03-ocr-line"><span data-hf-id="hf-1u4q" class="f03-ocr-txt"></span><span data-hf-id="hf-m0ep" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-os2d" class="f03-ocr-line"><span data-hf-id="hf-vamm" class="f03-ocr-txt"></span><span data-hf-id="hf-kop1" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-pyzg" class="f03-ocr-line"><span data-hf-id="hf-voxn" class="f03-ocr-txt"></span><span data-hf-id="hf-lvm4" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-pkof" class="f03-ocr-line"><span data-hf-id="hf-w38o" class="f03-ocr-txt"></span><span data-hf-id="hf-lhb3" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-qrli" class="f03-ocr-line"><span data-hf-id="hf-tb3h" class="f03-ocr-txt"></span><span data-hf-id="hf-mo86" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-qdah" class="f03-ocr-line"><span data-hf-id="hf-tpei" class="f03-ocr-txt"></span><span data-hf-id="hf-m9x5" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-rk7k" class="f03-ocr-line"><span data-hf-id="hf-u3pj" class="f03-ocr-txt"></span><span data-hf-id="hf-ngu8" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-r5wj" class="f03-ocr-line"><span data-hf-id="hf-ui0k" class="f03-ocr-txt"></span><span data-hf-id="hf-n2j7" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-lzx6" class="f03-ocr-line"><span data-hf-id="hf-y2rt" class="f03-ocr-txt"></span><span data-hf-id="hf-hwju" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-llm5" class="f03-ocr-line"><span data-hf-id="hf-yh2u" class="f03-ocr-txt"></span><span data-hf-id="hf-hi8t" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-0p4v" class="f03-ocr-line"><span data-hf-id="hf-a4nu" class="f03-ocr-txt"></span><span data-hf-id="hf-wsq7" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-13fw" class="f03-ocr-line"><span data-hf-id="hf-9qct" class="f03-ocr-txt"></span><span data-hf-id="hf-74kq" id="f03-garble" class="f03-ocr-garble"><span data-hf-id="hf-ax9w" class="f03-ocr-txt"></span><svg data-hf-id="hf-qxtl" class="f03-garble-svg" xmlns="http://www.w3.org/2000/svg"><rect data-hf-id="hf-hgrt" id="f03-garble-rect" class="f03-garble-rect" x="0" y="0" width="100%" height="100%" rx="6" pathLength="100" /></svg><div data-hf-id="hf-em7o" id="f03-notick" class="f03-notick">No tick here</div></span><span data-hf-id="hf-x718" class="f03-cursor"></span></div>
+      <div data-hf-id="hf-zwit" class="f03-ocr-line"><span data-hf-id="hf-aiyv" class="f03-ocr-txt"></span><span data-hf-id="hf-w045" class="f03-cursor"></span></div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-suaq" id="f03-badges" class="clip" data-start="14.088" data-duration="2.119" data-track-index="4">
+    <div data-hf-id="hf-6ty0" id="f03-badge-page" class="f03-badge f03-badge-page">Page</div>
+    <div data-hf-id="hf-w54o" id="f03-badge-ocr" class="f03-badge f03-badge-ocr">OCR text</div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    /* == RETIMED (tools_apply_retime.py) == */
+      /* Beat times below are OLD-take time; P() maps them onto the delivered take
+         through word anchors matched by text. Generated - do not hand-edit. */
+      var __KX = [0.0000, 0.0500, 0.2500, 0.5900, 0.9300, 1.1400, 1.3500, 1.9500, 2.8800, 2.9300, 3.3400, 4.2000, 4.5000, 5.2500, 5.3900, 5.5800, 6.2300, 6.4200, 6.7400, 6.8600, 7.1400, 7.6100, 7.8100, 8.2300, 8.3900, 9.0400, 9.5400, 9.7000, 10.3900, 10.6600, 10.8700, 11.6100, 11.9200, 12.5300, 12.6700, 12.8600, 13.1900, 13.3800, 13.6400, 14.0300, 14.2200, 14.7400, 14.8300, 15.2960];
+      var __KY = [0.0000, 0.0230, 0.2670, 0.6040, 1.0570, 1.3580, 1.5090, 1.9270, 2.8330, 2.9950, 3.2390, 3.7380, 3.9710, 4.3890, 4.5630, 4.6790, 5.5030, 5.7820, 6.0840, 6.3390, 6.6990, 7.5000, 7.8020, 8.0920, 8.2430, 8.9400, 9.2530, 9.4620, 10.1470, 10.3560, 10.4720, 10.7970, 11.2380, 11.9580, 12.2490, 12.3760, 12.6780, 12.8520, 13.4670, 13.9550, 14.3150, 14.7560, 14.9190, 15.5570];
+      function __pw(t, X, Y) { if (t <= X[0]) return Y[0] + (t - X[0]); var n = X.length - 1;
+        if (t >= X[n]) return Y[n] + (t - X[n]) * (Y[n] / X[n]); var lo = 0, hi = n;
+        while (hi - lo > 1) { var m = (lo + hi) >> 1; if (X[m] <= t) lo = m; else hi = m; }
+        return Y[lo] + (t - X[lo]) / (X[hi] - X[lo]) * (Y[hi] - Y[lo]); }
+      function P(t) { return __pw(t, __KX, __KY); }   /* old take time -> delivered take time */
+      function Q(u) { return __pw(u, __KY, __KX); }   /* inverse: drivers run in new time,
+         so a threshold written in old time is compared against Q(driver.t) unedited */
+      var DURATION = 15.557;  /* measured delivered take (was 15.296) */
+    var root = document.getElementById("root");
+    var q = function (id) { return root.querySelector("#" + id); };
+
+    // ---- page geometry: image px -> card viewport px (scan scaled 0.84, crop origin 40,350)
+    var SCALE = 0.84, CROP_X = 40, CROP_Y = 350;
+    var toView = function (ix, iy) { return { x: (ix - CROP_X) * SCALE, y: (iy - CROP_Y) * SCALE }; };
+    var skin = toView(186, 570);   // checkbox LEFT of "Skin conditions"
+    var lung = toView(403, 554);   // checkbox RIGHT of "Lung conditions"
+    var bone = toView(400, 762);   // handwritten X beside "Bone / Injury conditions"
+
+    var ring1 = q("f03-ring-1"), ring2 = q("f03-ring-2"), ring3 = q("f03-ring-3");
+    ring1.setAttribute("cx", skin.x.toFixed(1)); ring1.setAttribute("cy", skin.y.toFixed(1));
+    ring2.setAttribute("cx", lung.x.toFixed(1)); ring2.setAttribute("cy", lung.y.toFixed(1));
+    ring3.setAttribute("cx", bone.x.toFixed(1)); ring3.setAttribute("cy", bone.y.toFixed(1));
+
+    var pillX = q("f03-pill-x");
+    pillX.style.left = (bone.x + 118).toFixed(1) + "px"; // past the "Bone / Injury conditions" label
+    pillX.style.top = (bone.y - 14).toFixed(1) + "px";
+
+    // svg-path-draw setup: measured lengths (fixed geometry); the garble rect is % sized so it
+    // is normalised with pathLength="100" and drawn as a dashed pattern followed by a 100-unit gap.
+    var drawables = [ring1, ring2, ring3, q("f03-col-left"), q("f03-col-right")];
+    drawables.forEach(function (p) {
+      var len = p.getTotalLength();
+      p.style.strokeDasharray = String(len);
+      p.style.strokeDashoffset = String(len);
+    });
+    var garbleRect = q("f03-garble-rect");
+    var dashed = [];
+    for (var i = 0; i < 14; i++) dashed.push("4 3");
+    dashed.push("2 100");
+    garbleRect.style.strokeDasharray = dashed.join(" ");
+    garbleRect.style.strokeDashoffset = "100";
+
+    // ---- OCR panel content: whole-line states (discrete-text-sequence)
+    var LINES = [
+      "MEDICAL CONDITIONS DISCLOSURE FORM",
+      "MAIN MEMBER",
+      "Brain illness / disease",
+      "Serious ear conditions [}- Serious eye conditions",
+      "Serious throat conditions",
+      "Skin conditions",
+      "Lung conditions {]",
+      "Heart illness / disease",
+      "Liver conditions",
+      "Kidney conditions",
+      "Reproductive conditions",
+      "Bone / Injury conditions ",   // + garble segment "é Mf"
+      "Any joint replacement surgeries"
+    ];
+    var GARBLE = "é Mf";
+    var GARBLE_LINE = 11;
+    // { t, n }: from t, the first n lines are shown (bulk paste clusters, a pause before the Bone line)
+    var SEQUENCE = [
+      { t: 0.0, n: 0 },
+      { t: 11.75, n: 2 },
+      { t: 11.95, n: 5 },
+      { t: 12.15, n: 7 },
+      { t: 12.35, n: 10 },
+      { t: 12.58, n: 11 },
+      { t: 12.88, n: 12 },
+      { t: 13.12, n: 13 }
+    ];
+    var lineEls = Array.prototype.slice.call(root.querySelectorAll(".f03-ocr-line"));
+    var lineTxt = lineEls.map(function (el) { return el.querySelector(".f03-ocr-txt"); });
+    var lineCur = lineEls.map(function (el) { return el.querySelector(".f03-cursor"); });
+    var garbleTxt = q("f03-garble").querySelector(".f03-ocr-txt");
+
+    function countAt(time) {
+      for (var k = SEQUENCE.length - 1; k >= 0; k--) {
+        if (time >= SEQUENCE[k].t) return SEQUENCE[k].n;
+      }
+      return 0;
+    }
+    var state = { t: 0, blink: 0 };
+    function paint() {
+      var n = countAt(Q(state.t));
+      var on = Math.sin(state.blink) > 0;
+      var curIdx = n === 0 ? 0 : n - 1;
+      for (var j = 0; j < lineEls.length; j++) {
+        lineTxt[j].textContent = j < n ? LINES[j] : "";
+        lineCur[j].style.opacity = (j === curIdx && on) ? "1" : "0";
+      }
+      garbleTxt.textContent = n > GARBLE_LINE ? GARBLE : "";
+    }
+
+    // ---- timeline
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    // full-length driver: text states + cursor blink (one cycle per ~0.6s) on one tween, seek-safe
+    tl.to(state, { t: DURATION, blink: Math.PI * 2 * 25, duration: DURATION, ease: "none", onUpdate: paint }, 0);
+
+    // Scene 1 — slide-header, then the page card arrives from the left on "body diagram"
+    tl.fromTo("#f03-eyebrow", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.05);
+    tl.fromTo("#f03-h2", { opacity: 0, y: -26 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+    tl.fromTo("#f03-page-card", { opacity: 0, x: -260 }, { opacity: 1, x: 0, duration: 1.3, ease: "power3.out" }, 2.9);
+
+    // "two columns" — the two column brackets draw, then recede once the rings take over
+    tl.fromTo("#f03-col-left", { opacity: 0.55 }, { strokeDashoffset: 0, opacity: 0.55, duration: 0.6, ease: "power2.out" }, 4.25);
+    tl.fromTo("#f03-col-right", { opacity: 0.55 }, { strokeDashoffset: 0, opacity: 0.55, duration: 0.6, ease: "power2.out" }, 4.7);
+    tl.to(["#f03-col-left", "#f03-col-right"], { opacity: 0.18, duration: 0.5, ease: "power1.out" }, 6.3);
+
+    // Scene 2 — rings land on the cues: "left" / "right" / "ticked by hand"
+    tl.to("#f03-ring-1", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 6.45);
+    tl.to("#f03-ring-1", { fillOpacity: 0.12, duration: 0.3, ease: "power1.out" }, 6.95);
+    tl.to("#f03-ring-2", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 7.85);
+    tl.to("#f03-ring-2", { fillOpacity: 0.12, duration: 0.3, ease: "power1.out" }, 8.35);
+    tl.to("#f03-ring-3", { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 9.1);
+    tl.to("#f03-ring-3", { fillOpacity: 0.12, duration: 0.3, ease: "power1.out" }, 9.65);
+    tl.fromTo("#f03-pill-x", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.45, ease: "power1.out" }, 9.7);
+
+    // Scene 3 — OCR panel mirrors the page card's entry, from the right, on "OCR alone"
+    tl.fromTo("#f03-ocr-card", { opacity: 0, x: 260 }, { opacity: 1, x: 0, duration: 1.2, ease: "power3.out" }, 11.2);
+    // lines fill via the state driver (11.75 -> 13.12); "the ticks are gone": red dashed draw + label
+    tl.to("#f03-garble-rect", { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 13.4);
+    tl.fromTo("#f03-notick", { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.4, ease: "power1.out" }, 13.95);
+
+    // Scene 4 — badges punctuate each card's top edge, then hold
+    tl.fromTo("#f03-badge-page", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" }, 14.25);
+    tl.fromTo("#f03-badge-ocr", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" }, 14.5);
+
+    paint();
+    window.__timelines["03-the-hard-page"] = tl;
+
+      /* == RETIMED (tools_apply_retime.py) == beat walk == */
+      /* Every registered beat moves to its remapped position. */
+      (function () {
+        var kids = tl.getChildren(false, true, true);
+        if (!kids.length) throw new Error("retime: no children to reposition");
+        var moved = 0, over = [];
+        kids.forEach(function (c) {
+          if (c.vars && c.vars.data === "pin") return;   /* already in new-take time */
+          var s = c.startTime(), n = P(s);
+          if (Math.abs(n - s) > 0.0005) { c.startTime(n); moved++; }
+          /* Eyebrows share one zone, so at a fade boundary two of them smear. Hold
+             any eyebrow until the 0.5s transition is done. */
+          var tg = (c.targets ? c.targets() : []);
+          var nm = tg.length ? ((tg[0].id || "") + " " + (tg[0].className || "")) : "";
+          if (/-eyebrow(\s|$)/.test(nm) && c.startTime() < 0.52) {
+            c.startTime(0.52);
+          }
+          if (c.startTime() + c.duration() > 15.557 + 0.02) {
+            over.push(Math.round((c.startTime() + c.duration()) * 1000) / 1000);
+          }
+        });
+        window.__retime = window.__retime || {};
+        window.__retime["03-the-hard-page"] = { beats: kids.length, moved: moved, overrun: over };
+      })();
+
+  })();
+</script>
+</template>

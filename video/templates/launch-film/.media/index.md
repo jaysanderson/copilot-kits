@@ -1,0 +1,14 @@
+# .media · 11 assets
+
+id         type   dur    dims   path                 description
+voice_001  voice  12.6s  —      assets/voice/01.wav  Fin-demo Health membership forms. Scanned, photographed, filled in by hand, boxes ticked by hand. Here's how Progress Agentic RAG turns them into structured data you can trust.
+voice_002  voice  14.4s  —      assets/voice/02.wav  It starts with a real sample pack. Clean scans. A missing page. Pages out of order. Faded blue ink. Word files. Phone photos. And one scanner batch with seven applicants in a single twenty-eight page file.
+voice_003  voice  15.3s  —      assets/voice/03.wav  The hard page is the medical disclosure. A body diagram, two columns, and the checkboxes sit left of some labels and right of others. Ticked by hand. Run it through OCR alone and the ticks are gone before any question is asked.
+voice_004  voice  10.5s  —      assets/voice/05.wav  Step two. Each page is identified from its printed headings. When the headings don't read, like on a phone photo, a vision model names the page from the image instead.
+voice_005  voice  13.7s  —      assets/voice/06.wav  Step three. One structured ask per page. It carries a schema written for that page, and the page image travels with the question. So the checkboxes come back ticked or not, read from the pixels, not from text.
+voice_006  voice  23.3s  —      assets/voice/07.wav  Step four. The pages regroup into one application by the ID number written on them. Then every field earns its confidence score: the South African ID checksum, the date of birth and gender encoded in that ID, whether the ID agrees across the pages, and the format of every date, email and cell number. Anything under seventy percent goes on a review list.
+voice_007  voice  9.6s   —      assets/voice/08.wav  Step five. Every page resource is deleted from the Knowledge Box, and the deletion is verified. Nothing persists. The document was never kept.
+voice_008  voice  11.6s  —      assets/voice/09.wav  And here's what comes back. The schema, filled in. A confidence on every field. Four pages found, none missing. One JSON document, ready for whatever system comes next.
+voice_009  voice  16.4s  —      assets/voice/10.wav  It's measured, not assumed. Five vision models on the same four pages score ninety-two to ninety-nine percent, and the top three read every checkbox right. Any of the seventy-five models on the account can be compared on the same scan, in one click.
+voice_010  voice  16.4s  —      assets/voice/11.wav  And the messy ones hold up. The missing page is flagged. The shuffled scan is reassembled. Word files convert. Phone photos read, with the doubtful fields flagged. And the twenty-eight page scanner batch comes back as one application per applicant.
+voice_011  voice  9.9s   —      assets/voice/12.wav  Submit the document. Get structured JSON back, with a confidence score on every field. Keep nothing. Powered by Progress Agentic RAG.

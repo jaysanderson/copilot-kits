@@ -1,0 +1,11 @@
+This is Plant-demo Components - a real plant-operations ERP, real production data. [pause] What you're about to see isn't a chatbot bolted onto the side. It's Progress Agentic RAG's Retrieval Agent, working the ERP's own systems, live.
+
+Take an overnight quality alert. Line A-2's first-pass yield just dropped below target. [pause] Normally that's an hour of digging through defect logs and shift notes before anyone can act.
+
+Watch the agent do it instead - every step, on screen. [pause] It plans its own path through the ERP: checks the line, checks the run, reviews the defects, pulls the part-lot records, queries the quality playbook. Five separate live calls into the plant's own data, each one a genuine tool call through ARAG's MCP connection - not a script pretending to think. [pause] About fifty seconds later, it lands on a cited answer: run RUN-1111, first pass yield 84.3 per cent against a 96.5 per cent target, root cause traced to resin lot KP-7742. Every figure sourced straight back to the record it came from.
+
+Same agent, a different job. Twenty-three invoices failed to post today. Ask it to explain one and it works the same way, live, tool by tool. [pause] When a lookup comes back empty, it says so, on screen, instead of guessing. Then it finds nine invoices stuck on the same root cause, and proposes the batch fix for a human to approve.
+
+Third pattern - a real-time delivery promise. One question, checked in parallel across the bill of materials, stock, work-centre load, open purchase orders and contract priority, before anyone commits a date. [pause] This one comes back short a part, with the exact shortfall and the incoming order that fixes it.
+
+Three different jobs. One retrieval agent, planning its own path through live data every time. [pause] That's Progress Agentic RAG's RAO, working inside your own ERP.

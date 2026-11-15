@@ -1,0 +1,306 @@
+<template id="f09-template" data-composition-id="09-the-output" data-width="1920" data-height="1080" data-duration="13.653">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+<style>
+  /* Real Progress Sans - local files, names outside the HyperFrames alias map */
+  @font-face { font-family: "ProgressSansDisplay"; src: url("assets/ProgressSansDisplayVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  @font-face { font-family: "ProgressSansText"; src: url("assets/ProgressSansTextVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  :root, #root { --pg-display: "ProgressSansDisplay", Arial, Helvetica, sans-serif; --pg-text: "ProgressSansText", Arial, Helvetica, sans-serif; }
+
+  /* 09-the-output — the live result page in a card-tinted window, pushed in on the application card. */
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    container-type: size;
+    font-family: var(--pg-text);
+    color: #FFFFFF;
+  }
+  #root .clip {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+  }
+
+  /* depth layer 1 — canvas */
+  #f09-bg {
+    background: #00216B;
+  }
+  #f09-eyebrow {
+    position: absolute;
+    left: 160px;
+    top: 70px;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+    color: #00B563;
+    will-change: transform, opacity;
+  }
+
+  /* depth layer 2 — the window, under a nested camera (outer scales, inner counter-translates) */
+  #f09-cam-outer {
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+  #f09-cam-inner {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    will-change: transform;
+  }
+  #f09-window {
+    position: absolute;
+    left: 160px;
+    top: 120px;
+    width: 1600px;
+    height: 760px;
+    border-radius: 14px;
+    border: 1.5px solid rgba(198, 213, 235, 0.26);
+    background: rgba(255, 255, 255, 0.055);
+    overflow: hidden;
+    transform-origin: 50% 50%;
+    will-change: transform, opacity;
+  }
+  /* the 1920x1080 screenshot shown at 1600x900 (x0.8333); shifted up 44 source px so the app's
+     dark nav bar sits above the window and three field rows fit below the table header */
+  #f09-screen {
+    position: absolute;
+    left: -1.5px;
+    top: -38.17px;
+    width: 1600px;
+    height: 900px;
+  }
+  #f09-shot {
+    display: block;
+    width: 1600px;
+    height: 900px;
+  }
+  #f09-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1600px;
+    height: 900px;
+    pointer-events: none;
+  }
+  #f09-outline {
+    fill: #00B563;
+    fill-opacity: 0;
+    stroke: #00B563;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* depth layer 3 — callout pills (tag-pill) at the window's right edge */
+  .f09-pill {
+    position: absolute;
+    right: 156px;
+    height: 52px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+    background: #0A2A6E; /* accent-light (8% cobalt) composited on the cream ground, kept opaque over the page */
+    border: 1.5px solid rgba(198, 213, 235, 0.26);
+    color: #00B563;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    transform-origin: 100% 50%;
+    will-change: transform, opacity;
+  }
+  #f09-pill-pages {
+    top: 586px;
+  }
+  #f09-pill-json {
+    top: 654px;
+  }
+  .f09-pill-dot {
+    display: inline-block;
+    margin: 0 10px;
+    opacity: 0.55;
+  }
+</style>
+
+<div data-hf-id="hf-4m0o" id="root" data-composition-id="09-the-output" data-width="1920" data-height="1080">
+  <!-- layer 1: canvas -->
+  <div data-hf-id="hf-wxl3" id="f09-bg" class="clip" data-start="0.000" data-duration="13.653" data-track-index="0"></div>
+
+  <div data-hf-id="hf-26h1" id="f09-chrome" class="clip" data-start="0.000" data-duration="13.653" data-track-index="1">
+    <div data-hf-id="hf-env6" id="f09-eyebrow">The output</div>
+  </div>
+
+  <!-- layer 2: the result window under the camera -->
+  <div data-hf-id="hf-iudg" id="f09-cam-outer" class="clip" data-start="0.000" data-duration="13.653" data-track-index="2" data-layout-allow-overflow="">
+    <div data-hf-id="hf-dh3e" id="f09-cam-inner" data-layout-allow-overflow="">
+      <div data-hf-id="hf-8bbp" id="f09-window">
+        <div data-hf-id="hf-8jrw" id="f09-screen" data-layout-allow-overflow="">
+          <img data-hf-id="hf-5qe3" id="f09-shot" src="assets/screen-result.png" alt="">
+          <svg data-hf-id="hf-56d1" id="f09-overlay" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- outline around the field table's confidence column (header + first two rows), in screenshot px -->
+            <rect data-hf-id="hf-okzg" id="f09-outline" x="1322" y="793" width="152" height="114" rx="8" ry="8" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- layer 3: callouts -->
+  <div data-hf-id="hf-ykxa" id="f09-callouts" class="clip" data-start="0.000" data-duration="13.653" data-track-index="3">
+    <div data-hf-id="hf-evau" id="f09-pill-pages" class="f09-pill">pages 4 / 4</div>
+    <div data-hf-id="hf-12s2" id="f09-pill-json" class="f09-pill">Copy JSON<span data-hf-id="hf-tbdz" class="f09-pill-dot">·</span>Download</div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var ID = "09-the-output";
+    /* == RETIMED (tools_apply_retime.py) == */
+      /* Beat times below are OLD-take time; P() maps them onto the delivered take
+         through word anchors matched by text. Generated - do not hand-edit. */
+      var __KX = [0.0000, 0.0700, 0.1900, 0.6300, 0.8100, 1.1300, 1.6700, 1.8800, 2.4400, 3.2000, 3.2700, 3.2900, 4.0000, 4.2000, 4.8700, 5.3900, 5.6800, 6.1300, 6.5700, 6.9900, 7.8700, 8.0400, 8.4300, 9.0500, 9.4700, 9.7200, 10.2800, 11.0700, 11.1900, 11.6480];
+      var __KY = [0.0000, 0.0230, 0.5460, 0.8010, 0.9750, 1.2420, 2.2870, 2.4610, 3.0650, 3.4020, 4.0520, 4.2260, 4.7830, 4.9570, 5.2240, 6.1530, 6.4440, 6.8030, 7.6860, 7.9530, 8.8580, 9.1720, 9.5430, 10.4490, 10.7620, 10.9600, 11.3430, 11.7730, 12.0510, 13.0030];
+      function __pw(t, X, Y) { if (t <= X[0]) return Y[0] + (t - X[0]); var n = X.length - 1;
+        if (t >= X[n]) return Y[n] + (t - X[n]) * (Y[n] / X[n]); var lo = 0, hi = n;
+        while (hi - lo > 1) { var m = (lo + hi) >> 1; if (X[m] <= t) lo = m; else hi = m; }
+        return Y[lo] + (t - X[lo]) / (X[hi] - X[lo]) * (Y[hi] - Y[lo]); }
+      function P(t) { return __pw(t, __KX, __KY); }   /* old take time -> delivered take time */
+      function Q(u) { return __pw(u, __KY, __KX); }   /* inverse: drivers run in new time,
+         so a threshold written in old time is compared against Q(driver.t) unedited */
+      var DURATION = 13.003;  /* measured delivered take (was 11.648) */
+
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    /* ---- camera geometry (coordinate-target-zoom, nested wrappers: T = -offset) ----
+       The screenshot (1920x1080) is shown at 1600x900 inside the window at (160,120), shifted up
+       44 source px. Canvas = 160 + 0.8333*ix ; 83.33 + 0.8333*iy.
+       Target: the application heading + the four tiles (source x 285-1483, centre 884) framed so the
+       field table's confidence column stays above the caption band: target canvas centre (896.7, 612). */
+    var W = 1920, H = 1080;
+    var TARGET_X = 160 + (884 * 1600) / 1920; // 896.67
+    var TARGET_Y = 612;
+    var ZOOM_SCALE = 1.5;
+    var ZOOM_AT = 3.0;
+    var ZOOM_DUR = 1.6;
+    var counterX = -(TARGET_X - W / 2); //  +63.33
+    var counterY = -(TARGET_Y - H / 2); //  -72
+
+    /* ---- outline path length (svg-path-draw) — measured, with an arithmetic fallback ---- */
+    var outline = document.getElementById("f09-outline");
+    var outlineLen = 0;
+    try {
+      outlineLen = outline && outline.getTotalLength ? outline.getTotalLength() : 0;
+    } catch (e) {
+      outlineLen = 0;
+    }
+    if (!(outlineLen > 0)) {
+      // rounded rect perimeter: 2(w+h) - 8r + 2*pi*r
+      outlineLen = 2 * (152 + 114) - 8 * 8 + 2 * Math.PI * 8;
+    }
+    outlineLen = outlineLen * 1.03;
+
+    /* ---- Scene 1 (0.0-3.0s): the window fades up with a 0.97 -> 1 settle; eyebrow top-left ---- */
+    tl.fromTo(
+      "#f09-window",
+      { opacity: 0, scale: 0.97 },
+      { opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
+      0
+    );
+    tl.fromTo(
+      "#f09-eyebrow",
+      { opacity: 0, x: -16 },
+      { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" },
+      0.25
+    );
+    // The push-in enlarges the window over it - an occlusion and a contrast fail
+    // against the screenshot. Take it off before the camera moves.
+    tl.to("#f09-eyebrow", { opacity: 0, duration: 0.45, ease: "power1.in" }, ZOOM_AT);
+
+    /* ---- Scene 2 (3.0-8.0s): push-in onto the application card, then the confidence column draws ---- */
+    tl.fromTo(
+      "#f09-cam-outer",
+      { scale: 1 },
+      { scale: ZOOM_SCALE, duration: ZOOM_DUR, ease: "power3.inOut" },
+      ZOOM_AT
+    );
+    tl.fromTo(
+      "#f09-cam-inner",
+      { x: 0, y: 0 },
+      { x: counterX, y: counterY, duration: ZOOM_DUR, ease: "power3.inOut" },
+      ZOOM_AT
+    );
+    // the macro move keeps creeping under the reveals (target stays centred: T is independent of S)
+    tl.to(
+      "#f09-cam-outer",
+      { scale: 1.53, duration: DURATION - P(ZOOM_AT + ZOOM_DUR), ease: "none" },
+      ZOOM_AT + ZOOM_DUR
+    );
+
+    tl.fromTo(
+      "#f09-outline",
+      { strokeDasharray: outlineLen, strokeDashoffset: outlineLen },
+      { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" },
+      5.2
+    );
+    tl.fromTo(
+      "#f09-outline",
+      { fillOpacity: 0 },
+      { fillOpacity: 0.07, duration: 0.4, ease: "power1.out" },
+      5.9
+    );
+
+    /* ---- Scene 3 (8.0s-end): the pills pop at the window's right edge (spring-pop-entrance, edge-anchored) ---- */
+    tl.fromTo(
+      "#f09-pill-pages",
+      { scale: 0, opacity: 0, x: 10 },
+      { scale: 1, opacity: 1, x: 0, duration: 0.55, ease: "power3.out" },
+      8.0
+    );
+    tl.fromTo(
+      "#f09-pill-json",
+      { scale: 0, opacity: 0, x: 10 },
+      { scale: 1, opacity: 1, x: 0, duration: 0.55, ease: "power3.out" },
+      9.4
+    );
+
+    /* ---- Scene 4: hold on the pushed-in view to the end ---- */
+    tl.to({}, { duration: DURATION }, 0);
+
+    window.__timelines[ID] = tl;
+
+      /* == RETIMED (tools_apply_retime.py) == beat walk == */
+      /* Every registered beat moves to its remapped position. */
+      (function () {
+        var kids = tl.getChildren(false, true, true);
+        if (!kids.length) throw new Error("retime: no children to reposition");
+        var moved = 0, over = [];
+        kids.forEach(function (c) {
+          if (c.vars && c.vars.data === "pin") return;   /* already in new-take time */
+          var s = c.startTime(), n = P(s);
+          if (Math.abs(n - s) > 0.0005) { c.startTime(n); moved++; }
+          /* Eyebrows share one zone, so at a fade boundary two of them smear. Hold
+             any eyebrow until the 0.5s transition is done. */
+          var tg = (c.targets ? c.targets() : []);
+          var nm = tg.length ? ((tg[0].id || "") + " " + (tg[0].className || "")) : "";
+          if (/-eyebrow(\s|$)/.test(nm) && c.startTime() < 0.52) {
+            c.startTime(0.52);
+          }
+          if (c.startTime() + c.duration() > 13.003 + 0.02) {
+            over.push(Math.round((c.startTime() + c.duration()) * 1000) / 1000);
+          }
+        });
+        window.__retime = window.__retime || {};
+        window.__retime["09-the-output"] = { beats: kids.length, moved: moved, overrun: over };
+      })();
+
+  })();
+</script>
+</template>

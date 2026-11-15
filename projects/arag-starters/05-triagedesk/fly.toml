@@ -1,0 +1,29 @@
+# AkademDocs Pre-Check - gov degree-equivalency document triage demo (ARAG GTM).
+app = "CHANGE-ME-triagedesk"
+primary_region = "syd"
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+
+# Persists the submissions SQLite store + page thumbnails across machine
+# restarts/stops (auto_stop_machines above means the machine WILL restart on
+# idle) - a real functional fix, not cosmetic: without this, a machine
+# restart silently reverts to whatever the deploy image baked in, wiping any
+# submissions made since. Create once: `fly volumes create akademdocs_data
+# --region syd --size 1 --app akademdocs-precheck`.
+[mounts]
+  source = "akademdocs_data"
+  destination = "/app/data"
+
+# secrets to set before deploy (never in this file):
+#   fly secrets set ARAG_KB_URL=... ARAG_SERVICEACCOUNT=...

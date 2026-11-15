@@ -1,0 +1,111 @@
+<title>Source document - Ignition</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/css/ignition.css">
+<style>
+  mark.hl{background:rgba(41,100,246,.32);color:#fff;padding:1px 3px;border-radius:3px;box-shadow:0 0 0 1px rgba(41,100,246,.5)}
+  .doc-media{width:100%;border-radius:var(--radius-lg);border:1px solid var(--graphite-700);margin-bottom:20px}
+</style>
+
+<header class="topbar">
+  <a href="/" class="brand" id="brand-mark"><span>Ignition</span><small>Coppermill Motor Group</small></a>
+  <nav>
+    <a href="/">Overview</a>
+    <a href="/service-assistant">Service &amp; Recon</a>
+    <a href="/compliance">Compliance &amp; Recalls</a>
+    <a href="/media-library">Media Library</a>
+    <a href="/deal-desk">Deal Desk</a>
+    <a href="/insights">Insights</a>
+  </nav>
+  <span class="spacer"></span>
+  <button class="btn btn-ghost" onclick="history.back()">&larr; Back</button>
+</header>
+
+<main class="page narrow" id="doc-wrap">
+  <div class="loading"><span class="spinner"></span> Loading source document...</div>
+</main>
+
+<footer class="disclosure-footer">
+  Coppermill Motor Group, its sites, stock and personnel are a synthetic illustrative dataset built for this demonstration. Not a real dealership.
+</footer>
+
+<script src="/static/js/shared.js"></script>
+<script>
+document.getElementById('brand-mark').insertAdjacentHTML('afterbegin', IGN.logoSVG());
+
+// Insert control markers at an exact character range on the RAW text (server-
+// resolved, Standard B23), render through the shared markdown renderer, THEN
+// swap the markers for <mark> - this survives markdown structure (headings,
+// bold, lists) because the markers are plain characters renderMarkdown just
+// passes through, unlike trying to re-locate a highlight inside already-
+// rendered HTML.
+const HL_OPEN = '\u0001', HL_CLOSE = '\u0002';
+
+// A marker landing directly in front of a heading/list prefix breaks the
+// shared renderer's line-start regexes (e.g. "## Heading" no longer matches
+// "^#{1,4}\\s" - the same class of bug as B33's "snap citation markers to a
+// word boundary", one level up: here it is a MARKDOWN boundary, not a word
+// boundary). Advance the marker past any leading markdown control prefix so
+// the structural characters stay unwrapped and still parse as a heading/list.
+function snapToMarkdownBoundary(text, pos) {
+  let p = pos;
+  while (p < text.length) {
+    const rest = text.slice(p);
+    const m = rest.match(/^(\n+|#{1,4}\s+|[-*]\s+|\d+\.\s+)/);
+    if (!m) break;
+    p += m[0].length;
+  }
+  return p;
+}
+
+function renderWithHighlight(rawText, start, end) {
+  let text = rawText;
+  if (start != null && end != null && start >= 0 && end > start && end <= text.length) {
+    const snappedStart = snapToMarkdownBoundary(text, start);
+    text = text.slice(0, snappedStart) + HL_OPEN + text.slice(snappedStart, end) + HL_CLOSE + text.slice(end);
+  }
+  let html = IGN.renderMarkdown(text);
+  html = html.split(HL_OPEN).join('<mark class="hl">').split(HL_CLOSE).join('</mark>');
+  return html;
+}
+
+async function load() {
+  const parts = location.pathname.split('/');
+  const id = parts[parts.length - 1];
+  const params = new URLSearchParams(location.search);
+  const hl = params.get('hl');
+  let hlStart = null, hlEnd = null;
+  if (hl && /^\d+-\d+$/.test(hl)) {
+    const [s, e] = hl.split('-').map(Number);
+    hlStart = s; hlEnd = e;
+  }
+
+  const d = await IGN.api(`/api/resource/${id}`);
+  const wrap = document.getElementById('doc-wrap');
+  const isImage = !d.text;
+
+  let bodyHtml;
+  if (isImage) {
+    bodyHtml = `<img class="doc-media" src="/api/media/${id}" alt="${IGN.escHtml(d.title)}">`;
+  } else {
+    bodyHtml = `<div class="answer-body">${renderWithHighlight(d.text, hlStart, hlEnd)}</div>`;
+  }
+
+  wrap.innerHTML = `
+    <div class="eyebrow"><span class="bar"></span> Source document</div>
+    <h1>${IGN.cleanText((d.copy && d.copy.title) || d.title.replace(/\.md$/, ''))}</h1>
+    ${d.copy && d.copy.summary ? `<p class="lede">${IGN.cleanText(d.copy.summary)}</p>` : ''}
+    <div class="panel">${bodyHtml}</div>
+  `;
+
+  if (hlStart != null) {
+    setTimeout(() => {
+      const m = document.querySelector('mark.hl');
+      if (m) m.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 60);
+  }
+}
+load().catch(() => {
+  document.getElementById('doc-wrap').innerHTML = '<div class="empty-state">Could not load this document.</div>';
+});
+</script>

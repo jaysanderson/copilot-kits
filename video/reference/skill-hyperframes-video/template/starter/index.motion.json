@@ -1,0 +1,18 @@
+{
+  "//1": "Motion contract. `hyperframes check` discovers this by basename - no flag, no config. Findings are ERRORS and gate the exit code.",
+  "//2": "keepsMoving is scoped to #root, NOT per scene. Measured 29 Sep 2026: the assertion measures across the WHOLE composition duration, so a per-scene selector counts every second the scene is legitimately hidden as 'static' and false-fails. Root scope is also strictly better coverage - when any one scene holds a frozen frame, nothing in the root moves either, so the dead air is still caught, and it is caught with the offending window named.",
+  "//3": "Proven both ways on this exact file: PASSES as authored; removing the two hold-drift tweens produces 'motion_frozen: nothing moves within #root between 2.3s and 6.05s (3.75s static)'.",
+  "duration": 12,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#s1-kicker", "bySec": 1.0 },
+    { "kind": "appearsBy", "selector": "#s1-headline", "bySec": 1.6 },
+    { "kind": "before", "a": "#s1-kicker", "b": "#s1-headline" },
+    { "kind": "staysInFrame", "selector": "#s1-headline" },
+
+    { "kind": "appearsBy", "selector": "#s2-payoff", "bySec": 7.5 },
+    { "kind": "before", "a": "#s2-payoff", "b": "#s2-note" },
+    { "kind": "staysInFrame", "selector": "#s2-payoff" },
+
+    { "kind": "keepsMoving", "withinSelector": "#root", "maxStaticSec": 2 }
+  ]
+}

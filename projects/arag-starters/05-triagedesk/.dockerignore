@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.git/
+data/submissions.json
+data/submissions.db
+data/media/
+seed/corpus/_tmp_*
+.DS_Store

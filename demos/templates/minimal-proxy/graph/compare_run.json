@@ -1,0 +1,194 @@
+[
+ {
+  "start": "International students",
+  "q": "I'm an international student. What English test scores, scholarships and visa or health cover costs should I plan for?",
+  "walked_pages": 13,
+  "arms": {
+   "plain": {
+    "status": "no_context",
+    "cited_pages": 0,
+    "cited_sections": [],
+    "words": 6,
+    "answer": "Not enough data to answer this."
+   },
+   "context": {
+    "status": "no_context",
+    "cited_pages": 0,
+    "cited_sections": [],
+    "words": 42,
+    "answer": "Not enough data to answer this.\n\nWhile the provided text mentions \"English proficiency tests,\" \"Scholarships,\" \"Apply for a visa,\" and \"Overseas Student Health Cover (OSHC),\" it does not list specific test scores, scholarship amounts, or specific costs for visas or health cover."
+   },
+   "scoped": {
+    "status": "success",
+    "cited_pages": 6,
+    "cited_sections": [
+     "explore",
+     "home",
+     "study"
+    ],
+    "words": 412,
+    "answer": "Based on the provided context, here is the information to help you plan your international study at The university:\n\n### **1. English Proficiency Test Scores**\nRequirements vary depending on your chosen course:\n\n*   **General/Standard:** While not explicitly listed for all courses, specific examples include:\n    *   **Allied Health (B1422):** IELTS 6.5 (6.5 in all bands), PTE 58 Overall (with specific sub-band minimums).\n    *   **Law (B1395, etc.):** IELTS 6.5 (6.0 in all bands), PTE 58 Overall (with specific sub-band minimums).\n    *   **Veterinary Medicine (B1402):** IELTS 7.0 (7.0 in all bands), PTE 66 Overall.\n    *   **Education (B1368, etc.):** IELTS 7.5 (7.0 Reading/Writing, 8.0 Speaking/Listening), PTE 76 Overall.\n    *   **Agricultural Science (C1151, M1311):** IELTS 6.5 (6.0 in all bands), PTE 58 Overall.\n\n*Note: The context provides detailed tables for specific courses showing minimum scores for tests such as IELTS, CAE, KTE, PTE, TOEFL IBT, OET, Duolingo, and LanguageCert. Please check the specific requirements for your intended course.*\n\n### **2. Scholarships**\n*   **International Welcome Scholarship:** Offers a 15% fee reduction for eligible international students.\n*   **Other Opportunities:** You are encouraged to explore further scholarships using the scholarship finder tool on the University website.\n\n### **3. Visa and Health Cover (OSHC) Costs**\n*   **Visa Application:** You must apply for your student visa through the Department of Home Affairs. The process and requirements (which may include financial, health, and insurance evidence) depend on your nationality and the level of your course.\n*   **Overseas Student Health Cover (OSHC):** \n    *   You are required to pay the OSHC fee for the duration of your visa as part of the acceptance process. \n    *   University\u2019s preferred provider is **Allianz Care Australia**. \n    *   Costs depend on the type of cover you choose:\n        *   **Single:** Covers only you.\n        *   **Dual-family:** Covers you plus one adult spouse/partner and one or more dependent children under 18.\n        *   **Multi-family:** Covers you plus one adult spouse/partner and one or more dependent children/stepchildren.\n    *   Note that basic OSHC does not cover pre-existing conditions or extras (like dental or optical) unless you purchase a separate \"OSHC Extras\" policy.\n\n**Actionable Next Steps:**\n1.  **Apply for your course first:** You must receive an *Offer of Admission* and accept it (including payment of fees) before you can receive the *Confirmation of Enrolment* (CoE) needed for your visa.\n2.  **Use provided resources:**\n    *   Use the [Course Finder](https://goto.university.edu.au/CourseFinder) to confirm exact entry requirements for your specific degree.\n    *   Contact [international@university.edu.au](mailto:international@university.edu.au) for direct assistance.\n    *   Consider using an [education agent](https://www.university.edu.au/study/how-to-apply/apply-through-an-agent) to assist with your application and visa process."
+   }
+  }
+ },
+ {
+  "start": "The university Art Collection",
+  "q": "I'm studying at the Perth campus. What can I use outside class: housing, wellbeing support and sport?",
+  "walked_pages": 1,
+  "arms": {
+   "plain": {
+    "status": "success",
+    "cited_pages": 10,
+    "cited_sections": [
+     "Community",
+     "collaborate",
+     "explore",
+     "study"
+    ],
+    "words": 337,
+    "answer": "Based on the provided documents, here are the services and facilities available to you at the Perth campus outside of class:\n\n### Housing\n*   **On-Campus:** You have the option to live at **The university Village**. Benefits include walking distance to class (1\u20132 km), 24/7 security, residential advisors, and the ability to pay only for the time you live there.\n*   **Off-Campus:** You can pursue private rentals using resources provided by the **University Guild** or external websites such as Flatmates.com, Student.com, Campus Perth, UniLodge, and Yugo.\n\n### Wellbeing Support\n*   **Health & Counselling:** The university provides health and counselling support services. You can access professional support for adults, children, couples, and families at the **Psychology Clinic** or benefit from affordable counselling and art therapy at **Caladenia Counselling**.\n*   **Chiropractic Clinic:** The university offers high-quality, patient-centred care through its Chiropractic Clinic.\n*   **Wellbeing Resources:** You can find information and support through the [Health & wellbeing](https://www.university.edu.au/explore/facilities/health-wellbeing) services page.\n*   **Student Guild:** The University Student Guild provides advocacy, support, and services to students.\n*   **Parenting/Family Support:** If you have caring responsibilities, there are parenting facilities, baby change rooms, and child care services available on campus. \n*   **Safety:** You can contact security services to help keep the campus safe.\n\n### Sport and Recreation\n*   **University Active:** This is your primary hub for staying fit. You have access to:\n    *   A fully equipped on-campus gym (with discounted access for students).\n    *   Group fitness classes.\n    *   Social and competitive sporting teams (e.g., basketball, cricket, beach volleyball, cycling, golf).\n    *   Esports Gaming Hub.\n*   **Walks and Trails:** There are three unique walking trails set within the campus's **Banksia Woodland Reserve** for you to explore.\n*   **Sporting Venues:** The Sports Precinct includes fields and pavilions.\n*   **Elite Athlete Program:** If you are an athlete, the university offers a program to help you balance your studies with your sporting commitments.\n*   **Social/Community Events:** You can attend events such as movies under the stars at the outdoor Community Cinemas or participate in activities hosted by the Student Guild."
+   },
+   "context": {
+    "status": "success",
+    "cited_pages": 9,
+    "cited_sections": [
+     "Community",
+     "PerthCampus",
+     "collaborate",
+     "explore",
+     "study"
+    ],
+    "words": 296,
+    "answer": "Based on the provided context, here are the options available to you at the Perth campus for housing, wellbeing, and sport:\n\n**Housing**\n*   **On-campus:** You can live at the The university Village. Benefits include walking to class (1-2 km distance), saving on travel costs, 24/7 security, residential advisors, and the ability to meet other students.\n*   **Off-campus:** You can seek private rentals. Resources provided to assist with this include:\n    *   The University Guild accommodation page.\n    *   Flatmates.com.au\n    *   Student.com\n    *   Campus Perth\n    *   UniLodge\n    *   Yugo\n\n**Wellbeing Support**\n*   **Health and Counselling:** The university provides health and counselling support services.\n*   **Clinics:** There are several expert services available to the community and students, including:\n    *   **Chiropractic Clinic:** Patient-centred care.\n    *   **Psychology Clinic:** Professional support for adults, children, couples, and families.\n    *   **Caladenia Counselling:** Affordable counselling and art therapy.\n    *   **Animal Hospital:** Veterinary services for pets.\n*   **Legal Services:** Available through the southern communities legal centre.\n*   **Parenting:** If you have caring responsibilities, there are parenting facilities and baby change rooms available, as well as child care services.\n\n**Sport and Recreation**\n*   **University Active:** This is the primary hub for staying fit and active on campus.\n    *   **Gym:** There is a fully equipped, exclusive on-campus gym offering discounted access.\n    *   **Classes and Teams:** You can join group fitness classes and various social or competitive sporting teams (e.g., basketball, cricket, beach volleyball, cycling, and golf).\n    *   **Facilities:** Includes an indoor court and a Sports Precinct with various fields and pavilions available for hire.\n*   **Walks and Trails:** There are three unique walking trails set within the Banksia Woodland Reserve on the Perth campus to explore.\n*   **Esports:** There is an Esports Gaming Hub available.\n*   **Elite Athlete Program:** Support is available to help balance studies with sporting commitments."
+   },
+   "scoped": {
+    "status": "success",
+    "cited_pages": 1,
+    "cited_sections": [
+     "explore"
+    ],
+    "words": 143,
+    "answer": "Based on the provided context, you have access to the following facilities and services outside of class at the Perth campus:\n\n**Housing and Accommodation**\n* The university provides information on **accommodation** to support your time in Perth.\n\n**Wellbeing and Health Support**\n* **Health and wellbeing facilities** on campus include:\n    * Chiropractic Clinic\n    * Caladenia Clinic (counselling)\n    * University Psychology Clinic\n    * Worship Centre\n* Additionally, there are **support services** available, including:\n    * Careers and Employability support\n    * Support for students with disability\n    * The Kulbardi Aboriginal Centre (which offers various support services for students)\n    * The Guild\n    * Information regarding Overseas Student Health Cover (OSHC)\n\n**Sport and Recreation**\n* The university offers **sport and recreation** facilities, which include:\n    * Walks and trails\n    * Sporting venues\n\nAdditionally, the Perth campus features a library, various dining options (Eat and drink), and parenting facilities if needed."
+   }
+  }
+ },
+ {
+  "start": "Research ethics and integrity",
+  "q": "I'm a PhD candidate working with animals. Which ethics approvals do I need and where can I get support?",
+  "walked_pages": 5,
+  "arms": {
+   "plain": {
+    "status": "success",
+    "cited_pages": 8,
+    "cited_sections": [
+     "research"
+    ],
+    "words": 320,
+    "answer": "To obtain the necessary ethics approvals for your project, you must follow these steps and guidelines:\n\n### Ethics Requirements\n*   **Approval Before Commencement:** You must obtain animal ethics approval **before** any work can commence. Retrospective approvals cannot be granted.\n*   **Project Application:** You must submit an application for animal ethics approval online via the **IRMA system**.\n*   **Training:** Before being included as a co-investigator on a project, all personnel involved in handling animals must:\n    *   Complete the ANZCCART **ComPass online training module** (Modules 1 to 7, with Module 8 as the quiz).\n    *   Attend an **Animal Care & Ethics Workshop**. To enrol, you must email the Animal Welfare Advisor - Research & Teaching at [animal.ethics@university.edu.au](mailto:animal.ethics@university.edu.au).\n*   **Chief Investigator:** As a PhD candidate, you cannot be the Chief Investigator; this role must be filled by your supervisor, who must be a The university staff member capable of taking ultimate responsibility for the project.\n*   **Documentation:** Depending on your specific work, you may need to attach:\n    *   Standard Operating Procedures (SOPs).\n    *   An independent statistical evaluation (unless an investigator on the team is recognised for statistical expertise).\n    *   Other required permits or licences (e.g., if working interstate or overseas).\n    *   If using privately owned animals, you must obtain and attach the owner's informed consent.\n\n### Where to get support\n*   **Animal Ethics Advisor:** For questions regarding permits, licences, or collaborative requirements, contact the [Animal Ethics Advisor](mailto:Animal.ethics@university.edu.au).\n*   **Research Ethics and Integrity Office:** Contact them for guidance on applications, particularly for international projects or those requiring additional licensing.\n*   **Resources:** You can find application forms, step-by-step submission guides, and relevant policies on the The university [Animal Ethics homepage](https://www.university.edu.au/research/research-ethics-and-integrity/animal-ethics).\n*   **IRMA:** Use the [IRMA system](https://goto.university.edu.au/RMS/) to submit your application as a \"coversheet,\" manage amendments, and submit annual reports.\n\n**Note:** Plan ahead and allow 6-8 weeks for new applications. Ensure you check the agenda deadlines for Animal Ethics Committee (AEC) meetings when submitting your documentation."
+   },
+   "context": {
+    "status": "success",
+    "cited_pages": 7,
+    "cited_sections": [
+     "research"
+    ],
+    "words": 288,
+    "answer": "Based on the provided context, here is the information regarding your ethics approval and support:\n\n### **Ethics Approvals Needed**\n*   **Animal Ethics Approval:** You need ethics approval if your project involves the care and use of animals for scientific purposes on campus, in the field, or in collaboration with other institutions. \n    *   **Requirement:** Approval must be obtained **before** any work can commence. Retrospective approvals cannot be granted.\n    *   **Training Prerequisites:** Before being included as a co-investigator or handling animals, you must complete an online \"Working with Animals\" training module and attend an \"Animal Care & Ethics\" workshop (or provide evidence of equivalent training).\n*   **Unique Permit Display:** Once approved, your animal ethics permit (with its unique identification number) must be displayed where animals are used (e.g., laboratory) or carried (e.g., in the field).\n\n### **Where to Get Support and Apply**\n*   **Application System:** All applications are submitted online via **IRMA**.\n*   **Planning:** The application process should be part of your project design. Allow 6\u20138 weeks for new applications and ensure you submit by the agenda document deadline for the Animal Ethics Committee (AEC).\n*   **Chief Investigator Requirement:** As a PhD candidate, you cannot be the Chief Investigator; this role must be filled by your supervisor, who will take ultimate responsibility for the project.\n*   **Support Resources:**\n    *   **Animal Ethics Advisor:** You can contact them at [animal.ethics@university.edu.au](mailto:animal.ethics@university.edu.au) for guidance, particularly regarding cadaver/tissue exemptions or project-specific questions.\n    *   **Application Forms:** You can find relevant forms (such as the \"Research Project Application Form\") on the [Animal ethics resources](https://www.university.edu.au/research/research-ethics-and-integrity/animal-ethics/animal-ethics-resources) page.\n    *   **Policy & Procedures:** Read the \"Animal Code\" and relevant The university policies available on the [Legislation and links](https://www.university.edu.au/research/research-ethics-and-integrity/animal-ethics/legislation-and-links) page before proceeding.\n    *   **IRMA Help:** You can sign into IRMA at [https://goto.university.edu.au/RMS/](https://goto.university.edu.au/RMS/)."
+   },
+   "scoped": {
+    "status": "success",
+    "cited_pages": 2,
+    "cited_sections": [
+     "research"
+    ],
+    "words": 364,
+    "answer": "As a PhD candidate working with animals, you need ethics approval for any project or activity that involves the care and use of animals for scientific purposes, whether on campus, in the field, or in collaboration with other institutions. This includes observational studies of live vertebrate animals and cephalopods.\n\n### Required Approvals and Process\n*   **Application Submission:** You must apply via **IRMA**.\n*   **Supervision:** The Principal Supervisor must submit the ethics application on your behalf. In particular circumstances, as approved by the Animal Ethics Committee (AEC), you may be granted the position of joint Chief Investigator with your supervisor.\n*   **Mandatory Training:** Before you can be included as a co-investigator, you must complete an online Working with Animals training module and attend an Animal Care & Ethics Workshop (or provide evidence of equivalent training).\n*   **Additional Requirements:**\n    *   If using privately owned animals, you must obtain owner consent before work commences and attach a copy to the application.\n    *   If using cadavers or animal tissue, you must notify the AEC via the Research or Teaching Application form and the Cadaver and Tissue questionnaire on IRMA before use.\n    *   If collaborating with other Australian institutions, you may need to submit a Reciprocal Approval application or ensure an Inter-Institutional Agreement is in place.\n\n### Where to Get Support\n*   **Research Ethics and Integrity (REI):** This office provides advice to research students on animal research ethics applications and offers administrative support to the Animal Ethics Committee.\n*   **Animal Ethics Advisor:** You can contact the Animal Ethics Advisor regarding re-homing animals, returning animals to natural habitats/husbandry, or inquiries about the use of cadavers or tissue samples.\n*   **Animal Welfare Advisor - Research & Teaching:** Contact them at **animal.ethics@university.edu.au** to enroll in the mandatory Animal Care and Ethics Training Workshop or for further information regarding those workshops.\n*   **General Inquiries:** You can contact the Animal Ethics team via email at **animal.ethics@university.edu.au** or by phone at **+61 9 9360 6472**. The office is located in the Chancellery Building, Room 1.006, South Street, University.\n*   **Online Resources:** You can access the IRMA system and find resources, forms, and guides via the [Animal ethics](https://www.university.edu.au/research/research-ethics-and-integrity/animal-ethics) and [Useful information](https://www.university.edu.au/research/research-ethics-and-integrity/animal-ethics/useful-information) pages on the University website."
+   }
+  }
+ },
+ {
+  "start": "Scholarships",
+  "q": "What funding and support exists for Aboriginal and Torres Strait Islander students, from entry to research?",
+  "walked_pages": 5,
+  "arms": {
+   "plain": {
+    "status": "success",
+    "cited_pages": 10,
+    "cited_sections": [
+     "HealthPartnerships",
+     "collaborate",
+     "explore",
+     "research",
+     "study"
+    ],
+    "words": 415,
+    "answer": "Based on the provided context, Aboriginal and Torres Strait Islander students at The university have access to a comprehensive range of support and funding throughout their educational journey:\n\n### **Entry and Enabling Programs**\n*   **K-Track:** An award-winning, free enabling course with no prerequisites, designed to help students start their tertiary education or change direction, leading to undergraduate entry.\n*   **Ngoolark:** A free, tailored unit for first-year students transitioning into Bachelor of Arts, Education, Business, or Nursing degrees.\n*   **Waardong:** A support unit specifically for students entering veterinary and life sciences undergraduate degrees, including those without a chemistry background.\n\n### **Ongoing Academic and Social Support**\n*   **Student Success Advisors and Support Staff:** Staff provide academic, cultural, and emotional support, including course advice, career development, tutorials, and assistance with any concerns.\n*   **Kulbardi Aboriginal Centre Facilities:** Students on the Perth campus have access to a computer room, printers, kitchen, common room, free stationery, access to textbooks, and a food pantry.\n*   **Mentoring:** The K-Track mentor program provides peer-facilitated study sessions for extra academic assistance.\n*   **Clinical Support:** The *Moorditj Kaartdijin, Moorditj Warlang* partnership allows nursing students to complete all clinical placements at Fiona Stanley Hospital or South Metropolitan Health Service facilities.\n\n### **Postgraduate Support**\n*   **Academic Development:** Support is available for coursework, literature reviews, research methodology, data analysis, thesis writing, and journal article publication.\n*   **Research Preparation:** The Kulbardi Aboriginal Centre assists prospective postgraduate students in finding a supervisor and preparing research proposals.\n\n### **Funding and Financial Support**\n*   **Scholarships:** Various scholarships are available depending on background, academic results, or field of study (e.g., Kulbardi Aboriginal Centre Success and Health Scholarships). Some scholarships may cover additional expenses like laptops and childcare.\n*   **Donation-Funded Support:** As a not-for-profit, 100% of donations go directly to students, covering:\n    *   Customised scholarships.\n    *   Laptops for loan.\n    *   SmartRiders for public transport to campus.\n    *   Events such as the Indigenous Nationals Unisport.\n*   **External Scholarships:** Numerous specific scholarships are listed for students, such as the Dr Tracy Westerman Indigenous Psychology Scholarship, Cancer Council Honours/Masters Scholarship, and others.\n\n### **Strategic Institutional Commitment**\n*   The university aims to build the next generation of First Nations academics and researchers, supported by the **Pro Vice Chancellor (First Nations)**, who focuses on increasing participation, achievement, and fostering a culturally safe learning environment.\n*   Research involving Indigenous participants must adhere to strict ethical guidelines, such as the National Statement on Ethical Conduct in Human Research and specific guidelines for researchers working with Aboriginal and Torres Strait Islander peoples."
+   },
+   "context": {
+    "status": "success",
+    "cited_pages": 9,
+    "cited_sections": [
+     "Explore",
+     "Students",
+     "explore",
+     "s",
+     "study"
+    ],
+    "words": 372,
+    "answer": "Based on the provided context, The university offers a comprehensive range of support and funding for Aboriginal and Torres Strait Islander students at every stage of their academic journey:\n\n### Enabling and Entry Programs\n*   **K-Track:** A free, award-winning 14-week full-time enabling program designed to help students transition into an undergraduate degree. It includes a mentor program for academic and emotional support.\n*   **Ngoolark:** A program providing tailored learning experiences to support the transition into Bachelor of Arts, Education, Business, or Nursing degrees.\n*   **Waardong:** A support unit for students aiming for veterinary and life sciences degrees, specifically helping those without a chemistry background.\n\n### Ongoing Student Support\n*   **Kulbardi Aboriginal Centre:** Acts as a primary support hub, offering:\n    *   Tutoring and mentoring.\n    *   Academic guidance and regular semester check-ins.\n    *   Access to free printing, stationery, textbooks, and a food pantry.\n    *   **Facilities:** Access to a computer room, kitchen, and common room at the Perth campus (accessible via ID card).\n*   **Academic Support:** Dedicated coordinators are available to assist with course advice, career development, research methodology, thesis writing, and journal article publication.\n\n### Financial Support and Scholarships\n*   **Kulbardi Scholarships:** These are designed to enable First Nations students to pursue their studies and may assist with additional expenses such as laptops and childcare. Specific examples include:\n    *   Kulbardi Aboriginal Centre Success Scholarships.\n    *   Kulbardi Aboriginal Centre Health Scholarships (undergraduate or postgraduate; HDR students are eligible for a laptop).\n*   **Other Funding:** The university offers support for laptops, public transport (SmartRiders), and participation in the Indigenous Nationals Unisport event. \n*   **Emergency Assistance:** Students may access emergency and short-term loans.\n\n### Research Support\n*   Postgraduate students receive specific support from an academic development coordinator for thesis writing, research methodology, and developing journal articles.\n*   The university supports \"the next generation of First Nations academics, researchers, and professionals\" and provides specific guidance for those preparing research proposals.\n\n### Career Support\n*   **Aboriginal and Torres Strait Islander Talent Register:** The university actively seeks to provide career opportunities for First Nations people through this register.\n\nThe support model is \"relationships-first,\" aiming to remove systemic barriers, increase representation, and foster a culturally safe learning environment for the more than 370 First Nations students currently supported at the university."
+   },
+   "scoped": {
+    "status": "success",
+    "cited_pages": 5,
+    "cited_sections": [
+     "#",
+     "#mainContent",
+     "explore",
+     "home",
+     "study"
+    ],
+    "words": 202,
+    "answer": "Based on the provided context, the following support and funding opportunities are available for Aboriginal and Torres Strait Islander students at The university:\n\n*   **Kulbardi Aboriginal Centre:** This centre offers a variety of support services for students, including:\n    *   **K-Track enabling program:** A pathway program for students.\n    *   **Engagement and outreach:** Support services specifically for student engagement.\n    *   **General support:** The centre provides overall \"support for our students.\"\n    *   **Enquiries and Donations:** The centre facilitates enquiries and accepts donations.\n*   **Ngala Kwop Biddi Brighter Futures Scholarship:** This scholarship is designed to celebrate individuals who have made a positive impact, specifically including those involved in **First Nations leadership**.\n*   **General Strategic Commitment:** As a pillar of its strategic plan, The university expresses a commitment to Aboriginal and Torres Strait Islander communities.\n*   **Other general support:** While not exclusive to Aboriginal and Torres Strait Islander students, they are eligible to access the general range of scholarships, student loans, and government support (such as Commonwealth supported places and HELP loans) provided to the wider student population.\n\nNot enough data to provide specific details regarding funding for \"research\" stages specifically for Aboriginal and Torres Strait Islander students, beyond the general research scholarships mentioned for all students."
+   }
+  }
+ },
+ {
+  "start": "Study areas",
+  "q": "How do veterinary students get hands-on experience, and what funding exists for them?",
+  "walked_pages": 17,
+  "arms": {
+   "plain": {
+    "status": "success",
+    "cited_pages": 7,
+    "cited_sections": [
+     "FutureStudents",
+     "study"
+    ],
+    "words": 364,
+    "answer": "Veterinary students at The university gain hands-on experience through a variety of immersive, industry-aligned settings and facilities:\n\n*   **Working Farms:** Students gain experience at three farm locations: the 51-hectare vet farm on the Perth campus, the 40-hectare Mundijong Farm, and the 80-hectare Mardella Farm. These sites provide opportunities to work with livestock (breeder cows, sheep, horses, pigs, alpacas, and goats) to learn animal handling, clinical examination techniques, pregnancy diagnosis, and breeding soundness examinations. Facilities include cattle feedlots, fish health units, and grain/fodder storage.\n*   **The Animal Hospital:** This fully functioning veterinary hospital at the Perth campus allows students to work with household pets, exotic animals, farm animals, and horses under the guidance of experts in fields such as surgery, emergency and critical care, radiology, and internal medicine.\n*   **Specialized Facilities:**\n    *   **Surgery and Laboratory Teaching Facilities:** Used for training in anaesthesia, medical examinations, and surgery.\n    *   **Clinical Skills Laboratory:** Uses virtual reality modules combined with manual task kits to practice skills like suturing, venous catheterisation, injection administration, and hoof testing.\n    *   **Veterinary Anatomy Museum:** Complements anatomy classes with specimens (including articulated skeletons, wet mounts, and plastinated specimens) to help students understand animal anatomy.\n*   **Clinical Placements:** Students gain invaluable experience by working alongside highly skilled veterinarians in professional settings through clinical and extramural placements.\n\n**Funding and Scholarships**\nSeveral scholarships are available to support veterinary medicine students, including:\n*   **Dr Jolyn Tan Memorial Scholarship:** Promotes academic excellence in veterinary medicine.\n*   **Vet Alumni 4th Year Scholarship:** Available to students in the 4th year of the Doctor of Veterinary Medicine program.\n*   **Clyde McGill and Colleen Rigby Scholarship:** Available to Doctor of Veterinary Medicine students intending to complete an extramural placement.\n*   **A.J. Parker Memorial Scholarship:** Supports students in the field.\n*   **Kulbardi Aboriginal Centre Health Scholarships:** Available to Aboriginal and/or Torres Strait Islander students studying health-related fields.\n*   **TAFE WA Scholarship:** For commencing students who have completed a diploma, advanced diploma, or associate degree at a TAFE WA institution.\n*   **Ragdoll Scholarship:** Available to students in various undergraduate degrees (including Science) experiencing hardship.\n\nAdditionally, the university recently received a $100 million gift to redevelop the School of Veterinary Medicine to further boost research and training."
+   },
+   "context": {
+    "status": "success",
+    "cited_pages": 11,
+    "cited_sections": [
+     "#",
+     "#mainContent",
+     "home",
+     "research",
+     "study"
+    ],
+    "words": 143,
+    "answer": "Based on the provided context, veterinary students gain hands-on experience through the following methods:\n\n*   **Facilities:** Students develop practical skills in cutting-edge facilities located on the Perth campus, which include veterinary teaching hospitals, clinics, and a fully operational farm.\n*   **Clinical Placements:** Students gain invaluable experience by working alongside highly skilled veterinarians in professional clinical settings.\n\nRegarding funding, the provided text mentions the following related to financial support:\n\n*   **Scholarships:** The university awards more than $2.5 million in scholarships every year.\n*   **Loans:** There are specific loans mentioned for eligible students, such as Canadian student loans, US Department of Veterans Affairs benefits, and the US (William D. Ford) Direct Loan Program.\n*   **Budgeting:** The university suggests various ways for students to save money while studying, including sharing accommodation, cooking at home, purchasing second-hand textbooks, and joining the University Student Guild for student discounts."
+   },
+   "scoped": {
+    "status": "success",
+    "cited_pages": 1,
+    "cited_sections": [
+     "study"
+    ],
+    "words": 198,
+    "answer": "Based on the provided context, veterinary students gain hands-on experience through the following:\n\n*   **Teaching Facilities:** The University has a world-class veterinary surgery teaching facility completed in 2010. The surgery rooms feature technology that allows students to view live procedures, surgical preparations, and animal anaesthesia.\n*   **Clinical/Professional Facilities:** The Veterinary School houses livestock and large animal centres, working Vet Farms, and the Animal Hospital, which provides 24-hour emergency services and is open to the public.\n*   **Extramural Placement:** Students enrolled in the Doctor of Veterinary Medicine program may undertake an extramural placement.\n\n**Available Funding:**\nThere are several scholarships available to support students in this study area:\n\n*   **Dr Jolyn Tan Memorial Scholarship:** Promotes academic excellence in Veterinary Medicine and supports the education of aspiring veterinarians.\n*   **Vet Alumni 4th Year Scholarship:** Available to students enrolled in the 4th year of the Doctor of Veterinary Medicine program.\n*   **Clyde McGill and Colleen Rigby Scholarship:** Available to students enrolled in the Doctor of Veterinary Medicine who intend to complete an extramural placement.\n*   **Ragdoll Scholarship:** Available to students enrolled in their first undergraduate degree in various fields, including Health and Science (which includes veterinary-related studies), if they are experiencing hardship."
+   }
+  }
+ }
+]

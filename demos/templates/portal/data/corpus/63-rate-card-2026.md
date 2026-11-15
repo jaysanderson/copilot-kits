@@ -1,0 +1,13 @@
+---
+title: Broker Rate Card - Publisher Mutual Personal and Commercial Lines, 2026
+slug: rate-card-2026
+summary: Base rate bands and standard loading factors for TideProtect Home and Contents, TideDrive Motor and TideCommercial Property, effective 1 July 2026.
+doc_type: Rate Card
+published: 2026-06-15
+---
+
+This rate card sets out the base rate bands and standard loading factors effective from 1 July 2026 for Publisher Mutual's three broker-distributed products. For TideProtect Home and Contents, the base rate band for standard-construction owner-occupied dwellings outside a mapped bushfire or flood-prone zone is 0.20 to 0.35 percent of combined building and contents sum insured annually. A confirmed bushfire-attack-level rating of BAL-29 or higher attracts a loading of 25 to 60 percent depending on confirmed mitigation (ember-guard mesh, sprinkler or ember-defence system, defendable-space clearance); an unconfirmed or incomplete mitigation status attracts the higher end of that range as an interim loading pending confirmation. Optional flood cover, where selected, is individually rated against the property's flood-model band and is not included in the base rate.
+
+For TideDrive Motor, the base rate band for a standard, unmodified vehicle with a driver over 25 on an unrestricted licence for more than two years is 2.0 to 3.5 percent of agreed value annually. A driver under 25 or within their first two years of an unrestricted licence attracts a young/inexperienced-driver loading of 40 to 90 percent; a declared performance modification (engine remap, forced induction, aftermarket exhaust) attracts a further loading of 30 to 75 percent, and the two loadings compound rather than the higher one applying alone. A prior at-fault claim within the last three years attracts an additional loading of 15 to 35 percent depending on claim value and pattern.
+
+For TideCommercial Property, the base rate band for standard retail, office or light-industrial premises with adequate fire protection is 0.30 to 0.55 percent of combined building and stock sum insured annually. Warehousing or distribution of flammable or hazardous retail stock without an automatic sprinkler system and without segregated storage attracts a loading of 50 to 120 percent or a referral to a senior underwriter for individual terms where the combined risk factors place the placement outside standard appetite. A prior fire or business-interruption claim in the last five years attracts an additional loading of 20 to 50 percent. Standard broker commission across all three product lines is 15 percent on new business and 12.5 percent on renewal, subject to the current distribution agreement.

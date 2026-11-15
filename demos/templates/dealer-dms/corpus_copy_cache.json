@@ -1,0 +1,566 @@
+{
+  "051573ebf5914ef08c20dcdd76a7e2d7": {
+    "title": "Full Detail and Paint Correction Standards",
+    "summary": "Coppermill Motor Group requires a mandatory full detail and paint correction process for all retail-bound vehicles, separate from the Pre-Delivery Inspection. The procedure includes systematic washing, paint inspection, machine polishing based on visual grading, and interior/engine bay detailing.",
+    "highlights": [
+      "Machine polish intensity is determined by a visual grade: two-stage for panels scoring below 7/10 and single-stage for 7/10 or above.",
+      "Ceramic top coats are mandatory for vehicles listed above $35,000, while others are at the site manager's discretion.",
+      "Mandatory documentation requires logging every panel with paint defects, interior treatments, and completion of the detail in the recon history."
+    ]
+  },
+  "8c59dfbde6ad496c9bda9b5aa6e5b16b": {
+    "title": "ADAS Calibration and Windscreen Replacement Protocol",
+    "summary": "Vehicles with forward-facing driver-assist cameras require specific windscreen replacement and recalibration procedures to ensure safety and regulatory compliance. Any windscreen replacement on Coppermill vehicles built since 2019 necessitates a logged calibration to prevent lane-position or distance-judgment errors.",
+    "highlights": [
+      "Use only approved WS-4410 series parts for ADAS-equipped vehicles.",
+      "Verify camera mounting position via parts diagrams before ordering glass.",
+      "Complete static or dynamic recalibration immediately following windscreen installation.",
+      "A logged calibration result is mandatory to clear a PDI blocker."
+    ]
+  },
+  "eb50a7baf0424c80b5f0ba0c49a52091": {
+    "title": "Brake Pad and Rotor Service Standard",
+    "summary": "This standard mandates comprehensive brake inspections for all intake vehicles and sets strict replacement criteria based on pad thickness and rotor condition. It emphasizes safety by prohibiting resurfacing and requiring the use of Meridian Brake Components.",
+    "highlights": [
+      "Measures pad thickness on all four corners using calipers during intake inspection.",
+      "Mandatory replacement required for any brake pad measuring below 3mm.",
+      "Prohibits rotor resurfacing; replacements are mandatory if scoring exceeds 0.5mm or thickness falls below manufacturer minimums.",
+      "Utilizes Meridian Brake Components as the default supplier for all non-warranty brake replacements."
+    ]
+  },
+  "8cf42709ddf94899b287142aff5d43b4": {
+    "title": "Coppermill Motor Group PDI Checklist Requirements",
+    "summary": "The Pre-Delivery Inspection (PDI) serves as the final mandatory gate before a vehicle is cleared for customer delivery, ensuring all recon work is completed and verified.",
+    "highlights": [
+      "A mandatory 10km road test covering city and highway speeds is required to ensure no warning lights, noises, or vibrations occur.",
+      "Technicians must verify fluid levels, tyre pressures based on door jamb placards, and functional testing of all lights, indicators, and the horn.",
+      "Specific items must be present, including the spare wheel/repair kit, service history/owner's manual, and a minimum of a quarter tank of fuel.",
+      "ADAS calibration status must be verified if any windscreen or camera-adjacent panels were serviced during the recon process."
+    ]
+  },
+  "f2f6a4dbb3634b94bac400567b4825f1": {
+    "title": "Tyre and Wheel Alignment Procedures",
+    "summary": "The Coppermill Motor Group requires consistent tyre maintenance and wheel alignment checks during intake and pre-delivery inspections to ensure vehicle safety and compliance.",
+    "highlights": [
+      "Tyres with tread depth below 1.5mm must be replaced immediately.",
+      "Uneven tread wear mandates a suspension investigation before fitting new tyres to prevent recurring damage.",
+      "Four-wheel alignment checks are standard at intake and mandatory following any suspension component service.",
+      "Replacement tyres must meet or exceed the load and speed ratings specified on the vehicle's tyre placard."
+    ]
+  },
+  "c4d6a5f9246b4f1e8caf01098fe6d753": {
+    "title": "Toyota Fuel Pump Control Module Recall",
+    "summary": "Toyota RAV4 and HiLux models from 2022-2023 are subject to a safety recall due to a faulty fuel pump control module capacitor that can cause power loss. Affected vehicles must undergo a VIN lookup and potential module replacement before they can be cleared for delivery.",
+    "highlights": [
+      "Faulty internal capacitors can cause intermittent loss of drive power under high engine load.",
+      "Vehicles must be verified via manufacturer VIN lookup, even if no symptoms are present.",
+      "Remedy requires physical inspection or replacement of the control module, as scans may not detect the fault.",
+      "This recall is a mandatory PDI blocker; vehicles cannot be delivered until the remedy is confirmed."
+    ]
+  },
+  "46bc63ce9dcd4b2295584db472f25ed9": {
+    "title": "Rear Differential Seal Recall Requirements",
+    "summary": "The Ford Ranger and Everest recall addresses premature seal degradation that can lead to oil leaks and differential failure under load. All affected vehicles require a mandatory inspection and follow-up, regardless of whether a current remedy is performed.",
+    "highlights": [
+      "Perform a visual inspection for oil residue and check fluid levels on all affected build-window vehicles.",
+      "If residue or low fluid is detected, replace the output seal and top up the fluid to specification.",
+      "Schedule a mandatory follow-up inspection 90 days post-delivery for all affected stock.",
+      "Preventative seal replacement is recommended for vehicles used for towing and mandatory for demonstrator units."
+    ]
+  },
+  "771979ba6e814d14b90612873f7bd939": {
+    "title": "Mazda CX-5 Infotainment Update Procedure",
+    "summary": "The Mazda CX-5 infotainment software update addresses a Bluetooth reconnection issue affecting 2022-2023 models. Consultants are advised to verify the version during recon and proactively inform customers to ensure a positive ownership experience.",
+    "highlights": [
+      "Verify software version via Settings > System > Software Version during recon.",
+      "Apply USB updates for versions below the current release to fix Bluetooth connectivity failures.",
+      "Update installation takes approximately 20 minutes and must be logged as a recon line item.",
+      "Proactively discuss the fix during delivery handover to build customer trust."
+    ]
+  },
+  "b3725ed991d345c2acbf815135ae60bd": {
+    "title": "Hyundai i30 Timing Chain Tensioner Inspection Protocol",
+    "summary": "The timing chain tensioner for 2020-2021 2.0L petrol Hyundai i30s requires a specific cold-start test to identify potential rattle issues.",
+    "highlights": [
+      "Perform two cold starts with at least 4 hours between them to identify the specific rattle pattern.",
+      "If the rattle is present, replace the tensioner; otherwise, no action is required.",
+      "The fault is intermittent and cannot be reliably detected by a single warm test drive."
+    ]
+  },
+  "2d4d53f9a5754423a71ac8317d456f4d": {
+    "title": "Kia Sportage Airbag Control Unit Recall Remedy",
+    "summary": "Affected 2021-2022 Kia Sportage vehicles require a mandatory firmware update to the airbag control unit to correct an issue with impact-severity detection.",
+    "highlights": [
+      "Firmware update recalibrates the impact-severity algorithm to ensure correct airbag deployment.",
+      "Process takes approximately 30 minutes using a diagnostic tool and does not require physical part replacement.",
+      "Vehicles must have the firmware checked and updated before delivery, as this is a hard PDI blocker.",
+      "Technicians must log the firmware version before and after the update, along with the results of the built-in self-test."
+    ]
+  },
+  "38a35945576f47e99b1b1ce4ce404562": {
+    "title": "DPF Regeneration Cycle Advisory and Handover Education",
+    "summary": "The Isuzu D-Max DPF regeneration service bulletin addresses soot accumulation caused by frequent short-trip usage, which is common in demonstrator vehicles. Technicians are advised to perform diagnostic checks and forced regeneration cycles during recon, followed by proactive customer education at handover.",
+    "highlights": [
+      "DPF soot accumulation is considered normal diesel behavior rather than a vehicle fault.",
+      "Perform a diagnostic check and forced regeneration if soot levels exceed the advisory threshold.",
+      "Proactively educate customers that sustained highway driving is required for proper DPF maintenance to prevent unnecessary return visits."
+    ]
+  },
+  "1cea1a27372c413fabed763b964d7c00": {
+    "title": "Finance and Insurance Disclosure Policies",
+    "summary": "Coppermill Motor Group enforces strict disclosure requirements and prohibited practices for all finance and insurance products offered during vehicle sales.",
+    "highlights": [
+      "Mandatory disclosure of comparison rates, total loan costs, and any consultant or dealership commissions.",
+      "Clear communication regarding customer rights to independent finance and detailed coverage for add-on insurance products.",
+      "Prohibits bundling finance with vehicle pricing and pressuring customers to decide on products without considering documentation."
+    ]
+  },
+  "9334d86c6472480aa306bd37e0dc7233": {
+    "title": "PDI Sign-Off and Hold Compliance Standards",
+    "summary": "This document outlines the strict requirements for vehicle Pre-Delivery Inspection (PDI) sign-offs and the specific conditions that trigger mandatory, non-overrideable delivery holds.",
+    "highlights": [
+      "Final delivery-ready sign-off requires two signatures: the performing technician and the service manager or dealer principal.",
+      "Non-overrideable PDI holds include open safety recalls, failed ADAS calibrations, and specific safety-critical maintenance issues.",
+      "Vehicles in PDI Hold status cannot be advertised, listed, or communicated as ready for delivery until all items are cleared and re-verified."
+    ]
+  },
+  "604613993e4e4f039ed952fca536b859": {
+    "title": "ADR Modification Disclosure Policy",
+    "summary": "Coppermill Motor Group requires written disclosure of all aftermarket modifications that impact vehicle compliance, such as ride height, non-standard wheels, or electrical accessories.",
+    "highlights": [
+      "Consultants must identify modifications during intake reconciliation to ensure timely disclosure.",
+      "Documentation must explicitly state if a compliance engineer's certificate is held or if certification is not held.",
+      "Required for items including suspension lifts, non-standard tyre combinations, aftermarket tow bars, and auxiliary lighting."
+    ]
+  },
+  "36eaa4ebd2de4792a3e72209ed31de69": {
+    "title": "Consumer Disclosure Requirements",
+    "summary": "Coppermill Motor Group requires written disclosures for consumer guarantee rights, cooling-off periods, and prior vehicle history for all retail sales.",
+    "highlights": [
+      "Written notice of consumer guarantee rights is mandatory and cannot be waived.",
+      "Cooling-off disclosures must specify the exact business days and exercise process, not just a generic reference.",
+      "Structural repairs and repainted surfaces must be disclosed based on specific inspection thresholds."
+    ]
+  },
+  "bfc6a96a7bfe48f28a2af8049330f3ef": {
+    "title": "Radiant Auto Glass Supplier Overview",
+    "summary": "Radiant Auto Glass serves as Coppermill Motor Group's primary supplier for ADAS-compatible WS-4410 windscreens, maintaining a high calibration success rate despite a past bracket alignment issue.",
+    "highlights": [
+      "Maintains over 95% first-pass static calibration success rate.",
+      "Addressed a Q1 batch issue with recessed camera brackets by implementing tighter quality control.",
+      "Standard lead times are 3 business days for in-range parts and 7-10 days for special orders.",
+      "Shim kits are available at the Riverside site to resolve alignment issues from the affected Q1 batch."
+    ]
+  },
+  "cb82118cd608457d90dfe17c3b4e0bec": {
+    "title": "TrackGrip Tyres Supplier Overview",
+    "summary": "TrackGrip Tyres serves as the primary supplier for Coppermill's fleet, offering reliable order accuracy while managing seasonal lead time fluctuations for heavy-duty ute fitments.",
+    "highlights": [
+      "Consistent reliability in order accuracy with no compliance-relevant mis-ships in the last year.",
+      "Standard 2-3 day lead time for passenger and SUV tyres, increasing to 3-7 days for ute/heavy fitments.",
+      "Peak seasonal demand, particularly in summer, can extend ute-fitment lead times to 5-7 business days."
+    ]
+  },
+  "0daa1654c96144458a9a385446ab423d": {
+    "title": "Meridian Brake Components Supplier Overview",
+    "summary": "Meridian Brake Components serves as the default supplier for non-warranty brake replacements, maintaining a reliable performance record for passenger and SUV models.",
+    "highlights": [
+      "Reliable performance with no reported premature wear or noise issues in the past year.",
+      "Standard lead time of two business days for common vehicle fitments.",
+      "Maintains on-site working stock of common pad and rotor combinations at both Riverside and Northgate locations."
+    ]
+  },
+  "bcb8819d80c34e239104937cdbf9b7c2": {
+    "title": "Solstice Paint and Coatings Performance Overview",
+    "summary": "Solstice Paint and Coatings has served as a reliable supplier for ceramic top coats since 2022, consistently meeting durability expectations with no product defects or customer comebacks. While the product requires a longer indoor cure time that occasionally impacts scheduling, it remains a standard application for high-value vehicles.",
+    "highlights": [
+      "No instances of coating failure or water-spotting reported over the past 12 months.",
+      "Day-to-day supply availability is consistent, supported by quarterly bulk ordering.",
+      "Requires a 4-hour minimum indoor cure, which can cause scheduling friction during high-turnover periods at the Riverside site."
+    ]
+  },
+  "e0d96807fce54f96b8409d9739c78885": {
+    "title": "WS-4410 Windscreen Replacement and Calibration Requirements",
+    "summary": "The WS-4410 series is the only approved windscreen for ADAS-equipped Coppermill fleet vehicles, requiring precise sub-part selection and mandatory post-installation calibration. Failure to properly calibrate the camera after replacement is a PDI blocker due to safety and compliance risks.",
+    "highlights": [
+      "Always verify the exact sub-part number against the vehicle's build plate to ensure correct camera bracket geometry.",
+      "A logged static or dynamic ADAS calibration is mandatory following any WS-4410 windscreen fitment.",
+      "Some Q1 batch units feature a recessed bracket mount requiring a specific shim kit for correct alignment.",
+      "Using non-approved glass is the primary cause of failed static calibrations within the Coppermill fleet."
+    ]
+  },
+  "44582dbb9dfe45d4a9304d642b5fcbeb": {
+    "title": "BR-2210 Brake Pad Compatibility Overview",
+    "summary": "The BR-2210 series is intended for Coppermill fleet passenger and SUV models outside of manufacturer warranty, while heavy-duty vehicles require the BR-3300 range.",
+    "highlights": [
+      "Compatible with specific passenger and SUV models including Toyota RAV4, Mazda CX-5, and Hyundai i30.",
+      "Must not be fitted to heavy-duty vehicles like the Ranger or HiLux, even if dimensions appear similar.",
+      "Specific sub-variant part numbers must be logged in the recon history due to differences in pad compounds."
+    ]
+  },
+  "ae0934860bfd448aa3f526023a155b32": {
+    "title": "TR-1180 Tyre Compatibility and Compliance",
+    "summary": "The TR-1180 series maps Coppermill fleet models to approved TrackGrip Tyres based on placard load index and speed ratings. Proper compliance requires verifying the vehicle's specific door jamb placard rather than relying on existing, potentially non-compliant, tyre sizes.",
+    "highlights": [
+      "Always reference the driver's door jamb placard instead of the previously fitted tyre size.",
+      "Ute and heavy SUV models (e.g., Ranger, HiLux) must use the higher load index band within the TR-1180 range.",
+      "Fitting passenger-band tyres to heavy models is a compliance violation under the Tyre and Wheel Alignment Standard."
+    ]
+  },
+  "74fe2f563f2a4f8a9f3b72a047ce1d18": {
+    "title": "Brake Maintenance Required for Stock CM-5102",
+    "summary": "An intake inspection of the 2023 Toyota RAV4 GXL identified front brake pads below the safety threshold, necessitating a replacement of the front axle pads.",
+    "highlights": [
+      "Front left and right brake pads measured 2.6mm and 2.8mm, falling below the mandatory 3mm replacement limit.",
+      "Recommend installation of BR-2210 pads for the front axle; rear pads remain within tolerance at over 6mm.",
+      "Rotors exhibit light scoring but remain within manufacturer thickness specifications.",
+      "Vehicle bodywork requires standard detailing to address a minor door edge chip."
+    ]
+  },
+  "9a22eea6414f4ca4bf145f2e856284c7": {
+    "title": "Recall Status: CM-5118",
+    "summary": "The 2022 Ford Ranger XLT (CM-5118) is affected by the rear differential seal recall, requiring immediate maintenance due to detected oil residue and low fluid levels.",
+    "highlights": [
+      "Inspection confirmed light oil residue and fluid levels below specification.",
+      "Seal replacement and fluid top-up are mandatory before the vehicle can clear PDI.",
+      "Tyre tread depth is currently at 6mm across all positions, meeting safety tolerances."
+    ]
+  },
+  "8636afc4edd04e4cb9da616fe2c3224c": {
+    "title": "Recon Assessment for Mazda CX-5 (CM-5124)",
+    "summary": "The 2023 Mazda CX-5 Touring at the Riverside location requires an infotainment software update to resolve a Bluetooth reconnection issue. Aside from this update, the vehicle is in excellent condition with brakes and tires within tolerance and a high paint grade.",
+    "highlights": [
+      "Identified a Bluetooth reconnection defect caused by outdated infotainment software.",
+      "Recommended applying the official software update before delivery to avoid customer troubleshooting.",
+      "Confirmed vehicle is in good condition with a 9/10 paint grade and healthy brakes and tires."
+    ]
+  },
+  "cfeef893aa6c478eb9c1b861d72461ff": {
+    "title": "Stock CM-5137 Recon Findings",
+    "summary": "The 2021 Hyundai i30 Active requires a timing chain tensioner replacement following a confirmed rattle during the required two-cold-start protocol. Front tyre replacement has been deferred as the 4mm tread depth remains within the discretionary threshold for the expected retail hold time.",
+    "highlights": [
+      "Confirmed timing chain tensioner rattle on both cold starts requiring replacement.",
+      "Front tyre tread depth of 4mm deemed sufficient for short-term retail hold.",
+      "Odometer at intake logged at 31,200 km."
+    ]
+  },
+  "bf36d5f6d14a409c9529044dea2708c0": {
+    "title": "Recon Summary: Isuzu D-Max SX (CM-5145)",
+    "summary": "The 2023 Isuzu D-Max SX demonstrator required a forced DPF regeneration due to excessive soot accumulation from short-trip usage. The issue has been resolved, and proactive customer education is recommended during handover.",
+    "highlights": [
+      "DPF soot load was above threshold due to demonstrator short-trip usage.",
+      "Forced regeneration completed successfully, clearing the warning light.",
+      "Recommended including DPF maintenance education in the sale file for the customer."
+    ]
+  },
+  "af2061384c774d1fafecddb704259c10": {
+    "title": "Airbag Control Unit Firmware Update for CM-5150",
+    "summary": "Stock CM-5150, a 2022 Kia Sportage SX, successfully underwent a required airbag control unit firmware update to comply with safety recall standards. The vehicle passed all post-update self-test sequences with no reported faults.",
+    "highlights": [
+      "Confirmed eligibility for the airbag control unit recall and applied the necessary firmware update.",
+      "Verified system integrity via the built-in diagnostic self-test with no faults reported.",
+      "Complied with all documentation requirements, including logging firmware versions before and after the update."
+    ]
+  },
+  "5d7819501a5e41ba8c6c680c3846b68d": {
+    "title": "Stock CM-5163: 2023 Yamaha MT-07 Assessment",
+    "summary": "This 2023 Yamaha MT-07 demonstrator unit at the Riverside site has a low odometer reading of 1,400 km and is in good mechanical condition. It requires only a standard detail due to minor cosmetic scuffing on the right-side fairing.",
+    "highlights": [
+      "Odometer reading is exceptionally low at 1,400 km.",
+      "Cosmetic-only scuffing from a low-speed drop; no mechanical or frame damage detected.",
+      "Brake fluid and chain tension are confirmed to be within specification.",
+      "Unit is cleared for sale following a standard detail; no mechanical reconnaissance holds required."
+    ]
+  },
+  "8c1c61786106414cbdbc2c1af42a9f2e": {
+    "title": "CM-5171 Vehicle Inspection Summary",
+    "summary": "The 2021 Subaru Outback Sport (CM-5171) shows no mechanical issues, but requires a mandatory written disclosure of a past rear quarter panel repair due to paint depth readings.",
+    "highlights": [
+      "Vehicle has a recorded paint depth of 74 microns on the rear left quarter panel, falling below the 80-micron disclosure threshold.",
+      "A prior minor repair from a low-speed carpark incident was disclosed during trade-in intake.",
+      "Per Consumer Guarantee policy, the repaint history must be disclosed to the next buyer in writing."
+    ]
+  },
+  "99c77efc80854e36a1bd5e6bafa7189e": {
+    "title": "Recall Remedy Completion for Stock CM-5184",
+    "summary": "Stock CM-5184, a 2023 Toyota HiLux SR5, successfully underwent the required fuel pump control module replacement to address a safety recall. Following the part replacement, the vehicle passed a mandatory 15km road test with no further power loss issues.",
+    "highlights": [
+      "Confirmed and applied fuel pump control module recall remedy",
+      "Performed successful 15km post-remedy road test including full-throttle acceleration",
+      "Verified no ADAS camera or windscreen calibration was necessary",
+      "Logged remedy completion in the vehicle's recon history"
+    ]
+  },
+  "485a7761d9e9424bb91bb9a07e1a5254": {
+    "title": "Windscreen Replacement Summary for Stock CM-5192",
+    "summary": "The 2022 Honda CR-V VTi-L underwent a successful windscreen replacement and ADAS calibration after sustaining damage during transport.",
+    "highlights": [
+      "Replaced windscreen with WS-4410 glass due to a crack in the driver's line of sight.",
+      "Initial ADAS calibration failed due to a known Q1 batch bracket alignment issue.",
+      "Successfully resolved the alignment issue using a shim kit, ensuring a clean calibration result prior to PDI."
+    ]
+  },
+  "ec2fbb4985294c749d7641c7b137d48d": {
+    "title": "Recon Assessment for Stock CM-5205",
+    "summary": "The 2023 Suzuki Swift GL+ at the Riverside site is a near-new demonstrator requiring minimal reconditioning. The vehicle is ready for a pre-delivery inspection once the standard full detail is completed.",
+    "highlights": [
+      "Odometer at intake is 2,100 km with tyres and brakes well within tolerance.",
+      "A minor interior scuff on the driver's door card has been resolved via detail.",
+      "No compliance items were identified for this Speedy Blue hatch."
+    ]
+  },
+  "bff1069b47ea423c9aead06df7974709": {
+    "title": "Recon Summary for Stock CM-5213",
+    "summary": "The 2021 Ford Everest Trend (Stock CM-5213) underwent a successful inspection and preventative rear differential seal replacement despite showing no signs of leakage. This action was taken proactively in line with recall bulletin recommendations for tow-capable vehicles.",
+    "highlights": [
+      "Vehicle identified within the affected build window for the rear differential seal recall.",
+      "Initial inspection confirmed a dry housing and fluid levels within specification.",
+      "Preventative seal replacement was performed to ensure safety and compliance."
+    ]
+  },
+  "0de80ef3cf214e998e86ec37e510bb6b": {
+    "title": "Reconnaissance Report: Stock CM-5226",
+    "summary": "The 2023 Kawasaki Ninja 650 is in showroom condition with only 800 km on the odometer. No mechanical issues were identified, requiring only a standard detail.",
+    "highlights": [
+      "Extremely low mileage at 800 km.",
+      "Brakes, chain, and tyres verified to be within specification.",
+      "No mechanical findings reported during inspection.",
+      "Recommended for standard detailing."
+    ]
+  },
+  "f95d6b0a2b8b4445b8449072076703fe": {
+    "title": "Recon Assessment: Stock CM-5234",
+    "summary": "The 2022 Mitsubishi Triton GLS shows rear tyre tread at 2mm with uneven wear patterns, indicating a suspension alignment issue. The four-wheel alignment check confirmed the rear toe is out of spec, requiring correction before new tyres are installed.",
+    "highlights": [
+      "Rear tyre tread depth measured at 2mm with visible uneven wear.",
+      "Four-wheel alignment check confirmed rear toe is out of specification.",
+      "Alignment correction must be performed before installing new heavy-duty TR-1180 tyres.",
+      "Mandatory alignment check required when replacing tyres showing uneven wear."
+    ]
+  },
+  "f5440396f6604d84965b7f5b3c4a04ab": {
+    "title": "2023 Toyota RAV4 GXL Overview",
+    "summary": "The 2023 Toyota RAV4 GXL is a dependable mid-size SUV designed for daily family utility and weekend travel, featuring a hybrid-ready platform.",
+    "highlights": [
+      "Ideal for buyers prioritizing running cost certainty and dealer support.",
+      "Equipped with a practical, genuinely usable boot for weekend trips.",
+      "Consultants should verify recon status and recall bulletins prior to delivery."
+    ]
+  },
+  "af5687d66bc942a7850e3f29184157ca": {
+    "title": "2022 Ford Ranger XLT Overview",
+    "summary": "The 2022 Ford Ranger XLT is a reliable, mid-size ute designed for buyers who prioritize dependability, predictable running costs, and strong dealer support. It is well-regarded for its towing capacity and payload performance.",
+    "highlights": [
+      "Ideal for customers seeking a dependable vehicle that offers consistent performance.",
+      "Engineered for strong tray payload and segment-leading towing capabilities.",
+      "Consultants should verify recall status and recon history before finalizing delivery dates."
+    ]
+  },
+  "614a65251d6a438dadbd9d9131a8ede1": {
+    "title": "2023 Mazda CX-5 Touring Overview",
+    "summary": "The 2023 Mazda CX-5 Touring is a refined mid-size SUV known for its upmarket cabin, confident highway performance, and overall reliability. It is ideal for buyers who prioritize predictable running costs and strong dealer network support.",
+    "highlights": [
+      "Features an upscale cabin design at an accessible price point.",
+      "Targeted at buyers seeking a dependable vehicle that ensures a consistent ownership experience.",
+      "Coppermill Motor Group consultants advise verifying recon status and recall bulletins before finalizing deliveries.",
+      "Consultants should utilize the Parts Cross-Reference sheet for customer inquiries regarding maintenance costs."
+    ]
+  },
+  "82317aac46384ce6926366fc4d9bd993": {
+    "title": "2021 Hyundai i30 Active Marketing Summary",
+    "summary": "The 2021 Hyundai i30 Active is a practical, dependable hatchback that appeals to buyers focused on running cost certainty and strong dealer support. It is noted for its class-competitive boot space and the reassurance of Hyundai's factory warranty.",
+    "highlights": [
+      "Targets customers prioritizing reliability and low surprise maintenance costs over high performance.",
+      "Features class-competitive boot space and a long factory warranty for buyer peace of mind.",
+      "Consultants are advised to verify recon status and recall bulletins before finalizing delivery dates.",
+      "Stock unit CM-5137 is located at the Northgate site."
+    ]
+  },
+  "11948fe73fe64de9a9ba2d5356dea12b": {
+    "title": "2023 Isuzu D-Max SX Marketing Overview",
+    "summary": "The 2023 Isuzu D-Max SX is a dependable workhorse ute offering genuine off-road capability and a comfortable unladen ride. It is ideal for buyers who prioritize running cost predictability and dealer support over raw performance.",
+    "highlights": [
+      "Known for its reliability and comfortable ride quality as an unladen workhorse.",
+      "Targeted at customers seeking a dependable vehicle that offers peace of mind.",
+      "Consultants should verify recon status and recall bulletins before delivery.",
+      "Use parts cross-reference sheets to provide accurate maintenance cost expectations."
+    ]
+  },
+  "e79e4f8a7aac46629d80abde04a20557": {
+    "title": "2022 Kia Sportage SX Overview",
+    "summary": "The 2022 Kia Sportage SX is a compact SUV noted for its distinctive cabin design and high level of standard safety equipment. It is well-suited for buyers who value dependability and predictable running costs over high-end performance.",
+    "highlights": [
+      "Prioritizes safety, affordability, and dealer support",
+      "Ideal for buyers seeking a reliable and predictable vehicle",
+      "Consultants should verify recon status and recall bulletins before quoting delivery"
+    ]
+  },
+  "9b5b1695781c409983f6633923133bb8": {
+    "title": "2023 Yamaha MT-07 Marketing Overview",
+    "summary": "The 2023 Yamaha MT-07 is a torquey middleweight naked motorcycle designed for riders seeking reliable, predictable performance as they upgrade from learner machines.",
+    "highlights": [
+      "Ideal for riders prioritizing running cost certainty and dealer support over outright power.",
+      "A dependable choice that consistently avoids performance surprises for owners.",
+      "Consultants should verify recon status and recall bulletins before confirming delivery.",
+      "Brake and tire cost inquiries should be directed to the Parts Cross-Reference sheet."
+    ]
+  },
+  "c1c1a7699be24c9c80afebf5b2611265": {
+    "title": "2021 Subaru Outback Sport Overview",
+    "summary": "The 2021 Subaru Outback Sport is a rugged wagon featuring standard all-wheel drive, designed for buyers who prioritize dependability, low running costs, and dealer support.",
+    "highlights": [
+      "Rugged wagon body style with light off-road capabilities.",
+      "Targeted at buyers seeking reliability and cost certainty over performance.",
+      "Consultants should verify recon status, recall bulletins, and use parts cross-reference sheets for maintenance cost inquiries."
+    ]
+  },
+  "915b9bb9017d4f7e8a43e1ed9c64ff78": {
+    "title": "2023 Toyota HiLux SR5 Overview",
+    "summary": "The 2023 Toyota HiLux SR5 is a reliable, benchmark ute favored by tradies and grey nomads for its strong resale value and extensive dealer network support.",
+    "highlights": [
+      "Prioritizes running cost certainty and dealer support over raw performance.",
+      "Ideal for buyers seeking a dependable vehicle that offers consistent, predictable ownership.",
+      "Consultants should verify recon status and recall bulletins before finalizing delivery dates.",
+      "Parts Cross-Reference sheets are available to discuss expected tyre and brake replacement costs."
+    ]
+  },
+  "2d05963bfc1d43c58bc10ce537901d55": {
+    "title": "2022 Honda CR-V VTi-L Overview",
+    "summary": "The 2022 Honda CR-V VTi-L is a dependable mid-size SUV known for its mechanical reliability and spacious rear seating. It is highly suited for buyers who value predictable running costs and strong dealer support.",
+    "highlights": [
+      "Features a spacious second row and a reputation for long-term mechanical reliability.",
+      "Attracts buyers prioritizing running cost certainty and dependable performance.",
+      "Consultants should verify recon status and recall bulletins before confirming delivery dates."
+    ]
+  },
+  "5895778c50cf483aa2bf0f7dc463e848": {
+    "title": "Recon Overview: Toyota RAV4 GXL (CM-5102)",
+    "summary": "This Riverside-based 2023 Toyota RAV4 GXL requires front brake pad replacement and standard detailing, with no other mechanical issues identified during intake.",
+    "highlights": [
+      "Front brake pads measured at 2.6mm and 2.8mm, requiring BR-2210 replacement.",
+      "Paint condition rated 8/10 with only a minor door edge chip noted.",
+      "Odometer reading at intake is 4,200 km."
+    ]
+  },
+  "6145b05616b44a18a0b6df7b27977716": {
+    "title": "Recon Documentation for Stock CM-5118",
+    "summary": "Stock CM-5118 is a 2022 Meteor Grey Ford Ranger XLT at the Northgate site that requires mandatory rear differential maintenance due to a recall. The vehicle has been flagged for a seal replacement and fluid top-up before it can clear the pre-delivery inspection.",
+    "highlights": [
+      "Visual inspection confirmed early seal weep and low differential fluid levels.",
+      "Recall remedy procedure requires seal replacement and fluid top-up prior to PDI clearance.",
+      "Vehicle tyres are in good condition with 6mm tread depth across all positions."
+    ]
+  },
+  "6caa7ca9b64a48988ff146943a797889": {
+    "title": "Recon Findings: Stock CM-5124 Infotainment",
+    "summary": "The 2023 Mazda CX-5 Touring (Stock CM-5124) requires an infotainment software update due to a documented Bluetooth reconnection issue.",
+    "highlights": [
+      "Infotainment software version found to be below the current release requirement.",
+      "Bluetooth failing to reconnect automatically after overnight power-off.",
+      "Recommendation to apply the software update via USB before vehicle delivery."
+    ]
+  },
+  "42222425f86445179ae6bf41e79f56da": {
+    "title": "Recon Findings for Hyundai i30 Active (Stock CM-5137)",
+    "summary": "Stock CM-5137, a 2021 Hyundai i30 Active, was flagged during intake inspection for a timing chain tensioner noise issue at the Northgate site.",
+    "highlights": [
+      "Confirmed timing chain tensioner rattle during the two-cold-start protocol.",
+      "Recommended tensioner replacement instead of inspection-only to address reproducible noise.",
+      "Front tyres are at 4mm, currently acceptable for retail hold.",
+      "Vehicle is a 2021 hatch in Phantom Black with 31,200 km odometer reading."
+    ]
+  },
+  "0cf2f9b3cebe48de9d36fb01c7277301": {
+    "title": "Recon Documentation: Stock CM-5145",
+    "summary": "Stock CM-5145 is a Splash White 2023 Isuzu D-Max SX demonstrator vehicle located at the Riverside site, which required a forced DPF regeneration cycle after returning with a soot load warning light.",
+    "highlights": [
+      "Diagnostic scan confirmed soot load above the advisory threshold due to short-trip demonstrator usage.",
+      "A forced DPF regeneration cycle was successfully performed to clear the warning light.",
+      "Recommended that delivery-handover education regarding DPF cycles be included in the sale file."
+    ]
+  },
+  "baca4d3576a045c5b673ab6c50b8d801": {
+    "title": "Recon Documentation: Kia Sportage SX (CM-5150)",
+    "summary": "Stock CM-5150 is a Gravity Blue 2022 Kia Sportage SX located at the Northgate site that has successfully completed a mandatory airbag control unit firmware update.",
+    "highlights": [
+      "Confirmed firmware update for airbag control unit completed with no faults.",
+      "Vehicle paint grade rated at 8/10.",
+      "Odometer recorded at 22,400 km during intake."
+    ]
+  },
+  "825d4b63d9de4b4c83953418a6716273": {
+    "title": "Recon Documentation Summary for Stock CM-5163",
+    "summary": "Stock CM-5163 is a 2023 Yamaha MT-07 located at the Riverside site, featuring an Icon Blue finish with 1,400 km on the odometer. The unit is in excellent mechanical condition but requires a standard detail to address minor cosmetic scuffing on the right fairing.",
+    "highlights": [
+      "Identified minor cosmetic scuffing on the right fairing from a low-speed stand drop.",
+      "Mechanical inspection confirms chain tension and brake fluid are within specifications.",
+      "No frame or mechanical concerns noted; unit is cleared for standard detail with no recon holds.",
+      "Documented as a low-odometer demonstrator unit for retail sale readiness."
+    ]
+  },
+  "269f719205cb473195831e09f26cd79b": {
+    "title": "CM-5171 Recon Documentation Summary",
+    "summary": "This document outlines the recon findings for a 2021 Subaru Outback Sport, noting a previously disclosed minor repair on the rear-left quarter panel.",
+    "highlights": [
+      "Vehicle identified as a 2021 Subaru Outback Sport in Autumn Green at the Northgate site.",
+      "Paint depth of 74 microns on the rear-left quarter panel confirms a previous minor repair.",
+      "Consumer Guarantee policy mandates written disclosure of the repair to the next buyer.",
+      "No mechanical concerns were identified during the intake process."
+    ]
+  },
+  "4eb9086787e34184934cd104eec43c86": {
+    "title": "Recon Documentation: Stock CM-5184",
+    "summary": "This document outlines the recon service performed on the 2023 Toyota HiLux SR5 (Stock CM-5184) located at Riverside, focusing on a fuel pump control module recall.",
+    "highlights": [
+      "Confirmed and replaced fuel pump control module per recall bulletin.",
+      "Verified repair with a 15km road test, including full-throttle acceleration.",
+      "Vehicle status cleared for delivery with no further calibration required."
+    ]
+  },
+  "a9bed537d0ad4d0f98de504c8b6c7b7f": {
+    "title": "Recon Documentation Summary for Stock CM-5192",
+    "summary": "Stock CM-5192 is a 2022 Honda CR-V VTi-L located at the Northgate site, finished in Platinum White. The vehicle required a windscreen replacement and ADAS calibration following damage during transport.",
+    "highlights": [
+      "Vehicle: 2022 Honda CR-V VTi-L in Platinum White",
+      "Damage: Windscreen replaced due to stone chip spreading into a crack",
+      "Repair: Static ADAS calibration successfully completed using a shim kit",
+      "Status: Calibration result logged prior to Pre-Delivery Inspection (PDI)"
+    ]
+  },
+  "cffdf9f959854fa9bf11a963fc09d8db": {
+    "title": "Recon Status for Stock CM-5205",
+    "summary": "The 2023 Suzuki Swift GL+ (Stock CM-5205) is a near-new demonstrator at the Riverside site that requires minimal reconditioning.",
+    "highlights": [
+      "Vehicle is in excellent condition with tyres and brakes well within tolerance.",
+      "Minor interior trim scuff on the driver's door card has been resolved.",
+      "The vehicle has passed compliance checks and is awaiting final PDI sign-off."
+    ]
+  },
+  "2829271187d746fbbfbad85f0a6286eb": {
+    "title": "Inconsistent Data Report for Stock CM-5213",
+    "summary": "The provided information for Stock CM-5213 contains conflicting details regarding the vehicle's configuration and condition.",
+    "highlights": [
+      "Vehicle identified as a 2021 Ford Everest Trend (Arctic White) at Northgate.",
+      "The interior/cockpit angle is specified, but the finding area is listed as 'Rear differential housing'.",
+      "Field notes confirm a rear differential seal replacement, which contradicts the 'Interior / Cockpit' designation."
+    ]
+  },
+  "5b4d389edebf4d179b1f031e18cb75e3": {
+    "title": "Recon Documentation Summary for Stock CM-5226",
+    "summary": "The 2023 Kawasaki Ninja 650 is in showroom condition with no mechanical issues detected during its intake at the Riverside site.",
+    "highlights": [
+      "Stock CM-5226 features an extremely low odometer reading of 800 km.",
+      "Inspection confirmed chain, brakes, and tyres are all within specifications.",
+      "The vehicle requires a standard detail only to prepare for sale."
+    ]
+  },
+  "94e0501399624a968ee1ce6b24df0e98": {
+    "title": "Reconnaissance Findings for Stock CM-5234",
+    "summary": "The 2022 Mitsubishi Triton GLS at the Northgate site displays significant uneven rear tyre wear indicative of a suspension alignment fault. It is recommended that the rear toe alignment be corrected before installing new TR-1180 heavy-duty tyres.",
+    "highlights": [
+      "Rear tyre tread depth is at 2mm with irregular wear patterns.",
+      "Four-wheel alignment check confirmed rear toe is currently out of specification.",
+      "Alignment correction is required to prevent premature wear on replacement tyres."
+    ]
+  }
+}

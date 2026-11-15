@@ -1,0 +1,19 @@
+{
+  "domain": "progress.com",
+  "logo": "progress.com-logo.png",
+  "primary": "#5ce500",
+  "ink": "#151950",
+  "palette": [
+    "#5ce500",
+    "#151950",
+    "#2a2ab2",
+    "#e7eaf4",
+    "#565867"
+  ],
+  "_note": "Primary corrected to Progress green (sampled from logo); capture ranked navy by frequency. ink = navy for full-bleed slides.",
+  "fonts": {
+    "body": "ProgressText, Roboto, Arial, Helvetica, sans-serif",
+    "heading": "ProgressDisplay, Metric, Arial, Helvetica, sans-serif"
+  },
+  "captured_at": "2026-07-03T02:06:53.140291+00:00"
+}

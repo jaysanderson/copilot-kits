@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: one engine, every door</title></head>
+<body>
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    .oe-glow { position: absolute; left: 700px; top: 330px; width: 520px; height: 520px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(0,181,99,0.32) 0%, rgba(0,181,99,0) 68%); }
+    /* The engine mark IS the shrunk body of knowledge: bounded, tabbed, doc tiles. */
+    .oe-engine { position: absolute; left: 820px; top: 452px; width: 280px; height: 216px; }
+    .oe-ebound { position: absolute; inset: 0; border: 3px solid #00B563; border-radius: 20px;
+      box-shadow: 0 0 34px rgba(0,181,99,0.35); }
+    .oe-etab { position: absolute; left: 16px; top: -15px; width: 66px; height: 18px;
+      border-radius: 6px 6px 0 0; background: #00724F; }
+    .oe-edoc { position: absolute; width: 54px; height: 58px; border-radius: 7px;
+      background: linear-gradient(170deg, #ffffff, #e8eef8); box-shadow: 0 4px 10px rgba(0,8,36,.4); }
+    .oe-edoc .oe-edocbar { position: absolute; left: 9px; height: 5px; border-radius: 3px; background: #9FB0D0; }
+    .oe-elabel { position: absolute; left: 760px; top: 692px; width: 400px; text-align: center;
+      color: #D7DEEA; font-family: "ProgText", sans-serif; font-size: 27px; letter-spacing: 0.03em; }
+    .oe-door { position: absolute; border-radius: 14px; overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 8, 36, 0.55); }
+    .oe-dlabel { position: absolute; height: 40px; padding: 0 18px; border-radius: 20px;
+      background: rgba(0, 32, 107, 0.75); border: 1px solid #5E719F; color: #ffffff;
+      font-family: "ProgText", sans-serif; font-size: 23px; line-height: 38px; }
+    .oe-card { position: absolute; border-radius: 10px; background: #ffffff;
+      box-shadow: 0 8px 20px rgba(0, 8, 36, 0.35); border: 1px solid #DCE4F2; }
+    .oe-cchip { position: absolute; left: 10px; top: 8px; height: 14px; width: 52px;
+      border-radius: 7px; background: #008963; }
+    .oe-cbar { position: absolute; left: 10px; height: 7px; border-radius: 4px;
+      background: #8CA0C6; transform-origin: left center; }
+    /* Large generic app window - the thing you do NOT have to open. */
+    .oe-reject { position: absolute; left: 530px; top: 250px; width: 860px; height: 560px;
+      border-radius: 16px; background: #747B92; opacity: 0.97;
+      box-shadow: 0 22px 60px rgba(0, 8, 36, 0.6); }
+    .oe-reject .oe-rbar { position: absolute; left: 0; top: 0; right: 0; height: 52px;
+      background: #565D75; border-radius: 16px 16px 0 0; }
+    .oe-reject .oe-rdot { position: absolute; top: 20px; width: 13px; height: 13px;
+      border-radius: 7px; background: #9FA6BC; }
+    .oe-reject .oe-ravatar { position: absolute; left: 385px; top: 96px; width: 90px; height: 90px;
+      border-radius: 45px; background: #9FA6BC; }
+    .oe-reject .oe-rfield { position: absolute; left: 180px; width: 500px; height: 56px;
+      border-radius: 10px; background: rgba(255,255,255,0.14); border: 2px solid #A6ADC2; }
+    .oe-reject .oe-rfbar { position: absolute; left: 18px; top: 23px; width: 170px; height: 10px;
+      border-radius: 5px; background: #B9BFD2; }
+    .oe-reject .oe-rbtn { position: absolute; left: 330px; top: 420px; width: 200px; height: 58px;
+      border-radius: 12px; background: #565D75; }
+    /* Legible request/answer pulses: a question chip travels in, an answer card travels out. */
+    .oe-qchip { position: absolute; width: 180px; height: 46px; border-radius: 23px;
+      background: #ffffff; box-shadow: 0 8px 18px rgba(0,8,36,.45); }
+    .oe-qchip .oe-qdot { position: absolute; left: 12px; top: 11px; width: 24px; height: 24px;
+      border-radius: 12px; background: #5E719F; }
+    .oe-qchip .oe-qbar { position: absolute; left: 46px; top: 19px; width: 110px; height: 9px;
+      border-radius: 5px; background: #9FB0D0; }
+    .oe-acard { position: absolute; width: 130px; height: 92px; border-radius: 10px;
+      background: #ffffff; box-shadow: 0 8px 20px rgba(0,8,36,.45); }
+    .oe-acard .oe-achip { position: absolute; left: 10px; top: 9px; width: 46px; height: 12px;
+      border-radius: 6px; background: #008963; }
+    .oe-acard .oe-abar { position: absolute; left: 10px; height: 7px; border-radius: 4px; background: #8CA0C6; }
+    svg.oe-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="root" data-composition-id="m-oe" data-width="1920" data-height="1080" data-duration="23.1">
+    <div id="oe-stage" style="position:absolute; inset:0;">
+      <svg class="oe-svg" id="oe-svg" viewBox="0 0 1920 1080" fill="none"></svg>
+      <div class="oe-glow" id="oe-glow"></div>
+      <div class="oe-engine" id="oe-engine">
+        <div class="oe-ebound" id="oe-ebound"></div>
+        <div class="oe-etab" id="oe-etab"></div>
+      </div>
+      <div class="oe-elabel" id="oe-elabel" data-var-text="oeEngine">Answering engine</div>
+      <div class="oe-reject" id="oe-reject">
+        <div class="oe-rbar"></div>
+        <div class="oe-rdot" style="left:18px;"></div>
+        <div class="oe-rdot" style="left:40px;"></div>
+        <div class="oe-rdot" style="left:62px;"></div>
+        <div class="oe-ravatar"></div>
+        <div class="oe-rfield" style="top:224px;"><div class="oe-rfbar"></div></div>
+        <div class="oe-rfield" style="top:308px;"><div class="oe-rfbar" style="width:120px;"></div></div>
+        <div class="oe-rbtn"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      let oeSeed = 20261006;
+      const rnd = () => (oeSeed = (oeSeed * 1664525 + 1013904223) % 4294967296) / 4294967296;
+      const stage = document.getElementById("oe-stage");
+      const svg = document.getElementById("oe-svg");
+      const engine = document.getElementById("oe-engine");
+
+      // 12 doc tiles (4x3) converge into the bounded body - the SAME object the
+      // viewer watched being built in the body-of-knowledge beat, miniaturised.
+      const docs = [];
+      for (let i = 0; i < 12; i++) {
+        const el = document.createElement("div");
+        el.className = "oe-edoc"; el.id = "oe-doc" + i;
+        const col = i % 4, row = (i - col) / 4;
+        el.style.left = (14 + col * 64) + "px"; el.style.top = (16 + row * 64) + "px";
+        if (i === 6) el.style.background = "linear-gradient(170deg, #D9F2E6, #BCE7D2)";
+        const bar = document.createElement("div"); bar.className = "oe-edocbar";
+        bar.style.top = (14 + (i % 3) * 13) + "px";
+        bar.style.width = (26 + ((i * 11) % 18)) + "px";
+        el.appendChild(bar);
+        const bar2 = document.createElement("div"); bar2.className = "oe-edocbar";
+        bar2.style.top = (30 + (i % 2) * 11) + "px";
+        bar2.style.width = (20 + ((i * 7) % 20)) + "px";
+        el.appendChild(bar2);
+        docs.push(el); engine.appendChild(el);
+      }
+
+      function makeCard(parent, x, y, w, h, idp) {
+        const c = document.createElement("div");
+        c.className = "oe-card"; c.id = idp + "-card";
+        c.style.cssText = `left:${x}px; top:${y}px; width:${w}px; height:${h}px;`;
+        const chip = document.createElement("div"); chip.className = "oe-cchip"; chip.id = idp + "-chip";
+        c.appendChild(chip);
+        const bars = [];
+        for (let b = 0; b < 3; b++) {
+          const bar = document.createElement("div"); bar.className = "oe-cbar"; bar.id = idp + "-b" + b;
+          bar.style.top = (30 + b * 14) + "px";
+          bar.style.width = Math.round(w * (0.82 - b * 0.14)) + "px";
+          c.appendChild(bar); bars.push(bar);
+        }
+        parent.appendChild(c);
+        return bars;
+      }
+
+      const DOORS = [
+        { id: "oe-d0", label: "Website",      x: 290,  y: 160, w: 360, h: 230, cx: 470,  cy: 275, org: "100% 100%", kind: "web",     lx: 420,  ly: 405 },
+        { id: "oe-d1", label: "Service desk", x: 1270, y: 160, w: 360, h: 230, cx: 1450, cy: 275, org: "0% 100%",   kind: "console", lx: 1330, ly: 405 },
+        { id: "oe-d2", label: "Mobile app",   x: 1530, y: 540, w: 190, h: 360, cx: 1625, cy: 720, org: "0% 50%",    kind: "phone",   lx: 1540, ly: 915 },
+        { id: "oe-d3", label: "CMS",          x: 210,  y: 640, w: 360, h: 230, cx: 390,  cy: 755, org: "100% 0%",   kind: "cms",     lx: 320,  ly: 885 },
+        { id: "oe-d4", label: "Staff portal", x: 770,  y: 806, w: 380, h: 220, cx: 960,  cy: 916, org: "50% 0%",    kind: "portal",  lx: 880,  ly: 1032 },
+      ];
+      const doorEls = [], doorBars = [], connectors = [], labels = [];
+      DOORS.forEach((d, di) => {
+        const el = document.createElement("div");
+        el.className = "oe-door"; el.id = d.id;
+        el.style.cssText = `left:${d.x}px; top:${d.y}px; width:${d.w}px; height:${d.h}px;`;
+        if (d.kind === "web") {
+          el.style.background = "#F4F7FC";
+          el.insertAdjacentHTML("beforeend",
+            `<div style="position:absolute;left:0;top:0;right:0;height:36px;background:#DCE4F2;">
+               <div style="position:absolute;left:12px;top:13px;width:10px;height:10px;border-radius:5px;background:#9FB0D0;"></div>
+               <div style="position:absolute;left:28px;top:13px;width:10px;height:10px;border-radius:5px;background:#9FB0D0;"></div>
+               <div style="position:absolute;left:44px;top:13px;width:10px;height:10px;border-radius:5px;background:#9FB0D0;"></div>
+               <div style="position:absolute;left:66px;top:9px;right:12px;height:18px;border-radius:9px;background:#ffffff;"></div>
+             </div>
+             <div style="position:absolute;left:14px;top:50px;width:150px;height:12px;border-radius:6px;background:#C3CFE4;"></div>`);
+          doorBars.push(makeCard(el, 24, 78, 200, 86, d.id));
+        } else if (d.kind === "console") {
+          el.style.background = "#1B2A52";
+          el.insertAdjacentHTML("beforeend",
+            `<div style="position:absolute;left:0;top:0;right:0;height:36px;background:#121E3E;"></div>
+             <div style="position:absolute;left:14px;top:10px;width:120px;height:14px;border-radius:7px;background:#36457A;"></div>
+             <div style="position:absolute;left:14px;top:52px;width:110px;height:10px;border-radius:5px;background:#36457A;"></div>
+             <div style="position:absolute;left:14px;top:72px;width:90px;height:10px;border-radius:5px;background:#36457A;"></div>
+             <div style="position:absolute;left:14px;top:92px;width:120px;height:10px;border-radius:5px;background:#36457A;"></div>`);
+          doorBars.push(makeCard(el, 146, 52, 196, 86, d.id));
+        } else if (d.kind === "phone") {
+          el.style.background = "#0E1430"; el.style.borderRadius = "30px";
+          el.insertAdjacentHTML("beforeend",
+            `<div style="position:absolute;left:10px;top:10px;right:10px;bottom:10px;border-radius:22px;background:#F4F7FC;"></div>
+             <div style="position:absolute;left:70px;top:16px;width:50px;height:8px;border-radius:4px;background:#0E1430;"></div>
+             <div style="position:absolute;left:24px;top:40px;width:100px;height:10px;border-radius:5px;background:#C3CFE4;"></div>`);
+          doorBars.push(makeCard(el, 22, 70, 146, 96, d.id));
+        } else if (d.kind === "cms") {
+          el.style.background = "#F4F7FC";
+          el.insertAdjacentHTML("beforeend",
+            `<div style="position:absolute;left:0;top:0;bottom:0;width:86px;background:#122B66;">
+               <div style="position:absolute;left:14px;top:18px;width:56px;height:9px;border-radius:5px;background:#5E719F;"></div>
+               <div style="position:absolute;left:14px;top:38px;width:44px;height:9px;border-radius:5px;background:#36457A;"></div>
+               <div style="position:absolute;left:14px;top:58px;width:50px;height:9px;border-radius:5px;background:#36457A;"></div>
+             </div>
+             <div style="position:absolute;left:100px;top:16px;width:170px;height:12px;border-radius:6px;background:#C3CFE4;"></div>`);
+          doorBars.push(makeCard(el, 100, 44, 230, 90, d.id));
+        } else {
+          el.style.background = "#13306E";
+          el.insertAdjacentHTML("beforeend",
+            `<div style="position:absolute;left:0;top:0;right:0;height:34px;background:#0C2254;"></div>
+             <div style="position:absolute;left:14px;top:9px;width:90px;height:14px;border-radius:7px;background:#5E719F;"></div>
+             <div style="position:absolute;left:14px;top:52px;width:100px;height:60px;border-radius:8px;background:#1E3C7E;"></div>
+             <div style="position:absolute;left:14px;top:122px;width:100px;height:60px;border-radius:8px;background:#1E3C7E;"></div>`);
+          doorBars.push(makeCard(el, 130, 52, 226, 92, d.id));
+        }
+        stage.insertBefore(el, document.getElementById("oe-reject"));
+        doorEls.push(el);
+        const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        p.setAttribute("d", `M 960 560 L ${d.cx} ${d.cy}`);
+        p.setAttribute("stroke", "#008963"); p.setAttribute("stroke-width", "2.5");
+        p.setAttribute("fill", "none"); p.id = d.id + "-line";
+        const len = Math.hypot(d.cx - 960, d.cy - 560);
+        p.setAttribute("stroke-dasharray", String(len));
+        p.dataset.len = String(len);
+        svg.appendChild(p); connectors.push(p);
+        const lab = document.createElement("div");
+        lab.className = "oe-dlabel"; lab.id = d.id + "-label";
+        lab.setAttribute("data-var-text", "oeDoor" + di);
+        lab.style.left = d.lx + "px"; lab.style.top = d.ly + "px";
+        lab.textContent = d.label;
+        stage.appendChild(lab); labels.push(lab);
+      });
+
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 0.6, ease: "power3.out" } });
+
+      // Initial states.
+      docs.forEach((m) => {
+        // GRAMMAR RULE 7: the scattered mass IS this motif's subject, so it is on screen
+        // from t=0 and the word event CONVERGES it. It used to be created at autoAlpha 0
+        // and faded in as it converged, so the motif opened on a bare navy stage -
+        // eye-read at t=0.1s and confirmed genuinely empty, structure 0.0002, with no
+        // panel fill hiding from the measure. The convergence gesture is unchanged: the
+        // pieces still fly in from scatter, they are simply VISIBLE while doing it, and
+        // the tween below still brightens them to full as they land.
+        tl.set(m, { x: (rnd() - 0.5) * 760, y: (rnd() - 0.5) * 560, rotation: (rnd() - 0.5) * 36, autoAlpha: 0.45 }, 0);
+      });
+      tl.set(["#oe-ebound", "#oe-etab"], { autoAlpha: 0 }, 0);
+      tl.set("#oe-glow", { autoAlpha: 0, scale: 0.7, transformOrigin: "50% 50%" }, 0);
+      tl.set("#oe-elabel", { autoAlpha: 0, y: 12 }, 0);
+      tl.set("#oe-reject", { autoAlpha: 0, x: -1500 }, 0);
+      doorEls.forEach((el, i) => tl.set(el, { scale: 0.0001, transformOrigin: DOORS[i].org }, 0));
+      connectors.forEach((p) => tl.set(p, { strokeDashoffset: Number(p.dataset.len) }, 0));
+      labels.forEach((l) => tl.set(l, { autoAlpha: 0, y: 10 }, 0));
+      doorBars.forEach((bars) => bars.forEach((b) => tl.set(b, { scaleX: 0 }, 0)));
+
+      // 0.1-1.9 the body-mark forms: docs converge, boundary + tab land, glow in.
+      // Starts immediately so the B5-to-B6 handoff never leaves the stage empty.
+      docs.forEach((m, i) => {
+        tl.to(m, { x: 0, y: 0, rotation: 0, autoAlpha: 1, duration: 0.9, ease: "power3.inOut" }, 0.1 + i * 0.06);
+      });
+      tl.to("#oe-glow", { autoAlpha: 1, scale: 1, duration: 0.9 }, 0.4);
+      tl.to("#oe-ebound", { autoAlpha: 1, duration: 0.45 }, 1.5);
+      tl.to("#oe-etab", { autoAlpha: 1, duration: 0.3 }, 1.72);
+
+      // Orbit guide while tools call on the engine (2.7-11.0).
+      const orbit = document.createElement("div");
+      orbit.id = "oe-orbit";
+      orbit.style.cssText = "position:absolute; left:640px; top:240px; width:640px; height:640px;" +
+        "border-radius:50%; border:5px dashed rgba(94,113,159,0.6);";
+      stage.insertBefore(orbit, document.getElementById("oe-glow"));
+      tl.set(orbit, { autoAlpha: 0, rotation: 0, transformOrigin: "50% 50%" }, 0);
+      tl.to(orbit, { autoAlpha: 1, duration: 0.5 }, 1.85);
+      tl.to(orbit, { rotation: 175, duration: 9.1, ease: "none" }, 1.85);
+      tl.to(orbit, { autoAlpha: 0, duration: 0.45 }, 10.85);
+      // Mark breathe through the pre-window hold - no still gap before the window.
+      tl.to(engine, { scale: 1.025, transformOrigin: "50% 50%", duration: 1.1,
+        ease: "sine.inOut", yoyo: true, repeat: 1 }, 2.0);
+      tl.to("#oe-glow", { scale: 1.09, duration: 1.15, ease: "sine.inOut", yoyo: true, repeat: 1 }, 2.1);
+
+      // 4.4-6.8 "not another app your people have to open": a LARGE generic
+      // sign-in window takes centre frame, the engine dims behind it, and the
+      // window is pushed off decisively as the line ends.
+      tl.to("#oe-reject", { autoAlpha: 0.97, x: 0, duration: 0.65, ease: "power3.out" }, 4.45);
+      tl.to([engine, "#oe-glow"], { opacity: 0.35, duration: 0.5 }, 4.5);
+      tl.to("#oe-reject", { x: 24, duration: 0.9, ease: "sine.inOut" }, 5.15);
+      tl.to("#oe-reject", { x: 1700, y: 260, rotation: -5, autoAlpha: 0, duration: 0.75, ease: "power3.in" }, 6.1);
+      tl.to([engine, "#oe-glow"], { opacity: 1, duration: 0.4 }, 6.5);
+      tl.to(engine, { scale: 1.06, transformOrigin: "50% 50%", duration: 0.25 }, 6.55);
+      tl.to(engine, { scale: 1.0, duration: 0.4 }, 6.8);
+
+      // 7.2 "answering engine": pulse + label.
+      tl.to(engine, { scale: 1.05, duration: 0.3 }, 7.2);
+      tl.to(engine, { scale: 1.0, duration: 0.45 }, 7.52);
+      tl.to("#oe-elabel", { autoAlpha: 1, y: 0, duration: 0.5 }, 7.3);
+
+      // 7.0-10.8 "your existing tools call on": a question chip travels IN, an
+      // answer card travels OUT - legible at phone width, not sub-pixel dots.
+      const PULSES = [
+        { from: [250, 290], at: 7.0 },
+        { from: [1570, 330], at: 8.3 },
+        { from: [330, 860], at: 9.5 },
+      ];
+      PULSES.forEach((pu, i) => {
+        const chip = document.createElement("div");
+        chip.className = "oe-qchip"; chip.id = "oe-qin" + i;
+        chip.style.cssText += `left:${pu.from[0]}px; top:${pu.from[1]}px;`;
+        chip.insertAdjacentHTML("beforeend", '<div class="oe-qdot"></div><div class="oe-qbar"></div>');
+        stage.appendChild(chip);
+        const card = document.createElement("div");
+        card.className = "oe-acard"; card.id = "oe-aout" + i;
+        card.style.cssText += "left:895px; top:514px;";
+        card.insertAdjacentHTML("beforeend",
+          '<div class="oe-achip"></div><div class="oe-abar" style="top:32px; width:104px;"></div><div class="oe-abar" style="top:46px; width:82px;"></div>');
+        stage.appendChild(card);
+        const dx = 880 - pu.from[0], dy = 520 - pu.from[1];
+        tl.set(chip, { autoAlpha: 0, scale: 0.9 }, 0);
+        tl.set(card, { autoAlpha: 0, scale: 0.55, transformOrigin: "50% 50%" }, 0);
+        tl.to(chip, { autoAlpha: 1, scale: 1, duration: 0.2 }, pu.at);
+        tl.fromTo(chip, { x: 0, y: 0 }, { x: dx, y: dy, duration: 0.6, ease: "power2.in" }, pu.at);
+        tl.to(chip, { autoAlpha: 0, scale: 0.6, duration: 0.15 }, pu.at + 0.55);
+        tl.to(engine, { scale: 1.03, duration: 0.12, ease: "power2.out" }, pu.at + 0.68);
+        tl.to(engine, { scale: 1.0, duration: 0.2, ease: "power2.in" }, pu.at + 0.8);
+        tl.to(card, { autoAlpha: 1, scale: 1, duration: 0.2 }, pu.at + 0.85);
+        tl.fromTo(card, { x: 0, y: 0 }, { x: -dx * 0.92, y: -dy * 0.92, duration: 0.6, ease: "power2.out" }, pu.at + 0.85);
+        tl.to(card, { autoAlpha: 0, duration: 0.18 }, pu.at + 1.42);
+      });
+
+      // Doors arrive one per phrase (word-anchored; vo lead 0.5s unchanged).
+      const DOOR_AT = [11.0, 12.0, 13.55, 14.65, 16.35];
+      DOOR_AT.forEach((at, i) => {
+        tl.to(connectors[i], { strokeDashoffset: 0, duration: 0.4, ease: "power2.in" }, at - 0.15);
+        tl.to(doorEls[i], { scale: 1, duration: 0.6, ease: "power3.out" }, at + 0.15);
+        tl.to(labels[i], { autoAlpha: 1, y: 0, duration: 0.35 }, at + 0.5);
+        doorBars[i].forEach((b, bi) => {
+          tl.to(b, { scaleX: 1, duration: 0.4, ease: "power2.out" }, at + 0.55 + bi * 0.14);
+        });
+      });
+
+      // 18.4 "One engine": pulse. 19.35 "Every door": everything lights.
+      tl.to(engine, { scale: 1.08, duration: 0.28, ease: "power2.out" }, 18.35);
+      tl.to(engine, { scale: 1.0, duration: 0.4, ease: "power2.in" }, 18.65);
+      tl.to("#oe-glow", { scale: 1.15, autoAlpha: 1, duration: 0.5 }, 18.35);
+      connectors.forEach((p, i) => {
+        tl.to(p, { stroke: "#00B563", strokeWidth: 4, duration: 0.35 }, 19.3 + i * 0.06);
+      });
+      doorEls.forEach((el, i) => {
+        tl.to(el, { y: -8, duration: 0.4, ease: "power2.out" }, 19.35 + i * 0.06);
+      });
+
+      // Tail: answers keep flowing down the lit connectors; doors float.
+      DOORS.forEach((d, di) => {
+        const dot = document.createElement("div");
+        dot.className = "oe-pulsedot"; dot.id = "oe-flow" + di;
+        dot.style.cssText = "position:absolute; width:16px; height:16px; border-radius:8px;" +
+          "left:952px; top:552px; background:#00B563;";
+        stage.appendChild(dot);
+        const at = 19.9 + di * 0.56;
+        tl.set(dot, { autoAlpha: 0 }, 0);
+        tl.to(dot, { autoAlpha: 1, duration: 0.1 }, at);
+        tl.fromTo(dot, { x: 0, y: 0 }, { x: d.cx - 960, y: d.cy - 560, duration: 0.55, ease: "power2.inOut" }, at);
+        tl.to(dot, { autoAlpha: 0, duration: 0.12 }, at + 0.5);
+      });
+      doorEls.forEach((el, i) => {
+        tl.to(el, { y: i % 2 ? -14 : -2, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 20.3 + i * 0.15);
+      });
+      tl.to("#oe-glow", { scale: 1.05, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 1 }, 20.1);
+      connectors.forEach((p, i) => {
+        tl.to(p, { opacity: 0.7, duration: 1.0, ease: "sine.inOut", yoyo: true, repeat: 1 }, 20.5 + i * 0.18);
+      });
+
+      window.__timelines["m-oe"] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

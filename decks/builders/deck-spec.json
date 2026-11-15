@@ -1,0 +1,28 @@
+[
+  {
+    "layout": 24,
+    "text": {
+      "0": "What is Progress Agentic RAG?",
+      "10": [
+        "Reads your own documents - contracts, policies, reports - and answers questions in plain English.",
+        "Every answer cites the exact passage it came from, so you can check it yourself.",
+        "If the evidence isn't strong enough, it says so - it never guesses.",
+        "Built by Nuclia, now part of Progress - the team behind agentic RAG-as-a-service."
+      ]
+    },
+    "notes": "Warm opener for someone new to the product. Lead with the plain-English framing before anything technical: ARAG is a system that reads an organisation's own documents and answers questions about them, grounded in the real text. The key idea to land here is trust - it shows its working (citations) and it knows when to say 'I don't have enough context' rather than making something up. That's the difference from a generic chatbot."
+  },
+  {
+    "layout": 17,
+    "text": {
+      "0": "Contract management use cases",
+      "10": [
+        "Find any clause instantly - ask \"What does clause 3.2.1 say?\" and get the exact wording back.",
+        "Track obligations and renewal dates across every contract, without re-reading them one by one.",
+        "Compare terms across multiple contracts and amendments to spot differences in minutes, not days.",
+        "Every answer cites the actual clause it's drawn from - so you're never left guessing."
+      ]
+    },
+    "notes": "Bring it home for a Contract Analyst specifically. Each bullet is a real workflow: clause lookup, obligation/renewal tracking, cross-contract comparison. Close by repeating the trust point from slide 1 - every answer here is traceable to the actual clause, which matters most in a contract context where a wrong guess has real consequences."
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {"action": "goto", "url": "https://your-app.fly.dev/", "wait": 1500},
+  {"action": "click", "selector": "button:has-text('Sign in')", "wait": 3000},
+  {"action": "wait", "ms": 6000},
+  {"action": "goto", "url": "https://your-app.fly.dev/quality?demo=1", "wait": 2000},
+  {"action": "click", "selector": "text=What happened overnight?", "wait": 1000},
+  {"action": "wait", "ms": 50000},
+  {"action": "scroll", "y": 600, "wait": 2000},
+  {"action": "goto", "url": "https://your-app.fly.dev/ap-invoices?demo=1", "wait": 2500},
+  {"action": "click", "selector": "text=AP-8801 (shares cause)", "wait": 500},
+  {"action": "wait", "ms": 20000},
+  {"action": "goto", "url": "https://your-app.fly.dev/ctp", "wait": 2500},
+  {"action": "click", "selector": "button:has-text('Can we deliver?')", "wait": 1000},
+  {"action": "wait", "ms": 20000},
+  {"action": "goto", "url": "https://your-app.fly.dev/", "wait": 3000}
+]

@@ -1,0 +1,127 @@
+<title>Insights - AkademDocs Pre-Check</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/style.css?v=3">
+<div class="shell">
+  <div id="topstrip"></div>
+  <div class="app-body">
+    <div id="rail"></div>
+    <div class="main">
+      <div class="page page-wide">
+        <div class="page-header">
+          <div>
+            <h1>Insights</h1>
+            <div class="lede">Program-level signal, aggregated from what Agentic RAG actually extracted from unstructured scans across every processed case.</div>
+          </div>
+        </div>
+        <div class="stat-row" id="stats"></div>
+        <div id="content"><div class="empty">Loading insights…</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="tabbar"></div>
+<div id="hiwHost"></div>
+<div class="footer-note">Synthetic demonstration data - no real applicant records. AkademDocs Pre-Check runs on Progress Agentic RAG.</div>
+
+<script src="/assets/app.js?v=3"></script>
+<script>
+mountShell("/insights", "insights");
+
+const LABELS = {
+  DOC_BLURRED: "Blurred", DOC_TOO_DARK: "Too dark", DOC_CROPPED: "Cropped", DOC_ROTATED: "Rotated / wrong orientation",
+  he: "Hebrew", ru: "Russian", en: "English", uk: "Ukrainian", fr: "French",
+  READY: "Ready", NEEDS_ATTENTION: "Needs attention", NEEDS_HUMAN_REVIEW: "Needs human review",
+};
+function labelFor(k) { return LABELS[k] || docTypeLabel(k) || k; }
+
+async function load() {
+  const statsEl = document.getElementById("stats");
+  const el = document.getElementById("content");
+  try {
+    const a = await fetchJSON("/api/analytics");
+    if (!a.totals.submissions) {
+      statsEl.innerHTML = "";
+      el.innerHTML = `<div class="card empty">No processed cases yet. <a href="/submit">Run a submission</a> to generate real insights.</div>`;
+      return;
+    }
+
+    statsEl.innerHTML = `
+      <div class="stat-tile"><div class="num">${a.totals.submissions}</div><div class="lbl">Submissions pre-checked</div></div>
+      <div class="stat-tile"><div class="num">${a.totals.documents}</div><div class="lbl">Documents classified</div></div>
+      <div class="stat-tile accent"><div class="num">${a.totals.ready}</div><div class="lbl">Ready</div></div>
+      <div class="stat-tile warn"><div class="num">${a.totals.needs_attention}</div><div class="lbl">Needs attention</div></div>
+      <div class="stat-tile review"><div class="num">${a.totals.needs_human_review}</div><div class="lbl">Needs human review</div></div>
+    `;
+
+    const labelerPct = a.classified_by.labeler_da_task + a.classified_by.ask_grounded_query > 0
+      ? Math.round(100 * a.classified_by.labeler_da_task / (a.classified_by.labeler_da_task + a.classified_by.ask_grounded_query))
+      : 0;
+
+    el.innerHTML = `
+      <div class="chart-grid">
+        <div class="card chart-card">
+          <div class="chart-title">Document types identified</div>
+          <div class="chart-sub">${a.totals.documents} documents classified by Agentic RAG, by type.</div>
+          <div id="chartDocTypes"></div>
+        </div>
+        <div class="card chart-card">
+          <div class="chart-title">Legibility issues found</div>
+          <div class="chart-sub">Scan-quality problems detected on the pages behind these documents.</div>
+          <div id="chartLegibility"></div>
+        </div>
+        <div class="card chart-card">
+          <div class="chart-title">Document language mix</div>
+          <div class="chart-sub">Language Agentic RAG detected on each document, authoritative from ingest.</div>
+          <div id="chartLang"></div>
+        </div>
+        <div class="card chart-card">
+          <div class="chart-title">Applicant name matching</div>
+          <div class="chart-sub">Declared name vs. the name Agentic RAG extracted from the document (with transliteration where scripts differ).</div>
+          <div id="chartNameMatch"></div>
+        </div>
+        <div class="card chart-card">
+          <div class="chart-title">Most common feedback codes</div>
+          <div class="chart-sub">Which closed-vocabulary codes fire most often across all cases.</div>
+          <div id="chartCodes"></div>
+        </div>
+        <div class="card chart-card">
+          <div class="chart-title">Classification source</div>
+          <div class="chart-sub">Live synchronous grounded query vs. the independent background Labeler DA task, when both are available.</div>
+          <div class="bar-row"><div class="lbl">Labeler DA task</div><div class="track"><div class="fill" style="width:${labelerPct}%;background:#00b563;"></div></div><div class="val">${a.classified_by.labeler_da_task}</div></div>
+          <div class="bar-row"><div class="lbl">Grounded query (live)</div><div class="track"><div class="fill" style="width:${100 - labelerPct}%;background:#2b2bb2;"></div></div><div class="val">${a.classified_by.ask_grounded_query}</div></div>
+          <div class="chart-sub" style="margin-top:8px;">${labelerPct}% of classified pages had already been independently confirmed by the background Labeler task by the time this data was pulled.</div>
+        </div>
+        <div class="card chart-card">
+          <div class="chart-title">Answer trust - REMi groundedness</div>
+          <div class="chart-sub">Every document's confidence badge is a live REMi groundedness read scored against its full retrieved page context, never a raw score shown - here as a real distribution across the corpus.</div>
+          <div id="chartConfidence"></div>
+          <div class="chart-sub" style="margin-top:8px;">${a.remi_scored_documents} of ${a.totals.documents} documents were scored by a live REMi call; the rest fall back to the field-completeness signal (disclosed, never a fabricated REMi score).</div>
+        </div>
+      </div>`;
+
+    renderBarChart(document.getElementById("chartDocTypes"), a.doc_type_distribution.map(r => ({ label: labelFor(r.key), value: r.count })));
+    renderBarChart(document.getElementById("chartLegibility"), a.legibility_issues.length
+      ? a.legibility_issues.map(r => ({ label: labelFor(r.key), value: r.count, color: "#7a5400" }))
+      : []);
+    renderBarChart(document.getElementById("chartLang"), a.language_distribution.map(r => ({ label: labelFor(r.key), value: r.count, color: "#5777ea" })));
+    renderBarChart(document.getElementById("chartNameMatch"), [
+      { label: "Match", value: a.name_match.MATCH, color: "#00b563" },
+      { label: "Mismatch", value: a.name_match.MISMATCH, color: "#8a1f2f" },
+      { label: "No name found", value: a.name_match.NOT_FOUND, color: "#8a93a8" },
+    ]);
+    renderBarChart(document.getElementById("chartCodes"), a.top_codes.map(r => ({
+      label: r.code.replace(/^DOC_/, "").replace(/_/g, " ").toLowerCase(),
+      value: r.count,
+      color: r.severity === "REVIEW" ? "#8a1f2f" : (r.severity === "ATTENTION" ? "#7a5400" : "#2b2bb2"),
+    })));
+    renderBarChart(document.getElementById("chartConfidence"), [
+      { label: "High", value: a.confidence_distribution.High, color: "#00b563" },
+      { label: "Moderate", value: a.confidence_distribution.Moderate, color: "#7a5400" },
+      { label: "Low", value: a.confidence_distribution.Low, color: "#8a1f2f" },
+    ]);
+  } catch (e) {
+    el.innerHTML = `<div class="card empty">Could not load insights: ${escapeHtml(e.message)}</div>`;
+  }
+}
+load();
+</script>

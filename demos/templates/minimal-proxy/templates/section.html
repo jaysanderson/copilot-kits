@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The university - {{ hub.name }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/section.css">
+</head>
+<body class="sectionhub">
+<header class="site">
+  <div class="wrap mainbar">
+    <a href="/" class="logo"><img src="/static/mu-logo.svg" alt="The university" width="200" height="42"></a>
+    <nav class="main" aria-label="Main">
+      <a href="/">Ask the whole site</a>
+      {% for k, h in hubs.items() %}<a href="/section/{{ k }}"{% if k == key %} aria-current="page"{% endif %}>{{ h.name }}</a>{% endfor %}
+    </nav>
+    <button class="how" id="how-btn" type="button" aria-haspopup="dialog">How this works</button>
+  </div>
+</header>
+<main class="wrap sh">
+  <p class="sh-crumb"><a href="/">The university</a> / Study / {{ hub.name }}</p>
+  <h1>{{ hub.name }}</h1>
+  <p class="sh-lead">{{ hub.lead }}</p>
+  <div class="sh-go">
+    <a class="sh-out" href="{{ hub.home }}" target="_blank" rel="noopener">Go to {{ hub.name }} on university.edu.au</a>
+    <span>The official page, for applying and the latest details.</span>
+  </div>
+
+  <section class="sh-ask" aria-labelledby="sh-ask-h">
+    <h2 id="sh-ask-h">Ask about {{ hub.name|lower }}</h2>
+    <div data-ask-widget data-langs="en,zh,ar,id" data-accent="#E12744" data-scope="{{ key }}" data-scope-name="{{ hub.name }}" data-placeholder="{{ hub.chips.en[0] }}"></div>
+    <div class="sh-chips" id="sh-chips" aria-label="Suggested questions"></div>
+  </section>
+
+  <section class="sh-pages" aria-labelledby="sh-pages-h">
+    <h2 id="sh-pages-h">In this section <span>{{ pages|length }} pages</span></h2>
+    <ul>
+      {% for p in pages %}<li><a href="{{ p.url }}" target="_blank" rel="noopener">{{ p.title }}</a></li>{% endfor %}
+    </ul>
+  </section>
+  <p class="sh-more">Looking for something outside {{ hub.name|lower }}? <a href="/">Ask the whole site</a>, or <a href="/page">ask a single page</a>, or <a href="/wander">browse by what pages share</a>.</p>
+</main>
+<footer class="site"><div class="wrap">
+  <p>Demonstration built on content from university.edu.au. Answers come from University's own public pages; always confirm details on the linked page. Not an official The university service, and no applications are made here.</p>
+</div></footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="How this works">
+  <div class="modal-body"><button type="button" class="close" id="modal-close" aria-label="Close">&times;</button><div id="modal-content">Loading...</div></div>
+</div>
+<script>window.SECTION_CHIPS = {{ hub.chips|tojson }};</script>
+<script src="/static/embed/widget.js" async></script>
+<script src="/static/section.js"></script>
+</body>
+</html>

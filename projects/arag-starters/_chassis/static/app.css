@@ -1,0 +1,74 @@
+/* ARAG starter chassis - Progress palette as tokens. Swap values in :root to rebrand. */
+:root {
+  --color-ink: #1b1f27;
+  --color-body: #3a3f4a;
+  --color-muted: #6b7280;
+  --color-line: #e3e6ea;
+  --color-bg: #ffffff;
+  --color-panel: #f6f7f9;
+  --color-brand: #5ce500;        /* Progress green */
+  --color-brand-ink: #0b3d00;
+  --color-link: #0b5fff;
+  --color-ok: #1b7f3b;
+  --color-warn: #b45309;
+  --color-bad: #b91c1c;
+  --radius: 8px;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--color-bg); color: var(--color-body); font: 16px/1.55 var(--font); }
+a { color: var(--color-link); }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.muted { color: var(--color-muted); }
+.small { font-size: 13px; }
+[hidden] { display: none !important; }
+
+header.site { border-bottom: 1px solid var(--color-line); padding: 12px 0; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--color-ink); text-decoration: none; font-weight: 700; }
+.brand img { height: 22px; }
+button { font: inherit; cursor: pointer; border-radius: var(--radius); }
+button.ghost { background: transparent; border: 1px solid var(--color-line); color: var(--color-ink); padding: 6px 12px; }
+button.ghost:hover { border-color: var(--color-ink); }
+
+.hero { padding: 40px 0 16px; }
+h1 { font-size: 28px; line-height: 1.25; color: var(--color-ink); margin: 0 0 20px; max-width: 28ch; }
+.askbar { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; }
+.askbar input, .askbar select { font: inherit; padding: 12px 14px; border: 1px solid var(--color-line); border-radius: var(--radius); background: var(--color-bg); color: var(--color-ink); }
+.askbar input:focus, .askbar select:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
+.askbar button { background: var(--color-ink); color: #fff; border: 0; padding: 12px 18px; font-weight: 600; }
+.askbar button[disabled] { opacity: .6; cursor: progress; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chip { background: var(--color-panel); border: 1px solid var(--color-line); color: var(--color-ink); padding: 6px 12px; border-radius: 999px; font-size: 14px; }
+.chip:hover { border-color: var(--color-ink); }
+
+.result { padding: 8px 0 32px; }
+.answer-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--color-panel); color: var(--color-ink); border: 1px solid var(--color-line); }
+.badge.high { background: #e8f7ee; color: var(--color-ok); border-color: #bfe7cc; }
+.badge.medium { background: #fff4e5; color: var(--color-warn); border-color: #f5d9a8; }
+.badge.low { background: #fdecec; color: var(--color-bad); border-color: #f5bcbc; }
+.answer { background: var(--color-panel); border: 1px solid var(--color-line); border-radius: var(--radius); padding: 18px 20px; color: var(--color-ink); }
+.answer p { margin: 0 0 10px; }
+.answer sup { font-size: 11px; margin-left: 2px; }
+.answer sup a { text-decoration: none; font-weight: 600; }
+.answer.withheld { border-left: 4px solid var(--color-warn); }
+.sources-h { font-size: 15px; text-transform: uppercase; letter-spacing: .04em; color: var(--color-muted); margin: 22px 0 8px; }
+.sources { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.source { border: 1px solid var(--color-line); border-radius: var(--radius); padding: 12px 14px; display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: start; }
+.source .n { font-weight: 700; color: var(--color-ink); }
+.source .t { font-weight: 600; color: var(--color-ink); }
+.source .x { color: var(--color-body); font-size: 14px; margin-top: 4px; }
+.source .r { font-size: 12px; color: var(--color-muted); white-space: nowrap; }
+.source:target { outline: 2px solid var(--color-brand); }
+
+.how { border-top: 1px solid var(--color-line); padding: 24px 0; }
+.how h2 { font-size: 18px; color: var(--color-ink); margin: 0 0 10px; }
+footer.site { border-top: 1px solid var(--color-line); padding: 14px 0; margin-top: 24px; }
+
+@media (max-width: 640px) {
+  .askbar { grid-template-columns: 1fr; }
+  h1 { font-size: 22px; }
+  .source { grid-template-columns: 24px 1fr; }
+  .source .r { grid-column: 2; }
+}

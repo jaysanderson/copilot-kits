@@ -1,0 +1,456 @@
+<template>
+  <style>
+  /* Composition: this frame's content measured top gap vs bottom gap as
+     bottom-heavy, leaving a dead band under it. The whole layer stack drops 37px -
+     60% of the measured difference, since optical centre sits above true centre. The
+     stage colour is pinned on #root so the strip the shift opens at the top is the
+     same navy, not a hole. */
+  #root { background: #00216B; }
+  #root > *.pg-vshift-marker, #root > * {
+    transform: translateY(37px);
+    height: calc(100% - 37px);
+  }
+
+  /* Real Progress Sans - local files, names outside the HyperFrames alias map */
+  @font-face { font-family: "ProgressSansDisplay"; src: url("assets/ProgressSansDisplayVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  @font-face { font-family: "ProgressSansText"; src: url("assets/ProgressSansTextVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  :root, #root { --pg-display: "ProgressSansDisplay", Arial, Helvetica, sans-serif; --pg-text: "ProgressSansText", Arial, Helvetica, sans-serif; }
+
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: var(--pg-text);
+      color: #FFFFFF;
+    }
+    #root .clip {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      /* was 1080px, which outranks the shift rule's calc() and left these layers 37px
+         past the bottom edge after the recentring */
+      height: calc(1080px - 37px);
+    }
+    .f06-bg {
+      background: #00216B;
+    }
+
+    /* ---- step rail (shared with frames 4–8) ---- */
+    .f06-eyebrow {
+      position: absolute;
+      left: 96px;
+      top: 96px;
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #00B563;
+    }
+    .f06-dots {
+      position: absolute;
+      left: 96px;
+      top: 150px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .f06-dot {
+      width: 28px;
+      height: 28px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 1.5px solid rgba(198, 213, 235, 0.26);
+    }
+    .f06-dot-on {
+      background: #00B563;
+      border-color: #00B563;
+    }
+    .f06-rail-label {
+      position: absolute;
+      left: 312px;
+      top: 150px;
+      height: 28px;
+      line-height: 28px;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #00B563;
+    }
+
+    /* ---- page 3 card (cutout, left) ---- */
+    .f06-page {
+      position: absolute;
+      left: 160px;
+      top: 260px;
+      width: 300px;
+      height: 426px;
+      box-sizing: border-box;
+      padding: 10px;
+      border: 1.5px solid rgba(198, 213, 235, 0.26);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.055);
+    }
+    .f06-page img {
+      display: block;
+      width: 278px;
+      height: 404px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    .f06-page-outline {
+      position: absolute;
+      left: -1.5px;
+      top: -1.5px;
+      width: 300px;
+      height: 426px;
+      box-sizing: border-box;
+      border: 1.5px solid #00B563;
+      border-radius: 14px;
+      opacity: 0;
+    }
+
+    /* ---- connector (card → panel) ---- */
+    .f06-connector {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: visible;
+      pointer-events: none;
+    }
+    .f06-connector path {
+      fill: none;
+      stroke: #00B563;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .f06-connector circle {
+      fill: #00B563;
+    }
+
+    /* ---- request panel (hero) ---- */
+    .f06-panel {
+      position: absolute;
+      left: 560px;
+      top: 220px;
+      width: 1240px;
+      height: 640px;
+      box-sizing: border-box;
+      border: 1.5px solid rgba(198, 213, 235, 0.26);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.055);
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 28px;
+      line-height: 56px;
+      color: #FFFFFF;
+    }
+    .f06-line {
+      position: absolute;
+      left: 48px;
+      height: 56px;
+      white-space: pre;
+    }
+    .f06-l1 { top: 56px; }
+    .f06-l2 { top: 112px; }
+    .f06-l3 { top: 168px; }
+    .f06-k { color: #FFFFFF; }
+    .f06-v { color: #FFFFFF; }
+    .f06-caret {
+      display: inline-block;
+      width: 13px;
+      height: 30px;
+      margin-left: 2px;
+      vertical-align: middle;
+      background: #00B563;
+      opacity: 0;
+    }
+    .f06-divider {
+      position: absolute;
+      left: 48px;
+      top: 260px;
+      width: 1144px;
+      height: 2px;
+      overflow: visible;
+    }
+    .f06-divider line {
+      stroke: rgba(0, 181, 99, 0.40);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+    }
+    .f06-a1 { top: 300px; }
+    .f06-a2 { top: 356px; }
+    .f06-a3 { top: 412px; }
+    .f06-ans {
+      opacity: 0;
+    }
+    .f06-ans-val {
+      color: #FFFFFF;
+    }
+    .f06-tick {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-left: 14px;
+      vertical-align: middle;
+      overflow: visible;
+    }
+    .f06-tick path {
+      fill: none;
+      stroke: #00B563;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .f06-foot {
+      position: absolute;
+      right: 48px;
+      bottom: 36px;
+      font-family: var(--pg-text);
+      font-size: 26px;
+      line-height: 1.6;
+      font-weight: 400;
+      color: #C6D5EB;
+      opacity: 0;
+    }
+  </style>
+
+  <div data-hf-id="hf-0nnc" id="root" data-composition-id="06-step-3-ask" data-width="1920" data-height="1080" data-duration="13.932">
+    <!-- full-bleed ground -->
+    <div data-hf-id="hf-rxqs" id="f06-bg" class="clip f06-bg" data-start="0.000" data-duration="13.932" data-track-index="0"></div>
+
+    <!-- step rail -->
+    <div data-hf-id="hf-u0tk" id="f06-rail" class="clip" data-start="0.000" data-duration="13.932" data-track-index="1">
+      <div data-hf-id="hf-m0a5" class="f06-eyebrow" id="f06-eyebrow">Step 3 of 5</div>
+      <div data-hf-id="hf-x4a2" class="f06-dots" id="f06-dots">
+        <div data-hf-id="hf-35x4" class="f06-dot" id="f06-dot-1"></div>
+        <div data-hf-id="hf-btsz" class="f06-dot" id="f06-dot-2"></div>
+        <div data-hf-id="hf-dcve" class="f06-dot f06-dot-on" id="f06-dot-3"></div>
+        <div data-hf-id="hf-p3z9" class="f06-dot" id="f06-dot-4"></div>
+        <div data-hf-id="hf-ocbg" class="f06-dot" id="f06-dot-5"></div>
+      </div>
+      <div data-hf-id="hf-bgwb" class="f06-rail-label" id="f06-rail-label">Ask</div>
+    </div>
+
+    <!-- page 3 card: the attached page -->
+    <div data-hf-id="hf-58le" id="f06-page-layer" class="clip" data-start="0.000" data-duration="13.932" data-track-index="2">
+      <div data-hf-id="hf-t4ea" class="f06-page" id="f06-page">
+        <img data-hf-id="hf-mgq8" src="assets/ex1-page3.png" alt="">
+        <div data-hf-id="hf-sntu" class="f06-page-outline" id="f06-page-outline"></div>
+      </div>
+    </div>
+
+    <!-- request panel -->
+    <div data-hf-id="hf-q6xc" id="f06-panel-layer" class="clip" data-start="0.000" data-duration="13.932" data-track-index="3">
+      <div data-hf-id="hf-jmis" class="f06-panel" id="f06-panel">
+        <div data-hf-id="hf-rm0f" class="f06-line f06-l1" id="f06-l1"><span data-hf-id="hf-etsv" class="f06-k" id="f06-l1-s0"></span><span data-hf-id="hf-vv32" class="f06-caret" id="f06-c1"></span></div>
+        <div data-hf-id="hf-me2f" class="f06-line f06-l2" id="f06-l2"><span data-hf-id="hf-jqhe" class="f06-k" id="f06-l2-s0"></span><span data-hf-id="hf-r69s" class="f06-v" id="f06-l2-s1"></span><span data-hf-id="hf-rwz1" class="f06-caret" id="f06-c2"></span></div>
+        <div data-hf-id="hf-v37f" class="f06-line f06-l3" id="f06-l3"><span data-hf-id="hf-isuh" class="f06-k" id="f06-l3-s0"></span><span data-hf-id="hf-z1ab" class="f06-v" id="f06-l3-s1"></span><span data-hf-id="hf-qp2j" class="f06-k" id="f06-l3-s2"></span><span data-hf-id="hf-r5b8" class="f06-caret" id="f06-c3"></span></div>
+
+        <svg data-hf-id="hf-9v6m" class="f06-divider" id="f06-divider" viewBox="0 0 1144 2" xmlns="http://www.w3.org/2000/svg">
+          <line data-hf-id="hf-xefw" id="f06-divline" x1="0" y1="1" x2="1144" y2="1" />
+        </svg>
+
+        <div data-hf-id="hf-dv86" class="f06-line f06-ans f06-a1" id="f06-a1"><span data-hf-id="hf-hc9n" class="f06-ans-key" id="f06-a1-k"></span><span data-hf-id="hf-dao6" class="f06-ans-val" id="f06-a1-v"></span><svg data-hf-id="hf-6uvq" class="f06-tick" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path data-hf-id="hf-83kh" id="f06-t1" d="M5 12.5 L10 17.5 L19 6.5" /></svg></div>
+        <div data-hf-id="hf-8kgm" class="f06-line f06-ans f06-a2" id="f06-a2"><span data-hf-id="hf-xpag" class="f06-ans-key" id="f06-a2-k"></span><span data-hf-id="hf-ocql" class="f06-ans-val" id="f06-a2-v"></span><svg data-hf-id="hf-6b3u" class="f06-tick" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path data-hf-id="hf-c1oi" id="f06-t2" d="M5 12.5 L10 17.5 L19 6.5" /></svg></div>
+        <div data-hf-id="hf-0s46" class="f06-line f06-ans f06-a3" id="f06-a3"><span data-hf-id="hf-ptfh" class="f06-ans-key" id="f06-a3-k"></span><span data-hf-id="hf-6y14" class="f06-ans-val" id="f06-a3-v"></span><svg data-hf-id="hf-6pev" class="f06-tick" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path data-hf-id="hf-fzsj" id="f06-t3" d="M5 12.5 L10 17.5 L19 6.5" /></svg></div>
+
+        <div data-hf-id="hf-pcz5" class="f06-foot" id="f06-foot">read from the page image</div>
+      </div>
+    </div>
+
+    <!-- connector drawn from the page card into the panel (above the panel so it crosses its border) -->
+    <div data-hf-id="hf-o4ce" id="f06-connector-layer" class="clip" data-start="0.000" data-duration="13.932" data-track-index="4">
+      <svg data-hf-id="hf-jky3" class="f06-connector" id="f06-connector" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+        <path data-hf-id="hf-7dc6" id="f06-link" d="M 460 473 C 512 473 508 416 560 416 L 596 416" />
+        <circle data-hf-id="hf-w90o" id="f06-link-dot" cx="596" cy="416" r="0" />
+      </svg>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      /* == RETIMED (tools_apply_retime.py) == */
+      /* Beat times below are OLD-take time; P() maps them onto the delivered take
+         through word anchors matched by text. Generated - do not hand-edit. */
+      var __KX = [0.0000, 0.0600, 0.4200, 1.2100, 1.4100, 2.3500, 2.5500, 2.7700, 3.4600, 3.5300, 4.0100, 4.0600, 4.6100, 4.9900, 5.1600, 5.4200, 5.8200, 6.1500, 6.2200, 6.4100, 6.9700, 7.4300, 7.7300, 7.9600, 8.6600, 8.7300, 9.8100, 9.8400, 10.1000, 10.5200, 10.9500, 11.4000, 11.7300, 11.9200, 12.5500, 12.7200, 12.9400, 13.2300, 13.6750];
+      var __KY = [0.0000, 0.0120, 0.3830, 1.2540, 1.8000, 2.3340, 2.7280, 2.9610, 3.3550, 3.5180, 3.8430, 3.9130, 4.2610, 4.5510, 4.6790, 4.8880, 5.5380, 5.7350, 5.8630, 6.3040, 6.6640, 7.1170, 7.2910, 7.3960, 8.2660, 8.4640, 9.1370, 9.3690, 9.6130, 9.8920, 10.0540, 10.5070, 10.7860, 10.9710, 11.0880, 11.9230, 12.1670, 12.3880, 13.2820];
+      function __pw(t, X, Y) { if (t <= X[0]) return Y[0] + (t - X[0]); var n = X.length - 1;
+        if (t >= X[n]) return Y[n] + (t - X[n]) * (Y[n] / X[n]); var lo = 0, hi = n;
+        while (hi - lo > 1) { var m = (lo + hi) >> 1; if (X[m] <= t) lo = m; else hi = m; }
+        return Y[lo] + (t - X[lo]) / (X[hi] - X[lo]) * (Y[hi] - Y[lo]); }
+      function P(t) { return __pw(t, __KX, __KY); }   /* old take time -> delivered take time */
+      function Q(u) { return __pw(u, __KY, __KX); }   /* inverse: drivers run in new time,
+         so a threshold written in old time is compared against Q(driver.t) unedited */
+      var T = 13.282;  /* measured delivered take (was 13.675) */
+      var COBALT = "#00B563";
+      var INK = "#FFFFFF";
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+      window.__timelines["06-step-3-ask"] = tl;
+
+      var $ = function (id) { return document.getElementById(id); };
+
+      /* ---------- svg-path-draw setup: measure, then hide the dash ---------- */
+      function prepStroke(el) {
+        var len = el.getTotalLength() * 1.02;
+        el.style.strokeDasharray = String(len);
+        el.style.strokeDashoffset = String(len);
+        return len;
+      }
+      ["f06-link", "f06-divline", "f06-t1", "f06-t2", "f06-t3"].forEach(function (id) { prepStroke($(id)); });
+
+      /* ---------- Scene 1 (0.0–2.4s): rail + panel rise ---------- */
+      tl.fromTo("#f06-eyebrow", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.05);
+      tl.fromTo(
+        ["#f06-dot-1", "#f06-dot-2", "#f06-dot-3", "#f06-dot-4", "#f06-dot-5"],
+        { opacity: 0, scale: 0.6 },
+        { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out", stagger: 0.07 },
+        0.2
+      );
+      tl.fromTo("#f06-rail-label", { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 0.62);
+      // the panel rises in with a power3 long-tail settle
+      tl.fromTo("#f06-panel", { opacity: 0, y: 48 }, { opacity: 1, y: 0, duration: 1.3, ease: "power3.out" }, 0.22);
+
+      /* ---------- Scene 2 (2.4–8.4s): the ask types, line by line ---------- */
+      // Synchronously built chars-at-time table: deterministic cadence (slower after spaces / colons).
+      var LINES = [
+        { start: 2.45, spans: ["f06-l1-s0"], caret: "f06-c1",
+          segs: ["POST /ask  · resource: page 3"] },
+        { start: 3.95, spans: ["f06-l2-s0", "f06-l2-s1"], caret: "f06-c2",
+          segs: ["answer_json_schema: ", "disclosure_a"] },
+        { start: 5.6, spans: ["f06-l3-s0", "f06-l3-s1", "f06-l3-s2"], caret: "f06-c3",
+          segs: ["rag_images_strategies: [{ name: ", "\"page_image\"", " }]"] }
+      ];
+      var BASE = 0.036;
+      LINES.forEach(function (L, i) {
+        L.full = L.segs.join("");
+        L.bounds = [];
+        var pos = 0;
+        L.segs.forEach(function (s) { L.bounds.push([pos, pos + s.length]); pos += s.length; });
+        L.times = [];
+        var t = L.start;
+        for (var c = 0; c < L.full.length; c++) {
+          t += BASE;
+          var ch = L.full.charAt(c);
+          if (ch === " ") t += 0.05;
+          else if (ch === ":") t += 0.08;
+          else if (ch === "," || ch === "{") t += 0.04;
+          L.times.push(t);
+        }
+        L.end = t;
+        L.caretUntil = i < LINES.length - 1 ? LINES[i + 1].start : 8.1;
+        L.els = L.spans.map($);
+        L.caretEl = $(L.caret);
+        L.lastCount = -1;
+      });
+
+      function countAt(L, time) {
+        if (time < L.start) return 0;
+        for (var i = L.times.length - 1; i >= 0; i--) {
+          if (time >= L.times[i]) return i + 1;
+        }
+        return 0;
+      }
+
+      // Answer lines: discrete-text-sequence — whole states replaced at thresholds.
+      var ANSWERS = [
+        { t: 9.0, key: "f06-a1-k", val: "f06-a1-v", k: "bone_injury_conditions: ", v: "true" },
+        { t: 9.7, key: "f06-a2-k", val: "f06-a2-v", k: "sugar_diabetes: ", v: "true" },
+        { t: 10.4, key: "f06-a3-k", val: "f06-a3-v", k: "vehicle_accident: ", v: "true" }
+      ];
+      ANSWERS.forEach(function (A) { A.kEl = $(A.key); A.vEl = $(A.val); A.shown = null; });
+
+      var BLINK_CYCLES = 20; // integer cycles over T → ~0.68s period
+      var driver = { t: 0 };
+      tl.to(driver, {
+        t: T,
+        duration: T,
+        ease: "none",
+        onUpdate: function () {
+          var time = Q(driver.t);
+          var blinkOn = Math.sin(2 * Math.PI * BLINK_CYCLES * driver.t / T) > 0;
+          LINES.forEach(function (L) {
+            var n = countAt(L, time);
+            if (n !== L.lastCount) {
+              L.lastCount = n;
+              for (var s = 0; s < L.segs.length; s++) {
+                var b = L.bounds[s];
+                var hi = Math.min(n, b[1]);
+                L.els[s].textContent = hi > b[0] ? L.full.slice(b[0], hi) : "";
+              }
+            }
+            var active = time >= L.start && time < L.caretUntil;
+            L.caretEl.style.opacity = active && blinkOn ? "1" : "0";
+          });
+          ANSWERS.forEach(function (A) {
+            var on = time >= A.t;
+            if (on !== A.shown) {
+              A.shown = on;
+              A.kEl.textContent = on ? A.k : "";
+              A.vEl.textContent = on ? A.v : "";
+            }
+          });
+        }
+      }, 0);
+
+      // "disclosure_a" tints cobalt once its line lands
+      tl.to("#f06-l2-s1", { color: COBALT, duration: 0.35, ease: "power1.out" }, LINES[1].end + 0.08);
+
+      // "the page image travels with the question": connector draws from the card into the panel
+      tl.to("#f06-link", { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, 6.5);
+      tl.to("#f06-link-dot", { attr: { r: 4.5 }, duration: 0.25, ease: "power2.out" }, 7.12);
+      tl.to("#f06-page-outline", { opacity: 1, duration: 0.4, ease: "power1.out" }, 6.85);
+      tl.to("#f06-l3-s1", { color: COBALT, duration: 0.35, ease: "power1.out" }, LINES[2].end + 0.08);
+
+      /* ---------- Scene 3 (8.4–13.4s): the answer comes back ---------- */
+      tl.to("#f06-divline", { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 8.5);
+
+      ANSWERS.forEach(function (A, i) {
+        var row = "#f06-a" + (i + 1);
+        tl.fromTo(row, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, A.t);
+        tl.fromTo("#" + A.val, { color: INK }, { color: COBALT, duration: 0.3, ease: "power1.out" }, A.t + 0.12);
+        tl.to("#f06-t" + (i + 1), { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, A.t + 0.18);
+      });
+
+      // "not from text": muted footnote, bottom-right of the panel
+      tl.to("#f06-foot", { opacity: 0.72, duration: 0.6, ease: "power1.out" }, 11.75);
+
+      /* ---------- Scene 4 (13.4–end): hold ---------- */
+      tl.set({}, { data: "pin" }, T);
+
+      /* == RETIMED (tools_apply_retime.py) == beat walk == */
+      /* Every registered beat moves to its remapped position. */
+      (function () {
+        var kids = tl.getChildren(false, true, true);
+        if (!kids.length) throw new Error("retime: no children to reposition");
+        var moved = 0, over = [];
+        kids.forEach(function (c) {
+          if (c.vars && c.vars.data === "pin") return;   /* already in new-take time */
+          var s = c.startTime(), n = P(s);
+          if (Math.abs(n - s) > 0.0005) { c.startTime(n); moved++; }
+          /* Eyebrows share one zone, so at a fade boundary two of them smear. Hold
+             any eyebrow until the 0.5s transition is done. */
+          var tg = (c.targets ? c.targets() : []);
+          var nm = tg.length ? ((tg[0].id || "") + " " + (tg[0].className || "")) : "";
+          if (/-eyebrow(\s|$)/.test(nm) && c.startTime() < 0.52) {
+            c.startTime(0.52);
+          }
+          if (c.startTime() + c.duration() > 13.282 + 0.02) {
+            over.push(Math.round((c.startTime() + c.duration()) * 1000) / 1000);
+          }
+        });
+        window.__retime = window.__retime || {};
+        window.__retime["06-step-3-ask"] = { beats: kids.length, moved: moved, overrun: over };
+      })();
+
+    })();
+  </script>
+</template>

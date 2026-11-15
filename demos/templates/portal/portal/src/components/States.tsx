@@ -1,0 +1,73 @@
+import { Inbox, ShieldAlert } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { getDomainNoun } from '../lib/config';
+// Kendo-free: shared state primitives render with plain elements + Tailwind so
+// they work identically in the KendoReact and open-source UI modes.
+
+export function Spinner({ label }: { label?: string }) {
+  return (
+    <div className="flex items-center gap-2 text-sm text-ink-500">
+      <span
+        className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+        style={{ color: 'var(--brand)' }}
+        aria-hidden
+      />
+      {label || 'Loading…'}
+    </div>
+  );
+}
+
+export function TypingDots() {
+  return (
+    <span className="inline-flex items-center gap-1 align-middle" aria-label="Generating">
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className="typing-dot h-1.5 w-1.5 rounded-full"
+          style={{ background: 'var(--brand)', animationDelay: `${i * 0.16}s` }}
+        />
+      ))}
+    </span>
+  );
+}
+
+export function ErrorBanner({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex w-full items-start gap-2 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-red-900 dark:border-red-800/70 dark:bg-red-950/40 dark:text-red-200">
+      <ShieldAlert size={18} className="mt-0.5 shrink-0" />
+      <span className="text-sm">{children}</span>
+    </div>
+  );
+}
+
+export function EmptyState({ title, hint }: { title: string; hint?: ReactNode }) {
+  return (
+    <div className="card flex flex-col items-center gap-2 px-6 py-14 text-center">
+      <Inbox size={26} className="text-ink-400" />
+      <p className="font-medium text-ink-700 dark:text-ink-200">{title}</p>
+      {hint && <p className="max-w-md text-sm text-ink-500">{hint}</p>}
+    </div>
+  );
+}
+
+/**
+ * The ungrounded warning. An answer with no citations is a BUG in this portal —
+ * it is never shown as trustworthy prose. This makes that state loud.
+ */
+export function UngroundedWarning({ children }: { children?: ReactNode }) {
+  // Fix 2 (flagship rebuild, Section 3.A): route default copy through the
+  // scaffold-time domain noun, never the literal "Knowledge Box".
+  const noun = getDomainNoun();
+  return (
+    <div className="flex items-start gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-800/70 dark:bg-amber-950/40 dark:text-amber-200">
+      <ShieldAlert size={18} className="mt-0.5 shrink-0" />
+      <div>
+        <p className="font-semibold">No sources returned - treat as ungrounded.</p>
+        <p className="mt-0.5 text-amber-800 dark:text-amber-300/90">
+          {children ||
+            `The ${noun} did not cite any documents for this answer. A grounded portal declines rather than asserting the unsupported - do not rely on this text.`}
+        </p>
+      </div>
+    </div>
+  );
+}

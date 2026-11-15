@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: knowledge that leaves with the person</title></head>
+<body>
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    /* NO ILLUSTRATED PEOPLE. A beat about retirement with no person in it: the
+       name plate going blank carries it, which is also less maudlin than a
+       figure would be. */
+    .rt-horizon { position: absolute; left: 0; right: 0; top: 700px; height: 300px;
+      background: linear-gradient(180deg, rgba(255,255,255,.035) 0%, rgba(255,255,255,0) 100%);
+      border-top: 1px solid rgba(255,255,255,.07); }
+    .rt-desk { position: absolute; width: 430px; height: 22px; border-radius: 4px;
+      background: linear-gradient(180deg, #D7DEEA 0%, #9FB0D0 100%);
+      box-shadow: 0 12px 30px rgba(0,6,30,.55); transform-origin: left bottom; }
+    .rt-doc { position: absolute; width: 56px; height: 72px; border-radius: 3px;
+      background: #FFFFFF; box-shadow: 0 3px 10px rgba(0,6,30,.45); }
+    .rt-doc i { position: absolute; left: 6px; height: 3px; border-radius: 2px;
+      background: #B9C6DC; display: block; }
+    .rt-plate { position: absolute; width: 140px; height: 32px; border-radius: 3px;
+      background: #2F4F9B; border: 1px solid #4E6AA8; }
+    .rt-name { position: absolute; left: 14px; top: 11px; width: 84px; height: 5px;
+      border-radius: 2px; background: #BFD0EE; }
+    .rt-tile { position: absolute; width: 46px; height: 30px; border-radius: 3px;
+      background: #2A6E53; border: 1px solid #3E9B76; }
+    svg.rt-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="root" data-composition-id="m-rt" data-width="1920" data-height="1080"
+       data-duration="11.5">
+    <svg class="rt-svg" id="rt-svg" viewBox="0 0 1920 1080" fill="none"></svg>
+    <div class="rt-horizon" id="rt-horizon"></div>
+    <div id="rt-stage" style="position:absolute; inset:0;"></div>
+  </div>
+
+  <script>
+  (function () {
+    const stage = document.getElementById("rt-stage");
+    const svg = document.getElementById("rt-svg");
+    const DESKS = 5, TILES = 12, DOCS = 6;
+    let seed = 20261011;
+    const rnd = () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296;
+
+    const desks = [];
+    for (let d = 0; d < DESKS; d++) {
+      const s = 1 - d * 0.145;
+      // Shallower rise and a wider spread: the first build ran a steep diagonal
+      // from bottom-left to top-right and left about 40 per cent of the frame
+      // dead in the lower right.
+      const x = 104 + d * 348, y = 846 - d * 86;
+      const op = 1 - d * 0.155;
+      const surf = document.createElement("div");
+      surf.className = "rt-desk"; surf.id = "rt-desk" + d;
+      surf.style.left = x + "px"; surf.style.top = y + "px";
+      surf.style.transform = `scale(${s})`; surf.style.opacity = op;
+      stage.appendChild(surf);
+
+      const docs = [];
+      for (let k = 0; k < DOCS; k++) {
+        const el = document.createElement("div");
+        el.className = "rt-doc"; el.id = `rt-doc${d}-${k}`;
+        el.style.left = (x + (16 + k * 17) * s) + "px";
+        el.style.top = (y - 72 * s - k * 2 * s) + "px";
+        el.style.transform = `scale(${s}) rotate(${(rnd() - .5) * 5}deg)`;
+        el.style.opacity = op;
+        [10, 18, 26, 34, 42].forEach((tt, j) => {
+          const ln = document.createElement("i");
+          ln.style.top = tt + "px"; ln.style.width = (32 - (j % 3) * 7) + "px";
+          el.appendChild(ln);
+        });
+        stage.appendChild(el); docs.push(el);
+      }
+      const plate = document.createElement("div");
+      plate.className = "rt-plate"; plate.id = "rt-plate" + d;
+      plate.style.left = (x + 266 * s) + "px"; plate.style.top = (y - 36 * s) + "px";
+      plate.style.transform = `scale(${s})`; plate.style.opacity = op;
+      const nm = document.createElement("div");
+      nm.className = "rt-name"; nm.id = "rt-name" + d;
+      plate.appendChild(nm); stage.appendChild(plate);
+
+      // The cluster of what this person can FIND, and the threads that are the
+      // finding. The documents are on the desk; the threads are the knowledge.
+      const tiles = [], threads = [];
+      const cx = x + 190 * s, cy = y - 180 * s;
+      for (let i = 0; i < TILES; i++) {
+        const a = (i / TILES) * Math.PI * 2;
+        const rr = (96 + (i % 3) * 34) * s;
+        const tx = cx + Math.cos(a) * rr * 1.5, ty = cy + Math.sin(a) * rr * .72 - 110 * s;
+        const el = document.createElement("div");
+        el.className = "rt-tile"; el.id = `rt-tile${d}-${i}`;
+        el.style.left = tx + "px"; el.style.top = ty + "px";
+        el.style.transform = `scale(${s})`; el.style.opacity = op;
+        stage.appendChild(el); tiles.push(el);
+        const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        p.setAttribute("d", `M ${x + 200 * s} ${y - 4} L ${tx + 23 * s} ${ty + 15 * s}`);
+        p.setAttribute("stroke", "#3E9B76");
+        p.setAttribute("stroke-width", (1.9 * s).toFixed(2));
+        p.setAttribute("fill", "none"); p.setAttribute("opacity", op * .85);
+        p.id = `rt-th${d}-${i}`;
+        svg.appendChild(p); threads.push(p);
+      }
+      desks.push({ surf, docs, plate, nm, tiles, threads, s, x, y });
+    }
+
+    const AT_RIFFLE = 1.00, AT_PULSE = 2.80, AT_BLANK = 4.20,
+          AT_SNAP = 5.00, AT_SECOND = 6.60;
+    const tl = gsap.timeline({ paused: true,
+      defaults: { duration: 0.6, ease: "power3.out" } });
+
+    // Alive from frame zero.
+    tl.to(stage, { y: -10, duration: 11.5, ease: "sine.inOut" }, 0);
+    // AREA. Measured at 390px the threads are 0.4 device pixels and the tiles
+    // 9x6, so twelve snapping threads register as nothing - a 4.30s
+    // perceptually-still run that two separate nudges did not move. A push
+    // into the front desk across the cascade changes EVERY pixel, which is the
+    // only motion a phone-width measure can see, and it says the right thing.
+    gsap.set(stage, { transformOrigin: "18% 78%" });
+    tl.to(stage, { scale: 1.42, duration: 4.6, ease: "power1.inOut" }, 4.4);
+
+    // 1. The documents are real and they are THERE: the front stack riffles.
+    desks[0].docs.forEach((el, k) => {
+      tl.to(el, { x: 6, duration: .18, yoyo: true, repeat: 1 }, AT_RIFFLE + k * .05);
+    });
+
+    // 2. The FINDING runs through the desk - three threads pulse out and back.
+    [1, 5, 9].forEach((i, k) => {
+      tl.to(desks[0].threads[i], { strokeWidth: 4.6, duration: .24 },
+            AT_PULSE + k * .22);
+      tl.to(desks[0].threads[i], { strokeWidth: 1.9, duration: .4 },
+            AT_PULSE + .24 + k * .22);
+      tl.to(desks[0].tiles[i], { scale: 1.22, duration: .24 }, AT_PULSE + k * .22);
+      tl.to(desks[0].tiles[i], { scale: 1.0, duration: .4 }, AT_PULSE + .24 + k * .22);
+    });
+
+    // 3. The name plate goes BLANK. Nothing else about the desk changes.
+    tl.to(desks[0].nm, { opacity: 0, duration: .45 }, AT_BLANK);
+
+    // 4. The threads snap, one by one. Each leaves BOTH STUBS visible with a
+    //    recoil gap, and the tile it held goes dead and drifts out of frame.
+    //    THE DOCUMENT STACK DOES NOT MOVE. That is the whole distinction.
+    const snap = (d, t0, step) => {
+      desks[d].threads.forEach((p, i) => {
+        const t = t0 + i * step;
+        const L = p.getTotalLength();
+        tl.set(p, { strokeDasharray: `${L * 0.42} ${L * 0.16} ${L * 0.42}` }, t);
+        tl.to(p, { opacity: .25, duration: .2 }, t);
+        tl.to(p, { opacity: 0, duration: .5 }, t + .5);
+        tl.to(desks[d].tiles[i], { backgroundColor: "#2A3350",
+                                   borderColor: "#3A4566", duration: .25 }, t + .1);
+        tl.to(desks[d].tiles[i], { y: -230 - i * 9, opacity: 0, duration: 1.5,
+                                   ease: "power1.in" }, t + .25);
+      });
+    };
+    snap(0, AT_SNAP, 0.07);
+    // 5. The second desk's plate goes blank and its cascade starts FASTER.
+    tl.to(desks[1].nm, { opacity: 0, duration: .4 }, AT_SECOND);
+    snap(1, AT_SECOND + .25, 0.045);
+    // The shot ENDS MID-CASCADE: two desks stripped, three still threaded, and
+    // the first desk's documents sitting exactly where they were.
+
+    window.__motifTimeline = tl;
+    if (window.hyperframes && window.hyperframes.register) {
+      window.hyperframes.register(tl);
+    }
+  })();
+  </script>
+</template>
+</body>
+</html>

@@ -1,0 +1,147 @@
+/* Grants intelligence report - print design system.
+   Progress Agentic RAG brand: Blue P1 #00216B, P1 shade #00123C, Blue P2 #2B2BB2,
+   Blue P3 #4B4BF7, Blue P5 #DCECFF, Green P2 #00B563, Green P3 #00D364,
+   Green S3 #90EF8E, Green S4 #CDFFCA, Grey S4 #F4FAFF, Yellow S1 #FFD000.
+   Type: Arial (approved substitute for Progress Sans). Type is black on light,
+   white on dark; colour is a selective accent. */
+
+@page { size: A4; margin: 0; }
+
+:root {
+  --p1: #00216B; --p1s: #00123C; --p2: #2B2BB2; --p3: #4B4BF7;
+  --p5: #DCECFF; --g2: #00B563; --g3: #00D364; --gs3: #90EF8E; --gs4: #CDFFCA;
+  --grey: #F4FAFF; --y1: #FFD000;
+  --ink: #000000; --muted: #3D3D42; --border: #C9D9EE;
+  --success-fg: #00663A; --warning-fg: #6B4E00; --warning-bg: #FFF3C2;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 9.2pt;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  background: #FFFFFF;
+}
+
+/* ---------- page frame ---------- */
+.page {
+  width: 210mm;
+  padding: 12mm 16mm 6mm 16mm;
+  position: relative;
+  page-break-before: always;
+  background: #FFFFFF;
+}
+.page.cover { page-break-before: auto; padding: 0; min-height: 297mm; }
+
+/* Running footer is supplied by the PDF renderer; in-document footers are disabled. */
+.page-footer { display: none; }
+
+/* ---------- cover ---------- */
+.cover {
+  background: var(--p1);
+  color: #FFFFFF;
+  padding: 0;
+}
+.cover-inner { position: relative; z-index: 2; padding: 18mm; height: 297mm; display: flex; flex-direction: column; }
+.cover .hex-crop {
+  position: absolute; inset: 0; overflow: hidden; z-index: 1;
+}
+.cover .hex-crop img { position: absolute; right: -34%; bottom: -18%; width: 78%; opacity: 0.9; }
+.cover-logo { height: 19mm; width: auto; display: block; align-self: flex-start; }
+.cover-kicker {
+  margin-top: 58mm; font-size: 10pt; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--g3);
+}
+.cover h1 {
+  font-size: 33pt; font-weight: 700; line-height: 1.08; letter-spacing: -0.015em;
+  margin-top: 6mm; max-width: 150mm; color: #FFFFFF;
+}
+.cover-sub { margin-top: 7mm; font-size: 12.5pt; font-weight: 300; color: var(--p5); max-width: 140mm; line-height: 1.5; }
+.cover-meta { margin-top: auto; display: flex; gap: 14mm; font-size: 8.5pt; color: var(--p5); }
+.cover-meta strong { display: block; color: #FFFFFF; font-size: 9.5pt; margin-bottom: 1mm; }
+
+/* ---------- headings ---------- */
+h2.section-title {
+  font-size: 17pt; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2;
+  color: var(--ink); margin-bottom: 3mm;
+}
+.section-eyebrow {
+  font-size: 8pt; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--p2); margin-bottom: 2mm;
+}
+.section-rule { height: 2.5px; width: 22mm; background: var(--g3); margin-bottom: 5mm; }
+h3 { font-size: 11.5pt; font-weight: 700; margin: 5mm 0 2mm; color: var(--ink); }
+h4 { font-size: 9.5pt; font-weight: 700; margin: 3.5mm 0 1.5mm; color: var(--p1); }
+p { margin-bottom: 2.6mm; }
+.lead { font-size: 10.5pt; font-weight: 300; line-height: 1.55; color: var(--muted); margin-bottom: 4mm; }
+ul, ol { margin: 0 0 2.6mm 5mm; }
+li { margin-bottom: 1.2mm; }
+strong { font-weight: 700; }
+a { color: var(--p2); text-decoration: none; word-break: break-all; }
+
+/* ---------- tables ---------- */
+table { width: 100%; border-collapse: collapse; margin-bottom: 4mm; font-size: 8.2pt; }
+th {
+  background: var(--p1); color: #FFFFFF; text-align: left;
+  padding: 1.8mm 2.2mm; font-weight: 700; font-size: 7.8pt; letter-spacing: 0.03em;
+  vertical-align: bottom;
+}
+td { padding: 1.7mm 2.2mm; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:nth-child(even) td { background: var(--grey); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.ctr { text-align: center; }
+
+/* grant profile block */
+.grant {
+  border: 1px solid var(--border); border-radius: 3mm; overflow: hidden;
+  margin-bottom: 5mm; page-break-inside: avoid;
+}
+.grant-head {
+  background: var(--p1); color: #FFFFFF; padding: 3mm 4mm;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 4mm;
+}
+.grant-head h3 { margin: 0; font-size: 11.5pt; color: #FFFFFF; }
+.grant-head .tag { font-size: 7.5pt; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--g3); white-space: nowrap; }
+.grant table { margin-bottom: 0; }
+.grant td:first-child { width: 30mm; font-weight: 700; color: var(--p1); background: var(--grey); }
+.grant tr:nth-child(even) td { background: #FFFFFF; }
+.grant tr:nth-child(even) td:first-child { background: var(--grey); }
+
+/* callouts, chips */
+.callout {
+  background: var(--grey); border-left: 3px solid var(--p2);
+  padding: 3mm 4mm; border-radius: 0 2mm 2mm 0; margin-bottom: 4mm;
+}
+.callout.green { border-left-color: var(--g2); }
+.callout.warn { background: var(--warning-bg); border-left-color: var(--y1); }
+.chip {
+  display: inline-block; background: var(--p5); color: var(--p1);
+  border-radius: 999px; padding: 0.4mm 2.6mm; font-size: 7.4pt; font-weight: 700;
+  margin: 0 1mm 1mm 0;
+}
+.chip.green { background: var(--gs4); color: var(--success-fg); }
+.verified { color: var(--success-fg); font-weight: 700; font-size: 7.6pt; }
+.unconfirmed { color: var(--warning-fg); font-weight: 700; font-size: 7.6pt; }
+
+/* stat band */
+.stats { display: flex; gap: 4mm; margin-bottom: 5mm; }
+.stat {
+  flex: 1; background: var(--p1); color: #FFFFFF; border-radius: 2.5mm;
+  padding: 3.5mm 4mm;
+}
+.stat .v { font-size: 16pt; font-weight: 700; letter-spacing: -0.01em; color: var(--g3); line-height: 1.1; }
+.stat .l { font-size: 7.4pt; color: var(--p5); margin-top: 1mm; line-height: 1.35; }
+
+/* dark section band */
+.band {
+  background: var(--p1); color: #FFFFFF; border-radius: 3mm;
+  padding: 5mm 6mm; margin-bottom: 5mm;
+}
+.band h3, .band h4 { color: #FFFFFF; }
+.band p { color: var(--p5); }
+
+.small { font-size: 7.6pt; color: var(--muted); }
+.avoid-break { page-break-inside: avoid; }

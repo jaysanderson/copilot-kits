@@ -1,0 +1,14 @@
+{
+  "name": "OpsAgent",
+  "promise": "Give it a goal. Watch it read your documents, call your systems and show its work before anything happens.",
+  "suggested": [
+    "Which orders are waiting on a part we have in stock?",
+    "Raise a ticket for the overdue inspection on unit 7",
+    "What does the policy say about overtime approval?"
+  ],
+  "how_it_works": [
+    "Your goal goes to this app, which hands it to the Retrieval Agent with your identity.",
+    "The agent reads the Knowledge Box and calls this app's tools over MCP, one step at a time.",
+    "Every step is shown; actions run in dry-run until you turn them on."
+  ]
+}

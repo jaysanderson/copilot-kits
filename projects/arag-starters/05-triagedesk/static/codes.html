@@ -1,0 +1,92 @@
+<title>Feedback code catalogue - AkademDocs Pre-Check</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/style.css?v=3">
+<div class="shell">
+  <div id="topstrip"></div>
+  <div class="app-body">
+    <div id="rail"></div>
+    <div class="main">
+      <div class="page page-wide">
+        <div class="page-header">
+          <div>
+            <h1>Feedback code catalogue</h1>
+            <div class="lede">Every message this service returns comes from this closed, versioned vocabulary - never free text.</div>
+          </div>
+        </div>
+        <div class="stat-row" id="stats"></div>
+        <div id="content"><div class="empty">Loading catalogue…</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="tabbar"></div>
+<div id="hiwHost"></div>
+<div class="footer-note">Synthetic demonstration data. AkademDocs Pre-Check runs on Progress Agentic RAG.</div>
+
+<script src="/assets/app.js?v=3"></script>
+<script>
+mountShell("/codes", "codes");
+let DATA = null;
+let sevFilter = "ALL";
+let langCol = "en";
+
+function langButtons() {
+  const langs = ["he", "ru", "en", "uk", "fr"];
+  return langs.map(l => `<button class="${l === langCol ? "active" : ""}" data-lang="${l}">${l.toUpperCase()}</button>`).join("");
+}
+
+function renderTable() {
+  const entries = Object.entries(DATA.catalogue).filter(([, entry]) => sevFilter === "ALL" || entry.severity === sevFilter);
+  const rows = entries.map(([code, entry]) => `
+    <div class="code-row">
+      <div class="code-cell code" data-label="Code">${code}</div>
+      <div class="code-cell" data-label="Severity">${severityPill(entry.severity)}</div>
+      <div class="code-cell" data-label="Detection">${entry.implemented ? '<span class="pill INFO"><span class="dot"></span>Live detection</span>' : '<span class="pill ATTENTION"><span class="dot"></span>Catalogued only</span>'}</div>
+      <div class="code-cell text" data-label="Applicant-facing text" dir="${scriptDir(entry.text[langCol])}">${escapeHtml(entry.text[langCol] || entry.text.en || "-")}</div>
+    </div>`).join("");
+
+  document.getElementById("content").innerHTML = `
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
+        <div class="code-filter" id="sevFilter">
+          <button data-sev="ALL" class="${sevFilter === "ALL" ? "active" : ""}">All severities</button>
+          <button data-sev="INFO" class="${sevFilter === "INFO" ? "active" : ""}">Info</button>
+          <button data-sev="ATTENTION" class="${sevFilter === "ATTENTION" ? "active" : ""}">Attention</button>
+          <button data-sev="REVIEW" class="${sevFilter === "REVIEW" ? "active" : ""}">Review</button>
+        </div>
+        <div class="lang-toggle">Show text in: ${langButtons()}</div>
+      </div>
+      <div class="code-catalogue">
+        <div class="code-row code-row-head">
+          <div class="code-cell">Code</div><div class="code-cell">Severity</div><div class="code-cell">Detection</div><div class="code-cell">Applicant-facing text</div>
+        </div>
+        ${rows || `<div class="empty">No codes match this filter.</div>`}
+      </div>
+    </div>`;
+
+  document.querySelectorAll("#sevFilter button").forEach(b => b.addEventListener("click", () => { sevFilter = b.dataset.sev; renderTable(); }));
+  document.querySelectorAll(".lang-toggle button").forEach(b => b.addEventListener("click", () => { langCol = b.dataset.lang; renderTable(); }));
+}
+
+async function load() {
+  try {
+    DATA = await fetchJSON("/api/codes");
+    const entries = Object.values(DATA.catalogue);
+    const implementedCount = entries.filter(e => e.implemented).length;
+    const bySev = { INFO: 0, ATTENTION: 0, REVIEW: 0 };
+    entries.forEach(e => { bySev[e.severity] = (bySev[e.severity] || 0) + 1; });
+
+    document.getElementById("stats").innerHTML = `
+      <div class="stat-tile"><div class="num">${entries.length}</div><div class="lbl">Total codes</div></div>
+      <div class="stat-tile accent"><div class="num">${implementedCount}</div><div class="lbl">With live detection</div></div>
+      <div class="stat-tile"><div class="num">${DATA.full_coverage_languages.length}</div><div class="lbl">Fully translated languages</div></div>
+      <div class="stat-tile warn"><div class="num">${bySev.ATTENTION}</div><div class="lbl">Attention-severity codes</div></div>
+      <div class="stat-tile review"><div class="num">${bySev.REVIEW}</div><div class="lbl">Review-severity codes</div></div>
+    `;
+    renderTable();
+  } catch (e) {
+    document.getElementById("content").innerHTML = `<div class="card empty">Could not load the catalogue: ${escapeHtml(e.message)}</div>`;
+  }
+}
+load();
+</script>

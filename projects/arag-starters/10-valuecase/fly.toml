@@ -1,0 +1,34 @@
+# ROI & Value Case Tool - Progress Agentic RAG (DAM work item 0be7b846).
+# Rebuilt 22 Sep 2026 from a stateless calculator into a persistent case
+# tool - it now holds real server-side state (SQLite on a volume) and a
+# real access secret (the passphrase gate), unlike the original build.
+#
+# Single machine, no HA pair: `flyctl deploy --ha=false` is REQUIRED on
+# every deploy of this app. A second "HA" machine would mount its own
+# empty copy of the volume (Fly volumes are single-machine, not shared),
+# so a request routed to it would see a case-free database - a silent,
+# confusing split, not a crash. After every deploy, run
+# `flyctl status -a arag-roi-calculator` and confirm exactly one machine.
+app = "CHANGE-ME-valuecase"
+primary_region = "syd"
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+
+[mounts]
+  source = "roi_case_data"
+  destination = "/app/data"
+
+# Secrets (set via `flyctl secrets set`, never committed):
+#   ROI_PASSPHRASE   - the one shared team passphrase gating every API route.
+#   ROI_SECRET_KEY   - signs the session cookie; any long random string.

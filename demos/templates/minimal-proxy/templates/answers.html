@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The university - Answers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/chat.css">
+<link rel="stylesheet" href="/static/answers.css">
+</head>
+<body class="answers">
+<header class="ahead">
+  <div class="wrap ahead-in">
+    <a href="/" class="logo"><img src="/static/mu-logo.svg" alt="The university" width="170" height="36"></a>
+    <a href="/" class="back" id="back"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M16 10H5M9 5l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Back to University home</span></a>
+    <div class="langs sm" role="radiogroup" aria-label="Language" id="langs">
+      <button type="button" role="radio" data-lang="en" aria-checked="true">English</button>
+      <button type="button" role="radio" data-lang="zh" aria-checked="false" lang="zh">中文</button>
+      <button type="button" role="radio" data-lang="ar" aria-checked="false" lang="ar">العربية</button>
+      <button type="button" role="radio" data-lang="id" aria-checked="false" lang="id">Bahasa Indonesia</button>
+    </div>
+    <button class="how" id="how-btn" type="button" aria-haspopup="dialog">How this works</button>
+  </div>
+</header>
+<main class="wrap amain">
+  <section class="empty" id="empty">
+    <h1 id="emptyH">Ask University a question</h1>
+    <p id="emptyP"></p>
+    <div class="chips" id="starters"></div>
+  </section>
+  <section class="chat" id="chat">
+    <div class="chat-card">
+      <div class="chat-head"><span class="chat-title"></span><button type="button" class="chat-clear" id="newchat"></button></div>
+      <div class="thread" id="thread" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+<form class="composer dock" id="composer" autocomplete="off"><div class="wrap dock-in"><label class="sr" for="cq"></label><input id="cq" maxlength="500" required autofocus><button type="submit" id="csend"></button></div></form>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="How this works">
+  <div class="modal-body"><button type="button" class="close" id="modal-close" aria-label="Close">&times;</button><div id="modal-content">Loading...</div></div>
+</div>
+<script src="/static/mdlite.js"></script>
+<script src="/static/answers.js"></script>
+</body>
+</html>

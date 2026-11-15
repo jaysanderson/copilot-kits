@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: the joins are yours</title></head>
+<body>
+<template>
+  <style>
+    #jy-root { position: absolute; inset: 0; overflow: hidden; }
+    /* product miniatures - same silhouettes as m-3j, reduced */
+    .jy-prod { position: absolute; width: 300px; height: 232px; border-radius: 14px; }
+    .jy-store { border: 3px solid #5E719F; background: rgba(0, 21, 73, 0.55); }
+    .jy-reader { border: 3px solid #008963; background: rgba(0, 54, 42, 0.42); }
+    .jy-chart { border: 3px solid #5E719F; background: rgba(0, 21, 73, 0.35); }
+    .jy-prow { position: absolute; left: 24px; height: 18px; border-radius: 4px; background: #9FB0D0; }
+    .jy-ppass { position: absolute; left: 36px; top: 100px; width: 226px; height: 26px;
+      border-radius: 5px; background: #00B563; }
+    .jy-pbar { position: absolute; bottom: 30px; width: 32px; border-radius: 4px 4px 0 0;
+      background: #9FB0D0; transform-origin: 50% 100%; }
+    .jy-notch { position: absolute; width: 24px; height: 40px; border-radius: 6px;
+      border: 2px dashed #C9821F; background: rgba(201, 130, 31, 0.10); }
+    /* legend: THREE state strokes in one group, UNCONFIRMED set apart beneath a rule */
+    .jy-leg { position: absolute; left: 1348px; top: 96px; width: 520px; }
+    .jy-legrow { position: absolute; left: 0; width: 520px; height: 44px; }
+    .jy-legtext { position: absolute; left: 132px; top: 3px; white-space: nowrap;
+      font-family: "ProgText", sans-serif; font-size: 34px; letter-spacing: 0.04em; }
+    .jy-legrule { position: absolute; left: 0; width: 330px; height: 1px; background: #36457A; }
+    .jy-legnote { position: absolute; left: 0; width: 392px;
+      font-family: "ProgText", sans-serif; font-size: 32px; color: #7F8FB4;
+      line-height: 1.35; }
+    /* fifteen-marker field */
+    .jy-mk { position: absolute; width: 196px; height: 92px; }
+    .jy-blk { position: absolute; top: 12px; width: 76px; height: 68px;
+      border-radius: 9px; border: 2px solid #5E719F;
+      background: rgba(215, 222, 234, 0.10); }
+    /* interiors, so a marker is a PAIR OF SYSTEMS rather than two squares. The three
+       shapes are the film's own product silhouettes at miniature scale. */
+    .jy-bi-row { position: absolute; left: 11px; height: 5px; border-radius: 3px;
+      background: #9FB0D0; }
+    .jy-bi-lit { position: absolute; left: 13px; top: 30px; width: 48px; height: 7px;
+      border-radius: 4px; background: #00B563; }
+    .jy-bi-bar { position: absolute; bottom: 11px; width: 8px; border-radius: 2px 2px 0 0;
+      background: #9FB0D0; }
+    /* Only THREE markers carry a word - the exemplar of each state. The other twelve
+       are read off their stroke, which is what grammar rule 2 says and what makes the
+       grammar work at all: fifteen 15px pills were unreadable at any review scale, and
+       scaling them up cannot fit a 5x3 field. Labelling the exemplars is the design
+       answer, not a compromise. */
+    .jy-pill { position: absolute; left: -82px; top: 80px; width: 360px;
+      text-align: center; white-space: nowrap;
+      font-family: "ProgText", sans-serif; font-size: 34px;
+      letter-spacing: 0.04em; }
+    .jy-count { position: absolute; width: 180px; text-align: center;
+      font-family: "ProgDisplay", sans-serif; font-size: 58px; color: #FFFFFF; }
+    .jy-countlab { position: absolute; width: 340px; text-align: center;
+      white-space: nowrap;
+      font-family: "ProgText", sans-serif; font-size: 34px; letter-spacing: 0.03em; }
+    .jy-cap { position: absolute; left: 0; width: 1920px; text-align: center;
+      font-family: "ProgText", sans-serif; font-size: 36px; color: #BFD0E8;
+      letter-spacing: 0.05em; }
+    /* /authors phase: the enlarged marker whose join gets written */
+    .jy-bigblk { position: absolute; top: 452px; width: 250px; height: 220px; border-radius: 14px;
+      background: rgba(215, 222, 234, 0.14); border: 3px solid #5E719F; }
+    .jy-seg { position: absolute; top: 556px; height: 14px; border-radius: 7px;
+      background: #C9821F; }
+    .jy-segnum { position: absolute; top: 592px; width: 60px; text-align: center;
+      font-family: "ProgText", sans-serif; font-size: 32px; color: #E09A33; }
+    svg.jy-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="jy-root" data-composition-id="m-jy" data-width="1920" data-height="1080"
+       data-duration="20.0">
+    <div id="jy-stage" style="position:absolute; inset:0;" data-layout-allow-overflow>
+
+      <!-- PHASE A: three products, three gaps, joins that fail to complete -->
+      <div id="jy-trio">
+        <div class="jy-prod jy-store"  id="jy-p0" style="left:170px;  top:430px;"></div>
+        <div class="jy-prod jy-reader" id="jy-p1" style="left:810px;  top:430px;">
+          <div class="jy-ppass"></div></div>
+        <div class="jy-prod jy-chart"  id="jy-p2" style="left:1450px; top:430px;"></div>
+        <!-- EMPTY-BY-DESIGN jy-n0 / EMPTY-BY-DESIGN jy-n1 / EMPTY-BY-DESIGN jy-n2: a notch is a GAP - the thing a product does not do.
+             Content inside one would contradict what it means. -->
+        <div class="jy-notch" id="jy-n0" style="left:458px;  top:522px;"></div>
+        <div class="jy-notch" id="jy-n1" style="left:1098px; top:522px;"></div>
+        <div class="jy-notch" id="jy-n2" style="left:1738px; top:522px;"></div>
+      </div>
+
+      <!-- legend, written in two groups: three states, then a rule, then the fourth label -->
+      <div class="jy-leg" id="jy-leg">
+        <div class="jy-legrow" id="jy-leg0" style="top:0;">
+          <div class="jy-legtext" style="color:#00B563;" data-var-text="jyS0">AVAILABLE TODAY</div></div>
+        <div class="jy-legrow" id="jy-leg1" style="top:54px;">
+          <div class="jy-legtext" style="color:#E09A33;" data-var-text="jyS1">ISV BUILDS</div></div>
+        <div class="jy-legrow" id="jy-leg2" style="top:108px;">
+          <div class="jy-legtext" style="color:#9FB0D0;" data-var-text="jyS2">NOT BUILT</div></div>
+        <!-- EMPTY-BY-DESIGN jy-legrule: a 1px rule separating states from the knowledge label -->
+          <div class="jy-legrule" id="jy-legrule" style="top:172px;"></div>
+        <div class="jy-legrow" id="jy-leg3" style="top:192px;">
+          <div class="jy-legtext" style="color:#9FB0D0;" data-var-text="jyS3">UNCONFIRMED</div></div>
+        <div class="jy-legnote" id="jy-legnote" style="top:244px;"
+             data-var-text="jyNote">Not a state of the architecture</div>
+      </div>
+
+      <!-- PHASE B: the count -->
+      <div id="jy-field"></div>
+      <div class="jy-cap" id="jy-cap" style="top:206px;" data-var-text="jyCap">15 applied patterns</div>
+      <div id="jy-counts">
+        <div class="jy-count"    id="jy-c0" style="left:452px;  top:830px; color:#00B563;">1</div>
+        <div class="jy-countlab" id="jy-c0l" style="left:372px; top:902px; color:#00B563;"
+             data-var-text="jyS0b">AVAILABLE TODAY</div>
+        <div class="jy-count"    id="jy-c1" style="left:870px;  top:830px; color:#E09A33;">13</div>
+        <div class="jy-countlab" id="jy-c1l" style="left:790px; top:902px; color:#E09A33;"
+             data-var-text="jyS1b">ISV BUILDS</div>
+        <div class="jy-count"    id="jy-c2" style="left:1288px; top:830px; color:#9FB0D0;">1</div>
+        <div class="jy-countlab" id="jy-c2l" style="left:1208px; top:902px; color:#9FB0D0;"
+             data-var-text="jyS2b">NOT BUILT</div>
+      </div>
+
+      <!-- PHASE C (/authors): one of the thirteen, enlarged, its join written -->
+      <div id="jy-authors">
+        <!-- EMPTY-BY-DESIGN jy-ab0 / EMPTY-BY-DESIGN jy-ab1: the two component blocks of the /authors phase;
+             the JOIN between them is the content and it is drawn in SVG. Not rendered
+             by sa-use-cases. -->
+        <div class="jy-bigblk" id="jy-ab0" style="left:420px;"></div>
+        <div class="jy-bigblk" id="jy-ab1" style="left:1250px;"></div>
+        <div class="jy-seg" id="jy-sg0" style="left:690px;  width:118px;"></div>
+        <div class="jy-seg" id="jy-sg1" style="left:822px;  width:118px;"></div>
+        <div class="jy-seg" id="jy-sg2" style="left:954px;  width:118px;"></div>
+        <div class="jy-segnum" id="jy-sn0" style="left:719px;">1</div>
+        <div class="jy-segnum" id="jy-sn1" style="left:851px;">2</div>
+        <div class="jy-segnum" id="jy-sn2" style="left:983px;">3</div>
+      </div>
+
+      <svg class="jy-svg" id="jy-svg" viewBox="0 0 1920 1080" fill="none">
+        <!-- legend strokes: three states only. UNCONFIRMED is a question mark ON a line
+             whose own stroke is unchanged, drawn separately below the rule. -->
+        <!-- ONE PARENT. The legend's words and its artwork now clear together; see
+             the note in the script. Geometry: legend left 1348 top 96, row pitch 54,
+             row height 44, so a stroke's centre is top + rowTop + 22 and it runs from
+             the legend's left edge to its text inset at +120. -->
+        <g id="jy-legart">
+          <path id="jy-lg0" d="M 1348 118 L 1468 118" stroke="#00B563" stroke-width="4"/>
+          <path id="jy-lg1" d="M 1348 172 L 1468 172" stroke="#E09A33" stroke-width="4"
+                stroke-dasharray="20 12"/>
+          <path id="jy-lg2" d="M 1348 226 L 1468 226" stroke="#9FB0D0" stroke-width="4"
+                stroke-dasharray="6 10"/>
+          <path id="jy-lg3" d="M 1348 310 L 1468 310" stroke="#5E719F" stroke-width="4"/>
+          <text id="jy-lgq" x="1408" y="296" fill="#D7DEEA" font-size="30"
+                font-family="ProgDisplay, sans-serif" text-anchor="middle">?</text>
+        </g>
+        <!-- the three joins that try to complete and break -->
+        <path id="jy-j0" d="M 482 546 L 1098 546" stroke="#C9821F" stroke-width="4" fill="none"/>
+        <path id="jy-j1" d="M 1122 546 L 1738 546" stroke="#C9821F" stroke-width="4" fill="none"/>
+        <path id="jy-j2" d="M 420 700 C 700 900, 1460 900, 1750 700" stroke="#C9821F"
+              stroke-width="4" fill="none"/>
+        <!-- /authors: the join being written, stroke by stroke -->
+        <path id="jy-aj" d="M 670 562 L 1250 562" stroke="#C9821F" stroke-width="7"
+              fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      let s = 20261009;
+      const rnd = () => (s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296;
+
+      // ---- PHASE WINDOWS. A host may run any contiguous subset; the ids are stable.
+      //   /joins      0.00 -  7.30  three products, three failing joins, and the legend
+      //   /count      7.30 - 15.70  fifteen markers resolve to 1 / 13 / 1
+      //   /authors   15.70 - 20.00  one of the thirteen, its join written (NOT in sa-use-cases)
+      //   phase A  "the joins"    0.00 - 7.30   teaches the grammar, MUST run before any
+      //                                         other join appears in a film
+      //   phase B  "/count"       7.30 - 15.70  fifteen markers -> 1 / 13 / 1
+      //   phase C  "/authors"    15.70 - 20.00  one of the thirteen, its join written
+      // EVENT CONSTANTS are the sa-use-cases B2/B2b word events rebased to motif zero.
+      // Re-derive from the host's own narration alignment when reusing.
+      const AT_JOB    = 0.50;   // "Each product does its own job"
+      const AT_NOTHING= 2.87;   // "almost nothing"
+      const AT_FIFTEEN= 7.30;   // "Fifteen patterns"
+      const AT_AVAIL  = 8.88;   // "One available today"
+      const AT_NOTB   = 10.74;  // "One not built"
+      const AT_THIRT  = 12.23;  // "Thirteen"
+      const AT_AUTHOR = 15.70;  // host-driven: the join being written
+      const AT_PLAN   = 18.00;  // host-driven: it resolves into a numbered plan
+
+      // rows inside the store miniature, bars inside the chart miniature
+      const p0 = document.getElementById("jy-p0");
+      for (let i = 0; i < 4; i++) {
+        const r = document.createElement("div");
+        r.className = "jy-prow";
+        r.style.top = (30 + i * 48) + "px";
+        r.style.width = (186 + Math.round(rnd() * 68)) + "px";
+        p0.appendChild(r);
+      }
+      const p2 = document.getElementById("jy-p2");
+      [52, 86, 40, 98].forEach((h, i) => {
+        const b = document.createElement("div");
+        b.className = "jy-pbar";
+        b.style.left = (46 + i * 58) + "px";
+        b.style.height = (h * 1.45) + "px";
+        p2.appendChild(b);
+      });
+
+      // ---- the fifteen-marker field, 5 x 3.
+      // Index 4 is AVAILABLE TODAY (solid), index 10 is NOT BUILT (short dash 6 10 - the
+      // grammar names the STATE and never the shape; do not write "dotted"), the other  // GRAMMAR-PROSE-OK: names the banned word to ban it
+      // thirteen are ISV BUILDS (long dash). HERO_IDX is the one /authors enlarges and is
+      // one OF THE THIRTEEN, so "the hero is one of the thirteen" reads structurally.
+      const AVAIL_IDX = 4, NOTB_IDX = 10, HERO_IDX = 7;
+      const field = document.getElementById("jy-field");
+      const svg = document.getElementById("jy-svg");
+      const NS = "http://www.w3.org/2000/svg";
+      const marks = [];
+      for (let i = 0; i < 15; i++) {
+        const col = i % 5, row = (i / 5) | 0;
+        const x = 268 + col * 290, y = 316 + row * 168;
+        const m = document.createElement("div");
+        m.className = "jy-mk";
+        m.id = "jy-mk" + i;
+        m.style.left = x + "px"; m.style.top = y + "px";
+        // FIFTEEN DIFFERENT PAIRS, not fifteen copies. The pair type cycles so no two
+        // adjacent markers look the same, which is what makes "fifteen PATTERNS" read.
+        const KIND = ["store", "reader", "chart"];
+        function block(left, kind) {
+          const d = document.createElement("div");
+          d.className = "jy-blk"; d.style.left = left + "px";
+          if (kind === "store") {
+            [52, 38, 58].forEach(function (w, k) {
+              const r = document.createElement("div");
+              r.className = "jy-bi-row";
+              r.style.top = (16 + k * 13) + "px"; r.style.width = w + "px";
+              d.appendChild(r);
+            });
+          } else if (kind === "reader") {
+            [44, 32].forEach(function (w, k) {
+              const r = document.createElement("div");
+              r.className = "jy-bi-row";
+              r.style.top = (14 + k * 12) + "px"; r.style.width = w + "px";
+              d.appendChild(r);
+            });
+            const lit = document.createElement("div");
+            lit.className = "jy-bi-lit"; d.appendChild(lit);
+          } else {
+            [18, 28, 13, 32].forEach(function (h, k) {
+              const bar = document.createElement("div");
+              bar.className = "jy-bi-bar";
+              bar.style.left = (14 + k * 14) + "px"; bar.style.height = h + "px";
+              d.appendChild(bar);
+            });
+          }
+          return d;
+        }
+        const a = block(0, KIND[i % 3]);
+        const b = block(134, KIND[(i + 1 + ((i / 5) | 0)) % 3]);
+        const pill = document.createElement("div");
+        pill.className = "jy-pill"; pill.id = "jy-pill" + i;
+        pill.style.color = i === AVAIL_IDX ? "#00B563" : (i === NOTB_IDX ? "#9FB0D0" : "#E09A33");
+        // the exemplar of each state is labelled; the rest are read off the stroke
+        const EXEMPLAR_ISV = 7;
+        pill.textContent = i === AVAIL_IDX ? "AVAILABLE TODAY"
+                         : (i === NOTB_IDX ? "NOT BUILT"
+                            : (i === EXEMPLAR_ISV ? "ISV BUILDS" : ""));
+        m.appendChild(a); m.appendChild(b); m.appendChild(pill);
+        field.appendChild(m);
+        // the join lives in the gap between the two blocks
+        const jp = document.createElementNS(NS, "path");
+        jp.setAttribute("d", "M " + (x + 62) + " " + (y + 46) + " L " + (x + 134) + " " + (y + 46));
+        jp.setAttribute("stroke", i === AVAIL_IDX ? "#00B563" : (i === NOTB_IDX ? "#9FB0D0" : "#C9821F"));
+        jp.setAttribute("stroke-width", "4");
+        jp.setAttribute("fill", "none");
+        if (i === NOTB_IDX) jp.setAttribute("stroke-dasharray", "6 10");
+        else if (i !== AVAIL_IDX) jp.setAttribute("stroke-dasharray", "20 12");
+        jp.id = "jy-fj" + i;
+        svg.appendChild(jp);
+        marks.push({ el: m, join: jp, i: i, x: x, y: y });
+      }
+
+      const J = ["#jy-j0", "#jy-j1", "#jy-j2"].map((id) => document.querySelector(id));
+      const JL = J.map((p) => p.getTotalLength());
+      J.forEach((p, i) => p.setAttribute("stroke-dasharray", String(JL[i])));
+      const aj = document.getElementById("jy-aj");
+      const ajL = aj.getTotalLength();
+      aj.setAttribute("stroke-dasharray", String(ajL));
+
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 0.6, ease: "power3.out" } });
+
+      // ---- closed state
+      [0, 1, 2].forEach((i) => gsap.set("#jy-n" + i, { autoAlpha: 1 }));
+      J.forEach((p, i) => gsap.set(p, { strokeDashoffset: JL[i], autoAlpha: 0 }));
+      ["#jy-leg0", "#jy-leg1", "#jy-leg2", "#jy-leg3", "#jy-legnote"].forEach((id) =>
+        gsap.set(id, { autoAlpha: 0, x: 18 }));
+      ["#jy-lg0", "#jy-lg1", "#jy-lg2", "#jy-lg3", "#jy-lgq"].forEach((id) =>
+        gsap.set(id, { autoAlpha: 0 }));
+      gsap.set("#jy-legrule", { autoAlpha: 0, scaleX: 0, transformOrigin: "0% 50%" });
+      gsap.set("#jy-field", { autoAlpha: 0 });
+      gsap.set("#jy-cap", { autoAlpha: 0, y: 12 });
+      marks.forEach((m) => {
+        gsap.set(m.el, { autoAlpha: 0, scale: 0.86, transformOrigin: "50% 50%" });
+        gsap.set(m.join, { autoAlpha: 0 });
+        gsap.set("#jy-pill" + m.i, { autoAlpha: 0 });
+      });
+      ["#jy-c0", "#jy-c1", "#jy-c2", "#jy-c0l", "#jy-c1l", "#jy-c2l"].forEach((id) =>
+        gsap.set(id, { autoAlpha: 0, y: 14 }));
+      gsap.set("#jy-authors", { autoAlpha: 0 });
+      gsap.set(aj, { strokeDashoffset: ajL });
+      ["#jy-sg0", "#jy-sg1", "#jy-sg2", "#jy-sn0", "#jy-sn1", "#jy-sn2"].forEach((id) =>
+        gsap.set(id, { autoAlpha: 0 }));
+
+      // ---- PHASE A. "each does its own job": all three perform at once, briefly, so the
+      // clause is ONE picture rather than three.
+      tl.to("#jy-p0 .jy-prow", { x: "+=8", duration: 0.45, ease: "power2.inOut",
+                                 yoyo: true, repeat: 1 }, AT_JOB);
+      tl.to("#jy-p1 .jy-ppass", { scaleX: 1.08, transformOrigin: "0% 50%", duration: 0.45,
+                                  ease: "power2.inOut", yoyo: true, repeat: 1 }, AT_JOB);
+      tl.to("#jy-p2 .jy-pbar", { scaleY: 1.14, duration: 0.45, ease: "power2.inOut",
+                                 yoyo: true, repeat: 1 }, AT_JOB);
+
+      // "almost nothing joins": each line starts SOLID, breaks into long dashes partway,
+      // and stops short of landing. The break is the claim.
+      J.forEach((p, i) => {
+        const at = AT_NOTHING + i * 0.62;
+        tl.to(p, { autoAlpha: 1, duration: 0.12 }, at);
+        tl.to(p, { strokeDashoffset: JL[i] * 0.52, duration: 0.5, ease: "power2.out" }, at);
+        tl.to(p, { strokeDasharray: "20 12", duration: 0.01 }, at + 0.5);
+        tl.to(p, { strokeDashoffset: JL[i] * 0.34, duration: 0.42, ease: "power1.out" }, at + 0.52);
+        // stops short - and recoils slightly, so it reads as failing rather than pausing
+        tl.to(p, { strokeDashoffset: JL[i] * 0.40, duration: 0.3, ease: "power2.inOut" }, at + 0.95);
+      });
+
+      // the legend writes itself, IN TWO GROUPS. Three state strokes, a rule, then the
+      // fourth LABEL which is a state of our knowledge and not of the architecture.
+      [0, 1, 2].forEach((i) => {
+        const at = AT_NOTHING + 0.35 + i * 0.5;
+        tl.to("#jy-lg" + i, { autoAlpha: 1, duration: 0.3 }, at);
+        tl.to("#jy-leg" + i, { autoAlpha: 1, x: 0, duration: 0.45 }, at + 0.06);
+      });
+      tl.to("#jy-legrule", { autoAlpha: 1, scaleX: 1, duration: 0.55, ease: "power2.inOut" },
+            AT_NOTHING + 2.05);
+      tl.to("#jy-lg3", { autoAlpha: 1, duration: 0.3 }, AT_NOTHING + 2.45);
+      tl.to("#jy-lgq", { autoAlpha: 1, duration: 0.35, ease: "back.out(2)" }, AT_NOTHING + 2.58);
+      tl.to("#jy-leg3", { autoAlpha: 1, x: 0, duration: 0.45 }, AT_NOTHING + 2.62);
+      tl.to("#jy-legnote", { autoAlpha: 1, x: 0, duration: 0.45 }, AT_NOTHING + 2.95);
+
+      // ---- PHASE B (/count). The trio compresses into the field of fifteen.
+      tl.to("#jy-trio", { autoAlpha: 0, scale: 0.72, transformOrigin: "50% 50%",
+                          duration: 0.75, ease: "power2.inOut" }, AT_FIFTEEN - 0.45);
+      J.forEach((p) => tl.to(p, { autoAlpha: 0, duration: 0.4 }, AT_FIFTEEN - 0.45));
+      // the artwork goes WITH the words. Clearing only #jy-leg left four strokes, a
+      // rule and a question mark standing over the field for eight seconds.
+      // THE OUTGOING PHASE CLEARS AFTER THE INCOMING ONE ARRIVES, NEVER BEFORE.
+      // Clearing first leaves a bare stage at the handover - measured on 9 Oct 2026:
+      // eight of fifteen shot boundaries fell below the populated band and three
+      // were completely bare. No opening measure can see it, because the blank is in
+      // the OUTGOING shot's tail and openings are sampled from the next shot's start.
+      tl.to(["#jy-leg", "#jy-legart"], { autoAlpha: 0, duration: 0.5 },
+            AT_FIFTEEN + 0.25);
+      tl.to("#jy-field", { autoAlpha: 1, duration: 0.3 }, AT_FIFTEEN);
+      tl.to("#jy-cap", { autoAlpha: 1, y: 0, duration: 0.5 }, AT_FIFTEEN + 0.1);
+      marks.forEach((m, i) => {
+        tl.to(m.el, { autoAlpha: 1, scale: 1, duration: 0.5 }, AT_FIFTEEN + 0.12 + i * 0.035);
+      });
+
+      // one AVAILABLE TODAY: its join draws SOLID.
+      tl.to(marks[AVAIL_IDX].join, { autoAlpha: 1, duration: 0.25 }, AT_AVAIL);
+      tl.to("#jy-pill" + AVAIL_IDX, { autoAlpha: 1, duration: 0.4 }, AT_AVAIL + 0.2);
+      tl.to(marks[AVAIL_IDX].el, { scale: 1.06, duration: 0.3 }, AT_AVAIL);
+      tl.to(marks[AVAIL_IDX].el, { scale: 1.0, duration: 0.4 }, AT_AVAIL + 0.3);
+
+      // one NOT BUILT: short-dashed, empty, and it ENLARGES rather than hiding - the primer
+      // names it rather than burying it.
+      tl.to(marks[NOTB_IDX].join, { autoAlpha: 1, duration: 0.25 }, AT_NOTB);
+      tl.to("#jy-pill" + NOTB_IDX, { autoAlpha: 1, duration: 0.4 }, AT_NOTB + 0.2);
+      tl.to(marks[NOTB_IDX].el, { scale: 1.12, duration: 0.5, ease: "power2.out" }, AT_NOTB + 0.25);
+
+      // thirteen ISV BUILDS, one 80ms-staggered wave. The amber MASS is the picture.
+      let k = 0;
+      marks.forEach((m, i) => {
+        if (i === AVAIL_IDX || i === NOTB_IDX) return;
+        const at = AT_THIRT + k * 0.08;
+        tl.to(m.join, { autoAlpha: 1, duration: 0.22 }, at);
+        tl.to("#jy-pill" + i, { autoAlpha: 1, duration: 0.3 }, at + 0.08);
+        k++;
+      });
+      ["#jy-c0", "#jy-c1", "#jy-c2"].forEach((id, i) => {
+        tl.to(id, { autoAlpha: 1, y: 0, duration: 0.5 }, AT_THIRT + 1.3 + i * 0.22);
+        tl.to(id + "l", { autoAlpha: 1, y: 0, duration: 0.45 }, AT_THIRT + 1.44 + i * 0.22);
+      });
+
+      // ---- PHASE C (/authors). HOST-DRIVEN, and NOT rendered by the sa-use-cases film:
+      // see this motif's README. One of the thirteen enlarges and its join is WRITTEN,
+      // stroke by stroke, as something being authored - then resolves into a numbered plan
+      // so the picture reads as a budget and a sequence rather than a verdict.
+      // CLEARS AFTER /authors ARRIVES, NEVER BEFORE - the same rule as every other
+      // phase transition in the library. It mattered more here than anywhere else:
+      // the ONLY host of this motif plays 0 to 15.73s, /authors begins at 15.70, and
+      // the clear was at 15.30 - so the field emptied for a phase this film never
+      // renders, leaving the last 0.43s of the shot BARE and handing a bare frame
+      // straight to the next motif. Measured structure 0.0012 at that boundary.
+      //
+      // NOTE FOR WHOEVER NEXT HOSTS THIS MOTIF: data-duration says 20.0s and the only
+      // host plays 15.73s, so /authors (15.70-20.0) is authored and rendered nowhere.
+      // That is not a defect in the delivered film; it is 4.3s of library content with
+      // no consumer. Decide deliberately before assuming it works - nothing has ever
+      // seen it.
+      tl.to("#jy-field", { autoAlpha: 0, duration: 0.5 }, AT_AUTHOR + 0.25);
+      tl.to("#jy-cap", { autoAlpha: 0, duration: 0.4 }, AT_AUTHOR + 0.25);
+      tl.to("#jy-counts", { autoAlpha: 0, duration: 0.4 }, AT_AUTHOR + 0.25);
+      marks.forEach((m) => tl.to(m.join, { autoAlpha: 0, duration: 0.4 }, AT_AUTHOR + 0.25));
+      tl.to("#jy-authors", { autoAlpha: 1, duration: 0.4 }, AT_AUTHOR);
+      tl.fromTo("#jy-ab0", { scale: 0.7, transformOrigin: "50% 50%" },
+                { scale: 1, duration: 0.7, ease: "power3.out" }, AT_AUTHOR);
+      tl.fromTo("#jy-ab1", { scale: 0.7, transformOrigin: "50% 50%" },
+                { scale: 1, duration: 0.7, ease: "power3.out" }, AT_AUTHOR + 0.1);
+      // written, not faded: the stroke travels
+      tl.to(aj, { strokeDashoffset: 0, duration: 1.55, ease: "power1.inOut" }, AT_AUTHOR + 0.55);
+      // it resolves into three numbered segments laid end to end
+      tl.to(aj, { autoAlpha: 0, duration: 0.3 }, AT_PLAN);
+      ["#jy-sg0", "#jy-sg1", "#jy-sg2"].forEach((id, i) => {
+        tl.fromTo(id, { autoAlpha: 0, scaleX: 0, transformOrigin: "0% 50%" },
+                  { autoAlpha: 1, scaleX: 1, duration: 0.42, ease: "power2.out" },
+                  AT_PLAN + 0.1 + i * 0.26);
+        tl.to("#jy-sn" + i, { autoAlpha: 1, duration: 0.3 }, AT_PLAN + 0.34 + i * 0.26);
+      });
+
+      // ---- never still
+      tl.to("#jy-stage", { scale: 1.012, transformOrigin: "50% 50%", duration: 4.4,
+                           ease: "sine.inOut" }, AT_THIRT + 0.6);
+      // No light sweep. It existed to keep frozen windows alive and two
+      // independent viewers read it as a rendering artefact; the authored
+      // interiors supply the motion now.
+      marks.forEach((m, i) => {
+        if (i % 4 === 0) tl.to(m.el, { y: "-=4", duration: 1.5, ease: "sine.inOut",
+                                       yoyo: true, repeat: 1 }, AT_THIRT + 1.0 + (i % 3) * 0.35);
+      });
+
+      window.__timelines["m-jy"] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

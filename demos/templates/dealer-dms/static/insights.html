@@ -1,0 +1,148 @@
+<title>Dealer Insights - Ignition</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/css/ignition.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<header class="topbar">
+  <a href="/" class="brand" id="brand-mark"><span>Ignition</span><small>Coppermill Motor Group</small></a>
+  <nav>
+    <a href="/">Overview</a>
+    <a href="/service-assistant">Service</a>
+    <a href="/compliance">Compliance</a>
+    <a href="/media-library">Media</a>
+    <a href="/deal-desk">Deal Desk</a>
+    <a href="/insights" class="active">Insights</a>
+  </nav>
+  <div class="right-cluster">
+    <span class="site-pill"><span class="dot"></span> Both sites online</span>
+    <button class="how-btn" id="how-it-works-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 4.9 2.3c-.9.7-1.5 1.3-1.5 2.7"/><circle cx="12" cy="17" r=".3" fill="currentColor"/></svg>
+    <span>How this works</span>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+  <div class="hero">
+    <div class="eyebrow"><span class="bar"></span> Dealer insights</div>
+    <h1>What the recon notes are actually saying</h1>
+    <p class="lede">Every chart below is read from consultant field notes - free text, not
+      a coded field. There is no "issue category" column in the dealer record; an AI read
+      every note to produce one.</p>
+  </div>
+
+  <div class="grid cols-4" id="stat-row" style="margin-bottom:26px"></div>
+
+  <div class="grid cols-2" style="margin-bottom:26px">
+    <div class="panel">
+      <h3 style="margin-bottom:14px">Issues by category (extracted)</h3>
+      <div class="chart-wrap"><canvas id="chart-category"></canvas></div>
+    </div>
+    <div class="panel">
+      <h3 style="margin-bottom:14px">Severity mix</h3>
+      <div class="chart-wrap"><canvas id="chart-severity"></canvas></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:14px">Issue categories by site</h3>
+    <div class="chart-wrap" style="height:320px"><canvas id="chart-site"></canvas></div>
+  </div>
+</main>
+
+<footer class="disclosure-footer">
+  Coppermill Motor Group, its sites, stock and personnel are a synthetic illustrative dataset built for this demonstration. Not a real dealership.
+</footer>
+
+<div class="modal-backdrop" id="reveal-backdrop" hidden>
+  <div class="modal">
+    <div class="modal-head"><h3 class="reveal-title">How this works</h3><button class="modal-close">&times;</button></div>
+    <div class="modal-body">
+      <div class="flow-diagram"></div>
+      <div class="reveal-section"><h4>What this page does</h4><p class="reveal-what"></p></div>
+      <div class="reveal-section"><h4>Why it matters</h4><p class="reveal-why"></p></div>
+      <div class="reveal-section"><h4>The real mechanism</h4><p class="reveal-tech"></p></div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-tabs">
+  <a href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></a>
+  <a href="/service-assistant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M4 7h16M4 17h16"/></svg><span>Service</span></a>
+  <a href="/compliance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/></svg><span>Compliance</span></a>
+  <a href="/media-library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m8 10 5 3-5 3z"/></svg><span>Media</span></a>
+  <a href="/deal-desk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H8l-4 4z"/></svg><span>Deals</span></a>
+  <a href="/insights" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M12 20V4M20 20v-7"/></svg><span>Insights</span></a>
+</nav>
+
+<script src="/static/js/shared.js"></script>
+<script>
+document.getElementById('brand-mark').insertAdjacentHTML('afterbegin', IGN.logoSVG());
+
+const PALETTE = ['#2964f6', '#3e8fc1', '#4caf7d', '#e0a834', '#e0524a', '#7c8b9a', '#c3ccd4', '#68b0da'];
+Chart.defaults.color = '#c3ccd4';
+Chart.defaults.font.family = 'Inter';
+Chart.defaults.borderColor = '#272e38';
+
+function titleCase(s) { return s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()); }
+
+async function load() {
+  const d = await IGN.api('/api/insights');
+  if (!d || !d.total_notes_analysed) {
+    document.querySelector('main').insertAdjacentHTML('beforeend',
+      '<div class="empty-state">Insights are still being computed. Refresh shortly.</div>');
+    return;
+  }
+  document.getElementById('stat-row').innerHTML = `
+    <div class="stat"><div class="n accent">${d.total_notes_analysed}</div><div class="l">Field notes analysed</div></div>
+    <div class="stat"><div class="n" style="color:#e0524a">${d.customer_facing_risk_count}</div><div class="l">Flagged customer-facing risk</div></div>
+    <div class="stat"><div class="n amber">${d.requires_parts_order_count}</div><div class="l">Need a parts order</div></div>
+    <div class="stat"><div class="n blue">${Object.keys(d.by_category).length}</div><div class="l">Distinct issue categories found</div></div>
+  `;
+
+  const catLabels = Object.keys(d.by_category);
+  new Chart(document.getElementById('chart-category'), {
+    type: 'bar',
+    data: { labels: catLabels.map(titleCase), datasets: [{ data: catLabels.map(k => d.by_category[k]), backgroundColor: PALETTE, borderRadius: 6 }] },
+    options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: { precision: 0 } } } },
+  });
+
+  const sevLabels = ['low', 'medium', 'high'].filter(s => d.by_severity[s]);
+  new Chart(document.getElementById('chart-severity'), {
+    type: 'doughnut',
+    data: { labels: sevLabels.map(titleCase), datasets: [{ data: sevLabels.map(s => d.by_severity[s]), backgroundColor: ['#4caf7d', '#e0a834', '#e0524a'] }] },
+    options: { plugins: { legend: { position: 'bottom' } } },
+  });
+
+  const sites = Object.keys(d.by_site);
+  const allCats = [...new Set(sites.flatMap(s => Object.keys(d.by_site[s])))];
+  new Chart(document.getElementById('chart-site'), {
+    type: 'bar',
+    data: {
+      labels: sites,
+      datasets: allCats.map((cat, i) => ({
+        label: titleCase(cat),
+        data: sites.map(s => d.by_site[s][cat] || 0),
+        backgroundColor: PALETTE[i % PALETTE.length],
+        borderRadius: 4,
+      })),
+    },
+    options: { scales: { x: { stacked: true }, y: { stacked: true, ticks: { precision: 0 } } }, plugins: { legend: { position: 'bottom' } } },
+  });
+}
+load();
+
+IGN.mountReveal({
+  title: 'How Dealer Insights works',
+  nodes: [
+    { label: 'Consultant field note', tag: 'Free text', active: false },
+    { label: 'Progress Agentic RAG', tag: 'Structured extraction, per note', active: true },
+    { label: 'Ignition server', tag: 'Aggregates deterministically', active: true },
+    { label: 'Charts', tag: 'Chart.js', active: false },
+  ],
+  what: 'Every consultant field note is free-text prose. There is no "issue category" or "severity" field anywhere in the source record - Progress Agentic RAG reads each note and extracts one via a structured JSON schema call.',
+  why: 'This is the difference between a database GROUP BY and genuine document intelligence: nothing here could be charted from the existing fields alone. It is only chartable because an AI read the narrative.',
+  tech: 'A real query-time structured-extraction call runs once per consultant note (14 calls total, cheapest model tier, well under a dollar), extracting issue category, severity and two risk flags. The server then aggregates the results with plain arithmetic - no further AI calls happen when you load this page.',
+});
+</script>

@@ -1,0 +1,1357 @@
+{
+  "$schema": "./MANIFEST_SCHEMA.md",
+  "blueprint": "retailer-tackle",
+  "generatedBy": "scripts/generate-corpus.mjs",
+  "domain": "Australian recreational-fishing tackle retail - a lure catalogue plus the technique, species and water-condition knowledge that explains why each lure works",
+  "notes": "The conversational Ask is the whole product - a shopper types the way they'd describe a session to a tackle-shop expert (species, water colour, cover, light) and the answer is a cited, in-stock lure recommendation plus the retrieve/rig that makes it work, not a generic top-seller list. Lures, species, techniques and water conditions recur across product pages, guides and trip reports so the graph forms real 'pairs-with' and 'targets' edges (a lure links to the species it's built for, the technique that works it, and the water condition it suits). A workflow assembles a multi-lure session kit for a described trip. Every recommendation cites the product page or guide it came from so nothing is invented or out of stock.",
+  "safety": {
+    "syntheticOnly": true,
+    "noRealBrands": true,
+    "disclaimer": "Demonstration data - Drift Line Tackle Co. is a fictional retailer and all lures, prices and reviews are synthetic. Not a real store; not purchasing advice."
+  },
+  "counts": {
+    "targetDocuments": 46,
+    "documentsPlanned": 46,
+    "entities": 48,
+    "docTypes": 8,
+    "mediaDocuments": 0
+  },
+  "taxonomy": [
+    {
+      "id": "doc_type",
+      "title": "Document type",
+      "multiple": false,
+      "labels": [
+        "lure product page",
+        "species profile guide",
+        "water-conditions guide",
+        "retrieve & rigging guide",
+        "care & maintenance guide",
+        "warranty & returns policy",
+        "customer trip report",
+        "session kit checklist"
+      ]
+    },
+    {
+      "id": "topic",
+      "title": "Topic",
+      "multiple": true,
+      "labels": []
+    }
+  ],
+  "entities": [
+    {
+      "id": "lure-01",
+      "group": "lures",
+      "label": "Lure 1"
+    },
+    {
+      "id": "lure-02",
+      "group": "lures",
+      "label": "Lure 2"
+    },
+    {
+      "id": "lure-03",
+      "group": "lures",
+      "label": "Lure 3"
+    },
+    {
+      "id": "lure-04",
+      "group": "lures",
+      "label": "Lure 4"
+    },
+    {
+      "id": "lure-05",
+      "group": "lures",
+      "label": "Lure 5"
+    },
+    {
+      "id": "lure-06",
+      "group": "lures",
+      "label": "Lure 6"
+    },
+    {
+      "id": "lure-07",
+      "group": "lures",
+      "label": "Lure 7"
+    },
+    {
+      "id": "lure-08",
+      "group": "lures",
+      "label": "Lure 8"
+    },
+    {
+      "id": "lure-09",
+      "group": "lures",
+      "label": "Lure 9"
+    },
+    {
+      "id": "lure-10",
+      "group": "lures",
+      "label": "Lure 10"
+    },
+    {
+      "id": "lure-11",
+      "group": "lures",
+      "label": "Lure 11"
+    },
+    {
+      "id": "lure-12",
+      "group": "lures",
+      "label": "Lure 12"
+    },
+    {
+      "id": "lure-13",
+      "group": "lures",
+      "label": "Lure 13"
+    },
+    {
+      "id": "lure-14",
+      "group": "lures",
+      "label": "Lure 14"
+    },
+    {
+      "id": "lure-15",
+      "group": "lures",
+      "label": "Lure 15"
+    },
+    {
+      "id": "lure-16",
+      "group": "lures",
+      "label": "Lure 16"
+    },
+    {
+      "id": "lure-17",
+      "group": "lures",
+      "label": "Lure 17"
+    },
+    {
+      "id": "lure-18",
+      "group": "lures",
+      "label": "Lure 18"
+    },
+    {
+      "id": "lure-19",
+      "group": "lures",
+      "label": "Lure 19"
+    },
+    {
+      "id": "lure-20",
+      "group": "lures",
+      "label": "Lure 20"
+    },
+    {
+      "id": "specy-01",
+      "group": "species",
+      "label": "Specy 1"
+    },
+    {
+      "id": "specy-02",
+      "group": "species",
+      "label": "Specy 2"
+    },
+    {
+      "id": "specy-03",
+      "group": "species",
+      "label": "Specy 3"
+    },
+    {
+      "id": "specy-04",
+      "group": "species",
+      "label": "Specy 4"
+    },
+    {
+      "id": "specy-05",
+      "group": "species",
+      "label": "Specy 5"
+    },
+    {
+      "id": "specy-06",
+      "group": "species",
+      "label": "Specy 6"
+    },
+    {
+      "id": "specy-07",
+      "group": "species",
+      "label": "Specy 7"
+    },
+    {
+      "id": "specy-08",
+      "group": "species",
+      "label": "Specy 8"
+    },
+    {
+      "id": "specy-09",
+      "group": "species",
+      "label": "Specy 9"
+    },
+    {
+      "id": "specy-10",
+      "group": "species",
+      "label": "Specy 10"
+    },
+    {
+      "id": "technique-01",
+      "group": "techniques",
+      "label": "Technique 1"
+    },
+    {
+      "id": "technique-02",
+      "group": "techniques",
+      "label": "Technique 2"
+    },
+    {
+      "id": "technique-03",
+      "group": "techniques",
+      "label": "Technique 3"
+    },
+    {
+      "id": "technique-04",
+      "group": "techniques",
+      "label": "Technique 4"
+    },
+    {
+      "id": "technique-05",
+      "group": "techniques",
+      "label": "Technique 5"
+    },
+    {
+      "id": "technique-06",
+      "group": "techniques",
+      "label": "Technique 6"
+    },
+    {
+      "id": "technique-07",
+      "group": "techniques",
+      "label": "Technique 7"
+    },
+    {
+      "id": "technique-08",
+      "group": "techniques",
+      "label": "Technique 8"
+    },
+    {
+      "id": "watercondition-01",
+      "group": "waterConditions",
+      "label": "WaterCondition 1"
+    },
+    {
+      "id": "watercondition-02",
+      "group": "waterConditions",
+      "label": "WaterCondition 2"
+    },
+    {
+      "id": "watercondition-03",
+      "group": "waterConditions",
+      "label": "WaterCondition 3"
+    },
+    {
+      "id": "watercondition-04",
+      "group": "waterConditions",
+      "label": "WaterCondition 4"
+    },
+    {
+      "id": "watercondition-05",
+      "group": "waterConditions",
+      "label": "WaterCondition 5"
+    },
+    {
+      "id": "watercondition-06",
+      "group": "waterConditions",
+      "label": "WaterCondition 6"
+    },
+    {
+      "id": "houserange-01",
+      "group": "houseRanges",
+      "label": "HouseRange 1"
+    },
+    {
+      "id": "houserange-02",
+      "group": "houseRanges",
+      "label": "HouseRange 2"
+    },
+    {
+      "id": "houserange-03",
+      "group": "houseRanges",
+      "label": "HouseRange 3"
+    },
+    {
+      "id": "houserange-04",
+      "group": "houseRanges",
+      "label": "HouseRange 4"
+    }
+  ],
+  "documents": [
+    {
+      "id": "lure-product-page-001",
+      "docType": "lure product page",
+      "titleHint": "Lure Product Page #1",
+      "entityRefs": [
+        "lure-01",
+        "specy-01",
+        "specy-02",
+        "technique-01",
+        "technique-02",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "lure product page"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "species-profile-guide-002",
+      "docType": "species profile guide",
+      "titleHint": "Species Profile Guide #2",
+      "entityRefs": [
+        "lure-02",
+        "specy-03",
+        "specy-04",
+        "technique-03",
+        "technique-04",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "species profile guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "water-conditions-guide-003",
+      "docType": "water-conditions guide",
+      "titleHint": "Water Conditions Guide #3",
+      "entityRefs": [
+        "lure-03",
+        "specy-05",
+        "specy-06",
+        "technique-05",
+        "technique-06",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "water-conditions guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "retrieve-rigging-guide-004",
+      "docType": "retrieve & rigging guide",
+      "titleHint": "Retrieve & Rigging Guide #4",
+      "entityRefs": [
+        "lure-04",
+        "specy-07",
+        "specy-08",
+        "technique-07",
+        "technique-08",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "retrieve & rigging guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "care-maintenance-guide-005",
+      "docType": "care & maintenance guide",
+      "titleHint": "Care & Maintenance Guide #5",
+      "entityRefs": [
+        "lure-05",
+        "specy-09",
+        "specy-10",
+        "technique-01",
+        "technique-02",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "care & maintenance guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "warranty-returns-policy-006",
+      "docType": "warranty & returns policy",
+      "titleHint": "Warranty & Returns Policy #6",
+      "entityRefs": [
+        "lure-06",
+        "specy-01",
+        "specy-02",
+        "technique-03",
+        "technique-04",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "warranty & returns policy"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "customer-trip-report-007",
+      "docType": "customer trip report",
+      "titleHint": "Customer Trip Report #7",
+      "entityRefs": [
+        "lure-07",
+        "specy-03",
+        "specy-04",
+        "technique-05",
+        "technique-06",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "customer trip report"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "session-kit-checklist-008",
+      "docType": "session kit checklist",
+      "titleHint": "Session Kit Checklist #8",
+      "entityRefs": [
+        "lure-08",
+        "specy-05",
+        "specy-06",
+        "technique-07",
+        "technique-08",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "session kit checklist"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "lure-product-page-009",
+      "docType": "lure product page",
+      "titleHint": "Lure Product Page #9",
+      "entityRefs": [
+        "lure-09",
+        "specy-07",
+        "specy-08",
+        "technique-01",
+        "technique-02",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "lure product page"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "species-profile-guide-010",
+      "docType": "species profile guide",
+      "titleHint": "Species Profile Guide #10",
+      "entityRefs": [
+        "lure-10",
+        "specy-09",
+        "specy-10",
+        "technique-03",
+        "technique-04",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "species profile guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "water-conditions-guide-011",
+      "docType": "water-conditions guide",
+      "titleHint": "Water Conditions Guide #11",
+      "entityRefs": [
+        "lure-11",
+        "specy-01",
+        "specy-02",
+        "technique-05",
+        "technique-06",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "water-conditions guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "retrieve-rigging-guide-012",
+      "docType": "retrieve & rigging guide",
+      "titleHint": "Retrieve & Rigging Guide #12",
+      "entityRefs": [
+        "lure-12",
+        "specy-03",
+        "specy-04",
+        "technique-07",
+        "technique-08",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "retrieve & rigging guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "care-maintenance-guide-013",
+      "docType": "care & maintenance guide",
+      "titleHint": "Care & Maintenance Guide #13",
+      "entityRefs": [
+        "lure-13",
+        "specy-05",
+        "specy-06",
+        "technique-01",
+        "technique-02",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "care & maintenance guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "warranty-returns-policy-014",
+      "docType": "warranty & returns policy",
+      "titleHint": "Warranty & Returns Policy #14",
+      "entityRefs": [
+        "lure-14",
+        "specy-07",
+        "specy-08",
+        "technique-03",
+        "technique-04",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "warranty & returns policy"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "customer-trip-report-015",
+      "docType": "customer trip report",
+      "titleHint": "Customer Trip Report #15",
+      "entityRefs": [
+        "lure-15",
+        "specy-09",
+        "specy-10",
+        "technique-05",
+        "technique-06",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "customer trip report"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "session-kit-checklist-016",
+      "docType": "session kit checklist",
+      "titleHint": "Session Kit Checklist #16",
+      "entityRefs": [
+        "lure-16",
+        "specy-01",
+        "specy-02",
+        "technique-07",
+        "technique-08",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "session kit checklist"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "lure-product-page-017",
+      "docType": "lure product page",
+      "titleHint": "Lure Product Page #17",
+      "entityRefs": [
+        "lure-17",
+        "specy-03",
+        "specy-04",
+        "technique-01",
+        "technique-02",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "lure product page"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "species-profile-guide-018",
+      "docType": "species profile guide",
+      "titleHint": "Species Profile Guide #18",
+      "entityRefs": [
+        "lure-18",
+        "specy-05",
+        "specy-06",
+        "technique-03",
+        "technique-04",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "species profile guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "water-conditions-guide-019",
+      "docType": "water-conditions guide",
+      "titleHint": "Water Conditions Guide #19",
+      "entityRefs": [
+        "lure-19",
+        "specy-07",
+        "specy-08",
+        "technique-05",
+        "technique-06",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "water-conditions guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "retrieve-rigging-guide-020",
+      "docType": "retrieve & rigging guide",
+      "titleHint": "Retrieve & Rigging Guide #20",
+      "entityRefs": [
+        "lure-20",
+        "specy-09",
+        "specy-10",
+        "technique-07",
+        "technique-08",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "retrieve & rigging guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "care-maintenance-guide-021",
+      "docType": "care & maintenance guide",
+      "titleHint": "Care & Maintenance Guide #21",
+      "entityRefs": [
+        "lure-01",
+        "specy-01",
+        "specy-02",
+        "technique-01",
+        "technique-02",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "care & maintenance guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "warranty-returns-policy-022",
+      "docType": "warranty & returns policy",
+      "titleHint": "Warranty & Returns Policy #22",
+      "entityRefs": [
+        "lure-02",
+        "specy-03",
+        "specy-04",
+        "technique-03",
+        "technique-04",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "warranty & returns policy"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "customer-trip-report-023",
+      "docType": "customer trip report",
+      "titleHint": "Customer Trip Report #23",
+      "entityRefs": [
+        "lure-03",
+        "specy-05",
+        "specy-06",
+        "technique-05",
+        "technique-06",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "customer trip report"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "session-kit-checklist-024",
+      "docType": "session kit checklist",
+      "titleHint": "Session Kit Checklist #24",
+      "entityRefs": [
+        "lure-04",
+        "specy-07",
+        "specy-08",
+        "technique-07",
+        "technique-08",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "session kit checklist"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "lure-product-page-025",
+      "docType": "lure product page",
+      "titleHint": "Lure Product Page #25",
+      "entityRefs": [
+        "lure-05",
+        "specy-09",
+        "specy-10",
+        "technique-01",
+        "technique-02",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "lure product page"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "species-profile-guide-026",
+      "docType": "species profile guide",
+      "titleHint": "Species Profile Guide #26",
+      "entityRefs": [
+        "lure-06",
+        "specy-01",
+        "specy-02",
+        "technique-03",
+        "technique-04",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "species profile guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "water-conditions-guide-027",
+      "docType": "water-conditions guide",
+      "titleHint": "Water Conditions Guide #27",
+      "entityRefs": [
+        "lure-07",
+        "specy-03",
+        "specy-04",
+        "technique-05",
+        "technique-06",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "water-conditions guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "retrieve-rigging-guide-028",
+      "docType": "retrieve & rigging guide",
+      "titleHint": "Retrieve & Rigging Guide #28",
+      "entityRefs": [
+        "lure-08",
+        "specy-05",
+        "specy-06",
+        "technique-07",
+        "technique-08",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "retrieve & rigging guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "care-maintenance-guide-029",
+      "docType": "care & maintenance guide",
+      "titleHint": "Care & Maintenance Guide #29",
+      "entityRefs": [
+        "lure-09",
+        "specy-07",
+        "specy-08",
+        "technique-01",
+        "technique-02",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "care & maintenance guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "warranty-returns-policy-030",
+      "docType": "warranty & returns policy",
+      "titleHint": "Warranty & Returns Policy #30",
+      "entityRefs": [
+        "lure-10",
+        "specy-09",
+        "specy-10",
+        "technique-03",
+        "technique-04",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "warranty & returns policy"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "customer-trip-report-031",
+      "docType": "customer trip report",
+      "titleHint": "Customer Trip Report #31",
+      "entityRefs": [
+        "lure-11",
+        "specy-01",
+        "specy-02",
+        "technique-05",
+        "technique-06",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "customer trip report"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "session-kit-checklist-032",
+      "docType": "session kit checklist",
+      "titleHint": "Session Kit Checklist #32",
+      "entityRefs": [
+        "lure-12",
+        "specy-03",
+        "specy-04",
+        "technique-07",
+        "technique-08",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "session kit checklist"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "lure-product-page-033",
+      "docType": "lure product page",
+      "titleHint": "Lure Product Page #33",
+      "entityRefs": [
+        "lure-13",
+        "specy-05",
+        "specy-06",
+        "technique-01",
+        "technique-02",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "lure product page"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "species-profile-guide-034",
+      "docType": "species profile guide",
+      "titleHint": "Species Profile Guide #34",
+      "entityRefs": [
+        "lure-14",
+        "specy-07",
+        "specy-08",
+        "technique-03",
+        "technique-04",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "species profile guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "water-conditions-guide-035",
+      "docType": "water-conditions guide",
+      "titleHint": "Water Conditions Guide #35",
+      "entityRefs": [
+        "lure-15",
+        "specy-09",
+        "specy-10",
+        "technique-05",
+        "technique-06",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "water-conditions guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "retrieve-rigging-guide-036",
+      "docType": "retrieve & rigging guide",
+      "titleHint": "Retrieve & Rigging Guide #36",
+      "entityRefs": [
+        "lure-16",
+        "specy-01",
+        "specy-02",
+        "technique-07",
+        "technique-08",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "retrieve & rigging guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "care-maintenance-guide-037",
+      "docType": "care & maintenance guide",
+      "titleHint": "Care & Maintenance Guide #37",
+      "entityRefs": [
+        "lure-17",
+        "specy-03",
+        "specy-04",
+        "technique-01",
+        "technique-02",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "care & maintenance guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "warranty-returns-policy-038",
+      "docType": "warranty & returns policy",
+      "titleHint": "Warranty & Returns Policy #38",
+      "entityRefs": [
+        "lure-18",
+        "specy-05",
+        "specy-06",
+        "technique-03",
+        "technique-04",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "warranty & returns policy"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "customer-trip-report-039",
+      "docType": "customer trip report",
+      "titleHint": "Customer Trip Report #39",
+      "entityRefs": [
+        "lure-19",
+        "specy-07",
+        "specy-08",
+        "technique-05",
+        "technique-06",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "customer trip report"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "session-kit-checklist-040",
+      "docType": "session kit checklist",
+      "titleHint": "Session Kit Checklist #40",
+      "entityRefs": [
+        "lure-20",
+        "specy-09",
+        "specy-10",
+        "technique-07",
+        "technique-08",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "session kit checklist"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "lure-product-page-041",
+      "docType": "lure product page",
+      "titleHint": "Lure Product Page #41",
+      "entityRefs": [
+        "lure-01",
+        "specy-01",
+        "specy-02",
+        "technique-01",
+        "technique-02",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "lure product page"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "species-profile-guide-042",
+      "docType": "species profile guide",
+      "titleHint": "Species Profile Guide #42",
+      "entityRefs": [
+        "lure-02",
+        "specy-03",
+        "specy-04",
+        "technique-03",
+        "technique-04",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "species profile guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "water-conditions-guide-043",
+      "docType": "water-conditions guide",
+      "titleHint": "Water Conditions Guide #43",
+      "entityRefs": [
+        "lure-03",
+        "specy-05",
+        "specy-06",
+        "technique-05",
+        "technique-06",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "water-conditions guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "retrieve-rigging-guide-044",
+      "docType": "retrieve & rigging guide",
+      "titleHint": "Retrieve & Rigging Guide #44",
+      "entityRefs": [
+        "lure-04",
+        "specy-07",
+        "specy-08",
+        "technique-07",
+        "technique-08",
+        "watercondition-03",
+        "watercondition-04",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "retrieve & rigging guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "care-maintenance-guide-045",
+      "docType": "care & maintenance guide",
+      "titleHint": "Care & Maintenance Guide #45",
+      "entityRefs": [
+        "lure-05",
+        "specy-09",
+        "specy-10",
+        "technique-01",
+        "technique-02",
+        "watercondition-05",
+        "watercondition-06",
+        "houserange-01",
+        "houserange-02"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "care & maintenance guide"
+        }
+      ],
+      "media": null
+    },
+    {
+      "id": "warranty-returns-policy-046",
+      "docType": "warranty & returns policy",
+      "titleHint": "Warranty & Returns Policy #46",
+      "entityRefs": [
+        "lure-06",
+        "specy-01",
+        "specy-02",
+        "technique-03",
+        "technique-04",
+        "watercondition-01",
+        "watercondition-02",
+        "houserange-03",
+        "houserange-04"
+      ],
+      "classifications": [
+        {
+          "labelset": "doc_type",
+          "label": "warranty & returns policy"
+        }
+      ],
+      "media": null
+    }
+  ],
+  "verification": {
+    "cornerstoneQueries": [
+      "What's a good lure for bass in murky water?",
+      "I'm chasing barra at first light in a tannin-stained river - what do you recommend and how should I work it?",
+      "What's the best soft plastic for flathead over sand in a clear estuary, and what jighead weight?",
+      "Build me a session kit for bream around a jetty at dusk.",
+      "What's the difference between a lipless crank and a spinnerbait for cover fishing, and when do I pick each?"
+    ],
+    "refusalProbes": [
+      "What's the delivery ETA on my order number 44210?",
+      "Can you price-match a competitor's Boxing Day tackle sale from last year?"
+    ]
+  }
+}

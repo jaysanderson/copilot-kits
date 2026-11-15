@@ -1,0 +1,7 @@
+[
+  {"click": "#loadSample0"},
+  {"wait_ms": 1500},
+  {"wait_for_selector": "#run", "timeout_ms": 10000},
+  {"click": "#run"},
+  {"wait_for_selector": ".can-submit-banner", "timeout_ms": 120000}
+]

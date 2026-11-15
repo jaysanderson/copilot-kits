@@ -1,0 +1,35 @@
+{
+  "url": "https://your-app.fly.dev",
+  "routes_checked": [
+    {
+      "route": "/",
+      "ok": true
+    },
+    {
+      "route": "/intake",
+      "ok": true
+    },
+    {
+      "route": "/coverage",
+      "ok": true
+    },
+    {
+      "route": "/decision",
+      "ok": true
+    },
+    {
+      "route": "/exceptions",
+      "ok": true
+    },
+    {
+      "route": "/reports",
+      "ok": true
+    },
+    {
+      "route": "/copilot",
+      "ok": true
+    }
+  ],
+  "findings": [],
+  "overall": "PASS"
+}

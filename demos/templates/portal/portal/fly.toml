@@ -1,0 +1,35 @@
+# Fly.io deployment for a generated ARAG demo portal.
+# Rename `app` to your demo slug (e.g. <slug>.fly.dev) before `fly deploy`.
+# Set the KB token as a secret, never in [env]:
+#   fly secrets set NUCLIA_SERVICEACCOUNT=… NUCLIA_KB_URL=… NUCLIA_ZONE=…
+app = "publisher-claims"
+primary_region = "syd"
+
+[build]
+
+[env]
+  PORT = "8080"
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  # Fix 6 (flagship rebuild, Section 3.B): keep one machine warm always. With 0
+  # the first hit after idle serves the SPA shell while the API cold-starts -
+  # an empty "loading" grid that reads as a broken demo to a reviewer or
+  # prospect (the Auto-co incident, 11 Aug 2026). Never drop this to 0.
+  min_machines_running = 1
+  processes = ["app"]
+
+  [[http_service.http_checks]]
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "20s"
+    method = "GET"
+    path = "/api/health"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

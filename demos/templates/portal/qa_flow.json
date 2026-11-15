@@ -1,0 +1,6 @@
+[
+  {
+    "wait_for_selector": "body",
+    "timeout_ms": 15000
+  }
+]

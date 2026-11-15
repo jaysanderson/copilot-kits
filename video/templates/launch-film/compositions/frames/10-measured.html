@@ -1,0 +1,565 @@
+<template>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  /* Composition: this frame's content measured top gap vs bottom gap as
+     bottom-heavy, leaving a dead band under it. The whole layer stack drops 66px -
+     60% of the measured difference, since optical centre sits above true centre. The
+     stage colour is pinned on #root so the strip the shift opens at the top is the
+     same navy, not a hole. */
+  #root { background: #00216B; }
+  #root > *.pg-vshift-marker, #root > * {
+    transform: translateY(66px);
+    height: calc(100% - 66px);
+  }
+
+  /* Real Progress Sans - local files, names outside the HyperFrames alias map */
+  @font-face { font-family: "ProgressSansDisplay"; src: url("assets/ProgressSansDisplayVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  @font-face { font-family: "ProgressSansText"; src: url("assets/ProgressSansTextVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  :root, #root { --pg-display: "ProgressSansDisplay", Arial, Helvetica, sans-serif; --pg-text: "ProgressSansText", Arial, Helvetica, sans-serif; }
+
+  /* Frame 10 — Measured, not assumed. Blue Professional tokens from frame.md;
+     system sans stack per dispatch (no @font-face). */
+  #root {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    container-type: size;
+    font-family: var(--pg-text);
+    color: #FFFFFF;
+    --f10-bg: #00216B;
+    --f10-primary: #00B563;
+    --f10-text: #FFFFFF;
+    --f10-muted: #C6D5EB;
+    --f10-accent-light: rgba(0, 181, 99, 0.16);
+    --f10-border: rgba(198, 213, 235, 0.26);
+    --f10-positive: #00B563;
+    /* the 4% cobalt card tint, pre-mixed onto cream so it is opaque over the ghost */
+    --f10-card: color-mix(in srgb, #FFFFFF 6%, #00216B);
+  }
+  .clip { position: absolute; inset: 0; }
+
+  /* ground */
+  #f10-bg { background: var(--f10-bg); }
+
+  /* ghosted provenance screenshot — never carries text */
+
+  /* slide-header */
+  .f10-eyebrow {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--f10-primary);
+    line-height: 1.3;
+  }
+  #f10-eyebrow { position: absolute; left: 160px; top: 84px; }
+  #f10-h2 {
+    position: absolute;
+    left: 160px;
+    top: 116px;
+    font-size: 56px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--f10-text);
+    white-space: nowrap;
+    font-family: var(--pg-display);
+  }
+
+  /* scoreboard table — card-tinted */
+  #f10-table {
+    position: absolute;
+    left: 160px;
+    top: 220px;
+    width: 1240px;
+    height: 400px;
+    box-sizing: border-box;
+    padding: 22px 24px;
+    background: var(--f10-card);
+    border: 1.5px solid var(--f10-border);
+    border-radius: 14px;
+  }
+  .f10-grid-row {
+    display: grid;
+    grid-template-columns: 300px 492px 210px 190px;
+    align-items: center;
+  }
+  #f10-thead {
+    height: 36px;
+    border-bottom: 1.5px solid var(--f10-border);
+    box-sizing: border-box;
+  }
+  .f10-th {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--f10-primary);
+    line-height: 1;
+  }
+  .f10-row {
+    height: 64px;
+    border-bottom: 1px solid rgba(198, 213, 235, 0.16);
+    box-sizing: border-box;
+  }
+  .f10-row:last-child { border-bottom: 0; }
+  .f10-c-model {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--f10-text);
+    letter-spacing: -0.01em;
+  }
+  .f10-c-overall {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-right: 10px;
+  }
+  .f10-track {
+    width: 250px;
+    height: 20px;
+    background: var(--f10-accent-light);
+    border-radius: 6px;
+    overflow: hidden;
+    flex: none;
+  }
+  .f10-fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--f10-primary);
+    border-radius: 6px;
+    transform-origin: left center;
+  }
+  .f10-num-wrap {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    width: 90px;
+    flex: none;
+  }
+  .f10-num {
+    display: inline-block;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--f10-primary);
+    font-variant-numeric: tabular-nums;
+    width: 48px;
+    text-align: right;
+    transform-origin: right center;
+  }
+  .f10-suffix {
+    display: inline-block;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--f10-primary);
+    width: 22px;
+    text-align: left;
+    margin-left: 2px;
+  }
+  .f10-c-f1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .f10-f1 {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--f10-muted);
+    font-variant-numeric: tabular-nums;
+    width: 56px;
+  }
+  .f10-tick {
+    width: 22px;
+    height: 22px;
+    overflow: visible;
+    flex: none;
+  }
+  .f10-tick path {
+    fill: none;
+    stroke: var(--f10-positive);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* range bracket — spans the OVERALL numbers, lands on the label */
+  #f10-bracket {
+    position: absolute;
+    left: 700px;
+    top: 58px;
+    width: 60px;
+    height: 320px;
+    overflow: visible;
+  }
+  #f10-bracket path {
+    fill: none;
+    stroke: var(--f10-primary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  #f10-range {
+    position: absolute;
+    left: 740px;
+    top: 200px;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--f10-primary);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* tag-pill under the CHECKBOX F1 column */
+  #f10-pill {
+    position: absolute;
+    left: 1030px;
+    top: 642px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 20px;
+    background: var(--f10-accent-light);
+    color: var(--f10-primary);
+    border-radius: 100px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    transform-origin: 50% 0%;
+  }
+  #f10-pill-tick { width: 16px; height: 16px; overflow: visible; }
+  #f10-pill-tick path {
+    fill: none;
+    stroke: var(--f10-positive);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* 75 metric block — x 1480–1760 */
+  /* Scope qualifier for the bake-off table. Sized at 26px against the table's own
+     25px body cells (.f10-c-model, .f10-f1), not its 16px headers: a caveat set
+     smaller than the figures it qualifies is the asymmetry a procurement team catches.
+     Colour is the table's own muted body colour. Width 1240 matches the table, and the
+     block is left to wrap with its rendered extent asserted rather than guessed. */
+  #f10-scope {
+    position: absolute;
+    left: 160px;
+    top: 700px;
+    width: 1240px;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--f10-muted);
+    font-family: var(--pg-text);
+  }
+  #f10-metric {
+    position: absolute;
+    left: 1480px;
+    top: 300px;
+    width: 280px;
+  }
+  #f10-metric-wrap {
+    width: 280px;
+    height: 168px;
+    display: flex;
+    align-items: flex-end;
+  }
+  #f10-metric-num {
+    display: inline-block;
+    font-size: 168px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--f10-primary);
+    font-variant-numeric: tabular-nums;
+    width: 200px;
+    transform-origin: left bottom;
+    font-family: var(--pg-display);
+  }
+  #f10-metric-label {
+    margin-top: 22px;
+    font-size: 24px;
+  }
+  #f10-metric-body {
+    margin-top: 18px;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--f10-muted);
+  }
+</style>
+
+<div data-hf-id="hf-regv" id="root" data-composition-id="10-measured" data-width="1920" data-height="1080" data-duration="17.647">
+
+  <div data-hf-id="hf-de01" id="f10-bg" class="clip" data-start="0.000" data-duration="17.647" data-track-index="0"></div>
+
+  <!-- The ghosted scoreboard backdrop was REMOVED on 16 Oct 2026. Read at full
+       resolution on the delivered frame, its own rows were legible - 62%, 42/48
+       (88%), "71% P 83% R 63%", 5/8 (63%) - directly beneath an authored table
+       asserting 92 to 99% for the same five models, with the "every checkbox
+       right" pill sitting over a ghost row reading 63%. A viewer could read two
+       contradictory figure sets for the same models in one frame. It was already
+       legible in the pre-rebrand cut; inverting the stage to navy made it the
+       brightest thing on screen and so the dominant one. No instrument here can
+       see this class - a populated, legible frame saying the wrong thing - and
+       there is no honest way to keep the element, so it is gone rather than
+       dimmed. Frame 11's ghost stays: a scanned form, same subject, no figures. -->
+
+  <div data-hf-id="hf-f5sp" id="f10-header" class="clip" data-start="0.000" data-duration="17.647" data-track-index="2">
+    <div data-hf-id="hf-04wf" id="f10-eyebrow" class="f10-eyebrow">Measured, not assumed</div>
+    <div data-hf-id="hf-d32n" id="f10-h2">Five models. Same four pages.</div>
+  </div>
+
+  <div data-hf-id="hf-0e9d" id="f10-scoreboard" class="clip" data-start="0.000" data-duration="17.647" data-track-index="3">
+    <div data-hf-id="hf-uapp" id="f10-table">
+      <div data-hf-id="hf-15fd" id="f10-thead" class="f10-grid-row">
+        <div data-hf-id="hf-nc4n" class="f10-th">Model</div>
+        <div data-hf-id="hf-y1d7" class="f10-th">Overall</div>
+        <div data-hf-id="hf-ly4q" class="f10-th"></div>
+        <div data-hf-id="hf-9xmg" class="f10-th">Checkbox F1</div>
+      </div>
+
+      <div data-hf-id="hf-jag3" id="f10-row-1" class="f10-grid-row f10-row">
+        <div data-hf-id="hf-rgvt" class="f10-c-model">chatgpt-azure-5.5</div>
+        <div data-hf-id="hf-bdqh" class="f10-c-overall">
+          <div data-hf-id="hf-x75f" class="f10-track"><span data-hf-id="hf-cpb1" id="f10-fill-1" class="f10-fill"></span></div>
+          <div data-hf-id="hf-3tdr" class="f10-num-wrap"><span data-hf-id="hf-2afr" id="f10-num-1" class="f10-num">0</span><span data-hf-id="hf-5u83" id="f10-suf-1" class="f10-suffix">%</span></div>
+        </div>
+        <div data-hf-id="hf-yeow"></div>
+        <div data-hf-id="hf-7jx1" class="f10-c-f1"><span data-hf-id="hf-orl2" id="f10-f1-1" class="f10-f1">1.00</span><svg data-hf-id="hf-yq8l" class="f10-tick" viewBox="0 0 20 20"><path data-hf-id="hf-ogiz" id="f10-tickp-1" d="M3 10.5 L8 15.5 L17 4.5" /></svg></div>
+      </div>
+
+      <div data-hf-id="hf-amk8" id="f10-row-2" class="f10-grid-row f10-row">
+        <div data-hf-id="hf-ztdl" class="f10-c-model">claude-5-5-sonnet</div>
+        <div data-hf-id="hf-sqbh" class="f10-c-overall">
+          <div data-hf-id="hf-nxzn" class="f10-track"><span data-hf-id="hf-iv0u" id="f10-fill-2" class="f10-fill"></span></div>
+          <div data-hf-id="hf-fk3j" class="f10-num-wrap"><span data-hf-id="hf-puoq" id="f10-num-2" class="f10-num">0</span><span data-hf-id="hf-8vym" id="f10-suf-2" class="f10-suffix">%</span></div>
+        </div>
+        <div data-hf-id="hf-y7yw"></div>
+        <div data-hf-id="hf-arih" class="f10-c-f1"><span data-hf-id="hf-7yop" id="f10-f1-2" class="f10-f1">1.00</span><svg data-hf-id="hf-yrgp" class="f10-tick" viewBox="0 0 20 20"><path data-hf-id="hf-fsn4" id="f10-tickp-2" d="M3 10.5 L8 15.5 L17 4.5" /></svg></div>
+      </div>
+
+      <div data-hf-id="hf-be81" id="f10-row-3" class="f10-grid-row f10-row">
+        <div data-hf-id="hf-iavj" class="f10-c-model">claude-4-6-sonnet</div>
+        <div data-hf-id="hf-tx8k" class="f10-c-overall">
+          <div data-hf-id="hf-njom" class="f10-track"><span data-hf-id="hf-mt4v" id="f10-fill-3" class="f10-fill"></span></div>
+          <div data-hf-id="hf-f5si" class="f10-num-wrap"><span data-hf-id="hf-15ct" id="f10-num-3" class="f10-num">0</span><span data-hf-id="hf-sfo1" id="f10-suf-3" class="f10-suffix">%</span></div>
+        </div>
+        <div data-hf-id="hf-x11t"></div>
+        <div data-hf-id="hf-byfk" class="f10-c-f1"><span data-hf-id="hf-576s" id="f10-f1-3" class="f10-f1">1.00</span><svg data-hf-id="hf-zyds" class="f10-tick" viewBox="0 0 20 20"><path data-hf-id="hf-gkax" id="f10-tickp-3" d="M3 10.5 L8 15.5 L17 4.5" /></svg></div>
+      </div>
+
+      <div data-hf-id="hf-0iqe" id="f10-row-4" class="f10-grid-row f10-row">
+        <div data-hf-id="hf-49e7" class="f10-c-model">gemini-2.5-flash</div>
+        <div data-hf-id="hf-tixj" class="f10-c-overall">
+          <div data-hf-id="hf-n5dl" class="f10-track"><span data-hf-id="hf-qr8w" id="f10-fill-4" class="f10-fill"></span></div>
+          <div data-hf-id="hf-erhh" class="f10-num-wrap"><span data-hf-id="hf-aam8" id="f10-num-4" class="f10-num">0</span><span data-hf-id="hf-sayc" id="f10-suf-4" class="f10-suffix">%</span></div>
+        </div>
+        <div data-hf-id="hf-xfcu"></div>
+        <div data-hf-id="hf-bk4j" class="f10-c-f1"><span data-hf-id="hf-qvov" id="f10-f1-4" class="f10-f1">0.94</span></div>
+      </div>
+
+      <div data-hf-id="hf-6og7" id="f10-row-5" class="f10-grid-row f10-row">
+        <div data-hf-id="hf-hxrl" class="f10-c-model">gemini-3.1-pro</div>
+        <div data-hf-id="hf-upum" class="f10-c-overall">
+          <div data-hf-id="hf-mr2k" class="f10-track"><span data-hf-id="hf-riwp" id="f10-fill-5" class="f10-fill"></span></div>
+          <div data-hf-id="hf-hjmo" class="f10-num-wrap"><span data-hf-id="hf-nqsr" id="f10-num-5" class="f10-num">0</span><span data-hf-id="hf-e25r" id="f10-suf-5" class="f10-suffix">%</span></div>
+        </div>
+        <div data-hf-id="hf-w8fr"></div>
+        <div data-hf-id="hf-9kle" class="f10-c-f1"><span data-hf-id="hf-lmcf" id="f10-f1-5" class="f10-f1">0.88</span></div>
+      </div>
+
+      <!-- bracket: top tick at row 1 centre (y 32), bottom tick at row 5 centre (y 288), mid tick reaches the label -->
+      <svg data-hf-id="hf-kd1k" id="f10-bracket" viewBox="0 0 60 320" xmlns="http://www.w3.org/2000/svg">
+        <path data-hf-id="hf-trfd" id="f10-bracket-main" d="M 4 32 H 16 V 288 H 4" />
+        <path data-hf-id="hf-bvc9" id="f10-bracket-mid" d="M 16 160 H 30" />
+      </svg>
+      <div data-hf-id="hf-0feb" id="f10-range">92 to 99%</div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-2ntd" id="f10-pill-layer" class="clip" data-start="0.000" data-duration="17.647" data-track-index="4">
+    <div data-hf-id="hf-iiny" id="f10-pill">
+      <svg data-hf-id="hf-l2ps" id="f10-pill-tick" viewBox="0 0 20 20"><path data-hf-id="hf-y7qk" d="M3 10.5 L8 15.5 L17 4.5" /></svg>
+      <span data-hf-id="hf-4srr">every checkbox right</span>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-on0l" id="f10-metric-layer" class="clip" data-start="0.000" data-duration="17.647" data-track-index="5">
+    <div data-hf-id="hf-scp1" id="f10-scope">One run, 16 October 2026, on the four pages of Example 1 in this sample pack. Scores vary a little run to run. These figures measure the five vision models on this scan, not Progress Agentic RAG performance.</div>
+    <div data-hf-id="hf-s0rn" id="f10-metric">
+      <div data-hf-id="hf-fybc" id="f10-metric-wrap"><span data-hf-id="hf-r6ip" id="f10-metric-num">0</span></div>
+      <div data-hf-id="hf-dz25" id="f10-metric-label" class="f10-eyebrow">Models on the account</div>
+      <div data-hf-id="hf-hhyh" id="f10-metric-body">compared on the same scan, in one click</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    var ID = "10-measured";
+    /* == RETIMED (tools_apply_retime.py) == */
+      /* Beat times below are OLD-take time; P() maps them onto the delivered take
+         through word anchors matched by text. Generated - do not hand-edit. */
+      var __KX = [0.0000, 0.0200, 0.3200, 1.1400, 1.3800, 2.2600, 2.5600, 3.1500, 3.5400, 3.7000, 3.9400, 4.5700, 4.6100, 5.0400, 6.1600, 7.2400, 7.7400, 7.7600, 8.0200, 8.6300, 8.7900, 9.2200, 10.0500, 10.6600, 10.8800, 11.0400, 11.7600, 12.2400, 12.3700, 12.9700, 13.3400, 13.4200, 13.5400, 14.0600, 14.2300, 14.5000, 14.9500, 15.2400, 15.4200, 15.5700, 16.3630];
+      var __KY = [0.0000, 0.0460, 0.5220, 1.1490, 1.3580, 2.1250, 2.5080, 2.8440, 3.2280, 3.3670, 3.4950, 3.8430, 4.1220, 4.5160, 6.1300, 7.8140, 8.0110, 8.1390, 8.4640, 8.9160, 9.3340, 9.6830, 10.1820, 11.0290, 11.3660, 11.4710, 12.2250, 12.5740, 12.6780, 12.7940, 13.5370, 13.8270, 13.9550, 14.4660, 14.6170, 14.7330, 15.0230, 15.4990, 15.7080, 15.9050, 16.9970];
+      function __pw(t, X, Y) { if (t <= X[0]) return Y[0] + (t - X[0]); var n = X.length - 1;
+        if (t >= X[n]) return Y[n] + (t - X[n]) * (Y[n] / X[n]); var lo = 0, hi = n;
+        while (hi - lo > 1) { var m = (lo + hi) >> 1; if (X[m] <= t) lo = m; else hi = m; }
+        return Y[lo] + (t - X[lo]) / (X[hi] - X[lo]) * (Y[hi] - Y[lo]); }
+      function P(t) { return __pw(t, __KX, __KY); }   /* old take time -> delivered take time */
+      function Q(u) { return __pw(u, __KY, __KX); }   /* inverse: drivers run in new time,
+         so a threshold written in old time is compared against Q(driver.t) unedited */
+      var DURATION = 16.997;  /* measured delivered take (was 16.363) */
+    var POSITIVE = "#00B563";
+    var MUTED = "#C6D5EB";
+
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    // pin the registered length to the packet duration
+    var hold = { v: 0 };
+    tl.to(hold, { v: 1, duration: DURATION, ease: "none" }, 0);
+
+    // ---- svg-path-draw setup: measure, then hide the strokes ----
+    function prepPath(sel, fallback) {
+      var p = document.querySelector(sel);
+      if (!p) return null;
+      var len = 0;
+      try { len = p.getTotalLength(); } catch (e) { len = 0; }
+      if (!len || !isFinite(len)) len = fallback;
+      len = len * 1.05;
+      p.style.strokeDasharray = String(len);
+      p.style.strokeDashoffset = String(len);
+      return p;
+    }
+    var bracketMain = prepPath("#f10-bracket-main", 280);
+    var bracketMid = prepPath("#f10-bracket-mid", 14);
+    var ticks = [1, 2, 3].map(function (i) { return prepPath("#f10-tickp-" + i, 20); });
+
+    // ---- Scene 1 (0.0–2.6s): eyebrow + h2 top-left; ghosted scoreboard settles behind ----
+    tl.fromTo("#f10-eyebrow",
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.1);
+    tl.fromTo("#f10-h2",
+      { opacity: 0, y: 26 },
+      { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+
+    // ---- Scene 2 (2.6–9.4s): header fades in, rows arrive one per 0.5s ----
+    tl.fromTo("#f10-table",
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 2.6);
+    tl.fromTo("#f10-thead",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5, ease: "power1.out" }, 2.7);
+
+    var DATA = [99, 99, 97, 93, 92];
+    var COUNT_DUR = 1.2;
+    var COUNT_EASE = "power3.out";
+    var START_SCALE = 0.55;
+    DATA.forEach(function (pct, i) {
+      var n = i + 1;
+      var at = 3.0 + i * 0.5;
+      var numEl = document.querySelector("#f10-num-" + n);
+      var state = { value: 0 };
+      tl.fromTo("#f10-row-" + n,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, at);
+      // stat-bars-and-fills: scaleX from a left origin, same ease/duration as the count
+      tl.fromTo("#f10-fill-" + n,
+        { scaleX: 0 },
+        { scaleX: pct / 100, duration: COUNT_DUR, ease: COUNT_EASE }, at);
+      // counting-dynamic-scale: value proxy (O(1) onUpdate) + transform scale on the same ease
+      tl.fromTo(state,
+        { value: 0 },
+        { value: pct, duration: COUNT_DUR, ease: COUNT_EASE,
+          onUpdate: function () { numEl.textContent = String(Math.round(state.value)); } }, at);
+      tl.fromTo("#f10-num-" + n,
+        { scale: START_SCALE },
+        { scale: 1, duration: COUNT_DUR, ease: COUNT_EASE }, at);
+      // suffix lands after the count
+      tl.fromTo("#f10-suf-" + n,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.7)" }, at + COUNT_DUR);
+    });
+
+    // "ninety-two to ninety-nine": bracket draws down the OVERALL column, then the label
+    tl.fromTo("#f10-scope", { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 6.2);
+    if (bracketMain) tl.to(bracketMain, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, 6.4);
+    if (bracketMid) tl.to(bracketMid, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out" }, 6.95);
+    tl.fromTo("#f10-range",
+      { opacity: 0, x: -10 },
+      { opacity: 1, x: 0, duration: 0.5, ease: "power1.out" }, 7.3);
+
+    // ---- Scene 3 (9.4–13.2s): the three F1 1.00 cells tint positive with a drawn tick ----
+    ticks.forEach(function (p, i) {
+      var at = 9.4 + i * 0.35;
+      tl.fromTo("#f10-f1-" + (i + 1),
+        { color: MUTED },
+        { color: POSITIVE, duration: 0.4, ease: "power1.out" }, at);
+      if (p) tl.to(p, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, at);
+    });
+    // spring-pop the tag-pill beside the ticked column
+    tl.fromTo("#f10-pill",
+      { opacity: 0, scale: 0.6, y: -8 },
+      { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(1.7)" }, 10.7);
+
+    // ---- Scene 4 (13.2–end): "75" counts in at the right; eyebrow + body; hold ----
+    var metricEl = document.querySelector("#f10-metric-num");
+    var m = { value: 0 };
+    var M_DUR = 1.6;
+    tl.fromTo("#f10-metric-num",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.3, ease: "power1.out" }, 13.2);
+    tl.fromTo(m,
+      { value: 0 },
+      { value: 75, duration: M_DUR, ease: COUNT_EASE,
+        onUpdate: function () { metricEl.textContent = String(Math.round(m.value)); } }, 13.2);
+    tl.fromTo("#f10-metric-num",
+      { scale: 0.5 },
+      { scale: 1, duration: M_DUR, ease: COUNT_EASE }, 13.2);
+    tl.fromTo("#f10-metric-label",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 13.6);
+    tl.fromTo("#f10-metric-body",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 14.6);
+
+    window.__timelines[ID] = tl;
+
+      /* == RETIMED (tools_apply_retime.py) == beat walk == */
+      /* Every registered beat moves to its remapped position. */
+      (function () {
+        var kids = tl.getChildren(false, true, true);
+        if (!kids.length) throw new Error("retime: no children to reposition");
+        var moved = 0, over = [];
+        kids.forEach(function (c) {
+          if (c.vars && c.vars.data === "pin") return;   /* already in new-take time */
+          var s = c.startTime(), n = P(s);
+          if (Math.abs(n - s) > 0.0005) { c.startTime(n); moved++; }
+          /* Eyebrows share one zone, so at a fade boundary two of them smear. Hold
+             any eyebrow until the 0.5s transition is done. */
+          var tg = (c.targets ? c.targets() : []);
+          var nm = tg.length ? ((tg[0].id || "") + " " + (tg[0].className || "")) : "";
+          if (/-eyebrow(\s|$)/.test(nm) && c.startTime() < 0.52) {
+            c.startTime(0.52);
+          }
+          if (c.startTime() + c.duration() > 16.997 + 0.02) {
+            over.push(Math.round((c.startTime() + c.duration()) * 1000) / 1000);
+          }
+        });
+        window.__retime = window.__retime || {};
+        window.__retime["10-measured"] = { beats: kids.length, moved: moved, overrun: over };
+      })();
+
+  })();
+</script>
+</template>

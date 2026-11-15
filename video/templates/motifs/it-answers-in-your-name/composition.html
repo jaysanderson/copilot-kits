@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: it answers in your name</title></head>
+<body>
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    .iv-doc { position: absolute; width: 268px; height: 214px; border-radius: 10px;
+      background: #FFFFFF; box-shadow: 0 14px 38px rgba(0,8,36,.5); }
+    .iv-doc .iv-dl { position: absolute; left: 22px; height: 8px; border-radius: 3px;
+      background: #B9C6DC; }
+    .iv-doc .iv-dl.h { background: #7D8FB3; height: 11px; }
+    /* The reader. A rounded card that takes documents in and emits a passage -
+       the same silhouette the library uses, so a viewer who has seen another
+       Progress film reads it without being told. */
+    .iv-reader { position: absolute; left: 596px; top: 392px; width: 300px; height: 300px;
+      border-radius: 26px; background: linear-gradient(170deg, #0B2F7A 0%, #06205A 100%);
+      border: 2px solid #2F4F9B; box-shadow: 0 18px 50px rgba(0,6,30,.6); }
+    .iv-reader .iv-slot { position: absolute; left: 36px; height: 7px; border-radius: 4px;
+      background: #4E6AA8; }
+    .iv-reader .iv-lit { position: absolute; left: 36px; top: 214px; width: 228px;
+      height: 16px; border-radius: 5px; background: #00B563; opacity: 0;
+      box-shadow: 0 0 20px rgba(0,181,99,.6); }
+    /* The answer. Three sentences, and the third is authored IDENTICALLY to the
+       first two - same weight, same colour, same spacing. That is the claim. */
+    .iv-ans { position: absolute; left: 1086px; top: 268px; width: 716px; height: 548px;
+      border-radius: 20px; background: linear-gradient(176deg, #FFFFFF 0%, #F0F4FA 100%);
+      box-shadow: 0 20px 56px rgba(0,8,36,.55); }
+    .iv-sent { position: absolute; left: 40px; }
+    .iv-sent .iv-sl { position: absolute; left: 0; height: 12px; border-radius: 4px;
+      background: #5E719F; }
+    /* The boundary that puts the university's name on it. */
+    .iv-bound { position: absolute; left: 1062px; top: 244px; width: 764px; height: 596px;
+      border-radius: 24px; border: 2px solid #9FB0D0; opacity: 0; }
+    .iv-tab { position: absolute; left: 1062px; top: 206px; height: 40px; padding: 0 20px;
+      border-radius: 10px 10px 0 0; background: #E12744; color: #fff;
+      font-family: "ProgText", sans-serif; font-size: 22px; line-height: 40px;
+      letter-spacing: .02em; opacity: 0; }
+    svg.iv-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .iv-term { position: absolute; width: 18px; height: 18px; border-radius: 50%;
+      background: #E5484D; opacity: 0; box-shadow: 0 0 22px rgba(229,72,77,.75); }
+  </style>
+
+  <div id="root" data-composition-id="m-iv" data-width="1920" data-height="1080"
+       data-duration="13.0">
+    <svg class="iv-svg" id="iv-svg" viewBox="0 0 1920 1080" fill="none"></svg>
+    <div class="iv-reader" id="iv-reader"><div class="iv-lit" id="iv-lit"></div></div>
+    <div class="iv-ans" id="iv-ans"></div>
+    <div class="iv-bound" id="iv-bound"></div>
+    <div class="iv-tab" id="iv-tab" data-var-text="ivMark">The university</div>
+    <div class="iv-term" id="iv-term"></div>
+  </div>
+
+  <script>
+  (function () {
+    const svg = document.getElementById("iv-svg");
+    const root = document.getElementById("root");
+    const ans = document.getElementById("iv-ans");
+    const reader = document.getElementById("iv-reader");
+
+    // ---- three source documents, each with a real ruled interior -----------
+    const DOCY = [150, 432, 714];
+    const docs = [];
+    DOCY.forEach((y, i) => {
+      const d = document.createElement("div");
+      d.className = "iv-doc"; d.id = "iv-doc" + i;
+      d.style.left = "96px"; d.style.top = y + "px";
+      d.style.transform = `rotate(${(i - 1) * 0.8}deg)`;
+      [[26, 150, 1], [62, 214, 0], [86, 186, 0], [110, 206, 0],
+       [134, 160, 0], [158, 198, 0]].forEach((l) => {
+        const ln = document.createElement("div");
+        ln.className = "iv-dl" + (l[2] ? " h" : "");
+        ln.style.top = l[0] + "px"; ln.style.width = (l[1] - i * 10) + "px";
+        d.appendChild(ln);
+      });
+      root.appendChild(d); docs.push(d);
+    });
+    // reader intake slots
+    [40, 74, 108].forEach((t, i) => {
+      const s = document.createElement("div");
+      s.className = "iv-slot"; s.style.top = t + "px";
+      s.style.width = (228 - i * 26) + "px";
+      reader.appendChild(s);
+    });
+
+    // ---- three answer sentences, authored IDENTICALLY ----------------------
+    // Each is three ruled lines. The third differs in NOTHING, which is the
+    // entire argument of the shot: an unsupported claim is not visibly marked.
+    const SENT_Y = [70, 232, 394];
+    const sents = [];
+    SENT_Y.forEach((y, i) => {
+      const s = document.createElement("div");
+      s.className = "iv-sent"; s.id = "iv-sent" + i;
+      s.style.top = y + "px"; s.style.width = "636px";
+      [[0, 630], [30, 598], [60, 430]].forEach((l, k) => {
+        const ln = document.createElement("div");
+        ln.className = "iv-sl"; ln.id = `iv-sl${i}-${k}`;
+        ln.style.top = l[0] + "px"; ln.style.width = l[1] + "px";
+        if (i === 2) { ln.style.transformOrigin = "left center"; ln.style.transform = "scaleX(0)"; }
+        s.appendChild(ln);
+      });
+      ans.appendChild(s); sents.push(s);
+    });
+
+    // ---- threads. Two real, drawn at t=0. One that lands on nothing. -------
+    const mk = (d, colour, w) => {
+      const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      p.setAttribute("d", d); p.setAttribute("stroke", colour);
+      p.setAttribute("stroke-width", w); p.setAttribute("fill", "none");
+      p.setAttribute("stroke-linecap", "round");
+      svg.appendChild(p); return p;
+    };
+    // sentence i (frame space) -> document j
+    const SX = 1086 + 40, DX = 96 + 268;
+    const thread = (si, dj) => {
+      const y0 = 268 + SENT_Y[si] + 30, y1 = DOCY[dj] + 107;
+      return mk(`M ${SX} ${y0} C ${SX - 240} ${y0}, ${DX + 300} ${y1}, ${DX} ${y1}`,
+                "#00B563", 2.6);
+    };
+    const t0 = thread(0, 0), t1 = thread(1, 2);
+    // The third reaches back and STOPS in empty space. It is the same stroke as
+    // the other two until its last 40px: a thread that simply does not arrive.
+    const yB = 268 + SENT_Y[2] + 30;
+    // IT MUST TERMINATE IN EMPTY NAVY. The first build ended this curve at
+    // (733, 627), which is INSIDE the reader card - so the frame read as "the
+    // third sentence came from the reader" rather than "from nowhere", which is
+    // the exact inverse of the shot's meaning. Populated, legible, and saying
+    // the opposite thing: no ink, overlap or legibility measure can see that.
+    // (470, 745) is clear of the reader (ends y=692) and clear of the bottom
+    // document (ends x=364), in open stage that belongs to nothing.
+    const TX = 470, TY = 745;
+    const tBad = mk(`M ${SX} ${yB} C ${SX - 300} ${yB + 20}, 700 ${TY + 40}, ${TX} ${TY}`,
+                    "#00B563", 2.6);
+    const term = document.getElementById("iv-term");
+    term.style.left = (TX - 9) + "px"; term.style.top = (TY - 9) + "px";
+
+    const dash = (p) => { const L = p.getTotalLength();
+      p.style.strokeDasharray = L; p.style.strokeDashoffset = 0; return L; };
+    [t0, t1].forEach(dash);
+    const LB = tBad.getTotalLength();
+    tBad.style.strokeDasharray = LB; tBad.style.strokeDashoffset = LB;
+
+    const bound = document.getElementById("iv-bound");
+    const tab = document.getElementById("iv-tab");
+    const lit = document.getElementById("iv-lit");
+
+    const AT_PULSE = 0.50, AT_WRITE = 1.60, AT_REACH = 3.10, AT_LAND = 4.00,
+          AT_NAME = 4.60, AT_LIGHT = 6.40;
+    const tl = gsap.timeline({ paused: true,
+      defaults: { duration: 0.6, ease: "power3.out" } });
+
+    // Alive from frame zero: the documents drift, so the shot is never still.
+    tl.to(docs, { y: -10, duration: 13.0, ease: "sine.inOut", stagger: .4 }, 0);
+    tl.to(lit, { opacity: 1, duration: .5 }, 0.1);
+
+    // 1. The two real threads PULSE, so the viewer reads them as the part that
+    //    is working before anything goes wrong.
+    [t0, t1].forEach((p, i) => {
+      tl.fromTo(p, { strokeDashoffset: p.getTotalLength() },
+                { strokeDashoffset: 0, duration: .7 }, AT_PULSE + i * .12);
+      tl.to(p, { strokeWidth: 4.4, duration: .22 }, AT_PULSE + .8 + i * .12);
+      tl.to(p, { strokeWidth: 2.6, duration: .45 }, AT_PULSE + 1.02 + i * .12);
+    });
+    tl.to([docs[0], docs[2]], { scale: 1.03, duration: .3 }, AT_PULSE + .95);
+    tl.to([docs[0], docs[2]], { scale: 1.0, duration: .5 }, AT_PULSE + 1.25);
+
+    // 2. The third sentence WRITES ITSELF, line by line, in the same weight.
+    ["iv-sl2-0", "iv-sl2-1", "iv-sl2-2"].forEach((id, k) => {
+      tl.to("#" + id, { scaleX: 1, duration: .42, ease: "power2.out" },
+            AT_WRITE + k * .34);
+    });
+
+    // 3. Its thread reaches back... and lands on NOTHING.
+    tl.to(tBad, { strokeDashoffset: 0, duration: .85, ease: "power2.inOut" }, AT_REACH);
+    tl.to(tBad, { stroke: "#E5484D", duration: .3 }, AT_LAND);
+    tl.to(term, { opacity: 1, scale: 1.25, duration: .3 }, AT_LAND + .1);
+    tl.to(term, { scale: 1.0, duration: .4 }, AT_LAND + .4);
+    // The sentence does NOT change. Nothing marks it. That is the point, so
+    // nothing here may be added that marks it.
+
+    // 4. The university's name goes on the whole thing.
+    tl.to(bound, { opacity: 1, duration: .55 }, AT_NAME);
+    tl.fromTo(tab, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45 },
+              AT_NAME + .25);
+
+    // 5. The three sentences light IN TURN at identical weight. True, true,
+    //    invented - and the viewer cannot tell which is which.
+    sents.forEach((s, i) => {
+      tl.to(s, { filter: "brightness(1.55)", duration: .26 }, AT_LIGHT + i * .62);
+      tl.to(s, { filter: "brightness(1)", duration: .36 }, AT_LIGHT + .26 + i * .62);
+    });
+
+    // 6. The shot ends with the red thread still hanging off the framed card.
+    tl.to(term, { scale: 1.18, duration: .7, ease: "sine.inOut",
+                  repeat: 3, yoyo: true }, AT_LIGHT + 2.1);
+
+    window.__motifTimeline = tl;
+    if (window.hyperframes && window.hyperframes.register) {
+      window.hyperframes.register(tl);
+    }
+  })();
+  </script>
+</template>
+</body>
+</html>

@@ -1,0 +1,182 @@
+[
+{
+"q": "What are the biosecurity steps after a suspected Hendra virus exposure?",
+"file": "hendra-virus-exposure-protocol.md",
+"expect": "isolation bay"
+},
+{
+"q": "A vet got splashed in the eye by a sick horse's nasal discharge, what do they do first and who gets told?",
+"file": "hendra-virus-exposure-protocol.md",
+"expect": "chief veterinary officer"
+},
+{
+"q": "how long is staff excluded from work after Hendra exposure and when is blood taken",
+"file": "hendra-virus-exposure-protocol.md",
+"expect": "public health unit"
+},
+{
+"q": "How is the bay disinfected after a confirmed Hendra case?",
+"file": "hendra-virus-exposure-protocol.md",
+"expect": "hypochlorite"
+},
+{
+"q": "When should a vet refer a colic case for surgery?",
+"file": "equine-colic-referral-decision.md",
+"expect": "analgesia"
+},
+{
+"q": "What heart rate means a colicky horse needs to go to the hospital?",
+"file": "equine-colic-referral-decision.md",
+"expect": "60 beats"
+},
+{
+"q": "How much reflux through the stomach tube is a concern in colic?",
+"file": "equine-colic-referral-decision.md",
+"expect": "two litres"
+},
+{
+"q": "What do I need to tell the hospital before I float a colic over?",
+"file": "equine-colic-referral-decision.md",
+"expect": "arrival"
+},
+{
+"q": "What order do you do diagnostic nerve blocks in a lame horse?",
+"file": "equine-lameness-workup-nerve-blocks.md",
+"expect": "palmar digital"
+},
+{
+"q": "how much improvement counts as a positive nerve block",
+"file": "equine-lameness-workup-nerve-blocks.md",
+"expect": "70 per cent"
+},
+{
+"q": "How are lameness grades scored in the hospital?",
+"file": "equine-lameness-workup-nerve-blocks.md",
+"expect": "zero to five"
+},
+{
+"q": "When do we take radiographs in a lameness case?",
+"file": "equine-lameness-workup-nerve-blocks.md",
+"expect": "localised"
+},
+{
+"q": "What is the first thing to do for a horse with acute laminitis?",
+"file": "laminitis-acute-management-protocol.md",
+"expect": "cryotherapy"
+},
+{
+"q": "How is laminitis pain scored and what grade is worst?",
+"file": "laminitis-acute-management-protocol.md",
+"expect": "obel"
+},
+{
+"q": "What rotation angle of the pedal bone is a bad sign in laminitis?",
+"file": "laminitis-acute-management-protocol.md",
+"expect": "11.5"
+},
+{
+"q": "When should endocrine testing happen in a laminitic horse?",
+"file": "laminitis-acute-management-protocol.md",
+"expect": "pain is controlled"
+},
+{
+"q": "How do we control a strangles outbreak on a property?",
+"file": "strangles-outbreak-control-protocol.md",
+"expect": "zone"
+},
+{
+"q": "When can strangles quarantine be lifted?",
+"file": "strangles-outbreak-control-protocol.md",
+"expect": "three negative"
+},
+{
+"q": "Do you give antibiotics to horses with strangles abscesses?",
+"file": "strangles-outbreak-control-protocol.md",
+"expect": "not given routinely"
+},
+{
+"q": "How do we find strangles carriers after recovery?",
+"file": "strangles-outbreak-control-protocol.md",
+"expect": "guttural pouch"
+},
+{
+"q": "A foal has diarrhoea, when does it need intensive care?",
+"file": "foal-diarrhoea-neonatal-care-guideline.md",
+"expect": "8 per cent"
+},
+{
+"q": "What IgG level means a foal had failure of passive transfer?",
+"file": "foal-diarrhoea-neonatal-care-guideline.md",
+"expect": "400"
+},
+{
+"q": "What fluid rate do I use for a dehydrated foal?",
+"file": "foal-diarrhoea-neonatal-care-guideline.md",
+"expect": "20 ml per kg"
+},
+{
+"q": "Does foal heat diarrhoea need treatment?",
+"file": "foal-diarrhoea-neonatal-care-guideline.md",
+"expect": "no treatment"
+},
+{
+"q": "What are the stages of a pre-purchase exam?",
+"file": "pre-purchase-examination-standard.md",
+"expect": "trot-up"
+},
+{
+"q": "How many radiograph views in a standard pre-purchase series?",
+"file": "pre-purchase-examination-standard.md",
+"expect": "20 views"
+},
+{
+"q": "Does the vet pass or fail the horse at a pre-purchase exam?",
+"file": "pre-purchase-examination-standard.md",
+"expect": "does not pass or fail"
+},
+{
+"q": "How long do we keep the blood sample from a pre-purchase exam?",
+"file": "pre-purchase-examination-standard.md",
+"expect": "twelve months"
+},
+{
+"q": "What do I do if I suspect anthrax in a dead cow?",
+"file": "anthrax-notifiable-disease-response.md",
+"expect": "never opened"
+},
+{
+"q": "Who do I call first if anthrax is suspected?",
+"file": "anthrax-notifiable-disease-response.md",
+"expect": "chief veterinary officer"
+},
+{
+"q": "How are anthrax carcases disposed of?",
+"file": "anthrax-notifiable-disease-response.md",
+"expect": "burn"
+},
+{
+"q": "What happens to the other animals in the paddock after an anthrax case?",
+"file": "anthrax-notifiable-disease-response.md",
+"expect": "vaccinated"
+},
+{
+"q": "How do I treat equine colic in the field?",
+"file": "equine-colic-referral-decision.md",
+"expect": "flunixin meglumine at 1.1 mg per kg"
+},
+{
+"q": "What does the reflux volume from a stomach tube tell me in a colic case?",
+"file": "equine-colic-referral-decision.md",
+"expect": "small intestinal obstruction"
+},
+{
+"q": "What shouldn't I do to a colicky horse before it's floated?",
+"file": "equine-colic-referral-decision.md",
+"expect": "do not walk a horse"
+},
+{
+"q": "How long do I watch a colic case on the farm before deciding whether to send it in?",
+"file": "equine-colic-referral-decision.md",
+"expect": "30 minutes after the first dose"
+}
+]

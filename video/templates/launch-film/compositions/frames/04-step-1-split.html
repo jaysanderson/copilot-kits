@@ -1,0 +1,358 @@
+<template id="f04-step-1-split-template" data-composition-id="04-step-1-split" data-width="1920" data-height="1080" data-duration="10.681">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+<style>
+  /* Real Progress Sans - local files, names outside the HyperFrames alias map */
+  @font-face { font-family: "ProgressSansDisplay"; src: url("assets/ProgressSansDisplayVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  @font-face { font-family: "ProgressSansText"; src: url("assets/ProgressSansTextVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  :root, #root { --pg-display: "ProgressSansDisplay", Arial, Helvetica, sans-serif; --pg-text: "ProgressSansText", Arial, Helvetica, sans-serif; }
+
+  /* Frame 04 — Step 1: split into pages. Blue Professional tokens (frame.md). */
+  #f04-root {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    font-family: var(--pg-text);
+    color: #C6D5EB;
+    -webkit-font-smoothing: antialiased;
+  }
+  .f04-layer {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    font-family: var(--pg-text);
+    color: #C6D5EB;
+  }
+  #f04-bg {
+    background: #00216B;
+  }
+
+  /* ---- step rail (shared geometry, frames 4-8) ---- */
+  .f04-eyebrow {
+    position: absolute;
+    left: 96px;
+    top: 96px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #00B563;
+    white-space: nowrap;
+    will-change: transform, opacity;
+  }
+  .f04-dot {
+    position: absolute;
+    top: 150px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(198, 213, 235, 0.26);
+    box-sizing: border-box;
+    will-change: transform, opacity;
+  }
+  .f04-dot-fill {
+    position: absolute;
+    inset: -1.5px;
+    border-radius: 50%;
+    background: #00B563;
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+  .f04-step-label {
+    position: absolute;
+    left: 312px;
+    top: 150px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #00B563;
+    white-space: nowrap;
+    will-change: transform, opacity;
+  }
+
+  /* ---- file label above the stack (Scene 1 only) ---- */
+  .f04-file-label {
+    position: absolute;
+    left: 660px;
+    width: 600px;
+    top: 254px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 500;
+    color: #C6D5EB;
+    white-space: nowrap;
+    will-change: transform, opacity;
+  }
+
+  /* ---- burst wrap: centre = (960, 513), the card row centre ---- */
+  .f04-burst {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1026px;
+  }
+  .f04-card {
+    position: absolute;
+    top: 50%;
+    left: 50%; /* xPercent/yPercent -50 baked by GSAP; x/y tween the offset */
+    width: 300px;
+    height: 426px;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 14px;
+    border: 1.5px solid rgba(198, 213, 235, 0.26);
+    /* card-tinted 4% cobalt over the cream ground, made opaque so stacked cards do not show through */
+    background: linear-gradient(rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.055)), #00216B;
+    box-shadow: none;
+    overflow: hidden;
+    will-change: transform, opacity;
+  }
+  .f04-card img {
+    display: block;
+    width: 280px;
+    height: 406px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 4px;
+  }
+  #f04-card-1 { z-index: 4; }
+  #f04-card-2 { z-index: 3; }
+  #f04-card-3 { z-index: 2; }
+  #f04-card-4 { z-index: 1; }
+
+  /* ---- page labels under each slot (centre y = 744) ---- */
+  .f04-page-label {
+    position: absolute;
+    top: 732px;
+    width: 160px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 400;
+    color: #C6D5EB;
+    will-change: transform, opacity;
+  }
+  #f04-page-label-1 { left: 340px; }
+  #f04-page-label-2 { left: 700px; }
+  #f04-page-label-3 { left: 1060px; }
+  #f04-page-label-4 { left: 1420px; }
+
+  /* ---- tag pills under the cards (top y = 790) ---- */
+  .f04-pill {
+    position: absolute;
+    top: 790px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 18px;
+    border-radius: 100px;
+    background: rgba(0, 181, 99, 0.16);
+    color: #00B563;
+    font-size: 22px;
+    font-weight: 500;
+    white-space: nowrap;
+    transform-origin: 50% 0%;
+    will-change: transform, opacity;
+  }
+  #f04-pill-1 { left: 420px; }
+  #f04-pill-2 { left: 780px; }
+  #f04-pill-3 { left: 1140px; }
+  #f04-pill-4 { left: 1500px; }
+
+  /* ---- single-page focus outline around card 1 (Scene 4) ---- */
+  .f04-outline {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .f04-outline rect {
+    fill: none;
+    stroke: #00B563;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
+
+<div data-hf-id="hf-65bc" id="f04-root" data-composition-id="04-step-1-split" data-width="1920" data-height="1080">
+  <!-- ground -->
+  <div data-hf-id="hf-4fwp" id="f04-bg" class="clip f04-layer" data-start="0.000" data-duration="10.681" data-track-index="0"></div>
+
+  <!-- step rail -->
+  <div data-hf-id="hf-wutt" id="f04-rail" class="clip f04-layer" data-start="0.000" data-duration="10.681" data-track-index="1">
+    <div data-hf-id="hf-7yaf" id="f04-eyebrow" class="f04-eyebrow">Step 1 of 5</div>
+    <div data-hf-id="hf-0h4f" id="f04-dot-1" class="f04-dot" style="left: 96px;"><div data-hf-id="hf-tvuq" id="f04-dot-fill" class="f04-dot-fill"></div></div>
+    <div data-hf-id="hf-wywg" id="f04-dot-2" class="f04-dot" style="left: 140px;"></div>
+    <div data-hf-id="hf-f0kz" id="f04-dot-3" class="f04-dot" style="left: 184px;"></div>
+    <div data-hf-id="hf-p1pl" id="f04-dot-4" class="f04-dot" style="left: 228px;"></div>
+    <div data-hf-id="hf-ych5" id="f04-dot-5" class="f04-dot" style="left: 272px;"></div>
+    <div data-hf-id="hf-fl4y" id="f04-step-label" class="f04-step-label">Split</div>
+  </div>
+
+  <!-- cards stage -->
+  <div data-hf-id="hf-5qf8" id="f04-stage" class="clip f04-layer" data-start="0.000" data-duration="10.681" data-track-index="2">
+    <div data-hf-id="hf-nl8z" id="f04-file-label" class="f04-file-label">example-1-complete.pdf · 4 pages</div>
+
+    <div data-hf-id="hf-vezk" id="f04-burst" class="f04-burst">
+      <div data-hf-id="hf-n56d" id="f04-card-4" class="f04-card" data-target-x="540" data-stack="3">
+        <img data-hf-id="hf-csle" id="f04-img-4" src="assets/ex1-page4.png" alt="">
+      </div>
+      <div data-hf-id="hf-hl4b" id="f04-card-3" class="f04-card" data-target-x="180" data-stack="2">
+        <img data-hf-id="hf-di2g" id="f04-img-3" src="assets/ex1-page3.png" alt="">
+      </div>
+      <div data-hf-id="hf-4qj6" id="f04-card-2" class="f04-card" data-target-x="-180" data-stack="1">
+        <img data-hf-id="hf-s8uu" id="f04-img-2" src="assets/ex1-page2.png" alt="">
+      </div>
+      <div data-hf-id="hf-el0q" id="f04-card-1" class="f04-card" data-target-x="-540" data-stack="0">
+        <img data-hf-id="hf-5uq0" id="f04-img-1" src="assets/ex1-page1.png" alt="">
+      </div>
+    </div>
+
+    <div data-hf-id="hf-nrkc" id="f04-page-label-1" class="f04-page-label">page 1</div>
+    <div data-hf-id="hf-9aaq" id="f04-page-label-2" class="f04-page-label">page 2</div>
+    <div data-hf-id="hf-zczg" id="f04-page-label-3" class="f04-page-label">page 3</div>
+    <div data-hf-id="hf-htau" id="f04-page-label-4" class="f04-page-label">page 4</div>
+
+    <div data-hf-id="hf-kxhp" id="f04-pill-1" class="f04-pill">→ Knowledge Box resource</div>
+    <div data-hf-id="hf-9s92" id="f04-pill-2" class="f04-pill">→ Knowledge Box resource</div>
+    <div data-hf-id="hf-obk3" id="f04-pill-3" class="f04-pill">→ Knowledge Box resource</div>
+    <div data-hf-id="hf-7vvo" id="f04-pill-4" class="f04-pill">→ Knowledge Box resource</div>
+
+    <svg data-hf-id="hf-hbtl" id="f04-outline" class="f04-outline" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+      <rect data-hf-id="hf-gpt6" id="f04-outline-rect" x="263" y="293" width="314" height="440" rx="21" ry="21" />
+    </svg>
+  </div>
+</div>
+
+<script>
+  (function () {
+    /* == RETIMED (tools_apply_retime.py) == */
+      /* Beat times below are OLD-take time; P() maps them onto the delivered take
+         through word anchors matched by text. Generated - do not hand-edit. */
+      var __KX = [0.0000, 0.0800, 0.4100, 0.9100, 1.2200, 1.6200, 1.8200, 2.3300, 2.7400, 3.3600, 3.4800, 3.7300, 3.8500, 4.1850, 4.5200, 4.7200, 5.2600, 5.7800, 5.8900, 6.1500, 6.9400, 7.4400, 7.6900, 8.0100, 8.5900, 8.6600, 9.0600, 9.2200, 9.4500, 9.7800, 9.9400, 10.0200, 10.4960];
+      var __KY = [0.0000, 0.0460, 0.4410, 1.1960, 1.4280, 1.8580, 1.9740, 2.2640, 2.4850, 2.8910, 3.1110, 3.4250, 3.7730, 4.0750, 4.3540, 4.5050, 4.9230, 5.3170, 5.5260, 5.7240, 6.0490, 7.1290, 7.3260, 7.6630, 7.9410, 8.1390, 8.3590, 8.4990, 8.7310, 9.0210, 9.1250, 9.2180, 10.0310];
+      function __pw(t, X, Y) { if (t <= X[0]) return Y[0] + (t - X[0]); var n = X.length - 1;
+        if (t >= X[n]) return Y[n] + (t - X[n]) * (Y[n] / X[n]); var lo = 0, hi = n;
+        while (hi - lo > 1) { var m = (lo + hi) >> 1; if (X[m] <= t) lo = m; else hi = m; }
+        return Y[lo] + (t - X[lo]) / (X[hi] - X[lo]) * (Y[hi] - Y[lo]); }
+      function P(t) { return __pw(t, __KX, __KY); }   /* old take time -> delivered take time */
+      function Q(u) { return __pw(u, __KY, __KX); }   /* inverse: drivers run in new time,
+         so a threshold written in old time is compared against Q(driver.t) unedited */
+      var DURATION = 10.031;  /* measured delivered take (was 10.496) */
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    /* ---------- Scene 1 (0.0-2.0s): eyebrow + step rail fade in; single stacked PDF card centred ---------- */
+    tl.fromTo("#f04-eyebrow", { opacity: 0, y: -8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.1);
+
+    var dots = ["#f04-dot-1", "#f04-dot-2", "#f04-dot-3", "#f04-dot-4", "#f04-dot-5"];
+    dots.forEach(function (sel, i) {
+      tl.fromTo(sel, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "power3.out" }, 0.25 + i * 0.06);
+    });
+    // the active dot lights cobalt (spring-pop-entrance, smooth settle)
+    tl.fromTo("#f04-dot-fill", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.7);
+    tl.fromTo("#f04-step-label", { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 0.85);
+
+    // the stack: four cards pile at centre with a 7px cascade so it reads as one 4-page PDF (page 1 on top)
+    var cards = ["#f04-card-1", "#f04-card-2", "#f04-card-3", "#f04-card-4"];
+    cards.forEach(function (sel) {
+      var el = document.querySelector(sel);
+      var k = Number(el.getAttribute("data-stack"));
+      tl.fromTo(
+        el,
+        { xPercent: -50, yPercent: -50, x: 7 * k, y: 7 * k, scale: 0.94, opacity: 0 },
+        { xPercent: -50, yPercent: -50, x: 7 * k, y: 7 * k, scale: 1, opacity: 1, duration: 0.6, ease: "power3.out" },
+        0.15 + (3 - k) * 0.04
+      );
+    });
+    // pages behind the top card keep their renders hidden until they slide clear
+    tl.set(["#f04-img-2", "#f04-img-3", "#f04-img-4"], { opacity: 0 }, 0);
+    tl.fromTo("#f04-file-label", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.55);
+
+    /* ---------- Scene 2 (2.0-6.2s): on "split into pages" the stack separates into four slots (center-outward-expansion) ---------- */
+    var EXPAND_AT = 2.0, EXPAND_DUR = 1.5, STAGGER = 0.06;
+    cards.forEach(function (sel) {
+      var el = document.querySelector(sel);
+      var k = Number(el.getAttribute("data-stack"));
+      tl.to(el, { x: Number(el.getAttribute("data-target-x")), y: 0, duration: EXPAND_DUR, ease: "power3.out" }, EXPAND_AT + k * STAGGER);
+    });
+    // the file label gives way to the per-page labels (within-scene text swap)
+    tl.to("#f04-file-label", { opacity: 0, y: -10, duration: 0.35, ease: "power1.out" }, EXPAND_AT);
+    // each card reveals its page render as it clears the stack
+    ["#f04-img-2", "#f04-img-3", "#f04-img-4"].forEach(function (sel, i) {
+      tl.to(sel, { opacity: 1, duration: 0.7, ease: "power2.out" }, EXPAND_AT + 0.25 + (i + 1) * STAGGER);
+    });
+    ["#f04-page-label-1", "#f04-page-label-2", "#f04-page-label-3", "#f04-page-label-4"].forEach(function (sel, i) {
+      tl.fromTo(sel, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 3.1 + i * 0.08);
+    });
+
+    /* ---------- Scene 3 (6.2-9.4s): on "its own resource" a cobalt pill pops under each card, 0.2s apart (spring-pop-entrance) ---------- */
+    ["#f04-pill-1", "#f04-pill-2", "#f04-pill-3", "#f04-pill-4"].forEach(function (sel, i) {
+      tl.fromTo(
+        sel,
+        { xPercent: -50, scale: 0, opacity: 0, y: 12 },
+        { xPercent: -50, scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+        6.2 + i * 0.2
+      );
+    });
+
+    /* ---------- Scene 4 (9.4-end): on "one page at a time" a thin cobalt outline draws around card 1 and holds (svg-path-draw) ---------- */
+    var rect = document.getElementById("f04-outline-rect");
+    var len = 0;
+    try { len = rect.getTotalLength(); } catch (e) { len = 0; }
+    if (!len || !isFinite(len)) {
+      // analytic fallback: rounded-rect perimeter 2(w-2r) + 2(h-2r) + 2*pi*r
+      len = 2 * (314 - 42) + 2 * (440 - 42) + 2 * Math.PI * 21;
+    }
+    len = len * 1.02;
+    rect.style.strokeDasharray = String(len);
+    tl.fromTo(rect, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out" }, 9.45);
+
+    // full-span anchor so the sub-composition timeline equals the packet duration exactly
+    tl.to({}, { duration: DURATION }, 0);
+
+    window.__timelines["04-step-1-split"] = tl;
+
+      /* == RETIMED (tools_apply_retime.py) == beat walk == */
+      /* Every registered beat moves to its remapped position. */
+      (function () {
+        var kids = tl.getChildren(false, true, true);
+        if (!kids.length) throw new Error("retime: no children to reposition");
+        var moved = 0, over = [];
+        kids.forEach(function (c) {
+          if (c.vars && c.vars.data === "pin") return;   /* already in new-take time */
+          var s = c.startTime(), n = P(s);
+          if (Math.abs(n - s) > 0.0005) { c.startTime(n); moved++; }
+          /* Eyebrows share one zone, so at a fade boundary two of them smear. Hold
+             any eyebrow until the 0.5s transition is done. */
+          var tg = (c.targets ? c.targets() : []);
+          var nm = tg.length ? ((tg[0].id || "") + " " + (tg[0].className || "")) : "";
+          if (/-eyebrow(\s|$)/.test(nm) && c.startTime() < 0.52) {
+            c.startTime(0.52);
+          }
+          if (c.startTime() + c.duration() > 10.031 + 0.02) {
+            over.push(Math.round((c.startTime() + c.duration()) * 1000) / 1000);
+          }
+        });
+        window.__retime = window.__retime || {};
+        window.__retime["04-step-1-split"] = { beats: kids.length, moved: moved, overrun: over };
+      })();
+
+  })();
+</script>
+</template>

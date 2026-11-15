@@ -1,0 +1,16 @@
+{
+  "name": "AnswerGap",
+  "promise": "See which brand the AI recommends for your buyers' questions, and what to publish to change it.",
+  "suggested": [
+    "Which brand gets cited most for our category?",
+    "Which questions are we absent from?",
+    "What should we publish first?"
+  ],
+  "how_it_works": [
+    "You enter three domains; the server crawls them politely (robots.txt honoured).",
+    "Every page becomes a resource in one Knowledge Box, labelled with its domain.",
+    "The Knowledge Box proposes 20 buyer questions from the combined content (JSON schema).",
+    "Each question is asked once; the cited sources decide who wins it.",
+    "Questions with no citation from your domain are your content gaps."
+  ]
+}

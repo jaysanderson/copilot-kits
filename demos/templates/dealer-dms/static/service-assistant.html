@@ -1,0 +1,192 @@
+<title>Service &amp; Recon Assistant - Ignition</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/css/ignition.css">
+
+<header class="topbar">
+  <a href="/" class="brand" id="brand-mark"><span>Ignition</span><small>Coppermill Motor Group</small></a>
+  <nav>
+    <a href="/">Overview</a>
+    <a href="/service-assistant" class="active">Service</a>
+    <a href="/compliance">Compliance</a>
+    <a href="/media-library">Media</a>
+    <a href="/deal-desk">Deal Desk</a>
+    <a href="/insights">Insights</a>
+  </nav>
+  <div class="right-cluster">
+    <span class="site-pill"><span class="dot"></span> Both sites online</span>
+    <button class="how-btn" id="how-it-works-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 4.9 2.3c-.9.7-1.5 1.3-1.5 2.7"/><circle cx="12" cy="17" r=".3" fill="currentColor"/></svg>
+    <span>How this works</span>
+    </button>
+  </div>
+</header>
+
+<main class="page narrow">
+  <div class="hero">
+    <div class="eyebrow"><span class="bar"></span> Service &amp; recon knowledge</div>
+    <h1>Ask the recon and standards library</h1>
+    <p class="lede">Grounded in Coppermill's own recon manuals, supplier reliability
+      records and parts cross-reference sheets - every answer cites the exact document it
+      came from.</p>
+  </div>
+
+  <div class="ask-box">
+    <input type="text" id="q" placeholder="e.g. What replacement threshold applies to brake pad thickness before PDI?">
+    <button class="btn btn-primary" id="ask-btn">Ask</button>
+  </div>
+  <div class="suggested" id="suggested"></div>
+
+  <div class="answer-wrap" id="answer-wrap"></div>
+</main>
+
+<footer class="disclosure-footer">
+  Coppermill Motor Group, its sites, stock and personnel are a synthetic illustrative dataset built for this demonstration. Not a real dealership.
+</footer>
+
+<div class="modal-backdrop" id="reveal-backdrop" hidden>
+  <div class="modal">
+    <div class="modal-head"><h3 class="reveal-title">How this works</h3><button class="modal-close">&times;</button></div>
+    <div class="modal-body">
+      <div class="flow-diagram"></div>
+      <div class="reveal-section"><h4>What this page does</h4><p class="reveal-what"></p></div>
+      <div class="reveal-section"><h4>Why it matters</h4><p class="reveal-why"></p></div>
+      <div class="reveal-section"><h4>The real mechanism</h4><p class="reveal-tech"></p></div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-tabs">
+  <a href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></a>
+  <a href="/service-assistant" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M4 7h16M4 17h16"/></svg><span>Service</span></a>
+  <a href="/compliance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/></svg><span>Compliance</span></a>
+  <a href="/media-library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m8 10 5 3-5 3z"/></svg><span>Media</span></a>
+  <a href="/deal-desk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H8l-4 4z"/></svg><span>Deals</span></a>
+  <a href="/insights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M12 20V4M20 20v-7"/></svg><span>Insights</span></a>
+</nav>
+
+<script src="/static/js/shared.js"></script>
+<script>
+document.getElementById('brand-mark').insertAdjacentHTML('afterbegin', IGN.logoSVG());
+
+const SUGGESTED = [
+  'What replacement threshold applies to brake pad thickness before PDI?',
+  'What is required before a windscreen replacement can pass PDI?',
+  'What tyre tread depth requires immediate replacement?',
+  'What ceramic coating cure time should we plan for on a same-day detail?',
+  'Which brake pad range is compatible with ute and heavy-duty fitments?',
+];
+document.getElementById('suggested').innerHTML = SUGGESTED.map(q =>
+  `<button onclick="runAsk(${JSON.stringify(q)})">${q}</button>`).join('');
+
+let seq = 0;
+async function runAsk(question) {
+  if (!question) return;
+  document.getElementById('q').value = question;
+  const mySeq = ++seq;
+  const wrap = document.getElementById('answer-wrap');
+  wrap.innerHTML = `<div class="loading"><span class="spinner"></span> Asking the assistant...</div>`;
+  try {
+    const d = await IGN.api('/api/assistant', { method: 'POST', body: { question } });
+    if (mySeq !== seq) return;
+    renderAnswer(wrap, question, d);
+  } catch (e) {
+    if (mySeq !== seq) return;
+    wrap.innerHTML = `<div class="empty-state">Something went wrong reaching the assistant. Try again in a moment.</div>`;
+  }
+}
+
+function qualBand(v) {
+  if (v == null) return null;
+  if (v >= 4.5) return { label: 'Excellent', pct: 100 };
+  if (v >= 3.5) return { label: 'Strong', pct: 80 };
+  if (v >= 2.5) return { label: 'Good', pct: 60 };
+  if (v >= 1.5) return { label: 'Fair', pct: 35 };
+  return { label: 'Weak', pct: 15 };
+}
+
+function renderAnswer(wrap, question, d) {
+  const conf = d.confidence || { label: 'Trust read unavailable', cls: 'moderate' };
+  const remi = d.remi;
+  let sourcesHtml = '';
+  if (d.sources && d.sources.length) {
+    sourcesHtml = `
+      <div class="sources-strip">
+        <div class="sources-head"><h4>Sources (${d.sources.length})</h4></div>
+        <div class="sources-grid">
+          ${d.sources.map(s => `
+            <div class="source-tile" id="src-${s.num}" data-href="${IGN.escHtml(IGN.sourceHref(s))}">
+              <span class="num">${s.num}</span>
+              <div class="t">${IGN.escHtml(s.title.replace(/\.md$/, ''))}</div>
+              <div class="rel">Coppermill records library</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+  }
+  // B34/B39: a qualitative-only trust panel (no raw REMi numerals by default -
+  // the numeric breakdown lives in "How this works" for whoever wants it).
+  let trustHtml = '';
+  if (remi && remi.groundedness != null) {
+    const g = qualBand(remi.groundedness), cx = qualBand(remi.context_relevance), ar = qualBand(remi.answer_relevance);
+    trustHtml = `
+      <div class="trust-panel">
+        <div class="trust-item"><div class="lbl">Groundedness</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${g.pct}%"></div></div>
+          <div class="val">${g.label}</div></div>
+        <div class="trust-item"><div class="lbl">Context relevance</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${cx ? cx.pct : 0}%"></div></div>
+          <div class="val">${cx ? cx.label : 'N/A'}</div></div>
+        <div class="trust-item"><div class="lbl">Answer relevance</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${ar ? ar.pct : 0}%"></div></div>
+          <div class="val">${ar ? ar.label : 'N/A'}</div></div>
+      </div>`;
+  }
+  wrap.innerHTML = `
+    <div class="answer-card">
+      <div class="answer-top">
+        <div class="confidence ${conf.cls}"><span class="dot"></span>${conf.label}</div>
+      </div>
+      <div class="answer-body">${IGN.renderMarkdown(d.answer)}</div>
+      ${trustHtml}
+      ${sourcesHtml}
+    </div>`;
+
+  // Rewire inline [n] citation markers to open the resolved, highlighted
+  // source directly (Standard B23) rather than only scrolling to the card.
+  if (d.sources) {
+    wrap.querySelectorAll('.cite-mark').forEach(el => {
+      const n = parseInt(el.dataset.cite, 10);
+      const src = d.sources.find(s => s.num === n);
+      if (src) el.setAttribute('href', IGN.sourceHref(src));
+    });
+  }
+}
+
+document.getElementById('ask-btn').addEventListener('click', () => runAsk(document.getElementById('q').value.trim()));
+document.getElementById('q').addEventListener('keydown', (e) => { if (e.key === 'Enter') runAsk(e.target.value.trim()); });
+
+// Event delegation on the never-replaced #answer-wrap container, bound ONCE
+// here rather than a per-render querySelectorAll+addEventListener pass (the
+// same live bug found on Deal Desk: a listener attached to one render's
+// nodes goes dead the moment that render's innerHTML is replaced by the
+// next answer - the container itself never gets swapped, so one delegated
+// listener survives every re-render regardless of timing).
+document.getElementById('answer-wrap').addEventListener('click', (e) => {
+  const tile = e.target.closest('.source-tile[data-href]');
+  if (tile) window.location = tile.dataset.href;
+});
+
+IGN.mountReveal({
+  title: 'How the Service & Recon Assistant works',
+  nodes: [
+    { label: 'You ask a question', tag: 'Browser', active: false },
+    { label: 'Ignition server', tag: 'POST /api/assistant', active: true },
+    { label: 'Progress Agentic RAG', tag: 'Grounded ask + citations', active: true },
+    { label: 'REMi trust score', tag: 'Groundedness scoring call', active: true },
+  ],
+  what: 'Your question goes to Ignition\'s own server, which calls Progress Agentic RAG\'s grounded-ask capability against the Coppermill records library (recon manuals, supplier records, parts cross-references), scoped to a registered search configuration with Coppermill\'s own honest-decline wording.',
+  why: 'A recon consultant working from memory gets the threshold wrong occasionally. A grounded, cited answer means every number and every requirement traces back to the actual standard, every time.',
+  tech: 'The server strips Progress Agentic RAG\'s citation character-offsets into numbered inline markers, then scores the answer with REMi against the FULL retrieved paragraph set (not just the cited excerpts) to derive the confidence badge - never a raw REMi number.',
+});
+</script>

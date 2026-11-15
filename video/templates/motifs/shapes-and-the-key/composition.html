@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: shapes and the key</title></head>
+<body>
+<template>
+  <style>
+    #sk-root { position: absolute; inset: 0; overflow: hidden; }
+    .sk-reader { position: absolute; left: 790px; top: 440px; width: 340px; height: 230px;
+      border-radius: 18px; border: 3px solid #008963; background: rgba(0, 54, 42, 0.42); }
+    .sk-rpass { position: absolute; left: 30px; top: 84px; width: 280px; height: 24px;
+      border-radius: 6px; background: #00B563; }
+    .sk-rbar { position: absolute; left: 30px; height: 11px; border-radius: 4px;
+      background: #9FB0D0; }
+    .sk-fam { position: absolute; width: 150px; height: 112px; border-radius: 10px;
+      background: linear-gradient(175deg, #ffffff 0%, #eef2f9 100%);
+      box-shadow: 0 10px 24px rgba(0, 10, 40, 0.45); }
+    .sk-fam i { position: absolute; left: 14px; height: 7px; border-radius: 3px;
+      background: #9FB0D0; display: block; }
+    .sk-famlab { position: absolute; width: 260px; text-align: center;
+      white-space: nowrap;
+      font-family: "ProgText", sans-serif; font-size: 34px; color: #9FB0D0; }
+    .sk-card { position: absolute; border-radius: 14px; background: #FFFFFF;
+      box-shadow: 0 16px 44px rgba(0, 8, 40, 0.5); }
+    .sk-cbar { position: absolute; left: 24px; height: 14px; border-radius: 5px;
+      background: #9FB0D0; transform-origin: 0% 50%; }
+    .sk-cchip { position: absolute; height: 46px; padding: 0 16px; border-radius: 23px;
+      background: rgba(0, 137, 99, 0.2); border: 1px solid #008963; color: #36457A;
+      white-space: nowrap;
+      font-family: "ProgText", sans-serif; font-size: 32px; line-height: 44px; }
+    .sk-pill { position: absolute; height: 48px; padding: 0 18px; border-radius: 24px;
+      font-family: "ProgText", sans-serif; font-size: 34px; line-height: 46px;
+      letter-spacing: 0.05em; }
+    .sk-avail { background: rgba(0, 137, 99, 0.22); border: 2px solid #00B563; color: #D7DEEA; }
+    .sk-isv { background: rgba(201, 130, 31, 0.2); border: 2px solid #C9821F; color: #E09A33; }
+    /* the greyed products that this shape does NOT need */
+    .sk-scope { position: absolute; width: 320px; text-align: center;
+      font-family: "ProgText", sans-serif; font-size: 34px; color: #9FB0D0;
+      letter-spacing: 0.04em; }
+    .sk-unused { position: absolute; width: 220px; height: 128px; border-radius: 11px;
+      border: 2px solid #6B7280; background: rgba(107, 114, 128, 0.08); opacity: 0.4; }
+    /* /rows : a table, an extracted row, and the key that is missing from the document */
+    /* the two products this shape does NOT need, drawn faintly so the claim is
+       legible: an unlabelled blank outline names nothing */
+    .sk-urow { position: absolute; left: 16px; height: 9px; border-radius: 3px;
+      background: #6B7280; }
+    .sk-ubar { position: absolute; bottom: 16px; width: 18px; border-radius: 3px 3px 0 0;
+      background: #6B7280; }
+    .sk-ulab { position: absolute; width: 220px; text-align: center; top: 134px;
+      font-family: "ProgText", sans-serif; font-size: 32px; color: #6B7280; }
+    .sk-table { position: absolute; left: 1230px; top: 400px; width: 470px; height: 320px;
+      border-radius: 12px; border: 2px solid #5E719F; background: rgba(0, 21, 73, 0.55); }
+    .sk-trow { position: absolute; left: 18px; width: 300px; height: 26px; border-radius: 5px;
+      background: #5E719F; }
+    .sk-keychip { position: absolute; width: 232px; height: 46px; border-radius: 8px;
+      background: rgba(0, 181, 99, 0.3); border: 1px solid #00B563; color: #D7DEEA;
+      white-space: nowrap;
+      font-family: "ProgText", sans-serif; font-size: 32px; line-height: 44px;
+      text-align: center; }
+    .sk-keyslot { position: absolute; width: 104px; height: 26px; border-radius: 6px;
+      border: 2px dashed #9FB0D0; background: transparent; }
+    .sk-exrow { position: absolute; width: 420px; height: 30px; border-radius: 6px;
+      background: rgba(215, 222, 234, 0.9); }
+    .sk-doc { position: absolute; left: 230px; top: 420px; width: 250px; height: 320px;
+      border-radius: 12px; background: linear-gradient(175deg, #ffffff 0%, #e6ebf5 100%);
+      box-shadow: 0 14px 34px rgba(0, 10, 40, 0.5); }
+    .sk-dbar { position: absolute; left: 24px; height: 9px; border-radius: 4px; background: #9FB0D0; }
+    .sk-lab { position: absolute; font-family: "ProgText", sans-serif; font-size: 34px;
+      color: #9FB0D0; letter-spacing: 0.04em; }
+    svg.sk-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="sk-root" data-composition-id="m-sk" data-width="1920" data-height="1080"
+       data-duration="21.2">
+    <div id="sk-stage" style="position:absolute; inset:0;" data-layout-allow-overflow>
+
+      <!-- PHASE /docs : the simplest picture in the film, and the first SOLID join -->
+      <div id="sk-docsphase">
+        <div class="sk-reader" id="sk-reader"></div>
+        <div class="sk-fam" id="sk-f0" style="left:300px; top:330px;"></div>
+        <div class="sk-famlab" id="sk-f0l" style="left:245px; top:452px;"
+             data-var-text="skFam0">Manuals</div>
+        <div class="sk-fam" id="sk-f1" style="left:300px; top:498px;"></div>
+        <div class="sk-famlab" id="sk-f1l" style="left:245px; top:620px;"
+             data-var-text="skFam1">Release notes</div>
+        <div class="sk-fam" id="sk-f2" style="left:300px; top:666px;"></div>
+        <div class="sk-famlab" id="sk-f2l" style="left:245px; top:788px;"
+             data-var-text="skFam2">Tickets</div>
+        <div class="sk-card" id="sk-ans" style="left:1250px; top:410px; width:420px; height:290px;"></div>
+        <div class="sk-pill sk-avail" id="sk-availpill" style="left:860px; top:356px;"
+             data-var-text="skAvail">AVAILABLE TODAY</div>
+        <!-- The scope the AVAILABLE TODAY marker depends on, set directly beneath the
+             solid join rather than in a footnote: primer.md:83 scopes the one
+             available-today pattern, so a marker shown without it claims more than its
+             evidence. -->
+        <div class="sk-scope" id="sk-batches" style="left:800px; top:706px;"
+             data-var-text="skBatches">Loaded in batches</div>
+        <div class="sk-unused" id="sk-u0" style="left:120px; top:118px;"></div>
+        <div class="sk-unused" id="sk-u1" style="left:1580px; top:118px;"></div>
+      </div>
+
+      <!-- PHASE /rows : the join that stalls on an absent key -->
+      <div id="sk-rowsphase">
+        <div class="sk-doc" id="sk-doc">
+          <!-- EMPTY-BY-DESIGN sk-docslot / EMPTY-BY-DESIGN sk-exslot: an empty dashed key slot IS the absent key -->
+          <div class="sk-keyslot" id="sk-docslot" style="left:24px; top:40px;"></div>
+          <div class="sk-keychip" id="sk-dockey" style="left:24px; top:40px;"
+               data-var-text="skKey">Order number</div>
+        </div>
+        <div class="sk-table" id="sk-table"></div>
+        <div class="sk-exrow" id="sk-exrow" style="left:560px; top:560px;">
+          <div class="sk-keyslot" id="sk-exslot" style="left:306px; top:2px;"></div>
+          <div class="sk-keychip" id="sk-exkey" style="left:306px; top:2px;"
+               data-var-text="skKey2">Order number</div>
+        </div>
+        <div class="sk-pill sk-isv" id="sk-isvpill" style="left:840px; top:790px;"
+             data-var-text="skIsv">ISV BUILDS</div>
+      </div>
+
+      <svg class="sk-svg" id="sk-svg" viewBox="0 0 1920 1080" fill="none">
+        <!-- /docs : three feeds in, three citation threads back out, then a SOLID join -->
+        <path id="sk-fd0" d="M 450 386 C 600 400, 700 480, 790 520" stroke="#008963" stroke-width="3"/>
+        <path id="sk-fd1" d="M 450 554 L 790 554" stroke="#008963" stroke-width="3"/>
+        <path id="sk-fd2" d="M 450 722 C 600 710, 700 620, 790 590" stroke="#008963" stroke-width="3"/>
+        <path id="sk-join" d="M 480 554 L 790 554" stroke="#00B563" stroke-width="7"/>
+        <path id="sk-th0" d="M 1250 470 C 1180 450, 500 420, 452 392" stroke="#00B563" stroke-width="2"/>
+        <path id="sk-th1" d="M 1250 540 L 452 556" stroke="#00B563" stroke-width="2"/>
+        <path id="sk-th2" d="M 1250 610 C 1180 640, 500 720, 452 724" stroke="#00B563" stroke-width="2"/>
+        <!-- /rows : the completed join, long-dashed amber -->
+        <path id="sk-rowsjoin" d="M 980 575 L 1230 560" stroke="#C9821F" stroke-width="7"
+              stroke-dasharray="20 12"/>
+        <!-- The key propagating from the document into the extracted row. SOLID,
+             and it must stay solid: this relationship is CONFIRMED, and GRAMMAR rule 2
+             reserves the dashed strokes for ISV BUILDS (20 12) and NOT BUILT (6 10).
+             It carried `8 8` until 9 Oct 2026 - between the two reserved scales and
+             separable from neither - so it read as one of the two states it is not.
+             A viewer cannot measure a dasharray; they read "dashed" and infer. -->
+        <path id="sk-keypath" d="M 300 478 C 430 500, 520 540, 620 562" stroke="#00B563"
+              stroke-width="4"/>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // ---- PHASE WINDOWS
+      //   /docs  0.00 - 12.52   answers over documentation: the cheapest first step
+      //   /rows 12.52 - 20.53  documents turned into rows: the join stalls on a key
+      // EVENT CONSTANTS are the sa-use-cases b6 word events rebased to motif zero.
+      const AT_SHAPES  = 2.38;   // "a few shapes"
+      const AT_DOCS    = 3.68;   // "Answers over documentation"
+      const AT_AVAIL   = 6.14;
+      // primer.md:83 scopes the one available-today pattern; the marker only holds
+      // on that assumption, so the scope is drawn beside the solid join.
+      const AT_BATCHES = 8.97;   // "for shared documentation loaded in batches"   // "available today"
+      const AT_NEITHER = 11.03;   // "neither other product"
+      const AT_ROWS    = 12.52;   // "Documents turned into rows"
+      const AT_KEYDOC  = 16.94;  // "the key is on the document"
+      const AT_PUTIT   = 19.34;  // "...only if you put it there"
+
+      function bars(host, cls, n, top, step, base) {
+        for (let i = 0; i < n; i++) {
+          const b = document.createElement("div");
+          b.className = cls;
+          b.style.top = (top + i * step) + "px";
+          b.style.width = (base + ((i * 29) % 70)) + "px";
+          host.appendChild(b);
+        }
+      }
+      // the reader has a passage and body bars: it is the ARAG object in this beat
+      // and an empty green box does not read as "finds and shows its working"
+      (function () {
+        const rd = document.getElementById("sk-reader");
+        const pass = document.createElement("div");
+        pass.className = "sk-rpass"; rd.appendChild(pass);
+        for (let i = 0; i < 3; i++) {
+          const b = document.createElement("div");
+          b.className = "sk-rbar"; b.style.top = (132 + i * 26) + "px";
+          b.style.width = (212 - i * 34) + "px"; rd.appendChild(b);
+        }
+      })();
+
+      ["sk-f0", "sk-f1", "sk-f2"].forEach((id) => {
+        const h = document.getElementById(id);
+        for (let k = 0; k < 4; k++) {
+          const b = document.createElement("i");
+          b.style.top = (20 + k * 20) + "px";
+          b.style.width = (70 + ((k * 17) % 50)) + "px";
+          h.appendChild(b);
+        }
+      });
+      const ansBars = [];
+      const ans = document.getElementById("sk-ans");
+      for (let i = 0; i < 4; i++) {            // four, not six: three 46px source
+        const b = document.createElement("div"); // chips need the lower half of a
+        b.className = "sk-cbar";                 // 290px card and six bars reached 194
+        b.style.top = (24 + i * 26) + "px";
+        b.style.width = (250 + ((i * 31) % 110)) + "px";
+        ans.appendChild(b); ansBars.push(b);
+      }
+      const ansChips = [];
+      ["Manuals", "Release notes", "Tickets"].forEach((t, i) => {
+        const c = document.createElement("div");
+        c.className = "sk-cchip"; c.textContent = t;
+        // ONE PER ROW. The card is 420px wide and a "Release notes" chip at 32px
+        // with nowrap is ~247px, so two per row needed 519 and overflowed the parent.
+        // Children existing and children being INSIDE their parent are different
+        // facts, and the box-vs-box check cannot see the second.
+        c.style.left = "24px";
+        c.style.top = (142 + i * 48) + "px";
+        ans.appendChild(c); ansChips.push(c);
+      });
+      bars(document.getElementById("sk-doc"), "sk-dbar", 8, 96, 26, 110);
+      const tbl = document.getElementById("sk-table");
+      const trows = [];
+      for (let i = 0; i < 6; i++) {
+        const r = document.createElement("div");
+        r.className = "sk-trow"; r.style.top = (24 + i * 46) + "px";
+        tbl.appendChild(r);
+        const k = document.createElement("div");
+        k.className = "sk-keychip"; k.textContent = "—";
+        k.style.left = "336px"; k.style.top = (24 + i * 46) + "px";
+        tbl.appendChild(k);
+        trows.push(r);
+      }
+
+      // the unused pair: a record store and a chart, faint, and NAMED
+      for (let i = 0; i < 3; i++) {
+        const r = document.createElement("div");
+        r.className = "sk-urow"; r.style.top = (26 + i * 28) + "px";
+        r.style.width = (132 + ((i * 19) % 50)) + "px";
+        document.getElementById("sk-u0").appendChild(r);
+      }
+      [38, 58, 28, 64].forEach(function (h, i) {
+        const b = document.createElement("div");
+        b.className = "sk-ubar"; b.style.left = (32 + i * 40) + "px";
+        b.style.height = h + "px";
+        document.getElementById("sk-u1").appendChild(b);
+      });
+      [["sk-u0", "OpenEdge"], ["sk-u1", "Domo"]].forEach(function (pair) {
+        const l = document.createElement("div");
+        l.className = "sk-ulab"; l.textContent = pair[1];
+        document.getElementById(pair[0]).appendChild(l);
+      });
+
+      const FD = ["#sk-fd0", "#sk-fd1", "#sk-fd2"].map((i) => document.querySelector(i));
+      const TH = ["#sk-th0", "#sk-th1", "#sk-th2"].map((i) => document.querySelector(i));
+      const JN = document.getElementById("sk-join");
+      const KP = document.getElementById("sk-keypath");
+      const RJ = document.getElementById("sk-rowsjoin");
+      const lens = new Map();
+      FD.concat(TH).concat([JN, KP, RJ]).forEach((p) => {
+        const L = p.getTotalLength();
+        lens.set(p, L);
+        p.setAttribute("stroke-dasharray", p === RJ ? "20 12" : String(L));
+      });
+
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 0.6, ease: "power3.out" } });
+
+      // ---- closed state
+      gsap.set("#sk-rowsphase", { autoAlpha: 0 });
+      gsap.set("#sk-batches", { autoAlpha: 0, y: 12 });
+      ["#sk-reader", "#sk-ans", "#sk-availpill"].forEach((id) =>
+        gsap.set(id, { autoAlpha: 0, y: 18 }));
+      [0, 1, 2].forEach((i) => {
+        gsap.set("#sk-f" + i, { autoAlpha: 0, x: -30 });
+        gsap.set("#sk-f" + i + "l", { autoAlpha: 0 });
+      });
+      FD.concat(TH).forEach((p) => gsap.set(p, { strokeDashoffset: lens.get(p), autoAlpha: 0 }));
+      gsap.set(JN, { strokeDashoffset: lens.get(JN), autoAlpha: 0 });
+      gsap.set(KP, { strokeDashoffset: lens.get(KP), autoAlpha: 0 });
+      gsap.set(RJ, { autoAlpha: 0 });
+      ansBars.forEach((b) => gsap.set(b, { scaleX: 0 }));
+      ansChips.forEach((c) => gsap.set(c, { autoAlpha: 0 }));
+      ["#sk-u0", "#sk-u1"].forEach((id) => gsap.set(id, { autoAlpha: 0 }));
+      gsap.set("#sk-dockey", { autoAlpha: 0 });
+      gsap.set("#sk-exkey", { autoAlpha: 0 });
+      gsap.set("#sk-exrow", { autoAlpha: 0, x: -80 });
+      gsap.set("#sk-isvpill", { autoAlpha: 0 });
+
+      // ---- PHASE /docs. The simplest picture in the film.
+      // GRAMMAR rule 7: a motif has its subject on screen from its own t=0, and word events drive CHANGES to it, never its first appearance. Applied to m-3j on 9 Oct and NOT to its siblings, which is why seven of sixteen shots still opened on a bare stage for 8.6s. Fixing one instance felt like closing the class.
+      // The reader IS this motif's subject. It is present at frame zero; "a few
+      // shapes" then makes it REACT rather than introducing it.
+      gsap.set("#sk-reader", { autoAlpha: 1, y: 0 });
+      tl.fromTo("#sk-reader", { scale: 0.985 },
+                { scale: 1.0, duration: 0.7, ease: "power2.out",
+                   transformOrigin: "50% 50%" }, AT_SHAPES);
+      [0, 1, 2].forEach((i) => {
+        tl.to("#sk-f" + i, { autoAlpha: 1, x: 0, duration: 0.55 }, AT_DOCS + i * 0.2);
+        tl.to("#sk-f" + i + "l", { autoAlpha: 1, duration: 0.4 }, AT_DOCS + 0.2 + i * 0.2);
+        tl.to(FD[i], { autoAlpha: 1, duration: 0.15 }, AT_DOCS + 0.4 + i * 0.2);
+        tl.to(FD[i], { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" },
+              AT_DOCS + 0.4 + i * 0.2);
+      });
+      // the cited answer writes itself, and a thread goes back to each family
+      tl.to("#sk-ans", { autoAlpha: 1, y: 0, duration: 0.5 }, AT_DOCS + 1.0);
+      ansBars.forEach((b, i) => {
+        tl.to(b, { scaleX: 1, duration: 0.42, ease: "power2.out" }, AT_DOCS + 1.15 + i * 0.1);
+      });
+      TH.forEach((p, i) => {
+        tl.to(p, { autoAlpha: 1, duration: 0.15 }, AT_DOCS + 1.5 + i * 0.18);
+        tl.to(p, { strokeDashoffset: 0, duration: 0.65, ease: "power2.inOut" },
+              AT_DOCS + 1.5 + i * 0.18);
+        tl.to(ansChips[i], { autoAlpha: 1, duration: 0.3 }, AT_DOCS + 1.9 + i * 0.18);
+      });
+      // "available today": the FIRST SOLID JOIN in the film. It reads as relief because
+      // every join before it has been dashed or broken.
+      tl.to(JN, { autoAlpha: 1, duration: 0.2 }, AT_AVAIL);
+      tl.to(JN, { strokeDashoffset: 0, duration: 0.75, ease: "power2.inOut" }, AT_AVAIL);
+      tl.to("#sk-availpill", { autoAlpha: 1, y: 0, duration: 0.45 }, AT_AVAIL + 0.55);
+      // the scope lands ON its spoken phrase, directly under the join it qualifies
+      tl.to("#sk-batches", { autoAlpha: 1, y: 0, duration: 0.5 }, AT_BATCHES);
+      // "neither other product": the other two fade to grey outlines and sit unused
+      ["#sk-u0", "#sk-u1"].forEach((id, i) =>
+        tl.to(id, { autoAlpha: 0.4, duration: 0.6 }, AT_NEITHER + i * 0.15));
+
+      // ---- PHASE /rows. The join does NOT stall on the extraction. It stalls on an
+      // ABSENT KEY, and the fix happens on the DOCUMENT, not in the pipeline.
+      tl.to("#sk-batches", { autoAlpha: 0, duration: 0.4 }, AT_ROWS - 0.45);
+      // THE OUTGOING PHASE CLEARS AFTER THE INCOMING ONE ARRIVES, NEVER BEFORE.
+      // See the matching note in the sibling motifs. Eight of fifteen boundaries
+      // measured below the populated band on 9 Oct 2026; three were bare.
+      tl.to("#sk-docsphase", { autoAlpha: 0, duration: 0.55 }, AT_ROWS + 0.25);
+      FD.concat(TH).concat([JN]).forEach((p) =>
+        tl.to(p, { autoAlpha: 0, duration: 0.4 }, AT_ROWS - 0.45));
+      tl.to("#sk-rowsphase", { autoAlpha: 1, duration: 0.5 }, AT_ROWS);
+      // the extracted row lines up and slides toward the table
+      tl.to("#sk-exrow", { autoAlpha: 1, x: 0, duration: 0.6 }, AT_ROWS + 0.4);
+      tl.to("#sk-exrow", { x: 150, duration: 1.3, ease: "power2.inOut" }, AT_ROWS + 1.1);
+      // ... and STALLS: the table's rows all carry a key, the extracted row's slot is EMPTY
+      tl.to("#sk-exrow", { x: 130, duration: 0.45, ease: "power2.out" }, AT_KEYDOC - 0.5);
+      tl.to("#sk-exslot", { borderColor: "#E09A33", duration: 0.35, yoyo: true, repeat: 3 },
+            AT_KEYDOC);
+      tl.to("#sk-docslot", { borderColor: "#E09A33", duration: 0.35, yoyo: true, repeat: 3 },
+            AT_KEYDOC + 0.3);
+      // "put it there": the key is WRITTEN onto the source document first.
+      // The whole chain must finish inside the host shot, which ends at motif 15.01 - the
+      // first version started the key at AT_PUTIT and pushed the closing pill to 15.19,
+      // where neither the motif nor the host would ever have rendered it. The key now
+      // starts just BEFORE the phrase so it lands ON the words.
+      tl.to("#sk-dockey", { autoAlpha: 1, duration: 0.45, ease: "back.out(1.8)" }, AT_PUTIT - 0.55);
+      tl.to(KP, { autoAlpha: 1, duration: 0.12 }, AT_PUTIT);
+      tl.to(KP, { strokeDashoffset: 0, duration: 0.45, ease: "power2.inOut" }, AT_PUTIT);
+      tl.to("#sk-exkey", { autoAlpha: 1, duration: 0.3 }, AT_PUTIT + 0.45);
+      // only THEN does the join complete, in long-dashed amber: who does that work
+      tl.to(RJ, { autoAlpha: 1, duration: 0.3 }, AT_PUTIT + 0.6);
+      tl.to("#sk-exrow", { x: 150, duration: 0.45, ease: "power2.inOut" }, AT_PUTIT + 0.6);
+      tl.to("#sk-isvpill", { autoAlpha: 1, duration: 0.4 }, AT_PUTIT + 0.75);
+
+      // ---- never still
+      tl.to("#sk-stage", { scale: 1.012, transformOrigin: "50% 50%", duration: 3.8,
+                           ease: "sine.inOut" }, AT_ROWS);
+      // No light sweep. It existed to keep frozen windows alive and two
+      // independent viewers read it as a rendering artefact; the authored
+      // interiors supply the motion now.
+      trows.forEach((r, i) => {
+        if (i % 2 === 0) tl.to(r, { x: "+=5", duration: 1.5, ease: "sine.inOut",
+                                    yoyo: true, repeat: 1 }, AT_ROWS + 0.8 + i * 0.2);
+      });
+
+      window.__timelines["m-sk"] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

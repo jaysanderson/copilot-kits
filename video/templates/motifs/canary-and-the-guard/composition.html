@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: the canary and the guard</title></head>
+<body>
+<template>
+  <style>
+    #cy-root { position: absolute; inset: 0; overflow: hidden; }
+    /* the front boundary: the mitigation sits BEFORE any platform */
+    .cy-front { position: absolute; left: 600px; top: 130px; width: 12px; height: 820px;
+      border-radius: 5px; background: #00B563; box-shadow: 0 0 26px rgba(0, 181, 99, 0.45); }
+    .cy-prod { position: absolute; width: 360px; height: 196px; border-radius: 13px;
+      border: 3px solid #5E719F; background: rgba(0, 21, 73, 0.46); }
+    /* interiors: the three products the front boundary stands in front of, and the
+       contents of a gated tenant. Empty outlines said nothing about either. */
+    .cy-prow { position: absolute; left: 18px; height: 11px; border-radius: 4px;
+      background: #9FB0D0; }
+    .cy-ppass { position: absolute; left: 26px; top: 54px; width: 178px; height: 18px;
+      border-radius: 5px; background: #00B563; }
+    .cy-pbar { position: absolute; bottom: 18px; width: 20px; border-radius: 3px 3px 0 0;
+      background: #9FB0D0; transform-origin: 50% 100%; }
+    .cy-gdoc { position: absolute; width: 52px; height: 66px; border-radius: 6px;
+      background: #D7DEEA; opacity: 0.9; }
+    .cy-tok { position: absolute; width: 96px; height: 52px; border-radius: 26px;
+      background: rgba(94, 113, 159, 0.26); border: 2px dashed #9FB0D0; color: #D7DEEA;
+      font-family: "ProgText", sans-serif; font-size: 34px; line-height: 50px;
+      text-align: center; }
+    .cy-canary { position: absolute; width: 34px; height: 34px; border-radius: 17px;
+      background: #D7DEEA; box-shadow: 0 0 20px rgba(215, 222, 234, 0.6); }
+    .cy-lab { position: absolute; font-family: "ProgText", sans-serif; font-size: 34px;
+      color: #9FB0D0; letter-spacing: 0.04em; }
+    .cy-chip { position: absolute; height: 48px; padding: 0 18px; border-radius: 24px;
+      background: rgba(0, 181, 99, 0.22); border: 2px solid #00B563; color: #D7DEEA;
+      font-family: "ProgText", sans-serif; font-size: 32px; line-height: 46px; }
+    /* the two gates: identical in every respect */
+    .cy-gatebox { position: absolute; top: 300px; width: 660px; height: 470px;
+      border-radius: 16px; border: 2px solid #36457A; background: rgba(0, 21, 73, 0.4); }
+    .cy-gateline { position: absolute; top: 340px; width: 13px; height: 390px;
+      border-radius: 5px; background: #5E719F; opacity: 0.45; }
+    .cy-gatelab { position: absolute; top: 790px; width: 660px; text-align: center;
+      font-family: "ProgText", sans-serif; font-size: 34px; color: #BFD0E8; }
+    .cy-q { position: absolute; top: 214px; width: 660px; text-align: center;
+      font-family: "ProgDisplay", sans-serif; font-size: 78px; color: #D7DEEA; }
+    svg.cy-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="cy-root" data-composition-id="m-cy" data-width="1920" data-height="1080"
+       data-duration="15.6">
+    <div id="cy-stage" style="position:absolute; inset:0;" data-layout-allow-overflow>
+
+      <!-- PHASE /refuse : a boundary in FRONT of all three products -->
+      <div id="cy-refusephase">
+        <!-- EMPTY-BY-DESIGN cy-front: it is the boundary itself, a bar, not a container -->
+        <div class="cy-front" id="cy-front"></div>
+        <div class="cy-prod" id="cy-pr0" style="left:760px;  top:196px;"></div>
+        <div class="cy-prod" id="cy-pr1" style="left:1180px; top:442px;"></div>
+        <div class="cy-prod" id="cy-pr2" style="left:760px;  top:688px;"></div>
+        <div class="cy-tok" id="cy-tok" style="left:180px; top:518px;">&nbsp;</div>
+        <div class="cy-lab" id="cy-tok-lab" style="left:150px; top:574px;"
+             data-var-text="cyNoTenant">No resolved tenant</div>
+        <div class="cy-chip" id="cy-refused" style="left:400px; top:518px;"
+             data-var-text="cyRefused">Refused</div>
+        <div class="cy-lab" id="cy-canarylab" style="left:150px; top:700px;"
+             data-var-text="cyCanary">Canary</div>
+      </div>
+
+      <!-- PHASE /fires : two gates, identical, one proven and one not -->
+      <div id="cy-firesphase">
+        <div class="cy-gatebox" id="cy-gb0" style="left:190px;"></div>
+        <!-- EMPTY-BY-DESIGN cy-gl0: the gate stroke, a bar; its STATE is the content -->
+        <div class="cy-gateline" id="cy-gl0" style="left:470px;"></div>
+        <div class="cy-gatelab" id="cy-gbl0" style="left:190px;" data-var-text="cyGate0">Canary tenant</div>
+        <div class="cy-gatebox" id="cy-gb1" style="left:1070px;"></div>
+        <!-- EMPTY-BY-DESIGN cy-gl1: the gate stroke, a bar; its STATE is the content -->
+        <div class="cy-gateline" id="cy-gl1" style="left:1350px;"></div>
+        <div class="cy-gatelab" id="cy-gbl1" style="left:1070px;" data-var-text="cyGate1">Canary tenant</div>
+        <div class="cy-q" id="cy-q0" style="left:190px;">?</div>
+        <div class="cy-q" id="cy-q1" style="left:1070px;">?</div>
+        <div class="cy-lab" id="cy-seesnothing" style="left:0; top:230px; width:1920px;
+             text-align:center; font-size:34px;" data-var-text="cySees">Sees nothing</div>
+        <div class="cy-lab" id="cy-broken" style="left:300px; top:290px; width:400px;
+             text-align:center; color:#E09A33;" data-var-text="cyBroken">Mapping broken</div>
+        <div class="cy-chip" id="cy-fired" style="left:252px; top:646px;"
+             data-var-text="cyRefused2">Refused</div>
+        <!-- EMPTY-BY-DESIGN cy-c0: a canary is a travelling dot, a mark not a box -->
+        <div class="cy-canary" id="cy-c0" style="left:150px; top:554px;"></div>
+        <!-- EMPTY-BY-DESIGN cy-c1: a canary is a travelling dot, a mark not a box -->
+        <div class="cy-canary" id="cy-c1" style="left:1070px; top:554px;"></div>
+      </div>
+
+      <svg class="cy-svg" id="cy-svg" viewBox="0 0 1920 1080" fill="none">
+        <!-- the mapping line feeding the left gate, which gets SNAPPED on purpose -->
+        <path id="cy-map0" d="M 190 270 L 470 340" stroke="#5E719F" stroke-width="4"/>
+        <path id="cy-map1" d="M 1070 270 L 1350 340" stroke="#5E719F" stroke-width="4"/>
+        <!-- the snap: two short recoiling ends -->
+        <path id="cy-snap-a" d="M 190 270 L 300 298" stroke="#E09A33" stroke-width="4"/>
+        <path id="cy-snap-b" d="M 370 312 L 470 340" stroke="#E09A33" stroke-width="4"/>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // ---- PHASE WINDOWS
+      //   /refuse  0.00 - 7.54   an unresolved request stops dead BEFORE any platform
+      //   /fires   7.54 - 15.00  two identical gates; one is proven by breaking it
+      // EVENT CONSTANTS are the sa-use-cases b4 word events rebased to motif zero.
+      const AT_REFUSE  = 0.66;   // "refuse a request"
+      const AT_NOTEN   = 1.94;   // "no resolved tenant"
+      const AT_CANARY  = 6.32;   // "run canaries"
+      const AT_NEVER   = 7.54;   // "A guard that has never fired"
+      const AT_BROKEN  = 10.95;  // "...from a broken one"
+      const AT_BREAK   = 11.97;  // "Break the mapping on purpose"
+
+      // the three products behind the front boundary, each its own silhouette
+      const P0 = document.getElementById("cy-pr0");
+      for (let i = 0; i < 3; i++) {
+        const r = document.createElement("div");
+        r.className = "cy-prow"; r.style.top = (24 + i * 30) + "px";
+        r.style.width = (140 + ((i * 23) % 50)) + "px";
+        P0.appendChild(r);
+      }
+      const pass = document.createElement("div");
+      pass.className = "cy-ppass";
+      document.getElementById("cy-pr1").appendChild(pass);
+      [42, 66, 30, 72].forEach(function (h, i) {
+        const b = document.createElement("div");
+        b.className = "cy-pbar"; b.style.left = (34 + i * 42) + "px";
+        b.style.height = h + "px";
+        document.getElementById("cy-pr2").appendChild(b);
+      });
+      // each gated tenant holds documents - the thing the canary must not be shown
+      [0, 1].forEach(function (g) {
+        const host = document.getElementById("cy-gb" + g);
+        for (let k = 0; k < 6; k++) {
+          const d = document.createElement("div");
+          d.className = "cy-gdoc";
+          d.style.left = (330 + (k % 3) * 74) + "px";
+          d.style.top = (96 + ((k / 3) | 0) * 92) + "px";
+          host.appendChild(d);
+        }
+      });
+
+      const M0 = document.getElementById("cy-map0"), M1 = document.getElementById("cy-map1");
+      const ML0 = M0.getTotalLength(), ML1 = M1.getTotalLength();
+      M0.setAttribute("stroke-dasharray", String(ML0));
+      M1.setAttribute("stroke-dasharray", String(ML1));
+
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 0.6, ease: "power3.out" } });
+
+      // ---- closed state
+      gsap.set("#cy-firesphase", { autoAlpha: 0 });
+      gsap.set("#cy-refused", { autoAlpha: 0, scale: 0.8, transformOrigin: "0% 50%" });
+      gsap.set("#cy-tok", { autoAlpha: 0, x: -60 });
+      gsap.set("#cy-tok-lab", { autoAlpha: 0 });
+      gsap.set("#cy-canarylab", { autoAlpha: 0 });
+      gsap.set("#cy-front", { autoAlpha: 0, scaleY: 0.2, transformOrigin: "50% 50%" });
+      ["#cy-pr0", "#cy-pr1", "#cy-pr2"].forEach((id) => gsap.set(id, { autoAlpha: 0, x: 24 }));
+      ["#cy-c0", "#cy-c1"].forEach((id) => gsap.set(id, { autoAlpha: 0 }));
+      [M0, M1].forEach((m, i) => gsap.set(m, { strokeDashoffset: i ? ML1 : ML0, autoAlpha: 0 }));
+      ["#cy-snap-a", "#cy-snap-b"].forEach((id) => gsap.set(id, { autoAlpha: 0 }));
+      ["#cy-q0", "#cy-q1", "#cy-broken", "#cy-fired", "#cy-seesnothing"].forEach((id) =>
+        gsap.set(id, { autoAlpha: 0 }));
+      ["#cy-gbl0", "#cy-gbl1"].forEach((id) => gsap.set(id, { autoAlpha: 0 }));
+
+      // ---- PHASE /refuse. The boundary is in FRONT of all three products, so the fix
+      // reads as a POSITION in the request path rather than a practice.
+      ["#cy-pr0", "#cy-pr1", "#cy-pr2"].forEach((id, i) =>
+        // GRAMMAR rule 7: a motif has its subject on screen from its own t=0, and word events drive CHANGES to it, never its first appearance. Applied to m-3j on 9 Oct and NOT to its siblings, which is why seven of sixteen shots still opened on a bare stage for 8.6s. Fixing one instance felt like closing the class.
+        tl.to(id, { autoAlpha: 0.85, x: 0, duration: 0.45 }, 0.0 + i * 0.06));
+      tl.to("#cy-front", { autoAlpha: 1, scaleY: 1, duration: 0.7, ease: "power3.out" }, AT_REFUSE);
+      tl.to("#cy-tok", { autoAlpha: 1, x: 0, duration: 0.5 }, AT_REFUSE + 0.2);
+      tl.to("#cy-tok-lab", { autoAlpha: 1, duration: 0.45 }, AT_REFUSE + 0.4);
+      // the token travels, and the stroke HOLDS. Deliberate contrast with m-tr's /arag,
+      // where a broken stroke let everything through.
+      tl.to("#cy-tok", { x: 372, duration: 1.15, ease: "power2.in" }, AT_NOTEN);
+      tl.to("#cy-front", { scaleX: 1.6, duration: 0.18, ease: "power2.out" }, AT_NOTEN + 1.15);
+      tl.to("#cy-front", { scaleX: 1.0, duration: 0.3, ease: "power2.in" }, AT_NOTEN + 1.33);
+      tl.to("#cy-refused", { autoAlpha: 1, scale: 1, duration: 0.42, ease: "back.out(2)" },
+            AT_NOTEN + 1.2);
+      tl.to("#cy-tok", { x: 288, duration: 0.5, ease: "power2.out" }, AT_NOTEN + 1.2);
+      tl.to(["#cy-tok", "#cy-tok-lab"], { x: -200, autoAlpha: 0, duration: 0.9,
+                                          ease: "power2.inOut" }, AT_NOTEN + 2.1);
+      // holds until the canaries are named, then goes. It used to clear 0.4s BEFORE
+      // they arrived, leaving a gap with nothing labelled on screen.
+      tl.to("#cy-refused", { autoAlpha: 0, duration: 0.5 }, AT_CANARY + 0.45);
+
+      // canaries established as OBJECTS the viewer will watch in the next phase
+      tl.to(["#cy-c0", "#cy-c1"], { autoAlpha: 1, duration: 0.45 }, AT_CANARY);
+      tl.to("#cy-canarylab", { autoAlpha: 1, duration: 0.45 }, AT_CANARY + 0.25);
+
+      // ---- PHASE /fires. TWO GATES, IDENTICAL IN EVERY RESPECT. One has fired and one
+      // never has, and nothing on screen distinguishes them. That is the whole shot.
+      // THE OUTGOING PHASE CLEARS AFTER THE INCOMING ONE ARRIVES, NEVER BEFORE.
+      // Clearing first leaves a bare stage at the handover - measured on 9 Oct 2026:
+      // eight of fifteen shot boundaries fell below the populated band and three
+      // were completely bare. No opening measure can see it, because the blank is in
+      // the OUTGOING shot's tail and openings are sampled from the next shot's start.
+      tl.to("#cy-refusephase", { autoAlpha: 0, duration: 0.6 }, AT_NEVER - 0.05);
+      tl.to("#cy-canarylab", { autoAlpha: 0, duration: 0.4 }, AT_NEVER - 0.5);
+      tl.to("#cy-firesphase", { autoAlpha: 1, duration: 0.5 }, AT_NEVER - 0.3);
+      ["#cy-gbl0", "#cy-gbl1"].forEach((id, i) =>
+        tl.to(id, { autoAlpha: 1, duration: 0.45 }, AT_NEVER + 0.1 + i * 0.12));
+      tl.to("#cy-seesnothing", { autoAlpha: 1, duration: 0.45 }, AT_NEVER + 0.35);
+      // both gates PALE - the grammar's treatment for a gate that has never been tested
+      ["#cy-gl0", "#cy-gl1"].forEach((id) =>
+        tl.to(id, { opacity: 0.45, duration: 0.5 }, AT_NEVER + 0.2));
+      [M0, M1].forEach((m, i) => {
+        tl.to(m, { autoAlpha: 1, duration: 0.2 }, AT_NEVER + 0.5 + i * 0.1);
+        tl.to(m, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, AT_NEVER + 0.5 + i * 0.1);
+      });
+      // canaries circulate past each gate, continuously, through everything below
+      tl.to("#cy-c0", { x: 420, duration: 2.1, ease: "sine.inOut", yoyo: true, repeat: 3 }, AT_NEVER + 0.6);
+      tl.to("#cy-c1", { x: 420, duration: 2.1, ease: "sine.inOut", yoyo: true, repeat: 3 }, AT_NEVER + 1.1);
+
+      // "...from a broken one": one is revealed to be of UNKNOWN state, by nothing more
+      // than a question mark. The emphasis beat is HERE and it is carried by the picture:
+      // both gates hold absolutely still for half a second while the canaries keep moving.
+      tl.to(["#cy-q0", "#cy-q1"], { autoAlpha: 0.9, duration: 0.4 }, AT_BROKEN);
+      tl.to(["#cy-gb0", "#cy-gb1", "#cy-gl0", "#cy-gl1"], { duration: 0.5 }, AT_BROKEN + 0.1);
+
+      // "Break the mapping on purpose": the left mapping line SNAPS, the canary arrives,
+      // and the gate FIRES - stroke solid and bright, canary stopped dead.
+      tl.to("#cy-q0", { autoAlpha: 0, duration: 0.25 }, AT_BREAK);
+      tl.to(M0, { autoAlpha: 0, duration: 0.1 }, AT_BREAK + 0.15);
+      tl.to(["#cy-snap-a", "#cy-snap-b"], { autoAlpha: 1, duration: 0.15 }, AT_BREAK + 0.15);
+      tl.to("#cy-snap-a", { rotation: -7, transformOrigin: "0% 0%", duration: 0.35,
+                            ease: "back.out(3)" }, AT_BREAK + 0.2);
+      tl.to("#cy-snap-b", { rotation: 7, transformOrigin: "100% 100%", duration: 0.35,
+                            ease: "back.out(3)" }, AT_BREAK + 0.2);
+      tl.to("#cy-broken", { autoAlpha: 1, duration: 0.4 }, AT_BREAK + 0.3);
+      // the canary arrives at the now-broken gate and is STOPPED
+      tl.to("#cy-c0", { x: 300, duration: 0.55, ease: "power2.in" }, AT_BREAK + 0.5);
+      tl.to("#cy-gl0", { opacity: 1, background: "#00B563",
+                         boxShadow: "0 0 30px rgba(0,181,99,.75)", duration: 0.3 }, AT_BREAK + 1.0);
+      tl.to("#cy-gl0", { scaleX: 1.7, transformOrigin: "50% 50%", duration: 0.2,
+                         ease: "power2.out" }, AT_BREAK + 1.0);
+      tl.to("#cy-gl0", { scaleX: 1.0, duration: 0.35, ease: "power2.in" }, AT_BREAK + 1.2);
+      tl.to("#cy-fired", { autoAlpha: 1, duration: 0.4, ease: "back.out(2)" }, AT_BREAK + 1.15);
+      // the RIGHT gate stays pale and unproven beside it. The honest end state.
+      tl.to("#cy-q1", { autoAlpha: 1, y: -6, duration: 0.8, ease: "sine.inOut",
+                        yoyo: true, repeat: 1 }, AT_BREAK + 1.4);
+
+      // ---- never still
+      tl.to("#cy-stage", { scale: 1.012, transformOrigin: "40% 52%", duration: 3.4,
+                           ease: "sine.inOut" }, AT_BREAK - 0.5);
+      // No light sweep. It existed to keep frozen windows alive and two
+      // independent viewers read it as a rendering artefact; the authored
+      // interiors supply the motion now.
+
+      window.__timelines["m-cy"] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "TruthBench",
+  "promise": "Paste ten questions. See which answers your knowledge base can actually back up, before a customer finds out.",
+  "suggested": [
+    "What is the notice period for termination?",
+    "Which regions does the warranty cover?",
+    "What is the CEO's middle name?"
+  ],
+  "how_it_works": [
+    "Each question is asked once through this app, with citations.",
+    "The answer is scored against the passages it was grounded on (REMi).",
+    "A retrieval-only pass checks the same question; disagreement is flagged."
+  ]
+}

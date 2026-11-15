@@ -1,0 +1,409 @@
+<template>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+<style>
+  /* Real Progress Sans - local files, names outside the HyperFrames alias map */
+  @font-face { font-family: "ProgressSansDisplay"; src: url("assets/ProgressSansDisplayVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  @font-face { font-family: "ProgressSansText"; src: url("assets/ProgressSansTextVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  :root, #root { --pg-display: "ProgressSansDisplay", Arial, Helvetica, sans-serif; --pg-text: "ProgressSansText", Arial, Helvetica, sans-serif; }
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    container-type: size;
+    font-family: var(--pg-text);
+    -webkit-font-smoothing: antialiased;
+    color: #FFFFFF;
+  }
+
+  /* full-bleed ground on its own clip layer (never on #root) */
+  .f08-bg {
+    position: absolute;
+    inset: 0;
+    background: #00216B;
+  }
+
+  .f08-stage {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* ---- step rail ---- */
+  .f08-eyebrow {
+    position: absolute;
+    left: 96px;
+    top: 96px;
+    font-size: 22px;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #00B563;
+    white-space: nowrap;
+  }
+  .f08-dot {
+    position: absolute;
+    top: 150px;
+    width: 28px;
+    height: 28px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 1.5px solid rgba(198, 213, 235, 0.26);
+    background: transparent;
+  }
+  .f08-dot-fill {
+    position: absolute;
+    top: 150px;
+    left: 272px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #00B563;
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+  .f08-step-label {
+    position: absolute;
+    left: 312px;
+    top: 150px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #00B563;
+    white-space: nowrap;
+  }
+
+  /* ---- page slots (shared world geometry, frames 4-8) ---- */
+  .f08-card {
+    position: absolute;
+    top: 300px;
+    width: 300px;
+    height: 426px;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 14px;
+    border: 1.5px solid rgba(198, 213, 235, 0.26);
+    background: rgba(255, 255, 255, 0.055);
+    overflow: hidden;
+  }
+  .f08-page {
+    display: block;
+    width: 280px;
+    height: 406px;
+    object-fit: contain;
+    object-position: center top;
+    border-radius: 6px;
+    transform-origin: 50% 50%;
+    will-change: transform, opacity;
+  }
+  .f08-tick {
+    position: absolute;
+    left: 121px;
+    top: 160px;
+    width: 56px;
+    height: 56px;
+    overflow: visible;
+  }
+  .f08-tick path {
+    fill: none;
+    stroke: #00B563;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .f08-deleted {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 236px;
+    text-align: center;
+    font-size: 17px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9EAEC3;
+    will-change: transform, opacity;
+  }
+
+  /* ---- stamp card ---- */
+  .f08-stamp {
+    position: absolute;
+    left: 580px;
+    top: 750px;
+    width: 760px;
+    height: 116px;
+    box-sizing: border-box;
+    padding: 0 36px;
+    border-radius: 14px;
+    border: 1.5px solid rgba(198, 213, 235, 0.26);
+    background: rgba(255, 255, 255, 0.055);
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    transform-origin: 50% 50%;
+    will-change: transform, opacity;
+  }
+  .f08-stamp-check {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    overflow: visible;
+  }
+  .f08-stamp-check path {
+    fill: none;
+    stroke: #00B563;
+    stroke-width: 5.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .f08-stamp-num {
+    flex: 0 0 auto;
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #00B563;
+    white-space: nowrap;
+    font-family: var(--pg-display);
+  }
+  .f08-stamp-rule {
+    flex: 0 0 auto;
+    width: 1.5px;
+    height: 56px;
+    background: rgba(198, 213, 235, 0.26);
+  }
+  .f08-stamp-text {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .f08-stamp-line1 {
+    font-size: 26px;
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    white-space: nowrap;
+  }
+  .f08-stamp-line2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 23px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #C6D5EB;
+    white-space: nowrap;
+    will-change: transform, opacity;
+  }
+  .f08-stamp-line2-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00B563;
+  }
+</style>
+
+<div data-hf-id="hf-o80e" id="root" data-composition-id="08-step-5-delete" data-width="1920" data-height="1080" data-duration="13.421">
+
+  <div data-hf-id="hf-e2li" id="f08-bg" class="clip f08-bg" data-start="0.000" data-duration="13.421" data-track-index="0"></div>
+
+  <div data-hf-id="hf-h19d" id="f08-stage" class="clip f08-stage" data-start="0.000" data-duration="13.421" data-track-index="1">
+
+    <!-- step rail -->
+    <div data-hf-id="hf-v6hl" class="f08-eyebrow">Step 5 of 5</div>
+    <div data-hf-id="hf-gzd8" class="f08-dot" style="left: 96px"></div>
+    <div data-hf-id="hf-hwyy" class="f08-dot" style="left: 140px"></div>
+    <div data-hf-id="hf-ze4i" class="f08-dot" style="left: 184px"></div>
+    <div data-hf-id="hf-uzpb" class="f08-dot" style="left: 228px"></div>
+    <div data-hf-id="hf-9o82" class="f08-dot" style="left: 272px"></div>
+    <div data-hf-id="hf-nvle" id="f08-dot-fill" class="f08-dot-fill"></div>
+    <div data-hf-id="hf-sbtp" id="f08-step-label" class="f08-step-label">Delete</div>
+
+    <!-- four page slots -->
+    <div data-hf-id="hf-gw70" class="f08-card" id="f08-card-1" style="left: 270px">
+      <svg data-hf-id="hf-gaj9" class="f08-tick" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path data-hf-id="hf-3je3" class="f08-tick-path" d="M14 34 L27 47 L50 19" />
+      </svg>
+      <div data-hf-id="hf-ksnr" class="f08-deleted">deleted</div>
+      <img data-hf-id="hf-ist9" class="f08-page" src="assets/ex1-page1.png" alt="">
+    </div>
+    <div data-hf-id="hf-8xxf" class="f08-card" id="f08-card-2" style="left: 630px">
+      <svg data-hf-id="hf-41hl" class="f08-tick" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path data-hf-id="hf-sukr" class="f08-tick-path" d="M14 34 L27 47 L50 19" />
+      </svg>
+      <div data-hf-id="hf-wf87" class="f08-deleted">deleted</div>
+      <img data-hf-id="hf-s06m" class="f08-page" src="assets/ex1-page2.png" alt="">
+    </div>
+    <div data-hf-id="hf-fijn" class="f08-card" id="f08-card-3" style="left: 990px">
+      <svg data-hf-id="hf-58eo" class="f08-tick" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path data-hf-id="hf-sg9q" class="f08-tick-path" d="M14 34 L27 47 L50 19" />
+      </svg>
+      <div data-hf-id="hf-w0x6" class="f08-deleted">deleted</div>
+      <img data-hf-id="hf-9k9r" class="f08-page" src="assets/ex1-page3.png" alt="">
+    </div>
+    <div data-hf-id="hf-gef1" class="f08-card" id="f08-card-4" style="left: 1350px">
+      <svg data-hf-id="hf-4u3n" class="f08-tick" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path data-hf-id="hf-s1yp" class="f08-tick-path" d="M14 34 L27 47 L50 19" />
+      </svg>
+      <div data-hf-id="hf-vmm5" class="f08-deleted">deleted</div>
+      <img data-hf-id="hf-30ds" class="f08-page" src="assets/ex1-page4.png" alt="">
+    </div>
+
+    <!-- stamp card -->
+    <div data-hf-id="hf-9xq2" id="f08-stamp" class="f08-stamp">
+      <svg data-hf-id="hf-oljc" class="f08-stamp-check" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path data-hf-id="hf-b0ut" id="f08-stamp-check-path" d="M14 34 L27 47 L50 19" />
+      </svg>
+      <div data-hf-id="hf-39gc" class="f08-stamp-num">4 / 4</div>
+      <div data-hf-id="hf-f7iv" class="f08-stamp-rule"></div>
+      <div data-hf-id="hf-cs3w" class="f08-stamp-text">
+        <div data-hf-id="hf-axcz" class="f08-stamp-line1">page resources deleted</div>
+        <div data-hf-id="hf-tmws" id="f08-stamp-line2" class="f08-stamp-line2"><span data-hf-id="hf-uv02" class="f08-stamp-line2-dot"></span><span data-hf-id="hf-wvdt">deletion verified</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    /* == RETIMED (tools_apply_retime.py) == */
+      /* Beat times below are OLD-take time; P() maps them onto the delivered take
+         through word anchors matched by text. Generated - do not hand-edit. */
+      var __KX = [0.0000, 0.0600, 0.4900, 1.2900, 1.6200, 1.9300, 2.5600, 2.7200, 3.2700, 3.6100, 3.6700, 3.8700, 4.5100, 4.6500, 4.8200, 5.2800, 5.4700, 7.1200, 8.0700, 9.6430];
+      var __KY = [0.0000, 0.0460, 0.3950, 1.2890, 1.6370, 1.9500, 2.4730, 2.6470, 3.1580, 3.3320, 3.4370, 3.7730, 4.5740, 4.9230, 5.0500, 5.5730, 5.7000, 8.5450, 9.8100, 12.7710];
+      function __pw(t, X, Y) { if (t <= X[0]) return Y[0] + (t - X[0]); var n = X.length - 1;
+        if (t >= X[n]) return Y[n] + (t - X[n]) * (Y[n] / X[n]); var lo = 0, hi = n;
+        while (hi - lo > 1) { var m = (lo + hi) >> 1; if (X[m] <= t) lo = m; else hi = m; }
+        return Y[lo] + (t - X[lo]) / (X[hi] - X[lo]) * (Y[hi] - Y[lo]); }
+      function P(t) { return __pw(t, __KX, __KY); }   /* old take time -> delivered take time */
+      function Q(u) { return __pw(u, __KY, __KX); }   /* inverse: drivers run in new time,
+         so a threshold written in old time is compared against Q(driver.t) unedited */
+      var DURATION = 12.771;  /* measured delivered take (was 9.643) */
+    var FALLBACK_LEN = 60; // ~54.6 measured geometry for the check path, overestimated
+
+    // svg-path-draw setup: measure each stroke, park the dash fully out of view.
+    function prepPath(p) {
+      var len = 0;
+      try { len = p.getTotalLength(); } catch (e) { len = 0; }
+      if (!len || len < 1) len = FALLBACK_LEN;
+      len = len * 1.02;
+      p.style.strokeDasharray = String(len);
+      p.style.strokeDashoffset = String(len);
+    }
+
+    var tickPaths = [];
+    var pages = [];
+    var deletedLabels = [];
+    for (var i = 1; i <= 4; i++) {
+      var card = document.getElementById("f08-card-" + i);
+      var path = card.querySelector(".f08-tick-path");
+      prepPath(path);
+      tickPaths.push(path);
+      pages.push(card.querySelector(".f08-page"));
+      deletedLabels.push(card.querySelector(".f08-deleted"));
+    }
+    var stampPath = document.getElementById("f08-stamp-check-path");
+    prepPath(stampPath);
+
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    // ---- Scene 1 (0.0-1.6s): slots in place; the rail lights step five ----
+    tl.fromTo(
+      "#f08-dot-fill",
+      { scale: 0, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" },
+      0.2
+    );
+    tl.fromTo(
+      "#f08-step-label",
+      { opacity: 0, x: -10 },
+      { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" },
+      0.3
+    );
+
+    // ---- Scene 2 (1.6-6.0s): each page render fades to its empty frame, 0.35s apart ----
+    var FADE_AT = 1.6;
+    var FADE_GAP = 0.35;
+    var FADE_DUR = 0.55;
+    pages.forEach(function (img, i) {
+      var at = FADE_AT + i * FADE_GAP;
+      tl.to(img, { opacity: 0, scale: 0.96, duration: FADE_DUR, ease: "power2.inOut" }, at);
+      tl.fromTo(
+        deletedLabels[i],
+        { opacity: 0, y: 6 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+        at + 0.3
+      );
+    });
+
+    // on "verified": a green tick draws in each empty frame (svg-path-draw)
+    var TICK_AT = 4.3;
+    var TICK_GAP = 0.14;
+    tickPaths.forEach(function (p, i) {
+      tl.to(p, { strokeDashoffset: 0, duration: 0.45, ease: "power2.out" }, TICK_AT + i * TICK_GAP);
+    });
+
+    // ---- Scene 3 (6.0-9.0s): the stamp lands (spring-pop, weighty, zero overshoot) ----
+    tl.fromTo(
+      "#f08-stamp",
+      { scale: 0, opacity: 0, y: 14 },
+      { scale: 1, opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+      6.0
+    );
+    tl.to(stampPath, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 6.3);
+    tl.fromTo(
+      "#f08-stamp-line2",
+      { opacity: 0, y: 6 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+      7.3
+    );
+
+    // ---- Scene 4 (9.0-end): hold, still. Anchor the timeline to the full duration. ----
+    tl.to({}, { duration: DURATION }, 0);
+
+    window.__timelines["08-step-5-delete"] = tl;
+
+  // The eyebrow had no entrance, so it was up during the incoming cross-fade,
+  // over the outgoing frame's eyebrow. Same entrance as every other frame.
+  tl.fromTo(".f08-eyebrow", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.05);
+
+      /* == RETIMED (tools_apply_retime.py) == beat walk == */
+      /* Every registered beat moves to its remapped position. */
+      (function () {
+        var kids = tl.getChildren(false, true, true);
+        if (!kids.length) throw new Error("retime: no children to reposition");
+        var moved = 0, over = [];
+        kids.forEach(function (c) {
+          if (c.vars && c.vars.data === "pin") return;   /* already in new-take time */
+          var s = c.startTime(), n = P(s);
+          if (Math.abs(n - s) > 0.0005) { c.startTime(n); moved++; }
+          /* Eyebrows share one zone, so at a fade boundary two of them smear. Hold
+             any eyebrow until the 0.5s transition is done. */
+          var tg = (c.targets ? c.targets() : []);
+          var nm = tg.length ? ((tg[0].id || "") + " " + (tg[0].className || "")) : "";
+          if (/-eyebrow(\s|$)/.test(nm) && c.startTime() < 0.52) {
+            c.startTime(0.52);
+          }
+          if (c.startTime() + c.duration() > 12.771 + 0.02) {
+            over.push(Math.round((c.startTime() + c.duration()) * 1000) / 1000);
+          }
+        });
+        window.__retime = window.__retime || {};
+        window.__retime["08-step-5-delete"] = { beats: kids.length, moved: moved, overrun: over };
+      })();
+
+  })();
+</script>
+</template>

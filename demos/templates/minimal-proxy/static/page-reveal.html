@@ -1,0 +1,18 @@
+<h2>How this works</h2>
+<p>This surface answers questions about <strong>one page</strong>, not the whole site. Every answer is a real request to Progress Agentic RAG, limited to that page.</p>
+<div class="flow">
+ <div class="step"><b>1. Your browser</b><small>You pick a page and a language and ask. The question is sent as typed, in your language. It is not translated first.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step srv"><b>2. This app's own server</b><small>Holds the credentials, so no key reaches your browser. It reads the page's text from the index to show it beside your question, then sends one request pinned to a low-cost generative model.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step srv"><b>3. Progress Agentic RAG, scoped to that one page</b><small>A resource filter limits the request to the single page you are reading, and the full-resource strategy puts the whole page in front of the model instead of matched fragments. The answer is written in your language, and the model also returns the passages it relied on, copied word for word.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step srv"><b>4. Back on the server: the highlight check</b><small>This step is ordinary application code, not a Progress Agentic RAG feature. Each returned passage is compared with the page's own text. A block of the page is highlighted only if the passage and the block contain one another word for word. A passage that is not found verbatim highlights nothing, and the page says so rather than guessing.</small></div>
+ <div class="arrow">&darr;</div>
+ <div class="step"><b>5. Your answer</b><small>The answer in your language (Arabic reads right to left), with the supporting passages marked in the page and scrolled into view. If the page does not cover the question, the answer says so.</small></div>
+</div>
+<h2 style="margin-top:22px">What this does not do</h2>
+<p><small>Page text stays in English, because it is University's own. Only the question and the answer are in your language. The highlight is shown only when the quoted passage can be matched verbatim, so some answers will have none, particularly short ones or ones the page says nothing about.</small></p>
+<h2 style="margin-top:22px">The next step is your own content</h2>
+<p>This ran on University's public pages, so you could see it work with nothing to set up. The question that matters is what it does on the pages your own students and staff read: course guides, policies, fee schedules. Bring a sample, and we will stand this up on it, in the languages you serve.</p>
+<p><small>A demonstration on public University content. No application is taken or processed here.</small></p>

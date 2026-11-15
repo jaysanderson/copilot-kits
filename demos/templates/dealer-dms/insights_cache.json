@@ -1,0 +1,179 @@
+{
+  "generated_at": "2026-09-11T03:08:59Z",
+  "total_notes_analysed": 14,
+  "by_category": {
+    "brake-wear": 1,
+    "recall-remedy": 4,
+    "software-or-electrical": 3,
+    "cosmetic": 2,
+    "compliance-disclosure": 1,
+    "glass-or-adas": 1,
+    "other": 1,
+    "tyre-wear-or-alignment": 1
+  },
+  "by_severity": {
+    "medium": 6,
+    "high": 4,
+    "low": 4
+  },
+  "by_site": {
+    "Riverside": {
+      "brake-wear": 1,
+      "software-or-electrical": 2,
+      "cosmetic": 2,
+      "recall-remedy": 1,
+      "other": 1
+    },
+    "Northgate": {
+      "recall-remedy": 3,
+      "software-or-electrical": 1,
+      "compliance-disclosure": 1,
+      "glass-or-adas": 1,
+      "tyre-wear-or-alignment": 1
+    }
+  },
+  "customer_facing_risk_count": 11,
+  "requires_parts_order_count": 6,
+  "records": [
+    {
+      "issue_category": "brake-wear",
+      "severity": "medium",
+      "customer_facing_risk": true,
+      "requires_parts_order": true,
+      "one_line_rationale": "Front brake pads are below the 3mm replacement threshold and require service before the vehicle is cleared for delivery.",
+      "stock_no": "CM-5102",
+      "site": "Riverside",
+      "make": "Toyota"
+    },
+    {
+      "issue_category": "recall-remedy",
+      "severity": "high",
+      "customer_facing_risk": true,
+      "requires_parts_order": true,
+      "one_line_rationale": "The vehicle has a confirmed rear differential seal weep and low fluid level, necessitating a mandatory recall remedy before PDI.",
+      "stock_no": "CM-5118",
+      "site": "Northgate",
+      "make": "Ford"
+    },
+    {
+      "issue_category": "software-or-electrical",
+      "severity": "medium",
+      "customer_facing_risk": true,
+      "requires_parts_order": false,
+      "one_line_rationale": "Infotainment software is outdated, causing Bluetooth reconnection failures that affect the customer experience.",
+      "stock_no": "CM-5124",
+      "site": "Riverside",
+      "make": "Mazda"
+    },
+    {
+      "issue_category": "software-or-electrical",
+      "severity": "medium",
+      "customer_facing_risk": true,
+      "requires_parts_order": true,
+      "one_line_rationale": "The timing chain tensioner noise was confirmed during the cold-start protocol and requires replacement per the service bulletin.",
+      "stock_no": "CM-5137",
+      "site": "Northgate",
+      "make": "Hyundai"
+    },
+    {
+      "issue_category": "software-or-electrical",
+      "severity": "low",
+      "customer_facing_risk": true,
+      "requires_parts_order": false,
+      "one_line_rationale": "The DPF soot load issue was resolved via forced regeneration and the risk is now addressed through proactive customer education regarding usage patterns.",
+      "stock_no": "CM-5145",
+      "site": "Riverside",
+      "make": "Isuzu"
+    },
+    {
+      "issue_category": "recall-remedy",
+      "severity": "high",
+      "customer_facing_risk": true,
+      "requires_parts_order": false,
+      "one_line_rationale": "The vehicle was subject to a safety recall regarding the airbag control unit firmware, which has since been remediated.",
+      "stock_no": "CM-5150",
+      "site": "Northgate",
+      "make": "Kia"
+    },
+    {
+      "issue_category": "cosmetic",
+      "severity": "low",
+      "customer_facing_risk": false,
+      "requires_parts_order": false,
+      "one_line_rationale": "Minor scuffing on the right-side fairing is purely cosmetic, resulting from a low-speed stand drop with no mechanical or structural concerns.",
+      "stock_no": "CM-5163",
+      "site": "Riverside",
+      "make": "Yamaha"
+    },
+    {
+      "issue_category": "compliance-disclosure",
+      "severity": "medium",
+      "customer_facing_risk": true,
+      "requires_parts_order": false,
+      "one_line_rationale": "Paint depth reading of 74 microns on the rear left quarter panel indicates a prior repaint that must be disclosed to the buyer in writing per policy.",
+      "stock_no": "CM-5171",
+      "site": "Northgate",
+      "make": "Subaru"
+    },
+    {
+      "issue_category": "recall-remedy",
+      "severity": "high",
+      "customer_facing_risk": true,
+      "requires_parts_order": true,
+      "one_line_rationale": "The vehicle was subject to an open safety recall for the fuel pump control module, which was successfully remediated by the consultant.",
+      "stock_no": "CM-5184",
+      "site": "Riverside",
+      "make": "Toyota"
+    },
+    {
+      "issue_category": "glass-or-adas",
+      "severity": "medium",
+      "customer_facing_risk": true,
+      "requires_parts_order": true,
+      "one_line_rationale": "Windscreen replacement and ADAS calibration required due to stone chip damage, involving a known batch alignment issue corrected with a shim kit.",
+      "stock_no": "CM-5192",
+      "site": "Northgate",
+      "make": "Honda"
+    },
+    {
+      "issue_category": "cosmetic",
+      "severity": "low",
+      "customer_facing_risk": false,
+      "requires_parts_order": false,
+      "one_line_rationale": "Minor interior trim scuff was resolved during the standard interior detail.",
+      "stock_no": "CM-5205",
+      "site": "Riverside",
+      "make": "Suzuki"
+    },
+    {
+      "issue_category": "recall-remedy",
+      "severity": "high",
+      "customer_facing_risk": true,
+      "requires_parts_order": false,
+      "one_line_rationale": "The vehicle was subject to a safety recall for a rear differential seal; the remedy was performed preventatively to ensure safety for the customer.",
+      "stock_no": "CM-5213",
+      "site": "Northgate",
+      "make": "Ford"
+    },
+    {
+      "issue_category": "other",
+      "severity": "low",
+      "customer_facing_risk": false,
+      "requires_parts_order": false,
+      "one_line_rationale": "The motorcycle is in showroom condition with no mechanical findings, requiring only a standard detail.",
+      "stock_no": "CM-5226",
+      "site": "Riverside",
+      "make": "Kawasaki"
+    },
+    {
+      "issue_category": "tyre-wear-or-alignment",
+      "severity": "medium",
+      "customer_facing_risk": true,
+      "requires_parts_order": true,
+      "one_line_rationale": "Rear tyres are at 2mm tread depth with uneven wear caused by rear toe being out of spec, requiring both alignment correction and tyre replacement.",
+      "stock_no": "CM-5234",
+      "site": "Northgate",
+      "make": "Mitsubishi"
+    }
+  ]
+}

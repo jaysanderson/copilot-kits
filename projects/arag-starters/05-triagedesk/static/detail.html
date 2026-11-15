@@ -1,0 +1,216 @@
+<title>Case detail - AkademDocs Pre-Check</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/style.css?v=3">
+<div class="shell">
+  <div id="topstrip"></div>
+  <div class="app-body">
+    <div id="rail"></div>
+    <div class="main">
+      <div class="page page-wide">
+        <div id="content"><div class="empty">Loading case…</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="tabbar"></div>
+<div id="hiwHost"></div>
+<div class="footer-note">Synthetic demonstration data - no real applicant records. AkademDocs Pre-Check runs on Progress Agentic RAG. Engine indicators are advisory only, not authoritative.</div>
+
+<script src="/assets/app.js?v=3"></script>
+<script>
+mountShell("/", "detail");
+const requestId = location.pathname.split("/").pop();
+let CATALOGUE = null;
+let currentVerdict = null;
+let displayLang = null;
+
+const STATUS_SEVERITY = {
+  "Valid": "INFO", "Partially Valid": "ATTENTION", "Missing": "REVIEW", "Unclear": "ATTENTION",
+  "Unidentified": "REVIEW", "Missing Stamp": "ATTENTION", "Invalid/Unidentified Stamp": "ATTENTION",
+  "Additional Document Required": "ATTENTION", "Duplicate": "ATTENTION", "Manual Review Required": "REVIEW",
+};
+
+function messageText(code, lang) {
+  const entry = CATALOGUE && CATALOGUE.catalogue[code];
+  if (!entry) return code;
+  return entry.text[lang] || entry.text.en || code;
+}
+
+function indicatorRow(label, ind) {
+  const state = ind.state;
+  const cls = state === "PRESENT" ? "present" : (state === "UNCLEAR" ? "unclear" : "absent");
+  const val = state === "PRESENT" ? "Present" : (state === "UNCLEAR" ? "Unclear" : "Absent");
+  return `<div class="indicator"><span class="k">${label} <span style="opacity:.6">(indicative)</span></span><span class="v ${cls}">${val}</span></div>`;
+}
+
+function messagesFor(docId, allMessages) { return allMessages.filter(m => m.document_id === docId); }
+
+function sourcePanel(d) {
+  if (!d.citations || !d.citations.length) return "";
+  const items = d.citations.map((c, i) => `
+    <div class="source-item">
+      <div class="num">${i + 1}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="snip"><mark>${escapeHtml((c.snippet || "").slice(0, 220))}${(c.snippet || "").length > 220 ? "…" : ""}</mark></div>
+        <div class="score">Page ${c.page_number}
+          ${c.thumbnail ? ` · <a href="#" class="pageopen" data-doc="${d.document_id}" data-idx="${i}">open source page &#8594;</a>` : ""}
+        </div>
+      </div>
+    </div>`).join("");
+  return `<div class="source-panel" data-doc="${d.document_id}"><h3>Grounded from source text</h3>${items}</div>`;
+}
+
+function citeMarks(d) {
+  if (!d.citations || !d.citations.length) return "";
+  return d.citations.map((c, i) => `<a href="#" class="cite-mark" data-doc="${d.document_id}" data-idx="${i}" title="Open source">${i + 1}</a>`).join("");
+}
+
+function renderDoc(d, allMessages) {
+  const msgs = messagesFor(d.document_id, allMessages);
+  const messages = msgs.map(m => {
+    const text = messageText(m.code, displayLang);
+    return `<li class="${m.severity}">${escapeHtml(text)}<code>${m.code}</code></li>`;
+  }).join("");
+
+  const pageThumbs = (d.pages || []).filter(p => p.thumbnail).map(p => `
+    <a class="page-thumb" href="#" data-thumb="${encodeURIComponent(p.thumbnail)}" data-page="${p.page_number}">
+      <img src="/api/media/${encodeURIComponent(p.thumbnail)}" alt="Source page ${p.page_number}">
+      <div class="lbl">Page ${p.page_number} &middot; ${p.classified_by === "labeler_da_task" ? "Labeler DA task" : "grounded query"}</div>
+    </a>`).join("");
+
+  const nameMatch = d.name_match ? `
+    <div class="indicator" style="grid-column:1/-1;">
+      <span class="k">Applicant name match</span>
+      <span class="v ${d.name_match.status === "MATCH" ? "present" : "absent"}">${d.name_match.status === "MATCH" ? "Match" : "Mismatch"} (score ${d.name_match.score})</span>
+      ${d.name_match.transliterated ? `<div class="hint">Transliterated for comparison: ${escapeHtml(d.name_match.transliterated)}</div>` : ""}
+    </div>` : "";
+
+  return `
+    <div class="doc-card">
+      <div class="doc-head">
+        <div>
+          <div class="doc-type">${escapeHtml(docTypeLabel(d.document_type))}${citeMarks(d)}</div>
+          <div class="doc-sub">${escapeHtml(d.source_file)} &middot; page ${d.page_range[0] === d.page_range[1] ? d.page_range[0] : d.page_range[0] + "-" + d.page_range[1]} &middot; language: ${escapeHtml(d.detected_language || "unknown")}</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          ${confidenceBadge(d.extraction_confidence)}
+          ${severityPill(STATUS_SEVERITY[d.status] || "INFO")}
+        </div>
+      </div>
+      <div class="doc-body">
+        <div class="factsheet">
+          <dt>Status</dt><dd>${escapeHtml(d.status)}</dd>
+          ${d.extracted_name ? `<dt>Extracted name</dt><dd dir="${scriptDir(d.extracted_name)}">${escapeHtml(d.extracted_name)}</dd>` : ""}
+          ${d.extracted_institution ? `<dt>Institution</dt><dd>${escapeHtml(d.extracted_institution)}</dd>` : ""}
+          ${d.extracted_degree_type ? `<dt>Degree</dt><dd>${escapeHtml(d.extracted_degree_type)}</dd>` : ""}
+          ${d.extracted_date ? `<dt>Date</dt><dd>${escapeHtml(d.extracted_date)}</dd>` : ""}
+        </div>
+        <div class="doc-body-grid">
+          <div>
+            <div class="indicators">
+              ${d.authenticity_indicators ? `
+                ${indicatorRow("Apostille", d.authenticity_indicators.apostille)}
+                ${indicatorRow("Notarisation", d.authenticity_indicators.notarisation)}
+                ${indicatorRow("Certified copy", d.authenticity_indicators.certified_copy)}
+                ${indicatorRow("Signature", d.authenticity_indicators.signature)}
+              ` : `<div class="hint" style="grid-column:1/-1;">Stamp/certification checks do not apply to this document type.</div>`}
+              ${nameMatch}
+            </div>
+            <ul class="messages">${messages}</ul>
+            ${pageThumbs ? `<div class="pages-strip">${pageThumbs}</div>` : ""}
+          </div>
+          <div>${sourcePanel(d)}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderLangToggle() {
+  const langs = ["he", "ru", "en", "uk", "fr"];
+  const buttons = langs.map(l => `<button class="${l === displayLang ? "active" : ""}" data-lang="${l}">${l.toUpperCase()}</button>`).join("");
+  return `<div class="lang-toggle">Feedback language: ${buttons}</div>`;
+}
+
+function render() {
+  const v = currentVerdict;
+  const submissionMsgs = v.CandidateMessages.filter(m => m.document_id === null);
+  const topMsgs = submissionMsgs.map(m => `<li class="${m.severity}">${escapeHtml(messageText(m.code, displayLang))}<code>${m.code}</code></li>`).join("");
+  const docs = v.DetectedDocuments.map(d => renderDoc(d, v.CandidateMessages)).join("");
+
+  const missing = (v.MissingDocuments || []).map(md => `
+    <div class="doc-card">
+      <div class="doc-head"><div class="doc-type">${escapeHtml(docTypeLabel(md.document_type))}</div>${severityPill("REVIEW")}</div>
+      <div class="doc-body"><div class="factsheet"><dt>Status</dt><dd>${escapeHtml(md.status)}</dd></div></div>
+    </div>`).join("");
+
+  document.getElementById("content").innerHTML = `
+    <div class="page-header">
+      <div>
+        <h1>Case ${escapeHtml(v.RequestId)}</h1>
+        <div class="lede">Engine ${escapeHtml(v.EngineVersion)} &middot; ${fmtDate(v.ProcessingDateTime)}</div>
+      </div>
+      <div class="actions">${statusPill(v.overall_status)}${renderLangToggle()}</div>
+    </div>
+
+    <div class="can-submit-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      <span><strong>CanSubmit: true</strong> - this submission was accepted. Advisory flags below do not block intake; final review is by an officer. Recommended action - <strong>${escapeHtml(v.RecommendedAction)}</strong></span>
+    </div>
+
+    <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="lede" style="margin:0;">Applicant declared name</div>
+        <div style="font-size:17px;font-weight:700;color:var(--p-blue-1-45);" dir="${scriptDir(v.applicant.declared_name)}">${escapeHtml(v.applicant.declared_name)}</div>
+      </div>
+      <div style="font-size:12.5px;color:var(--ink-soft);">Declared script: ${escapeHtml(v.applicant.declared_name_script)}</div>
+    </div>
+
+    ${topMsgs ? `<ul class="messages">${topMsgs}</ul>` : ""}
+
+    <h2 style="font-size:15px;margin:26px 0 12px;color:var(--p-blue-1-45);">Documents identified (${v.DetectedDocuments.length})</h2>
+    ${docs}
+
+    ${missing ? `<h2 style="font-size:15px;margin:26px 0 12px;color:var(--p-blue-1-45);">Required documents not found (${v.MissingDocuments.length})</h2>${missing}` : ""}
+  `;
+
+  document.querySelectorAll(".lang-toggle button").forEach(b => {
+    b.addEventListener("click", () => { displayLang = b.dataset.lang; render(); });
+  });
+
+  document.querySelectorAll(".cite-mark").forEach(a => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      const doc = v.DetectedDocuments.find(d => d.document_id === a.dataset.doc);
+      const c = doc && doc.citations[Number(a.dataset.idx)];
+      if (!c || !c.thumbnail) return;
+      openCitationLightbox(`/api/media/${encodeURIComponent(c.thumbnail)}`, `Page ${c.page_number}`, c.snippet, c.score);
+    });
+  });
+  document.querySelectorAll(".source-item .pageopen").forEach(a => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      const doc = v.DetectedDocuments.find(d => d.document_id === a.dataset.doc);
+      const c = doc && doc.citations[Number(a.dataset.idx)];
+      if (!c || !c.thumbnail) return;
+      openCitationLightbox(`/api/media/${encodeURIComponent(c.thumbnail)}`, `Page ${c.page_number}`, c.snippet, c.score);
+    });
+  });
+  document.querySelectorAll(".page-thumb").forEach(a => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      openCitationLightbox(`/api/media/${decodeURIComponent(a.dataset.thumb)}`, `Page ${a.dataset.page}`, "");
+    });
+  });
+}
+
+async function load() {
+  try {
+    [CATALOGUE, currentVerdict] = await Promise.all([fetchJSON("/api/codes"), fetchJSON("/api/submissions/" + requestId)]);
+    displayLang = currentVerdict.ResponseLanguage;
+    render();
+  } catch (e) {
+    document.getElementById("content").innerHTML = `<div class="card empty">Could not load this case: ${escapeHtml(e.message)}</div>`;
+  }
+}
+load();
+</script>

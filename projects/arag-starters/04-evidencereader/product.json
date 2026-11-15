@@ -1,0 +1,14 @@
+{
+  "name": "EvidenceReader",
+  "promise": "Drop in your documents, ask, and click any claim to land on the exact page that supports it.",
+  "suggested": [
+    "What does the contract say about termination notice?",
+    "Which clause covers liability caps?",
+    "Who signs for the supplier?"
+  ],
+  "how_it_works": [
+    "Your PDFs go to this app, which uploads them to a Knowledge Box and waits until they are processed.",
+    "Your question is answered from those documents only, with a citation per claim.",
+    "Each marker opens the page the passage came from, highlighted."
+  ]
+}

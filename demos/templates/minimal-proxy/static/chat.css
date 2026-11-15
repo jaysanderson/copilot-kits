@@ -1,0 +1,84 @@
+/* Rich chat. University palette from brand/tokens.css; classes are chat-scoped so nothing else is touched. */
+#result-wrap{display:none!important}
+.chat{margin-top:-8px;margin-bottom:28px}
+.chat-card{background:#fff;border:1px solid var(--rule);border-radius:14px;box-shadow:0 8px 30px rgba(33,37,41,.08);overflow:hidden}
+.chat-head{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--rule);background:#fafafb}
+.chat-title{font-weight:600;font-size:15px;color:var(--ink)}
+.chat-title::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--teal);margin-inline-end:10px}
+.chat-clear{font:600 13px var(--font);color:var(--crimson);background:none;border:0;cursor:pointer;padding:6px 4px}
+.thread{padding:20px;display:flex;flex-direction:column;gap:22px;max-height:none}
+.msg .who{display:block;font:600 12px var(--font);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.msg.user{align-self:flex-end;max-width:min(560px,88%);background:linear-gradient(135deg,var(--hero-from),var(--hero-to));color:#fff;border-radius:16px 16px 4px 16px;padding:12px 16px}
+.msg.user .who{color:rgba(255,255,255,.8)}
+.msg.user p{margin:0;font-size:16px;font-weight:500}
+[dir=rtl] .msg.user{align-self:flex-start;border-radius:16px 16px 16px 4px}
+.msg.bot{max-width:100%}
+.msg h4{margin:18px 0 10px;font:600 13px var(--font);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.cap{margin:-4px 0 10px;font-size:13px;color:var(--muted)}
+.b-typing{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:15px}
+.b-typing:empty{display:none}
+.dots{display:inline-flex;gap:4px}.dots i{width:7px;height:7px;border-radius:50%;background:var(--crimson);opacity:.35;animation:blink 1.1s infinite}
+.dots i:nth-child(2){animation-delay:.18s}.dots i:nth-child(3){animation-delay:.36s}
+@keyframes blink{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+.text{font-size:16.5px;line-height:1.65}
+.text p{margin:0 0 .8em}.text ul,.text ol{margin:0 0 .9em;padding-inline-start:1.3em}.text li{margin:.25em 0}
+.text h3{font-size:17px;margin:1em 0 .4em}
+.note{margin-top:8px;padding:10px 12px;background:#fff7e6;border-inline-start:3px solid #e0a100;font-size:14px;border-radius:4px}
+.prow{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.pcard,.dcard{display:flex;flex-direction:column;background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;text-decoration:none;color:var(--ink);transition:box-shadow .15s,transform .15s,border-color .15s}
+.pcard:hover,.dcard:hover{box-shadow:0 6px 20px rgba(33,37,41,.12);transform:translateY(-2px);border-color:var(--crimson)}
+.pcard.flash{border-color:var(--crimson);box-shadow:0 0 0 3px rgba(225,39,68,.25)}
+.tn-wrap{position:relative;aspect-ratio:16/9;background:#eee;overflow:hidden}
+.tn-img{width:100%;height:100%;object-fit:cover;display:block}
+.tn{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:12px 14px;color:#fff;overflow:hidden}
+.tn::after{content:"";position:absolute;inset-inline-end:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.12)}
+.tn{background:linear-gradient(135deg,#A5248C,#E12744)} /* one wash: the colour carries no meaning, so it is the same on every card */
+.tn-k{font:600 11px var(--font);letter-spacing:.08em;text-transform:uppercase;opacity:.85;position:relative;z-index:1}
+.tn-t{font:600 17px/1.25 var(--font);position:relative;z-index:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pc-body{display:flex;flex-direction:column;gap:2px;padding:10px 12px 12px;position:relative}
+.pc-t{font:600 14px/1.35 var(--font);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-u{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.n{position:absolute;inset-inline-end:10px;top:10px;width:22px;height:22px;border-radius:50%;background:var(--crimson);color:#fff;font:700 12px/22px var(--font);text-align:center}
+.drow{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+.drow.n1,.drow.one{grid-template-columns:minmax(0,420px)}.drow.n2{grid-template-columns:repeat(2,1fr)}
+.dcard .tn-wrap{aspect-ratio:2/1}
+.dc-body{display:flex;flex-direction:column;gap:6px;padding:14px 16px 16px}
+.dc-t{font:600 17px/1.3 var(--font)}.dc-d{font-size:14px;color:var(--muted)}
+.dc-b{margin-top:6px;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:var(--crimson);color:#fff;font:600 14px var(--font);padding:10px 16px;border-radius:24px}
+.dcard:hover .dc-b{background:#c21f38}
+[dir=rtl] .dc-b svg{transform:scaleX(-1)}
+.err{padding:12px 14px;background:#fdecef;border-radius:8px}.err p{margin:0 0 8px}
+.err button{font:600 14px var(--font);background:var(--crimson);color:#fff;border:0;border-radius:20px;padding:8px 16px;cursor:pointer}
+.composer{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--rule);background:#fafafb;position:sticky;bottom:0}
+.composer input{flex:1;min-width:0;font:400 16px var(--font);padding:12px 16px;border:1.5px solid var(--rule);border-radius:26px;background:#fff}
+.composer input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,132,129,.18)}
+.composer button{font:600 15px var(--font);background:var(--crimson);color:#fff;border:0;border-radius:26px;padding:0 24px;cursor:pointer}
+.composer button:disabled{opacity:.55;cursor:default}
+@media (max-width:800px){.drow,.drow.n2{grid-template-columns:1fr}.prow{grid-template-columns:repeat(2,1fr)}.thread{padding:14px}.composer{padding:10px 14px}.chat{padding:0 12px}.msg.user{max-width:94%}}
+
+@media (prefers-reduced-motion:reduce){.dots i{animation:none;opacity:.7}.pcard,.dcard{transition:none}}
+.b-src .tn-wrap{aspect-ratio:21/9}.b-src .tn-t{font-size:14px;-webkit-line-clamp:2}.b-src .prow{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.b-src .pc-body{padding-inline-end:36px}
+.text{overflow-wrap:anywhere}
+/* Containment: a long URL or Latin run must wrap inside the bubble, never push the layout (RTL included). */
+.text,.text *{min-width:0;overflow-wrap:anywhere;word-break:normal}
+.text a{overflow-wrap:anywhere}
+.b-src .tn-t{font-size:15px;-webkit-line-clamp:3}.b-src .tn-wrap{aspect-ratio:16/9}
+
+/* The chat is visible from first load: one input (the composer), the hero's own form is hidden so there is no second box. */
+#ask-form{display:none}
+.chat{margin-top:-8px}
+.msg.intro{background:#f4f5f7;border-radius:14px;padding:14px 16px;max-width:560px}
+.msg.intro p{margin:0;font-size:16px}
+.draftnote{margin:0 0 8px;font:600 12px var(--font);letter-spacing:.02em;color:var(--teal-d)}
+.draftnote::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--crimson);margin-inline-end:8px;animation:blink 1.1s infinite}
+.text .tail{margin:0;color:var(--ink)}
+.thread:has(.intro){min-height:0}
+
+.chathint{margin:6px 0 14px;font-size:15px;opacity:.95}
+.composer.in-hero{position:static;background:none;border:0;padding:0;margin:14px 0 4px}
+.composer.in-hero input{border:0;padding:14px 20px;font-size:17px}
+.composer.in-hero button{padding:0 28px}
+.composer.in-hero button{background:#fff;color:var(--crimson)}
+.composer.in-hero button:hover{background:#fdecef}
+@media (max-width:800px){.prow{grid-template-columns:repeat(2,1fr);gap:8px}.b-found .tn-wrap,.b-src .tn-wrap{aspect-ratio:16/9}.b-found .tn-t,.b-src .tn-t{font-size:13px;-webkit-line-clamp:3}.pc-t{font-size:12.5px}.pc-body{padding:8px 10px 10px}.b-found .tn-k,.b-src .tn-k{font-size:9px}}

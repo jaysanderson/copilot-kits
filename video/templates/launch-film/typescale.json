@@ -1,0 +1,1248 @@
+[
+ {
+  "frame": "01-powered-by",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "01-powered-by",
+  "sel": "f01-eyebrow",
+  "fs": 24,
+  "op": 1,
+  "t": "POWERED BY"
+ },
+ {
+  "frame": "01-powered-by",
+  "sel": "f01-line-1",
+  "fs": 80,
+  "op": 1,
+  "t": "Handwritten forms in."
+ },
+ {
+  "frame": "01-powered-by",
+  "sel": "f01-l2a",
+  "fs": 80,
+  "op": 1,
+  "t": "Structured data"
+ },
+ {
+  "frame": "01-powered-by",
+  "sel": "f01-l2b",
+  "fs": 80,
+  "op": 1,
+  "t": "out."
+ },
+ {
+  "frame": "01-powered-by",
+  "sel": "f01-foot",
+  "fs": 22,
+  "op": 1,
+  "t": "MEASURED ON THE REAL SAMPLE PACK"
+ },
+ {
+  "frame": "01-powered-by",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n    /* == RETIMED ("
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-eyebrow",
+  "fs": 17.28,
+  "op": 1,
+  "t": "THE SAMPLE PACK"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-line-1",
+  "fs": 49.92,
+  "op": 1,
+  "t": "Nine files."
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-line-2",
+  "fs": 49.92,
+  "op": 1,
+  "t": "Seven kinds of trouble."
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-label-1",
+  "fs": 16.32,
+  "op": 1,
+  "t": "Clean scan"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-label-2",
+  "fs": 16.32,
+  "op": 1,
+  "t": "Missing page"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-num",
+  "fs": 13,
+  "op": 1,
+  "t": "3"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-num",
+  "fs": 13,
+  "op": 1,
+  "t": "1"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-num",
+  "fs": 13,
+  "op": 1,
+  "t": "4"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-num",
+  "fs": 13,
+  "op": 1,
+  "t": "2"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-label-3",
+  "fs": 16.32,
+  "op": 1,
+  "t": "Out of order"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-label-4",
+  "fs": 16.32,
+  "op": 1,
+  "t": "Faded blue ink"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-doc-word",
+  "fs": 24,
+  "op": 1,
+  "t": "DOCX"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-label-5",
+  "fs": 16.32,
+  "op": 1,
+  "t": "Word file"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-label-6",
+  "fs": 16.32,
+  "op": 1,
+  "t": "Phone photo"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-pill",
+  "fs": 14,
+  "op": 1,
+  "t": "28 pages \u00b7 7 applicants"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "f02-label-7",
+  "fs": 16.32,
+  "op": 1,
+  "t": "Scanner batch"
+ },
+ {
+  "frame": "02-sample-pack",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n    /* == RETIMED ("
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-eyebrow",
+  "fs": 22,
+  "op": 1,
+  "t": "THE HARD PAGE"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-h2",
+  "fs": 50,
+  "op": 1,
+  "t": "Medical disclosure"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-pill-x",
+  "fs": 18,
+  "op": 1,
+  "t": "handwritten X"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "MEDICAL CONDITIONS DISCLOSURE FORM"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "MAIN MEMBER"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Brain illness / disease"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Serious ear conditions [}- Serious"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Serious throat conditions"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Skin conditions"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Lung conditions {]"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Heart illness / disease"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Liver conditions"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Kidney conditions"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Reproductive conditions"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Bone / Injury conditions"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "\u00e9 Mf"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-notick",
+  "fs": 15,
+  "op": 1,
+  "t": "NO TICK HERE"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-ocr-txt",
+  "fs": 22,
+  "op": 1,
+  "t": "Any joint replacement surgeries"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-badge-page",
+  "fs": 14,
+  "op": 1,
+  "t": "PAGE"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "f03-badge-ocr",
+  "fs": 14,
+  "op": 1,
+  "t": "OCR TEXT"
+ },
+ {
+  "frame": "03-the-hard-page",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n    /* == RETIMED ("
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "f04-eyebrow",
+  "fs": 18,
+  "op": 1,
+  "t": "STEP 1 OF 5"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "f04-step-label",
+  "fs": 18,
+  "op": 1,
+  "t": "SPLIT"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "f04-page-label-1",
+  "fs": 20,
+  "op": 1,
+  "t": "page 1"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "f04-page-label-2",
+  "fs": 20,
+  "op": 1,
+  "t": "page 2"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "f04-page-label-3",
+  "fs": 20,
+  "op": 1,
+  "t": "page 3"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "f04-page-label-4",
+  "fs": 20,
+  "op": 1,
+  "t": "page 4"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "f04-pill-1",
+  "fs": 16,
+  "op": 1,
+  "t": "\u2192 Knowledge Box resource"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "f04-pill-2",
+  "fs": 16,
+  "op": 1,
+  "t": "\u2192 Knowledge Box resource"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "f04-pill-3",
+  "fs": 16,
+  "op": 1,
+  "t": "\u2192 Knowledge Box resource"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "f04-pill-4",
+  "fs": 16,
+  "op": 1,
+  "t": "\u2192 Knowledge Box resource"
+ },
+ {
+  "frame": "04-step-1-split",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n    /* == RETIMED ("
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-eyebrow",
+  "fs": 16,
+  "op": 1,
+  "t": "STEP 2 OF 5"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-step-label",
+  "fs": 18,
+  "op": 1,
+  "t": "IDENTIFY"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-page-label",
+  "fs": 20,
+  "op": 1,
+  "t": "page 1"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-page-label",
+  "fs": 20,
+  "op": 1,
+  "t": "page 2"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-page-label",
+  "fs": 20,
+  "op": 1,
+  "t": "page 3"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-page-label",
+  "fs": 20,
+  "op": 1,
+  "t": "page 4"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-pill-inner",
+  "fs": 18,
+  "op": 1,
+  "t": "APPLICATION"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-pill-inner",
+  "fs": 18,
+  "op": 1,
+  "t": "UNDERTAKING"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-pill-inner",
+  "fs": 18,
+  "op": 1,
+  "t": "DISCLOSURE A"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-pill-inner",
+  "fs": 18,
+  "op": 1,
+  "t": "DISCLOSURE B"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "SPAN",
+  "fs": 18,
+  "op": 1,
+  "t": "APPLICATION"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "f05-pill-sub",
+  "fs": 16,
+  "op": 1,
+  "t": "\u00b7 from the image"
+ },
+ {
+  "frame": "05-step-2-identify",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n    /* == RETIMED ("
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-eyebrow",
+  "fs": 16,
+  "op": 1,
+  "t": "STEP 3 OF 5"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-rail-label",
+  "fs": 18,
+  "op": 1,
+  "t": "ASK"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-l1-s0",
+  "fs": 28,
+  "op": 1,
+  "t": "POST /ask  \u00b7 resource: page 3"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-l2-s0",
+  "fs": 28,
+  "op": 1,
+  "t": "answer_json_schema:"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-l2-s1",
+  "fs": 28,
+  "op": 1,
+  "t": "disclosure_a"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-l3-s0",
+  "fs": 28,
+  "op": 1,
+  "t": "rag_images_strategies: [{ name:"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-l3-s1",
+  "fs": 28,
+  "op": 1,
+  "t": "\"page_image\""
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-l3-s2",
+  "fs": 28,
+  "op": 1,
+  "t": "}]"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-a1-k",
+  "fs": 28,
+  "op": 1,
+  "t": "bone_injury_conditions:"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-a1-v",
+  "fs": 28,
+  "op": 1,
+  "t": "true"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-a2-k",
+  "fs": 28,
+  "op": 1,
+  "t": "sugar_diabetes:"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-a2-v",
+  "fs": 28,
+  "op": 1,
+  "t": "true"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-a3-k",
+  "fs": 28,
+  "op": 1,
+  "t": "vehicle_accident:"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-a3-v",
+  "fs": 28,
+  "op": 1,
+  "t": "true"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "f06-foot",
+  "fs": 20,
+  "op": 0.72,
+  "t": "read from the page image"
+ },
+ {
+  "frame": "06-step-3-ask",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n      /* == RETIMED"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-eyebrow",
+  "fs": 18,
+  "op": 1,
+  "t": "STEP 4 OF 5"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-steplabel",
+  "fs": 18,
+  "op": 1,
+  "t": "SCORE"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-name",
+  "fs": 26,
+  "op": 1,
+  "t": "JACOB SMITH"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-idpill",
+  "fs": 15,
+  "op": 1,
+  "t": "ID 8201025089084"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-panel-eyebrow",
+  "fs": 18,
+  "op": 1,
+  "t": "CONFIDENCE CHECKS"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-label-1",
+  "fs": 28,
+  "op": 1,
+  "t": "South African ID checksum"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-value-1",
+  "fs": 28,
+  "op": 1,
+  "t": "2 notes"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-label-2",
+  "fs": 28,
+  "op": 1,
+  "t": "Date of birth and gender encoded i"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-label-3",
+  "fs": 28,
+  "op": 1,
+  "t": "ID agrees across the pages"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-label-4",
+  "fs": 28,
+  "op": 1,
+  "t": "Date, email and cell formats"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "SPAN",
+  "fs": 26,
+  "op": 1,
+  "t": "1 field under"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-pct",
+  "fs": 26,
+  "op": 1,
+  "t": "70%"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "f07-arrow",
+  "fs": 26,
+  "op": 1,
+  "t": "\u2192"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "SPAN",
+  "fs": 26,
+  "op": 1,
+  "t": "review list"
+ },
+ {
+  "frame": "07-step-4-score",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n  var ID = \"07-step"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "f08-eyebrow",
+  "fs": 16,
+  "op": 1,
+  "t": "STEP 5 OF 5"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "f08-step-label",
+  "fs": 18,
+  "op": 1,
+  "t": "DELETE"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "f08-deleted",
+  "fs": 13,
+  "op": 1,
+  "t": "DELETED"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "f08-deleted",
+  "fs": 13,
+  "op": 1,
+  "t": "DELETED"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "f08-deleted",
+  "fs": 13,
+  "op": 1,
+  "t": "DELETED"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "f08-deleted",
+  "fs": 13,
+  "op": 1,
+  "t": "DELETED"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "f08-stamp-num",
+  "fs": 40,
+  "op": 1,
+  "t": "4 / 4"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "f08-stamp-line1",
+  "fs": 24,
+  "op": 1,
+  "t": "page resources deleted"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "SPAN",
+  "fs": 17,
+  "op": 1,
+  "t": "deletion verified"
+ },
+ {
+  "frame": "08-step-5-delete",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n    /* == RETIMED ("
+ },
+ {
+  "frame": "09-the-output",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "09-the-output",
+  "sel": "f09-pill-pages",
+  "fs": 24,
+  "op": 1,
+  "t": "pages 4 / 4"
+ },
+ {
+  "frame": "09-the-output",
+  "sel": "f09-pill-dot",
+  "fs": 24,
+  "op": 0.55,
+  "t": "\u00b7"
+ },
+ {
+  "frame": "09-the-output",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n    var ID = \"09-th"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-eyebrow",
+  "fs": 20,
+  "op": 1,
+  "t": "MEASURED, NOT ASSUMED"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-h2",
+  "fs": 56,
+  "op": 1,
+  "t": "Five models. Same four pages."
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-th",
+  "fs": 16,
+  "op": 1,
+  "t": "MODEL"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-th",
+  "fs": 16,
+  "op": 1,
+  "t": "OVERALL"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-th",
+  "fs": 16,
+  "op": 1,
+  "t": "CHECKBOX F1"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-th",
+  "fs": 16,
+  "op": 1,
+  "t": "TIME"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-c-model",
+  "fs": 25,
+  "op": 1,
+  "t": "chatgpt-azure-5.5"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-num-1",
+  "fs": 32,
+  "op": 1,
+  "t": "99"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-suf-1",
+  "fs": 22,
+  "op": 1,
+  "t": "%"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-f1-1",
+  "fs": 25,
+  "op": 1,
+  "t": "1.00"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-c-model",
+  "fs": 25,
+  "op": 1,
+  "t": "claude-5-5-sonnet"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-num-2",
+  "fs": 32,
+  "op": 1,
+  "t": "99"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-suf-2",
+  "fs": 22,
+  "op": 1,
+  "t": "%"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-f1-2",
+  "fs": 25,
+  "op": 1,
+  "t": "1.00"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-c-model",
+  "fs": 25,
+  "op": 1,
+  "t": "claude-4-6-sonnet"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-num-3",
+  "fs": 32,
+  "op": 1,
+  "t": "97"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-suf-3",
+  "fs": 22,
+  "op": 1,
+  "t": "%"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-f1-3",
+  "fs": 25,
+  "op": 1,
+  "t": "1.00"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-c-model",
+  "fs": 25,
+  "op": 1,
+  "t": "gemini-2.5-flash"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-num-4",
+  "fs": 32,
+  "op": 1,
+  "t": "93"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-suf-4",
+  "fs": 22,
+  "op": 1,
+  "t": "%"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-f1-4",
+  "fs": 25,
+  "op": 1,
+  "t": "0.94"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-c-model",
+  "fs": 25,
+  "op": 1,
+  "t": "gemini-3.1-pro"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-num-5",
+  "fs": 32,
+  "op": 1,
+  "t": "92"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-suf-5",
+  "fs": 22,
+  "op": 1,
+  "t": "%"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-f1-5",
+  "fs": 25,
+  "op": 1,
+  "t": "0.88"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-range",
+  "fs": 24,
+  "op": 1,
+  "t": "92 to 99%"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "SPAN",
+  "fs": 18,
+  "op": 1,
+  "t": "every checkbox right"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-scope",
+  "fs": 26,
+  "op": 1,
+  "t": "One run, 16 October 2026, on the f"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-metric-num",
+  "fs": 168,
+  "op": 1,
+  "t": "75"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-metric-label",
+  "fs": 18,
+  "op": 1,
+  "t": "MODELS ON THE ACCOUNT"
+ },
+ {
+  "frame": "10-measured",
+  "sel": "f10-metric-body",
+  "fs": 24,
+  "op": 1,
+  "t": "compared on the same scan, in one "
+ },
+ {
+  "frame": "10-measured",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n    var ID = \"10-me"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-eyebrow",
+  "fs": 18,
+  "op": 1,
+  "t": "THE WHOLE PACK"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-h2",
+  "fs": 56,
+  "op": 1,
+  "t": "The messy ones hold up"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-text-1",
+  "fs": 26,
+  "op": 1,
+  "t": "Missing page"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-pill-1",
+  "fs": 14,
+  "op": 1,
+  "t": "FLAGGED"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-text-2",
+  "fs": 26,
+  "op": 1,
+  "t": "Shuffled scan"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-pill-2",
+  "fs": 14,
+  "op": 1,
+  "t": "REASSEMBLED"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-text-3",
+  "fs": 26,
+  "op": 1,
+  "t": "Word files"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-pill-3",
+  "fs": 14,
+  "op": 1,
+  "t": "CONVERTED"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-text-4",
+  "fs": 26,
+  "op": 1,
+  "t": "Phone photos"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-pill-4",
+  "fs": 14,
+  "op": 1,
+  "t": "READ \u00b7 DOUBTFUL FIELDS FLAGGED"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-text-5",
+  "fs": 26,
+  "op": 1,
+  "t": "28-page scanner batch"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-pill-5",
+  "fs": 14,
+  "op": 1,
+  "t": "ONE PER APPLICANT"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-stat-num",
+  "fs": 64,
+  "op": 1,
+  "t": "28"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "f11-stat-label",
+  "fs": 16,
+  "op": 1,
+  "t": "PAGES IN \u00b7 ONE APPLICATION PER APP"
+ },
+ {
+  "frame": "11-messy-ones",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n      /* == RETIMED"
+ },
+ {
+  "frame": "12-powered-by-close",
+  "sel": "STYLE",
+  "fs": 16,
+  "op": 1,
+  "t": "/* Real Progress Sans - local file"
+ },
+ {
+  "frame": "12-powered-by-close",
+  "sel": "f12-line-1",
+  "fs": 56.64,
+  "op": 1,
+  "t": "Submit the document."
+ },
+ {
+  "frame": "12-powered-by-close",
+  "sel": "f12-line-2a",
+  "fs": 56.64,
+  "op": 1,
+  "t": "Get JSON back, with"
+ },
+ {
+  "frame": "12-powered-by-close",
+  "sel": "f12-confidence",
+  "fs": 56.64,
+  "op": 1,
+  "t": "confidence."
+ },
+ {
+  "frame": "12-powered-by-close",
+  "sel": "f12-line-3",
+  "fs": 56.64,
+  "op": 1,
+  "t": "Keep nothing."
+ },
+ {
+  "frame": "12-powered-by-close",
+  "sel": "f12-eyebrow",
+  "fs": 22.08,
+  "op": 1,
+  "t": "POWERED BY"
+ },
+ {
+  "frame": "12-powered-by-close",
+  "sel": "SCRIPT",
+  "fs": 16,
+  "op": 1,
+  "t": "(function () {\n  var FRAME_ID = \"1"
+ }
+]

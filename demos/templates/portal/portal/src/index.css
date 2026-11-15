@@ -1,0 +1,635 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Progress-baseline defaults; theme.ts overwrites --brand/--accent per demo.
+       Borrowed from progress.com: AI blue as the primary, magenta as the accent
+       (their green is also on-brand — set it per demo). A real demo replaces
+       these with the prospect's own colours. */
+    --brand: #054bff;
+    --brand-strong: #032f9e;
+    --brand-soft: #e7edff;
+    --brand-softer: #f2f6ff;
+    --brand-contrast: #ffffff;
+    --accent: #eb0249;
+    --accent-strong: #b8003a;
+    --accent-soft: #fde6ee;
+    --accent-contrast: #ffffff;
+
+    /* Product chrome tokens — resolved for light here, dark below. Everything
+       downstream (glass headers, hairlines, elevated surfaces) reads these so
+       one shell stays cohesive across light and dark demos. Cool slate keyed to
+       Progress's ink (#383F55), not a warm stone. */
+    --app-bg: #f7f8fa;
+    --surface-1: #ffffff;
+    --surface-2: #f5f6f9;
+    --hairline: rgba(56, 63, 85, 0.12);
+    --hairline-strong: rgba(56, 63, 85, 0.18);
+    --glass: rgba(255, 255, 255, 0.74);
+    --glass-border: rgba(56, 63, 85, 0.1);
+
+    /* Fallback before ProgressHeader's own ResizeObserver publishes the real
+       measured height (Standard B12) — a sane desktop-band guess so nothing
+       reads `undefined` on first paint. */
+    --progress-header-h: 88px;
+
+    color-scheme: light;
+    /* Let Kendo inherit the portal's own font stack instead of its default. */
+    --kendo-font-family: inherit;
+  }
+
+  html.dark {
+    color-scheme: dark;
+
+    /* A cohesive cool near-black — not flat grey. The brand colour is mixed in
+       at low strength so the whole product reads as one tinted control room,
+       whatever the demo's accent (legal green, insurance blue, retail…). */
+    --app-bg: #07070b;
+    --surface-1: color-mix(in srgb, var(--brand) 5%, #0e0e15);
+    --surface-2: color-mix(in srgb, var(--brand) 4%, #0a0a10);
+    --hairline: rgba(255, 255, 255, 0.09);
+    --hairline-strong: rgba(255, 255, 255, 0.16);
+    --glass: color-mix(in srgb, var(--brand) 6%, rgba(10, 10, 16, 0.66));
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Dark mode for KendoReact. The default theme derives on-surface text,
+     base hover/active and subtle fills from these root surfaces via oklch()
+     relative colours, so overriding the surfaces + borders repaints the whole
+     Kendo set dark — no separate dark swatch build needed. */
+  html.dark {
+    --kendo-color-app-surface: #07070b;
+    --kendo-color-surface: color-mix(in srgb, var(--brand) 5%, #101018);
+    --kendo-color-surface-alt: color-mix(in srgb, var(--brand) 5%, #101018);
+    --kendo-color-base-subtle: color-mix(in srgb, var(--brand) 6%, #16161f);
+    --kendo-color-base: color-mix(in srgb, var(--brand) 7%, #20202b);
+    --kendo-color-border: rgba(255, 255, 255, 0.12);
+    --kendo-color-border-alt: rgba(255, 255, 255, 0.22);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply text-ink-800 antialiased;
+    background: var(--app-bg);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    /* Never let a decorative/absolute element cause horizontal scroll on mobile.
+       `clip` (not `hidden`) does this without creating a scroll container, so the
+       sticky header keeps working. */
+    overflow-x: clip;
+  }
+
+  html.dark body {
+    @apply text-ink-200;
+    /* Mission-control glow: two soft light sources (brand + accent) bleeding
+       from the top of a near-black field. Fixed so it stays put while scrolling. */
+    background:
+      radial-gradient(120% 80% at 12% -10%, color-mix(in srgb, var(--brand) 22%, transparent) 0%, transparent 55%),
+      radial-gradient(90% 70% at 92% -5%, color-mix(in srgb, var(--accent) 15%, transparent) 0%, transparent 50%),
+      var(--app-bg);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: var(--brand-soft);
+    color: var(--brand-strong);
+  }
+  html.dark ::selection {
+    background: color-mix(in srgb, var(--brand) 40%, transparent);
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* Cards — the surface primitive, light/dark aware. Now reads the shared
+     surface + hairline tokens so every card feels part of one product. */
+  .card {
+    border-radius: 0.625rem;
+    border: 1px solid var(--hairline);
+    background: var(--surface-1);
+    @apply shadow-sm;
+  }
+  html.dark .card {
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px -28px rgba(0, 0, 0, 0.8);
+  }
+
+  /* An elevated, glassy card for hero-adjacent panels and the bento grid. */
+  .card-elevated {
+    border-radius: 0.875rem;
+    border: 1px solid var(--hairline);
+    background: var(--surface-1);
+    @apply shadow-md;
+  }
+  html.dark .card-elevated {
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05) inset, 0 40px 80px -40px rgba(0, 0, 0, 0.9);
+  }
+
+  /* Interactive card — subtle lift + brand hairline on hover. */
+  .card-hover {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--brand) 45%, var(--hairline));
+    box-shadow: var(--tw-shadow, 0 0), 0 22px 48px -26px color-mix(in srgb, var(--brand) 60%, transparent);
+  }
+
+  /* Frosted chrome for the sticky header / overlay bars. */
+  .glass {
+    background: var(--glass);
+    border-color: var(--glass-border);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    backdrop-filter: saturate(140%) blur(14px);
+  }
+
+  /* KendoReact AppBar ships overflow:hidden, which clips the grouped-nav
+     dropdown menus. Kendo's all.css is unlayered, so it beats a layered rule on
+     specificity alone — !important (which reverses layer order) is required to
+     let the bar overflow freely so menus can escape. */
+  header .k-appbar {
+    overflow: visible !important;
+  }
+
+  /* B20 (17 Aug 2026): tags/chips read as Progress controls, not bubbly
+     "pill" badges - limited rounding (the `md` token, 6px), not a full pill. */
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-md border border-ink-200 bg-ink-50 px-2.5 py-0.5 text-xs font-medium text-ink-600;
+  }
+  html.dark .chip {
+    @apply border-ink-700 bg-ink-800 text-ink-300;
+  }
+
+  /* Small uppercase label used above headings across the product. */
+  .eyebrow {
+    @apply text-eyebrow uppercase;
+    color: var(--brand);
+  }
+
+  /* Brand→accent gradient text for hero keywords and stat figures. */
+  .text-gradient {
+    background: linear-gradient(100deg, var(--brand) 0%, color-mix(in srgb, var(--brand) 55%, var(--accent)) 55%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Living headline: a brand→accent→brand ramp that slowly sweeps a brighter
+     band across the letterforms. Falls back to a static gradient for
+     reduced-motion (see the guard in the utilities layer). On dark the mix
+     pushes toward light so the type stays luminous against near-black. */
+  .text-shimmer {
+    background-image: linear-gradient(
+      100deg,
+      var(--brand) 0%,
+      color-mix(in srgb, var(--brand) 50%, var(--accent)) 25%,
+      color-mix(in srgb, var(--accent) 70%, white) 50%,
+      color-mix(in srgb, var(--brand) 50%, var(--accent)) 75%,
+      var(--brand) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  html.dark .text-shimmer {
+    background-image: linear-gradient(
+      100deg,
+      color-mix(in srgb, var(--brand) 70%, white) 0%,
+      color-mix(in srgb, var(--accent) 60%, white) 30%,
+      #ffffff 50%,
+      color-mix(in srgb, var(--accent) 60%, white) 70%,
+      color-mix(in srgb, var(--brand) 70%, white) 100%
+    );
+    background-size: 200% auto;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50;
+    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(0.5px) scale(0.985);
+  }
+  .btn-brand {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 92%, white) 0%, var(--brand) 60%, var(--brand-strong) 100%);
+    color: var(--brand-contrast);
+    box-shadow: 0 1px 0 0 color-mix(in srgb, white 30%, transparent) inset,
+      0 10px 24px -12px color-mix(in srgb, var(--brand) 70%, transparent);
+  }
+  .btn-brand:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 1px 0 0 color-mix(in srgb, white 34%, transparent) inset,
+      0 16px 34px -12px color-mix(in srgb, var(--brand) 85%, transparent);
+  }
+  /* Compliance-co fix (17 Aug 2026): `.btn-primary` was referenced by every
+     primary CTA in the app (Ask, Check suitability, Sign off, Ask agent) but
+     was never actually defined — those buttons were rendering with NO
+     background styling at all, just `.btn`'s bare layout rules. This was a
+     real, load-bearing contributor to the "white and plain" read: the exact
+     controls meant to carry the most visual weight on every page carried
+     none. Defined here as the accent (brass/gold) CTA — per the private-
+     wealth art direction, --brand (navy) is the structural colour and
+     --accent is reserved for emphasis/CTAs/data highlights, so the button a
+     visitor is meant to press is the one place brass leads. */
+  .btn-primary {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 88%, white) 0%, var(--accent) 55%, var(--accent-strong) 100%);
+    color: var(--accent-contrast);
+    box-shadow: 0 1px 0 0 color-mix(in srgb, white 35%, transparent) inset,
+      0 10px 26px -12px color-mix(in srgb, var(--accent) 65%, transparent);
+  }
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 1px 0 0 color-mix(in srgb, white 40%, transparent) inset,
+      0 18px 36px -14px color-mix(in srgb, var(--accent) 80%, transparent);
+  }
+  /* B20 fix (17 Aug 2026): a "faint hairline + near-invisible text" outline
+     button is an explicit FAIL per the arag-demo-app skill - every ghost
+     button must read as a real, clearly-visible Progress control, not a
+     whisper. Solid, high-contrast border + a genuine (not near-transparent)
+     fill in both colour schemes. */
+  .btn-ghost {
+    border: 1.5px solid var(--hairline-strong);
+    background: var(--surface-1);
+    color: var(--ink-700, #383f55);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: var(--brand);
+    background: var(--brand-soft);
+    color: var(--brand-strong);
+  }
+  html.dark .btn-ghost {
+    border-color: rgba(255, 255, 255, 0.32);
+    background: color-mix(in srgb, var(--brand) 16%, #14141c);
+    color: #f4f6fb;
+  }
+  html.dark .btn-ghost:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--brand) 26%, #191924);
+    border-color: color-mix(in srgb, var(--brand) 70%, white 10%);
+    color: #ffffff;
+  }
+
+  /* B20 fix: form fields must be clearly legible - both the field itself and
+     any typed/placeholder text - in every context a `.field` is dropped into,
+     including nested inside a transparent `.ask-bar` well. Never rely on
+     inherited transparency; state the text/placeholder colour explicitly so
+     a field can never render nearly-invisible text before a click. */
+  .field {
+    @apply w-full rounded-lg border px-4 py-2.5 text-sm outline-none;
+    border-color: var(--hairline-strong);
+    background: var(--surface-1);
+    color: var(--ink-900, #1d2133);
+  }
+  .field::placeholder {
+    color: var(--ink-500, #5e6579);
+    opacity: 1;
+  }
+  .field:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px var(--brand-softer);
+  }
+  html.dark .field {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: #14141d;
+    color: #f5f6fb;
+  }
+  html.dark .field::placeholder {
+    color: rgba(245, 246, 251, 0.5);
+  }
+
+  /* The home ask bar — a prominent, product-grade input the user works from. */
+  .ask-bar {
+    border: 1px solid var(--hairline-strong);
+    background: var(--surface-1);
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px -30px rgba(0, 0, 0, 0.6);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ask-bar:focus-within {
+    border-color: color-mix(in srgb, var(--brand) 55%, var(--hairline-strong));
+    box-shadow: 0 0 0 4px var(--brand-softer), 0 18px 40px -26px color-mix(in srgb, var(--brand) 45%, transparent);
+  }
+  /* The ask-bar's own input sits IN the well, so it drops `.field`'s border/
+     shadow (the well already carries them) but keeps full text contrast -
+     `bg-transparent` alone previously left this as the one field relying on
+     inherited colour, which is exactly the "barely visible before clicking"
+     defect (GM correction, 17 Aug 2026). Explicit colour, not inheritance. */
+  .ask-bar-input {
+    color: var(--ink-900, #1d2133);
+  }
+  .ask-bar-input::placeholder {
+    color: var(--ink-500, #5e6579);
+    opacity: 1;
+  }
+  html.dark .ask-bar-input {
+    color: #f5f6fb;
+  }
+  html.dark .ask-bar-input::placeholder {
+    color: rgba(245, 246, 251, 0.55);
+  }
+}
+
+@layer utilities {
+  /* Prose for a streamed markdown answer. */
+  .answer-prose {
+    @apply text-[15px] leading-relaxed text-ink-800;
+  }
+  html.dark .answer-prose {
+    @apply text-ink-200;
+  }
+  .answer-prose p {
+    @apply my-3;
+  }
+  .answer-prose ul {
+    @apply my-3 list-disc space-y-1 pl-5;
+  }
+  .answer-prose ol {
+    @apply my-3 list-decimal space-y-1 pl-5;
+  }
+  .answer-prose h1,
+  .answer-prose h2,
+  .answer-prose h3 {
+    @apply mb-2 mt-4 font-display font-semibold text-ink-900;
+  }
+  html.dark .answer-prose h1,
+  html.dark .answer-prose h2,
+  html.dark .answer-prose h3 {
+    @apply text-ink-100;
+  }
+  .answer-prose strong {
+    @apply font-semibold text-ink-900;
+  }
+  html.dark .answer-prose strong {
+    @apply text-ink-50;
+  }
+  .answer-prose table {
+    @apply my-3 w-full border-collapse text-sm;
+  }
+  .answer-prose th,
+  .answer-prose td {
+    @apply border border-ink-200 px-3 py-1.5 text-left;
+  }
+  html.dark .answer-prose th,
+  html.dark .answer-prose td {
+    @apply border-ink-700;
+  }
+  .answer-prose a {
+    color: var(--brand);
+    @apply underline underline-offset-2;
+  }
+
+  .typing-dot {
+    animation: bounce-dot 1.2s infinite ease-in-out both;
+  }
+
+  /* Faint technical grid — the "mission-control" substrate behind the hero. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 0%, transparent 72%);
+    mask-image: radial-gradient(120% 90% at 50% 0%, #000 0%, transparent 72%);
+  }
+
+  /* Soft coloured light source; place absolutely behind hero/section content. */
+  .hero-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(64px);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  html.dark .hero-orb {
+    opacity: 0.7;
+  }
+
+  /* ── Ambient atmosphere layer ───────────────────────────────────────────
+     Cinematic depth behind every page: a drifting gradient mesh, fine film
+     grain and a soft vignette. Fixed + pointer-events-none so it never
+     interferes with the product. Colours derive from the theme vars. */
+  .ambient-grain {
+    /* Tiled fractal noise as a data-URI so there's no network request and it
+       stays crisp at any zoom. Very low opacity — texture, not visible dots. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+  }
+  html.dark .ambient-grain {
+    opacity: 0.05;
+    mix-blend-mode: soft-light;
+  }
+  .ambient-vignette {
+    background: radial-gradient(120% 120% at 50% 0%, transparent 55%, color-mix(in srgb, var(--app-bg) 88%, black) 100%);
+  }
+  html:not(.dark) .ambient-vignette {
+    background: radial-gradient(130% 130% at 50% -10%, transparent 60%, color-mix(in srgb, var(--brand) 6%, transparent) 100%);
+  }
+
+  /* ── Scroll reveal ──────────────────────────────────────────────────────
+     Elements start slightly lowered + transparent; adding .is-visible (via an
+     IntersectionObserver) settles them in. Stagger with an inline delay. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Gradient-hairline border for bento cards — a faint brand-tinted edge that
+     brightens on hover. Sits under content via a masked pseudo-border. */
+  .ring-hairline {
+    position: relative;
+  }
+  .ring-hairline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, color-mix(in srgb, var(--brand) 40%, transparent), transparent 45%, color-mix(in srgb, var(--accent) 28%, transparent));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .ring-hairline:hover::before {
+    opacity: 1;
+  }
+
+  /* Respect reduced-motion for all entrance/ambient animation. */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-up,
+    .animate-scale-in,
+    .animate-pulse-glow,
+    .animate-ping,
+    .animate-drift,
+    .animate-drift-a,
+    .animate-drift-b,
+    .animate-sheen,
+    .animate-aurora {
+      animation: none !important;
+    }
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .card-hover:hover {
+      transform: none;
+    }
+  }
+
+  /* ── Quality Desk threshold slider — a real, prominent control the user
+     drags (Steve Jobs review, 17 Aug 2026). Styled range input, brand track +
+     large grabbable thumb, in both colour schemes. */
+  .qd-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      90deg,
+      #dc2626 0%,
+      #f59e0b var(--qd-fill, 70%),
+      color-mix(in srgb, var(--brand) 30%, var(--hairline)) var(--qd-fill, 70%),
+      color-mix(in srgb, var(--brand) 30%, var(--hairline)) 100%
+    );
+    outline: none;
+    cursor: pointer;
+  }
+  .qd-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 26px;
+    width: 26px;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 3px solid var(--brand);
+    box-shadow: 0 4px 12px -2px color-mix(in srgb, var(--brand) 60%, transparent);
+    transition: transform 0.12s ease, box-shadow 0.15s ease;
+  }
+  .qd-slider::-webkit-slider-thumb:hover,
+  .qd-slider:active::-webkit-slider-thumb {
+    transform: scale(1.12);
+    box-shadow: 0 6px 18px -2px color-mix(in srgb, var(--brand) 75%, transparent);
+  }
+  .qd-slider::-moz-range-thumb {
+    height: 22px;
+    width: 22px;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 3px solid var(--brand);
+    box-shadow: 0 4px 12px -2px color-mix(in srgb, var(--brand) 60%, transparent);
+    cursor: pointer;
+  }
+  html.dark .qd-slider::-webkit-slider-thumb {
+    background: #0e0e15;
+  }
+  html.dark .qd-slider::-moz-range-thumb {
+    background: #0e0e15;
+  }
+
+  .scroll-slim::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scroll-slim::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-ink-300;
+  }
+  html.dark .scroll-slim::-webkit-scrollbar-thumb {
+    @apply bg-ink-700;
+  }
+}
+
+/* ---- KendoReact integration ---------------------------------------------
+   Keep Kendo primitives on the portal's soft, rounded look and let them sit on
+   the app background rather than Kendo's default hard surfaces. Layout/spacing
+   still comes from Tailwind on the wrapping elements. */
+.k-card {
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+.k-card.card-flat {
+  box-shadow: none;
+}
+/* Kendo AppBar as the portal's translucent, sticky top bar. */
+.k-appbar {
+  background: transparent;
+  border: 0;
+}
+/* Togglable nav buttons: use the brand-subtle fill when selected. */
+.k-button.k-selected {
+  color: var(--brand-strong);
+}
+html.dark .k-button.k-selected {
+  color: var(--brand-contrast);
+}
+/* Kendo Grid inherits the card's rounded corners. */
+.k-grid {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+/* Pill — a plain interactive button (Kendo-free; works in both UI modes). It
+   WRAPS its label and never exceeds its container, so a long probe/suggestion/
+   filter value can't force horizontal page overflow on a phone.
+   B20 fix (17 Aug 2026): a full 9999px "pill" reads as a bubbly startup
+   chip, not a Progress control - reduced to a Progress-scale radius (6px)
+   and given a real, visible border/contrast so it never fades into the
+   background before a viewer notices it's interactive. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+  gap: 0.375rem;
+  border-radius: 6px;
+  border: 1.5px solid var(--hairline-strong);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink-700, #334155);
+  background: var(--surface-1);
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.pill:hover {
+  background: var(--brand-soft);
+  border-color: var(--brand);
+  color: var(--brand-strong);
+}
+.pill[data-selected] {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--brand-contrast, #fff);
+}
+html.dark .pill {
+  color: #eef1f8;
+  background: color-mix(in srgb, var(--brand) 10%, #14141d);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+html.dark .pill:hover {
+  background: color-mix(in srgb, var(--brand) 22%, #191924);
+  border-color: color-mix(in srgb, var(--brand) 70%, white 10%);
+  color: #ffffff;
+}
+html.dark .pill[data-selected] {
+  color: var(--brand-contrast, #fff);
+}

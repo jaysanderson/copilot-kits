@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The university - Wander the site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/wander.css">
+</head>
+<body class="wander">
+<header class="site">
+  <div class="wrap mainbar">
+    <a href="/" class="logo"><img src="/static/mu-logo.svg" alt="The university" width="200" height="42"></a>
+    <nav class="main" aria-label="Main">
+      <a href="/">Ask the whole site</a>
+      <a href="https://www.university.edu.au/study" rel="noopener">Study</a>
+      <button type="button" class="how" id="how">How this works</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap wd">
+  <div class="wd-head">
+    <h1>Wander the site</h1>
+    <p>From a typical page, the site’s own tree reaches {{ s.two_steps.tree_share }} per cent of the site in two steps. Shared threads reach {{ s.two_steps.thread_share }} per cent. Start anywhere and move sideways, with the reason for every step.</p>
+    <p class="wd-hole">{{ s.no_thread_pages }} of the {{ s.pages }} pages share none of our {{ f.threads }} threads yet. Your own taxonomy would close that.</p>
+  </div>
+  <form id="start-form" class="wd-search" role="search">
+    <label for="sq" class="sr">What are you looking for?</label>
+    <input id="sq" type="text" placeholder="Where are you now? For example: scholarships for international students" autocomplete="off" maxlength="300">
+    <button type="submit">Find my start</button>
+  </form>
+  <div class="wd-starts" id="starts" aria-label="Or start from a page">
+    <span>Or start from</span>
+    {% for s in starts %}<button type="button" data-id="{{ s.id }}">{{ s.title }}</button>{% endfor %}
+  </div>
+  <div id="picks" class="wd-picks" hidden></div>
+  <div id="status" class="wd-status" role="status" aria-live="polite"></div>
+  <section id="stage" hidden>
+    <ol class="wd-trail" id="trail" aria-label="Your walk"></ol>
+    <div class="wd-centre" id="centre"></div>
+    <div class="wd-map-wrap"><svg id="map" role="img" aria-label="Pages connected to the current page, grouped by what they share" viewBox="0 0 960 620" preserveAspectRatio="xMidYMid meet"></svg></div>
+    <div class="wd-menu" id="menu"></div>
+    <div id="links" class="wd-links"></div>
+    <section class="wd-ask" id="ask-box" aria-label="Ask across this walk">
+      <h2>Ask only these pages</h2>
+      <p>The answer uses just the pages on this walk and cites them. For a question about the whole site, ask the <a href="/">home page</a>.</p>
+      <form id="ask-form"><input id="aq" type="text" placeholder="Ask a question that cuts across these pages" maxlength="400" autocomplete="off"><button type="submit">Ask</button></form>
+      <div id="ask-out" aria-live="polite"></div>
+    </section>
+  </section>
+</main>
+<div class="wd-modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="How this works">
+  <div class="wd-modal-card"><button type="button" class="wd-x" id="modal-x" aria-label="Close">Close</button><div id="modal-content"></div></div>
+</div>
+<script src="/static/mdlite.js"></script>
+<script src="/static/wander.js"></script>
+</body>
+</html>

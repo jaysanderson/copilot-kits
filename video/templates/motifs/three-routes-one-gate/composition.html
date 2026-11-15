@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: three routes, one gate</title></head>
+<body>
+<template>
+  <style>
+    #tr-root { position: absolute; inset: 0; overflow: hidden; }
+    /* the estate: one boundary, two tenant compartments */
+    .tr-comp { position: absolute; top: 230px; width: 390px; height: 316px;
+      border-radius: 14px; border: 2px solid #36457A; background: rgba(0, 21, 73, 0.42); }
+    .tr-complab { position: absolute; top: 196px; width: 390px; text-align: center;
+      font-family: "ProgText", sans-serif; font-size: 34px; color: #9FB0D0;
+      letter-spacing: 0.05em; }
+    .tr-doc { position: absolute; width: 108px; height: 132px; border-radius: 10px;
+      background: linear-gradient(175deg, #ffffff 0%, #eef2f9 100%);
+      box-shadow: 0 8px 18px rgba(0, 10, 40, 0.42); }
+    .tr-doc i { position: absolute; left: 15px; height: 8px; border-radius: 4px;
+      background: #9FB0D0; display: block; }
+    .tr-tletter { position: absolute; right: 10px; top: 10px; width: 42px; height: 42px;
+      border-radius: 8px; background: #5E719F; color: #fff; font-size: 32px;
+      line-height: 42px; text-align: center; font-family: "ProgText", sans-serif; }
+    /* tokens: a lettered tenant token, and an unlettered service-account badge */
+    .tr-tok { position: absolute; width: 74px; height: 40px; border-radius: 20px;
+      background: rgba(0, 181, 99, 0.22); border: 2px solid #00B563; color: #D7DEEA;
+      font-family: "ProgText", sans-serif; font-size: 34px; line-height: 38px;
+      text-align: center; letter-spacing: 0.04em; }
+    .tr-badge { position: absolute; width: 74px; height: 40px; border-radius: 10px;
+      background: rgba(94, 113, 159, 0.28); border: 2px dashed #9FB0D0; }
+    /* the three product objects, held in place across all five phases */
+    .tr-prod { position: absolute; top: 718px; width: 300px; height: 170px;
+      border-radius: 12px; }
+    .tr-store { border: 3px solid #5E719F; background: rgba(0, 21, 73, 0.55); }
+    .tr-reader { border: 3px solid #008963; background: rgba(0, 54, 42, 0.42); }
+    .tr-chart { border: 3px solid #5E719F; background: rgba(0, 21, 73, 0.35); }
+    .tr-prodlab { position: absolute; top: 902px; width: 300px; text-align: center;
+      font-family: "ProgText", sans-serif; font-size: 34px; color: #9FB0D0; }
+    .tr-prow { position: absolute; left: 18px; height: 12px; border-radius: 4px; background: #9FB0D0; }
+    .tr-ppass { position: absolute; left: 30px; top: 74px; width: 232px; height: 20px;
+      border-radius: 5px; background: #00B563; }
+    .tr-pbar { position: absolute; bottom: 20px; width: 26px; border-radius: 4px 4px 0 0;
+      background: #9FB0D0; transform-origin: 50% 100%; }
+    /* the ISV's own code is always amber */
+    .tr-isv { position: absolute; border-radius: 10px; border: 3px solid #C9821F;
+      background: rgba(201, 130, 31, 0.16); }
+    .tr-isvlab { position: absolute; font-family: "ProgText", sans-serif; font-size: 32px;
+      color: #E09A33; letter-spacing: 0.04em; }
+    .tr-stamp { position: absolute; width: 56px; height: 56px; border-radius: 10px;
+      border: 3px solid #C9821F; background: rgba(201, 130, 31, 0.35); }
+    /* /stronger: a platform-enforced boundary is GREEN, because the platform really
+       does enforce it. The cost is drawn, not coloured. */
+    .tr-strong { position: absolute; top: 300px; width: 400px; height: 230px;
+      border-radius: 14px; border: 3px solid #00B563; background: rgba(0, 54, 42, 0.32); }
+    .tr-stronglab { position: absolute; top: 548px; width: 400px; text-align: center;
+      font-family: "ProgText", sans-serif; font-size: 32px; color: #D7DEEA;
+      line-height: 1.3; }
+    .tr-estate { position: absolute; top: 650px; height: 150px; border-radius: 16px;
+      border: 3px solid #5E719F; background: rgba(0, 21, 73, 0.4); }
+    .tr-estatelab { position: absolute; top: 812px; text-align: center;
+      font-family: "ProgText", sans-serif; font-size: 34px; color: #9FB0D0;
+      letter-spacing: 0.05em; }
+    /* interiors for the /stronger options - per-tenant separation, drawn */
+    .tr-sep { position: absolute; border-radius: 7px; }
+    .tr-sep-kb { border: 2px solid #008963; background: rgba(0, 54, 42, 0.5); }
+    .tr-sep-dm { border: 2px solid #5E719F; background: rgba(0, 21, 73, 0.55); }
+    .tr-sep-oe { border: 2px solid #5E719F; background: rgba(0, 21, 73, 0.62); }
+    .tr-sepdoc { position: absolute; width: 20px; height: 26px; border-radius: 3px;
+      background: #D7DEEA; }
+    .tr-sepbar { position: absolute; height: 7px; border-radius: 3px; background: #9FB0D0; }
+    .tr-septag { position: absolute; top: 8px; right: 8px; width: 38px; height: 38px;
+      border-radius: 7px; background: #5E719F; color: #fff; font-size: 32px;
+      line-height: 38px; text-align: center; font-family: "ProgText", sans-serif; }
+    .tr-sepbarchart { position: absolute; bottom: 7px; width: 9px; border-radius: 2px;
+      background: #9FB0D0; }
+    /* THE TWO NAMED ROUTES GET A CARD EACH. Both groups were authored as full-frame
+       PERFORMANCES spread 730px and 800px wide, and the re-cut gives them 2.7s each
+       as MENTIONS. Shown together at full width they read as scattered debris - two
+       or three small objects adrift in 1920px - which is what the review sheet
+       showed at 21s and 24s. Grouping each into a card keeps every internal
+       relationship the animation depends on (the transform moves the whole group)
+       and gives the viewer two things to look at instead of six. */
+    /* the two named routes, one card each, everything inside them card-relative */
+    .tr-nmc { position: absolute; top: 300px; width: 840px; height: 330px;
+      border-radius: 18px; border: 2px solid #2A3A6E;
+      background: rgba(0, 21, 73, 0.38); }
+    #tr-card-dm { left: 100px; }
+    #tr-card-oe { left: 980px; }
+    .tr-nmsvg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .tr-nm-prod { position: absolute; left: 40px; top: 126px; width: 150px;
+      height: 78px; border-radius: 10px; }
+    .tr-srv-row { position: absolute; left: 22px; height: 9px; border-radius: 5px;
+      background: #E0A765; }
+    /* the boundary the tenant letter is lost AT. Drawn, so the loss has a place. */
+    .tr-oebound { position: absolute; left: 478px; top: 56px; width: 4px;
+      height: 176px; border-radius: 2px; background: #5E719F; }
+    .tr-emark { position: absolute; top: 686px; width: 150px; height: 78px;
+      border-radius: 9px; }
+    .tr-emark-store { border: 2px solid #5E719F; background: rgba(0, 21, 73, 0.6); }
+    .tr-emark-reader { border: 2px solid #008963; background: rgba(0, 54, 42, 0.5); }
+    .tr-emark-chart { border: 2px solid #5E719F; background: rgba(0, 21, 73, 0.45); }
+    /* interiors for the three estate marks. They were created with a class and ZERO
+       children - three empty rectangles inside the bar the shot calls "one estate",
+       held for five seconds while the first option is still being spoken. Same
+       silhouettes as B1, because GRAMMAR rule 1 says a product never changes
+       silhouette between shots. */
+    .tr-em-row { position: absolute; left: 14px; height: 7px; border-radius: 4px;
+      background: #9FB0D0; }
+    .tr-em-lit { position: absolute; left: 22px; top: 34px; width: 106px; height: 13px;
+      border-radius: 7px; background: #00B563;
+      box-shadow: 0 0 14px rgba(0, 181, 99, 0.6); }
+    .tr-em-doc { position: absolute; top: 14px; width: 22px; height: 28px;
+      border-radius: 4px; background: #E6EBF5; }
+    .tr-em-bar { position: absolute; bottom: 14px; width: 14px; border-radius: 3px 3px 0 0;
+      background: #9FB0D0; }
+    .tr-shard { position: absolute; top: 650px; height: 150px; border-radius: 16px;
+      border: 3px solid #5E719F; background: rgba(0, 21, 73, 0.4); }
+    .tr-lab { position: absolute; font-family: "ProgText", sans-serif; font-size: 34px;
+      color: #D7DEEA; letter-spacing: 0.04em; }
+    .tr-answer { position: absolute; width: 470px; height: 240px; border-radius: 14px;
+      background: #FFFFFF; box-shadow: 0 16px 44px rgba(0, 8, 40, 0.5); }
+    .tr-abar { position: absolute; left: 26px; height: 15px; border-radius: 5px;
+      background: #9FB0D0; transform-origin: 0% 50%; }
+    .tr-achip { position: absolute; height: 46px; padding: 0 16px; border-radius: 23px;
+      background: rgba(0, 137, 99, 0.2); border: 1px solid #008963; color: #36457A;
+      font-family: "ProgText", sans-serif; font-size: 32px; line-height: 44px; }
+    svg.tr-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="tr-root" data-composition-id="m-tr" data-width="1920" data-height="1080"
+       data-duration="50.4">
+    <div id="tr-stage" style="position:absolute; inset:0;" data-layout-allow-overflow
+         data-layout-allow-overlap>
+
+      <!-- PHASE /ask : one estate, two tenants, a request that crosses -->
+      <div id="tr-estate">
+        <div class="tr-complab" id="tr-lab-a" style="left:330px;" data-var-text="trTenantA">Tenant A</div>
+        <div class="tr-comp" id="tr-comp-a" style="left:330px;"></div>
+        <div class="tr-complab" id="tr-lab-b" style="left:1200px;" data-var-text="trTenantB">Tenant B</div>
+        <div class="tr-comp" id="tr-comp-b" style="left:1200px;"></div>
+      </div>
+      <div class="tr-tok" id="tr-tok-a" style="left:112px; top:360px;">A</div>
+
+      <!-- the three products, in place for the whole motif -->
+      <div class="tr-prod tr-store"  id="tr-p0" style="left:150px;"></div>
+      <div class="tr-prodlab" id="tr-p0l" style="left:150px;" data-var-text="trLabel0">OpenEdge</div>
+      <div class="tr-prod tr-reader" id="tr-p1" style="left:810px;">
+        <div class="tr-ppass"></div></div>
+      <div class="tr-prodlab" id="tr-p1l" style="left:810px;" data-var-text="trLabel1">Progress Agentic RAG</div>
+      <div class="tr-prod tr-chart"  id="tr-p2" style="left:1470px;"></div>
+      <div class="tr-prodlab" id="tr-p2l" style="left:1470px;" data-var-text="trLabel2">Domo</div>
+
+      <!-- PHASE /arag : the filter gate whose stroke BREAKS -->
+      <div id="tr-aragph">
+        <div class="tr-lab" id="tr-fe-lab" style="left:742px; top:150px;"
+             data-var-text="trFilter">filter expression</div>
+        <div class="tr-lab" id="tr-nf-lab" style="left:1330px; top:596px; color:#E09A33;"
+             data-var-text="trNoFilter">no filter at all</div>
+        <div class="tr-answer" id="tr-answer" style="left:725px; top:300px;"></div>
+      </div>
+
+      <!-- PHASE /domo : the ISV's own server stamps the token -->
+      <div class="tr-routecard" id="tr-card-dm" style="left:100px;"></div>
+      <div class="tr-routecard" id="tr-card-oe" style="left:980px;"></div>
+      <!-- content bbox 560..1290 x 420..575, centre (925, 497); mapped onto the left
+           card's centre (520, 460) at 0.95. Transform the GROUP, never the children -
+           every x offset in the timeline below is relative to these elements. -->
+      <!-- PHASE /named. RE-AUTHORED 9 Oct 2026, third attempt, and the first two are
+           why this comment exists.
+             1. Both routes were full-frame PERFORMANCES spread 730 and 800px wide,
+                written when each had 5.7 seconds. The re-cut gives them 2.7 seconds
+                each as MENTIONS, and shown together they read as scattered debris.
+             2. Grouping them into cards with a transform fixed the SCATTER and not
+                the THINNESS: the contents were still two or three small objects, the
+                request line ran outside both cards because it was never scoped to
+                either, and "Your server" and "Your tool layer" were empty outlines
+                with a label beside them.
+           Each card now does one thing: a product, an action, a result. Coordinates
+           are card-relative, so there is no transform and nothing can escape. -->
+      <div id="tr-domoph">
+        <div class="tr-nmc" id="tr-card-dm">
+          <!-- Domo's own silhouette, unchanged from B1 (GRAMMAR rule 1) -->
+          <div class="tr-nm-prod tr-emark-chart" id="tr-dm-prod">
+            <div class="tr-em-bar" style="left:20px; height:26px;"></div>
+            <div class="tr-em-bar" style="left:44px; height:44px;"></div>
+            <div class="tr-em-bar" style="left:68px; height:18px;"></div>
+            <div class="tr-em-bar" style="left:92px; height:50px;"></div>
+            <div class="tr-em-bar" style="left:116px; height:32px;"></div>
+          </div>
+          <!-- the ISV's own server, amber because it is theirs, and POPULATED -->
+          <div class="tr-isv" id="tr-srv" style="left:410px; top:96px;
+               width:190px; height:140px;">
+            <div class="tr-srv-row" style="top:26px; width:124px;"></div>
+            <div class="tr-srv-row" style="top:52px; width:96px;"></div>
+            <div class="tr-srv-row" style="top:78px; width:138px;"></div>
+            <div class="tr-srv-row" style="top:104px; width:110px;"></div>
+          </div>
+          <div class="tr-isvlab" id="tr-srv-lab" style="left:380px; top:252px;
+               width:200px; text-align:center; white-space:nowrap;"
+               data-var-text="trServer">Your server</div>
+          <!-- the request, which enters plain and leaves STAMPED by the ISV's server -->
+          <div class="tr-tok" id="tr-tok-emb" style="left:206px; top:146px;">&nbsp;</div>
+          <div class="tr-stamp" id="tr-stamp" style="left:646px; top:138px;"></div>
+          <div class="tr-isvlab" id="tr-asrt-lab" style="left:600px; top:252px;
+               width:240px; text-align:center; white-space:nowrap;"
+               data-var-text="trAssertion">Your assertion</div>
+          <svg class="tr-nmsvg" viewBox="0 0 840 330" fill="none">
+            <path id="tr-nm-l0" d="M 196 166 L 410 166" stroke="#5E719F"
+                  stroke-width="4" stroke-linecap="round"/>
+            <path id="tr-nm-l1" d="M 600 166 L 780 166" stroke="#C9821F"
+                  stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- PHASE /openedge : the letter falls off at a named boundary -->
+      <div id="tr-oeph">
+        <div class="tr-nmc" id="tr-card-oe">
+          <div class="tr-nm-prod tr-emark-store" id="tr-oe-prod">
+            <div class="tr-em-row" style="top:16px; width:96px;"></div>
+            <div class="tr-em-row" style="top:31px; width:72px;"></div>
+            <div class="tr-em-row" style="top:46px; width:110px;"></div>
+            <div class="tr-em-row" style="top:61px; width:84px;"></div>
+          </div>
+          <!-- the boundary the identity is lost AT, drawn so the loss has a place -->
+          <div class="tr-oebound" id="tr-oe-bound"></div>
+          <div class="tr-tok" id="tr-tok-u" style="left:206px; top:146px;">A</div>
+          <!-- EMPTY-BY-DESIGN tr-tok-sa: the badge is UNLETTERED and the absent
+               letter is the whole point of the shot -->
+          <div class="tr-badge" id="tr-tok-sa" style="left:560px; top:146px;"></div>
+          <div class="tr-isvlab" id="tr-sa-lab" style="left:486px; top:88px;
+               width:300px; text-align:center; color:#9FB0D0; white-space:nowrap;"
+               data-var-text="trServiceAcct">Service account</div>
+          <!-- the ISV's band is where the filtering has to happen instead -->
+          <div class="tr-isv" id="tr-band" style="left:206px; top:242px;
+               width:560px; height:62px;"></div>
+          <div class="tr-isvlab" id="tr-band-lab" style="left:206px; top:256px;
+               width:560px; text-align:center;"
+               data-var-text="trToolLayer">Your tool layer</div>
+          <svg class="tr-nmsvg" viewBox="0 0 840 330" fill="none">
+            <path id="tr-nm-l2" d="M 196 166 L 468 166" stroke="#5E719F"
+                  stroke-width="4" stroke-linecap="round"/>
+            <path id="tr-nm-l3" d="M 492 166 L 556 166" stroke="#5E719F"
+                  stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- PHASE /verdict : three amber marks, nothing else lit -->
+      <div class="tr-lab" id="tr-verdict" style="left:0; top:150px; width:1920px;
+           text-align:center; font-size:38px;" data-var-text="trVerdict">Three routes</div>
+
+      <!-- PHASE /stronger : the platform-enforced option exists, and it costs one estate.
+           The ONLY place in this act where a gate goes GREEN - which is the point. -->
+      <div id="tr-strongerph">
+        <div class="tr-strong" id="tr-s0" style="left:160px;"></div>
+        <div class="tr-stronglab" id="tr-s0l" style="left:160px;"
+             data-var-text="trStrong0">Knowledge base per tenant</div>
+        <div class="tr-strong" id="tr-s1" style="left:760px;"></div>
+        <div class="tr-stronglab" id="tr-s1l" style="left:760px;"
+             data-var-text="trStrong1">Domo environment per customer</div>
+        <div class="tr-strong" id="tr-s2" style="left:1360px;"></div>
+        <div class="tr-stronglab" id="tr-s2l" style="left:1360px;"
+             data-var-text="trStrong2">OpenEdge multi-tenant tables</div>
+        <div class="tr-estate" id="tr-estate-one" style="left:160px; width:1600px;"></div>
+        <div class="tr-estatelab" id="tr-estate-lab" style="left:160px; width:1600px;"
+             data-var-text="trOneEstate">One estate</div>
+      </div>
+
+      <svg class="tr-svg" id="tr-svg" viewBox="0 0 1920 1080" fill="none">
+        <!-- the request path: into A, then PAST the compartment wall into B -->
+        <path id="tr-path1" d="M 186 380 L 420 380" stroke="#00B563" stroke-width="4"/>
+        <path id="tr-path2" d="M 420 380 L 1390 380" stroke="#C9821F" stroke-width="4"/>
+        <!-- the filter gate across the reader's intake: a boundary with an aperture -->
+        <path id="tr-gate-l" d="M 640 560 L 870 560" stroke="#008963" stroke-width="6"/>
+        <path id="tr-gate-r" d="M 1050 560 L 1280 560" stroke="#008963" stroke-width="6"/>
+        <!-- the segment that BREAKS. Drawn, then removed - the stroke is simply not there. -->
+        <path id="tr-gate-m" d="M 870 560 L 1050 560" stroke="#008963" stroke-width="6"/>
+        <!-- DELETED 9 Oct 2026: tr-orbit, an "orbit the embed token travels on"
+             drawn with stroke-dasharray="9 11". Neither reserved scale, sitting
+             between 20 12 and 6 10 and separable from neither, so a viewer reads it
+             as one of the two states it is not. The /named rewrite had already
+             stopped revealing it, which makes it worse rather than better: dead
+             markup with a false stroke is what the next person revives instead of
+             authoring. If an orbit is wanted here, draw it SOLID. -->
+        <!-- identity travelling into the tool band, then on to the store -->
+        <path id="tr-oepath" d="M 224 470 L 224 600" stroke="#9FB0D0" stroke-width="4"/>
+        <path id="tr-oepath2" d="M 224 686 L 224 718" stroke="#9FB0D0" stroke-width="4"/>
+        <!-- the amber gate inside the ISV's band -->
+        <path id="tr-oegate" d="M 560 600 L 560 686" stroke="#C9821F" stroke-width="7"/>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      let s = 20261009;
+      const rnd = () => (s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296;
+
+      // ---- PHASE WINDOWS. A host may run any contiguous subset; ids are stable.
+      //   /ask       0.00 -  7.14   the question: a request for A touches B
+      //   /arag      7.14 - 20.23   a malformed filter behaves as no filter at all
+      //   /domo     20.23 - 25.81   your own server signs the filter
+      //   /openedge 25.81 - 32.05   a service account carries the call
+      //   /verdict  31.03 - 34.77   three routes, one owner
+      //   /stronger 34.77 - 50.00   the platform-enforced option, and what it costs
+      // EVENT CONSTANTS are the sa-use-cases b3 word events rebased to motif zero.
+      // Re-derive from the host's own narration alignment when reusing.
+      // ONE context level for the act. Furniture from a route that has had its turn
+      // drops to CTX and stays there; the three product objects hold at PROD. Five
+      // different dim levels is what made 58-64s read as debris rather than context.
+      const CTX  = 0.16;   // a route that has already spoken
+      const PROD = 0.45;   // the three product objects, held across the whole act
+      // RE-PINNED to the b3 RE-RECORD of 9 Oct 2026 (104 words / 43.20s, was 119 /
+      // 49.12s). Six shots became four: the Progress Agentic RAG route is PERFORMED
+      // and Domo and OpenEdge are each NAMED in one sentence, so three of the old
+      // constants no longer have a word event behind them.
+      //
+      // MEASURED - every one of these is a real word event in the take:
+      const AT_ASK     = 0.50;   // "Tenancy is the one you will be asked about"
+      const AT_CUST_A  = 4.63;   // "customer A"
+      const AT_CUST_B  = 5.67;   // "touches customer B"
+      const AT_SCOPE   = 7.21;   // "Scope Progress Agentic RAG"
+      const AT_MALFORM = 12.00;  // "malformed filter"
+      const AT_NOFILT  = 15.51;  // "no filter at all"
+      const AT_EVERY   = 16.73;  // "Every document comes back"
+      const AT_DOMO    = 19.42;  // "Domo signs the filter on your own server"
+      const AT_OE      = 22.15;  // "OpenEdge carries the call"
+      const AT_SVCACCT = 24.07;  // "service account"
+      const AT_ROUTES  = 25.11;  // "Three routes"
+      const AT_YOURS   = 27.18;  // "at scale the gate is yours"
+      const AT_STRONGER= 28.56;  // "Each product has a stronger option"
+      const AT_ENFORCES= 31.60;  // "where the platform enforces it"
+      const AT_KB      = 33.74;  // "a knowledge base per tenant"
+      const AT_DOMOENV = 35.62;  // "a Domo environment per customer"
+      const AT_OEMT    = 38.47;  // "OpenEdge multi-tenant tables"
+      const AT_ESTATE  = 41.76;  // "costs you the single estate you wanted"
+      //
+      // DERIVED - these three WERE word events in the superseded take and are not
+      // spoken any more. They are offsets from a measured neighbour and are labelled
+      // so nobody later reads them as measurements. Re-cut the take and the MEASURED
+      // block moves; these follow it.
+      const AT_SIGNS   = AT_DOMO + 0.75;    // derived, no longer spoken
+      const AT_ASSERT  = AT_DOMO + 1.45;    // derived, no longer spoken
+      // The OpenEdge route is NAMED now, not performed, and it has 2.96s instead of
+      // 5.7s. Five sequential moves (path, swap, band, label, gate) do not fit, and
+      // the band is the point - the filtering sits in the ISV's own layer - so the
+      // band arrives EARLY, off the route's own entrance, and the swap lands on the
+      // words. Compressing a performance into a mention is how a tour gets made; the
+      // honest version performs FEWER things.
+      const AT_TOOLLYR = AT_OE + 0.95;      // derived, no longer spoken
+      const AT_OEGATE  = AT_SVCACCT + 0.30; // derived: the gate inside the band
+      // Every derived offset must still land before the beat that follows it. Assert
+      // it rather than trust the arithmetic: a silent reordering reads as a timing
+      // "feel" problem and gets fixed by nudging, which hides the real cause.
+      if (AT_ASSERT > AT_OE - 0.5) {
+        throw new Error("m-tr: AT_ASSERT " + AT_ASSERT.toFixed(2) +
+          " lands after the /named phase dims the Domo route at " +
+          (AT_OE - 0.5).toFixed(2) + ". Re-derive the offsets against the take.");
+      }
+      // Assert the LAST thing the named phase draws, not an arbitrary one. The first
+      // version of this assertion checked AT_TOOLLYR and was right to fire - my
+      // arithmetic was wrong - but it was checking the band, and the gate is what
+      // finishes last.
+      if (AT_OEGATE + 0.55 > AT_ROUTES - 0.10) {
+        throw new Error("m-tr: the /named phase's last move finishes at " +
+          (AT_OEGATE + 0.55).toFixed(2) + ", which is not clear of the verdict at " +
+          AT_ROUTES.toFixed(2) + ". Re-derive the offsets against the take.");
+      }
+
+      // compartment documents, each stamped with its own tenant letter so the viewer can
+      // read BOTH letters in one answer card when the filter breaks
+      function fill(compId, letter, n) {
+        const host = document.getElementById(compId);
+        const made = [];
+        for (let i = 0; i < n; i++) {
+          const d = document.createElement("div");
+          d.className = "tr-doc";
+          d.style.left = (12 + (i % 3) * 124) + "px";
+          d.style.top = (18 + ((i / 3) | 0) * 148) + "px";
+          d.style.transform = "rotate(" + (rnd() * 6 - 3).toFixed(2) + "deg)";
+          for (let k = 0; k < 4; k++) {
+            const b = document.createElement("i");
+            b.style.top = (26 + k * 22) + "px";
+            b.style.width = (46 + ((k * 17) % 30)) + "px";
+            d.appendChild(b);
+          }
+          const l = document.createElement("div");
+          l.className = "tr-tletter"; l.textContent = letter;
+          d.appendChild(l);
+          host.appendChild(d);
+          made.push(d);
+        }
+        return made;
+      }
+      // SIX, not ten. Ten 62px cards could not carry a readable tenant letter, and
+      // the letter is the whole proof. Six is still plainly "a set of documents".
+      const docsA = fill("tr-comp-a", "A", 6);
+      const docsB = fill("tr-comp-b", "B", 6);
+
+      // product interiors
+      const p0 = document.getElementById("tr-p0");
+      for (let i = 0; i < 4; i++) {
+        const r = document.createElement("div");
+        r.className = "tr-prow"; r.style.top = (24 + i * 34) + "px";
+        r.style.width = (190 + Math.round(rnd() * 70)) + "px";
+        p0.appendChild(r);
+      }
+      const p2 = document.getElementById("tr-p2");
+      [58, 94, 44, 106, 72].forEach((h, i) => {
+        const b = document.createElement("div");
+        b.className = "tr-pbar"; b.style.left = (30 + i * 52) + "px";
+        b.style.height = h + "px"; p2.appendChild(b);
+      });
+
+      // the answer card the broken filter fills: bars plus source chips carrying LETTERS
+      const ans = document.getElementById("tr-answer");
+      const abars = [];
+      for (let i = 0; i < 5; i++) {
+        const b = document.createElement("div");
+        b.className = "tr-abar"; b.style.top = (28 + i * 30) + "px";
+        b.style.width = (300 + Math.round(rnd() * 110)) + "px";
+        ans.appendChild(b); abars.push(b);
+      }
+      const achips = [];
+      ["A", "B", "A", "B"].forEach((t, i) => {
+        const c = document.createElement("div");
+        c.className = "tr-achip"; c.textContent = "Tenant " + t;
+        c.style.left = (26 + (i % 2) * 220) + "px";
+        c.style.top = (186 + ((i / 2) | 0) * 34) + "px";
+        c.style.borderColor = t === "B" ? "#C9821F" : "#008963";
+        ans.appendChild(c); achips.push(c);
+      });
+
+      const P1 = document.getElementById("tr-path1"), P2 = document.getElementById("tr-path2");
+      const L1 = P1.getTotalLength(), L2 = P2.getTotalLength();
+      P1.setAttribute("stroke-dasharray", String(L1));
+      P2.setAttribute("stroke-dasharray", String(L2));
+      const GM = document.getElementById("tr-gate-m");
+      const GML = GM.getTotalLength();
+      GM.setAttribute("stroke-dasharray", String(GML));
+      const OEP = document.getElementById("tr-oepath"), OEP2 = document.getElementById("tr-oepath2");
+      const OEL = OEP.getTotalLength(), OEL2 = OEP2.getTotalLength();
+      OEP.setAttribute("stroke-dasharray", String(OEL));
+      OEP2.setAttribute("stroke-dasharray", String(OEL2));
+      const OEG = document.getElementById("tr-oegate");
+      const OEGL = OEG.getTotalLength();
+      OEG.setAttribute("stroke-dasharray", String(OEGL));
+
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 0.6, ease: "power3.out" } });
+
+      // ---- closed state
+      gsap.set("#tr-estate", { autoAlpha: 0 });
+      [docsA, docsB].forEach((set) => set.forEach((d) =>
+        gsap.set(d, { autoAlpha: 0, scale: 0.9, transformOrigin: "50% 50%" })));
+      gsap.set("#tr-tok-a", { autoAlpha: 0, x: -30 });
+      gsap.set(P1, { strokeDashoffset: L1 });
+      gsap.set(P2, { strokeDashoffset: L2 });
+      ["#tr-p0", "#tr-p1", "#tr-p2", "#tr-p0l", "#tr-p1l", "#tr-p2l"].forEach((id) =>
+        gsap.set(id, { autoAlpha: 0, y: 20 }));
+      gsap.set("#tr-aragph", { autoAlpha: 0 });
+      // ONLY THE PARENT. The cards are now CHILDREN of these two groups, and setting
+      // a child to autoAlpha 0 as well means the parent's reveal never reaches it -
+      // autoAlpha sets visibility:hidden on the child, which no amount of parent
+      // opacity undoes. That produced an entirely EMPTY /named phase: three product
+      // miniatures and a stray line, with both cards and all their contents invisible.
+      // It is the split-parent class I have been chasing all day, authored by me, in
+      // the fix for it. If you add a wrapper, delete the child's own initial state.
+      gsap.set("#tr-domoph", { autoAlpha: 0 });
+      gsap.set("#tr-oeph", { autoAlpha: 0 });
+      gsap.set("#tr-verdict", { autoAlpha: 0, y: 12 });
+      ["#tr-gate-l", "#tr-gate-r"].forEach((id) => gsap.set(id, { autoAlpha: 0 }));
+      gsap.set(GM, { autoAlpha: 0, strokeDashoffset: GML });
+      gsap.set("#tr-answer", { autoAlpha: 0, y: 20 });
+      abars.forEach((b) => gsap.set(b, { scaleX: 0 }));
+      achips.forEach((c) => gsap.set(c, { autoAlpha: 0 }));
+      gsap.set("#tr-tok-emb", { autoAlpha: 0 });
+      gsap.set("#tr-stamp", { autoAlpha: 0, scale: 0.6, transformOrigin: "50% 50%" });
+      gsap.set("#tr-asrt-lab", { autoAlpha: 0 });
+      gsap.set("#tr-tok-sa", { autoAlpha: 0 });
+      gsap.set("#tr-sa-lab", { autoAlpha: 0 });
+      // OEP / OEP2 / OEG are the SUPERSEDED full-frame paths (x=224, y=470..718).
+      // The re-authored /named phase draws its own card-relative lines, so these are
+      // never revealed. They are cleared here and asserted never-shown below rather
+      // than deleted, because the stronger-option phase still measures OEG's length.
+      [OEP, OEP2].forEach((p, i) => gsap.set(p, { strokeDashoffset: i ? OEL2 : OEL, autoAlpha: 0 }));
+      gsap.set(OEG, { strokeDashoffset: OEGL, autoAlpha: 0 });
+      gsap.set(["#tr-band", "#tr-band-lab", "#tr-tok-u", "#tr-srv-lab"],
+               { autoAlpha: 0 });
+      gsap.set(["#tr-nm-l0", "#tr-nm-l1", "#tr-nm-l2", "#tr-nm-l3"], { autoAlpha: 0 });
+
+      // ---- PHASE /ask
+      // GRAMMAR rule 7: a motif has its subject on screen from its own t=0, and word events drive CHANGES to it, never its first appearance. Applied to m-3j on 9 Oct and NOT to its siblings, which is why seven of sixteen shots still opened on a bare stage for 8.6s. Fixing one instance felt like closing the class.
+      // The estate and both tenant compartments are the subject of /ask and are
+      // present at frame zero; the CARDS still arrive on the words.
+      gsap.set(["#tr-estate", "#tr-comp-a", "#tr-comp-b",
+                "#tr-lab-a", "#tr-lab-b"], { autoAlpha: 1 });
+      tl.fromTo("#tr-estate", { scaleX: 0.994 },
+                { scaleX: 1, duration: 0.6, ease: "power2.out",
+                   transformOrigin: "50% 50%" }, AT_ASK);
+      // the cards are IN the compartments at frame zero. They settle on the words
+      // rather than arriving on them - grammar rule 7 applies to the interior too,
+      // not just to the box around it.
+      gsap.set(docsA.concat(docsB), { autoAlpha: 1, scale: 1 });
+      docsA.concat(docsB).forEach((d, i) => {
+        tl.fromTo(d, { y: -14, autoAlpha: 0.55 },
+                  { y: 0, autoAlpha: 1, duration: 0.5, ease: "power3.out" },
+                  AT_ASK + 0.1 + i * 0.045);
+      });
+      ["#tr-p0", "#tr-p1", "#tr-p2"].forEach((id, i) =>
+        tl.to(id, { autoAlpha: PROD, y: 0, duration: 0.5 }, AT_ASK + 0.5 + i * 0.12));
+      ["#tr-p0l", "#tr-p1l", "#tr-p2l"].forEach((id, i) =>
+        tl.to(id, { autoAlpha: PROD, y: 0, duration: 0.5 }, AT_ASK + 0.62 + i * 0.12));
+      // a lettered token enters, the path draws into A
+      tl.to("#tr-tok-a", { autoAlpha: 1, x: 0, duration: 0.5 }, AT_CUST_A);
+      tl.to(P1, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, AT_CUST_A + 0.3);
+      // ... then CONTINUES past the compartment wall into B, and one of B's cards lifts
+      tl.to(P2, { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, AT_CUST_B);
+      tl.to(docsB[7], { scale: 1.22, y: -14, duration: 0.5, ease: "power2.out" }, AT_CUST_B + 0.85);
+      tl.to(docsB[7], { boxShadow: "0 0 34px rgba(201,130,31,.85)", duration: 0.5 }, AT_CUST_B + 0.85);
+      // keep the hold alive: without this the film sat 2.73s with nothing in motion
+      // between the estate landing and the request arriving (lint: motion_frozen).
+      docsA.concat(docsB).forEach(function (d, i) {
+        tl.to(d, { y: (i % 2 ? -5 : 5), duration: 1.15, ease: "sine.inOut",
+                   yoyo: true, repeat: 3 }, AT_ASK + 0.9 + (i % 5) * 0.16);
+      });
+
+      // ---- PHASE /arag. The gate exists and works, then its stroke BREAKS - and
+      // critically nothing turns red and nothing stops. The failure is SILENT.
+      tl.to("#tr-aragph", { autoAlpha: 1, duration: 0.4 }, AT_SCOPE);
+      // the /ask token has made its point; leaving it on stage put a lettered "A"
+      // underneath the "Service account" label for eight seconds (lint:
+      // content_overlap #tr-tok-a inside #tr-sa-lab, 30 samples).
+      tl.to("#tr-tok-a", { autoAlpha: 0, duration: 0.45 }, AT_SCOPE);
+      tl.to("#tr-p1", { autoAlpha: 1, duration: 0.5 }, AT_SCOPE);
+      // The estate stays PROMINENT through /arag: it is the source of the documents
+      // flowing through the filter, and this phase is about that filter. Dimming it to
+      // context here made the correct-query flow invisible - the motion was authored
+      // and the frame still read as frozen, which is a good reminder that an element
+      // at 0.16 opacity is not on screen for any purpose, including motion.
+      tl.to("#tr-estate", { autoAlpha: 1, duration: 0.6 }, AT_SCOPE + 0.2);
+      ["#tr-gate-l", "#tr-gate-r"].forEach((id) =>
+        tl.to(id, { autoAlpha: 1, duration: 0.4 }, AT_SCOPE + 0.35));
+      tl.to(GM, { autoAlpha: 1, duration: 0.2 }, AT_SCOPE + 0.5);
+      tl.to(GM, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, AT_SCOPE + 0.5);
+      // A correct query, running CONTINUOUSLY until the filter breaks. Documents keep
+      // passing the gate one after another right up to AT_MALFORM, which is both the
+      // motion this stretch needs and the meaning: the filter works, and works, and
+      // works, and then does not. The decorative light sweep that used to fill this
+      // window was read as a rendering artefact by two viewers; content carries it now.
+      const flowEnd = AT_MALFORM - 0.3;
+      const ANS0 = document.getElementById("tr-answer");
+      const AX = ANS0.offsetLeft + ANS0.offsetWidth / 2;
+      const AY = ANS0.offsetTop + ANS0.offsetHeight / 2;
+      docsA.forEach((d, i) => {
+        const at = AT_SCOPE + 1.5 + i * ((flowEnd - AT_SCOPE - 1.5) / docsA.length);
+        const dx = d.offsetLeft + d.parentElement.offsetLeft + d.offsetWidth / 2;
+        const dy = d.offsetTop + d.parentElement.offsetTop + d.offsetHeight / 2;
+        tl.to(d, { x: AX - dx, y: AY - dy, scale: 0.55, autoAlpha: 0.0,
+                   duration: 1.1, ease: "power2.inOut" }, at);
+        // and the gate pulses as each one passes, so the mechanism is visible
+        tl.to(["#tr-gate-l", "#tr-gate-r"],
+              { strokeWidth: 8, duration: 0.14, ease: "power2.out" }, at + 0.45);
+        tl.to(["#tr-gate-l", "#tr-gate-r"],
+              { strokeWidth: 6, duration: 0.22, ease: "power2.in" }, at + 0.59);
+      });
+      // "malformed filter": the stroke is simply NOT THERE any more.
+      tl.to(GM, { autoAlpha: 0, duration: 0.25 }, AT_MALFORM);
+      tl.to("#tr-nf-lab", { autoAlpha: 0, duration: 0.01 }, AT_MALFORM);
+      // "no filter at all": the whole corpus begins to flow through the break
+      tl.to("#tr-nf-lab", { autoAlpha: 1, duration: 0.45 }, AT_NOFILT);
+      tl.to("#tr-estate", { autoAlpha: 1, duration: 0.5 }, AT_MALFORM + 0.3);
+      // destination read from the DOM, not computed from a grid that has changed
+      // twice. TARGET is the answer card the documents are flowing into.
+      // read the answer's real position rather than picking a point near it
+      const ANS = document.getElementById("tr-answer");
+      const TARGET_X = ANS.offsetLeft + ANS.offsetWidth / 2;
+      const TARGET_Y = ANS.offsetTop + ANS.offsetHeight / 2;
+      // ONLY B crosses here. A's documents were always entitled to be in A's answer;
+      // the leak is B's arriving. Including A's also double-tweened two cards.
+      docsB.forEach((d, i) => {
+        const ax = d.offsetLeft + d.parentElement.offsetLeft + d.offsetWidth / 2;
+        const ay = d.offsetTop + d.parentElement.offsetTop + d.offsetHeight / 2;
+        tl.to(d, { x: TARGET_X - ax, y: TARGET_Y - ay, scale: 0.55,
+                   duration: 1.5, ease: "power1.inOut" }, AT_NOFILT - 1.4 + i * 0.07);
+        tl.to(d, { autoAlpha: 0.0, duration: 0.45 }, AT_NOFILT - 0.15 + i * 0.07);
+      });
+      // "Every document comes back": the answer fills, carrying BOTH tenant letters
+      tl.to("#tr-answer", { autoAlpha: 1, y: 0, duration: 0.5 }, AT_EVERY);
+      abars.forEach((b, i) => {
+        tl.to(b, { scaleX: 1, duration: 0.5, ease: "power2.out" }, AT_EVERY + 0.2 + i * 0.12);
+      });
+      achips.forEach((c, i) => {
+        tl.to(c, { autoAlpha: 1, duration: 0.35 }, AT_EVERY + 0.9 + i * 0.16);
+      });
+
+      // ---- PHASE /named. Domo and OpenEdge, one sentence and one card each.
+      // Every x offset below is CARD-RELATIVE. The previous version's offsets were
+      // frame-relative and survived two re-layouts by coincidence.
+      // THE OUTGOING PHASE CLEARS AFTER THE INCOMING ONE ARRIVES, NEVER BEFORE.
+      // Clearing first leaves a bare stage at the handover - measured on 9 Oct 2026:
+      // eight of fifteen shot boundaries fell below the populated band and three
+      // were completely bare. No opening measure can see it, because the blank is in
+      // the OUTGOING shot's tail and openings are sampled from the next shot's start.
+      tl.to("#tr-aragph", { autoAlpha: 0, duration: 0.5 }, AT_DOMO + 0.25);
+      // the compartments go WITH their phase. They were left standing and empty.
+      ["#tr-comp-a", "#tr-comp-b", "#tr-lab-a", "#tr-lab-b",
+       "#tr-gate-l", "#tr-gate-r"].forEach((id) =>
+        tl.to(id, { autoAlpha: 0, duration: 0.5 }, AT_DOMO - 0.5));
+      tl.to("#tr-estate", { autoAlpha: CTX, duration: 0.5 }, AT_DOMO - 0.5);
+      // the /arag request paths are FRAME-wide. They belong to the phase that just
+      // ended and were only being cleared at /stronger, so they crossed both named
+      // cards and continued past them.
+      [P1, P2, GM].forEach((pth) =>
+        tl.to(pth, { autoAlpha: 0, duration: 0.4 }, AT_DOMO - 0.45));
+      tl.to("#tr-p1", { autoAlpha: PROD, duration: 0.5 }, AT_DOMO - 0.4);
+
+      // DOMO: the request enters plain and leaves STAMPED by the ISV's own server.
+      // Thing: a request. Action: it passes through your server. Result: it carries
+      // your mark, and the line out of the block is amber because the authority is.
+      tl.to("#tr-domoph", { autoAlpha: 1, duration: 0.45 }, AT_DOMO);
+      tl.to("#tr-p2", { autoAlpha: 1, duration: 0.5 }, AT_DOMO);
+      tl.to("#tr-tok-emb", { autoAlpha: 1, duration: 0.35 }, AT_DOMO + 0.35);
+      tl.to("#tr-nm-l0", { autoAlpha: 1, duration: 0.3 }, AT_DOMO + 0.35);
+      tl.to("#tr-tok-emb", { x: 240, duration: 0.95, ease: "power1.inOut" }, AT_SIGNS - 0.45);
+      tl.to("#tr-srv-lab", { autoAlpha: 1, duration: 0.4 }, AT_DOMO + 0.55);
+      tl.to("#tr-srv", { borderColor: "#E09A33", duration: 0.25 }, AT_SIGNS + 0.25);
+      tl.to("#tr-srv", { borderColor: "#C9821F", duration: 0.45 }, AT_SIGNS + 0.55);
+      tl.to("#tr-stamp", { autoAlpha: 1, scale: 1, duration: 0.35,
+                           ease: "back.out(2)" }, AT_SIGNS + 0.45);
+      tl.to("#tr-nm-l1", { autoAlpha: 1, duration: 0.3 }, AT_SIGNS + 0.5);
+      tl.to("#tr-tok-emb", { x: 440, duration: 0.7, ease: "power2.inOut" }, AT_ASSERT);
+      tl.to("#tr-asrt-lab", { autoAlpha: 1, duration: 0.4 }, AT_ASSERT + 0.1);
+      document.querySelectorAll("#tr-p2 .tr-pbar").forEach((b, i) => {
+        tl.fromTo(b, { scaleY: 0.3 }, { scaleY: 1, duration: 0.55, ease: "power3.out" },
+                  AT_ASSERT + 0.3 + i * 0.09);
+      });
+
+      // ---- OPENEDGE: a lettered token crosses a named boundary and the letter is
+      // GONE on the other side. Thing: a request carrying tenant A. Action: it
+      // crosses the service-account boundary. Result: an unlettered badge, and the
+      // filtering has to happen in the ISV's own band instead.
+      tl.to("#tr-p2", { autoAlpha: PROD, duration: 0.5 }, AT_OE - 0.4);
+      tl.to("#tr-oeph", { autoAlpha: 1, duration: 0.45 }, AT_OE);
+      tl.to("#tr-p0", { autoAlpha: 1, duration: 0.5 }, AT_OE);
+      tl.to("#tr-nm-l2", { autoAlpha: 1, duration: 0.3 }, AT_OE + 0.3);
+      tl.to("#tr-tok-u", { autoAlpha: 1, duration: 0.3 }, AT_OE + 0.3);
+      tl.to("#tr-tok-u", { x: 200, duration: 0.85, ease: "power1.inOut" }, AT_OE + 0.5);
+      tl.to("#tr-oe-bound", { backgroundColor: "#9FB0D0", duration: 0.2 }, AT_SVCACCT - 0.15);
+      // the letter does not fade out. It FALLS, because something was dropped.
+      tl.to("#tr-tok-u", { y: 54, autoAlpha: 0, duration: 0.5,
+                           ease: "power2.in" }, AT_SVCACCT);
+      tl.to("#tr-nm-l3", { autoAlpha: 1, duration: 0.25 }, AT_SVCACCT + 0.2);
+      tl.to("#tr-tok-sa", { autoAlpha: 1, duration: 0.4 }, AT_SVCACCT + 0.25);
+      tl.to("#tr-sa-lab", { autoAlpha: 1, duration: 0.4 }, AT_SVCACCT + 0.4);
+      tl.to("#tr-band", { autoAlpha: 1, duration: 0.45 }, AT_TOOLLYR);
+      tl.to("#tr-band-lab", { autoAlpha: 1, duration: 0.4 }, AT_TOOLLYR + 0.2);
+      tl.to("#tr-band", { borderColor: "#E09A33", duration: 0.3 }, AT_OEGATE);
+      tl.to("#tr-band", { borderColor: "#C9821F", duration: 0.5 }, AT_OEGATE + 0.4);
+
+      // ---- PHASE /verdict. The three amber marks turn together and are the only things
+      // lit on the stage: the argument made in colour before it is made in words.
+      tl.to("#tr-verdict", { autoAlpha: 1, y: 0, duration: 0.5 }, AT_ROUTES);
+      tl.to("#tr-estate", { autoAlpha: CTX, duration: 0.7 }, AT_ROUTES + 0.3);
+      ["#tr-p0", "#tr-p1", "#tr-p2"].forEach((id) =>
+        tl.to(id, { autoAlpha: PROD, duration: 0.6 }, AT_ROUTES + 0.3));
+      // both routes stay legible under the verdict that counts them
+      tl.to("#tr-aragph", { autoAlpha: 0.0, duration: 0.4 }, AT_ROUTES + 0.3);
+      // all three gates amber at the same instant
+      // "at scale the gate is yours": every ISV-owned object goes amber at once, and
+      // all three now live INSIDE a card. The old line also lit OEG, a leftover path
+      // at frame x=224 with no card around it - a stray stroke in open space.
+      tl.to(["#tr-srv", "#tr-band"], { autoAlpha: 1, duration: 0.4 }, AT_YOURS - 0.2);
+      tl.to(["#tr-nm-l1"], { stroke: "#E09A33", strokeWidth: 6, duration: 0.45 }, AT_YOURS);
+      tl.to("#tr-stamp", { autoAlpha: 1, borderColor: "#E09A33", scale: 1.1, duration: 0.45 }, AT_YOURS);
+      tl.to("#tr-band", { borderColor: "#E09A33", duration: 0.45 }, AT_YOURS);
+      tl.to(["#tr-gate-l", "#tr-gate-r"], { autoAlpha: 0.55, stroke: "#E09A33",
+                                            strokeWidth: 8, duration: 0.45 }, AT_YOURS);
+      tl.to(["#tr-p0l", "#tr-p1l", "#tr-p2l"], { autoAlpha: CTX, duration: 0.6 }, AT_YOURS);
+
+      // ---- never still
+      tl.to("#tr-stage", { scale: 1.01, transformOrigin: "50% 50%", duration: 4.0,
+                           ease: "sine.inOut" }, AT_ROUTES);
+      // No light sweep. It existed to keep frozen windows alive and two
+      // independent viewers read it as a rendering artefact; the authored
+      // interiors supply the motion now.
+      tl.to("#tr-verdict", { y: -4, duration: 1.8, ease: "sine.inOut", yoyo: true, repeat: 1 },
+            AT_YOURS + 0.5);
+
+      // ---- PHASE /stronger. The scope that stops /verdict reading as an absolute.
+      // Each product DOES have an option where the platform enforces the boundary, so
+      // these three boundaries are GREEN - the only green gates in the act. What they
+      // cost is drawn rather than said: the one estate underneath them SPLITS into three.
+      // INTERIORS. Each option box shows the SEPARATION it buys: two tenants, each
+      // with its own instance of the thing. Empty boxes were what made this the
+      // passage a viewer would stop at.
+      [0, 1, 2].forEach(function (b) {
+        const host = document.getElementById("tr-s" + b);
+        ["A", "B"].forEach(function (letter, t) {
+          const cell = document.createElement("div");
+          cell.className = "tr-sep tr-sep-" + ["kb", "dm", "oe"][b];
+          cell.style.left = (24 + t * 190) + "px";
+          cell.style.top = "42px";
+          cell.style.width = "162px";
+          cell.style.height = "150px";
+          const tag = document.createElement("div");
+          tag.className = "tr-septag"; tag.textContent = letter;
+          cell.appendChild(tag);
+          if (b === 0) {                       // knowledge base per tenant: own corpus
+            for (let k = 0; k < 6; k++) {
+              const d = document.createElement("div");
+              d.className = "tr-sepdoc";
+              d.style.left = (16 + (k % 3) * 46) + "px";
+              d.style.top = (34 + ((k / 3) | 0) * 40) + "px";
+              cell.appendChild(d);
+            }
+          } else if (b === 1) {                // Domo environment per customer: own chart
+            [34, 58, 26, 48].forEach(function (h, k) {
+              const bar = document.createElement("div");
+              bar.className = "tr-sepbarchart";
+              bar.style.left = (28 + k * 30) + "px";
+              bar.style.height = h + "px";
+              cell.appendChild(bar);
+            });
+          } else {                             // multi-tenant tables: own partitioned rows
+            for (let k = 0; k < 4; k++) {
+              const bar = document.createElement("div");
+              bar.className = "tr-sepbar";
+              bar.style.left = "16px";
+              bar.style.top = (44 + k * 24) + "px";
+              bar.style.width = (96 + ((k * 17) % 40)) + "px";
+              cell.appendChild(bar);
+            }
+          }
+          host.appendChild(cell);
+        });
+      });
+
+      // three product miniatures that live INSIDE the one estate
+      const estateMarks = [];
+      [["store", 0], ["reader", 1], ["chart", 2]].forEach(function (pair) {
+        const m = document.createElement("div");
+        m.className = "tr-emark tr-emark-" + pair[0];
+        m.id = "tr-emark" + pair[1];
+        // derived from the shard geometry below, never typed: shard i is
+        // left 160 + i*548, width 504, so its centre is 412 + i*548.
+        m.style.left = (412 + pair[1] * 548 - 75) + "px";
+        // THE INTERIOR. Each mark carries its product's own silhouette.
+        if (pair[0] === "store") {
+          [96, 72, 110, 84].forEach(function (w, k) {
+            const r = document.createElement("div");
+            r.className = "tr-em-row";
+            r.style.top = (16 + k * 15) + "px"; r.style.width = w + "px";
+            m.appendChild(r);
+          });
+        } else if (pair[0] === "reader") {
+          [0, 1, 2].forEach(function (k) {
+            const d = document.createElement("div");
+            d.className = "tr-em-doc"; d.style.left = (22 + k * 30) + "px";
+            d.style.transform = "rotate(" + (k * 4 - 4) + "deg)";
+            m.appendChild(d);
+          });
+          const lit = document.createElement("div");
+          lit.className = "tr-em-lit"; m.appendChild(lit);
+        } else {
+          [26, 40, 18, 46, 32].forEach(function (h, k) {
+            const b = document.createElement("div");
+            b.className = "tr-em-bar";
+            b.style.left = (20 + k * 24) + "px"; b.style.height = h + "px";
+            m.appendChild(b);
+          });
+        }
+        document.getElementById("tr-strongerph").appendChild(m);
+        estateMarks.push(m);
+      });
+
+      const shards = [];
+      [0, 1, 2].forEach(function (i) {
+        const sh = document.createElement("div");
+        sh.className = "tr-shard";
+        sh.id = "tr-shard" + i;
+        sh.style.left = (160 + i * 548) + "px";
+        sh.style.width = "504px";
+        // each shard keeps one product - that is what breaking one estate into three
+        // actually costs, and an empty outline does not say it
+        const pm = document.createElement("div");
+        pm.className = "tr-emark tr-emark-" + ["store", "reader", "chart"][i];
+        pm.style.position = "absolute";
+        pm.style.left = "177px"; pm.style.top = "36px";
+        pm.style.width = "150px"; pm.style.height = "78px";
+        sh.appendChild(pm);
+        document.getElementById("tr-strongerph").appendChild(sh);
+        shards.push(sh);
+      });
+
+      gsap.set("#tr-strongerph", { autoAlpha: 0 });
+      [0, 1, 2].forEach(function (i) {
+        gsap.set("#tr-s" + i, { autoAlpha: 0, y: 26 });
+        gsap.set("#tr-s" + i + "l", { autoAlpha: 0 });
+        gsap.set(shards[i], { autoAlpha: 0 });
+      });
+      gsap.set("#tr-estate-one", { autoAlpha: 0, scaleX: 0.9,
+                                 transformOrigin: "50% 50%" });
+      gsap.set("#tr-estate-lab", { autoAlpha: 0 });
+
+      // clear the verdict furniture; the three amber gates have made their point
+      // Clear EVERYTHING from the verdict, to zero. An earlier version faded the gates
+      // to 0.35 and left the stamp and band behind, so /stronger opened over two stray
+      // lines and a tick that read as render debris rather than as design.
+      ["#tr-oeph", "#tr-domoph", "#tr-card-dm", "#tr-card-oe",
+       "#tr-estate", "#tr-p0", "#tr-p1", "#tr-p2",
+       "#tr-p0l", "#tr-p1l", "#tr-p2l", "#tr-verdict", "#tr-gate-l", "#tr-gate-r",
+       "#tr-stamp", "#tr-band", "#tr-band-lab", "#tr-srv", "#tr-srv-lab",
+       "#tr-asrt-lab", "#tr-tok-emb", "#tr-tok-sa", "#tr-sa-lab",
+       "#tr-answer", "#tr-nf-lab", "#tr-fe-lab"].forEach(function (id) {
+        tl.to(id, { autoAlpha: 0, duration: 0.5 }, AT_STRONGER - 0.5);
+      });
+      [OEG, OEP, OEP2, P1, P2, GM].forEach(function (pth) {
+        tl.to(pth, { autoAlpha: 0, duration: 0.4 }, AT_STRONGER - 0.5);
+      });
+      // arrive BEFORE the outgoing phase has finished leaving. A gap between two
+      // phases is a blank frame, and it lands exactly where the viewer is being
+      // handed a new idea.
+      tl.to("#tr-strongerph", { autoAlpha: 1, duration: 0.45 }, AT_STRONGER - 0.55);
+
+      // the single estate, whole, with the three products INSIDE it - that is what one
+      // estate means, and it stops the shot opening on an empty rectangle for five
+      // seconds while the first option is still being spoken.
+      tl.to("#tr-estate-one", { autoAlpha: 1, scaleX: 1, duration: 0.7,
+                                ease: "power3.out" }, AT_STRONGER - 0.45);
+      tl.to("#tr-estate-lab", { autoAlpha: 1, duration: 0.45 }, AT_STRONGER + 0.5);
+      estateMarks.forEach(function (m, i) {
+        tl.fromTo(m, { autoAlpha: 0, y: 16 },
+                  { autoAlpha: 1, y: 0, duration: 0.5 }, AT_STRONGER + 0.45 + i * 0.16);
+      });
+      // "where the platform enforces it": the green is the whole difference
+      tl.to("#tr-estate-one", { borderColor: "#7287B5", duration: 0.5 }, AT_ENFORCES);
+      // The estate held still for 3.82s between landing and the first option arriving
+      // (lint: motion_frozen, 2.5s ceiling). It now breathes through the wait, which
+      // also reads as the thing about to be broken up.
+      tl.to("#tr-estate-one", { scaleX: 1.006, scaleY: 1.03,
+                                transformOrigin: "50% 50%", duration: 1.45,
+                                ease: "sine.inOut", yoyo: true, repeat: 3 },
+            AT_STRONGER + 0.9);
+      tl.to("#tr-estate-lab", { y: "-=4", duration: 1.3, ease: "sine.inOut",
+                                yoyo: true, repeat: 3 }, AT_STRONGER + 1.1);
+
+      // one option per spoken name, each a GREEN boundary
+      [0, 1, 2].forEach(function (i) {
+        tl.to("#tr-s" + i, { autoAlpha: 0.34, y: 0, duration: 0.5 },
+              AT_STRONGER - 0.35 + i * 0.1);
+      });
+      [[0, AT_KB], [1, AT_DOMOENV], [2, AT_OEMT]].forEach(function (pair) {
+        const i = pair[0], at = pair[1];
+        tl.to("#tr-s" + i, { autoAlpha: 1, y: 0, duration: 0.6 }, at);
+        tl.to("#tr-s" + i + "l", { autoAlpha: 1, duration: 0.45 }, at + 0.3);
+        tl.to("#tr-s" + i, { boxShadow: "0 0 30px rgba(0,181,99,.45)", duration: 0.4 },
+              at + 0.15);
+        tl.to("#tr-s" + i, { boxShadow: "0 0 0 rgba(0,181,99,0)", duration: 0.6 },
+              at + 0.75);
+      });
+
+      // "each one costs you the single estate you wanted": the one estate SPLITS.
+      // The cost is the picture; nothing is said about price, which we do not have.
+      tl.to("#tr-estate-one", { autoAlpha: 0, duration: 0.3 }, AT_ESTATE);
+      estateMarks.forEach(function (m, i) {
+        tl.to(m, { x: (i - 1) * 56, duration: 0.9, ease: "power2.out" }, AT_ESTATE + 0.25);
+        tl.to(m, { x: (i - 1) * 66, duration: 1.6, ease: "sine.inOut" }, AT_ESTATE + 1.3);
+      });
+      tl.to("#tr-estate-lab", { autoAlpha: 0, duration: 0.3 }, AT_ESTATE);
+      [0, 1, 2].forEach(function (i) {
+        tl.to(shards[i], { autoAlpha: 1, duration: 0.25 }, AT_ESTATE + 0.1);
+        tl.to(shards[i], { x: (i - 1) * 56, duration: 0.9, ease: "power2.out" },
+              AT_ESTATE + 0.25);
+      });
+      // alive to the end: the shards drift apart a little further, never settling
+      [0, 1, 2].forEach(function (i) {
+        tl.to(shards[i], { x: (i - 1) * 66, duration: 1.6, ease: "sine.inOut" },
+              AT_ESTATE + 1.3);
+      });
+
+      window.__timelines["m-tr"] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

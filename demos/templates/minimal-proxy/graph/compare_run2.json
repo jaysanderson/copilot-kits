@@ -1,0 +1,189 @@
+[
+ {
+  "start": "International students",
+  "q": "I'm an international student. What English test scores, scholarships and visa or health cover costs should I plan for?",
+  "walked_pages": 13,
+  "arms": {
+   "plain": {
+    "status": "no_context",
+    "cited_pages": 0,
+    "cited_sections": [],
+    "words": 6,
+    "answer": "Not enough data to answer this."
+   },
+   "context": {
+    "status": "success",
+    "cited_pages": 4,
+    "cited_sections": [
+     "study"
+    ],
+    "words": 360,
+    "answer": "Based on the provided context, here is the information regarding English test requirements, scholarships, and health cover for international students:\n\n### English Proficiency Test Scores\nEnglish requirements vary depending on the specific course you intend to study. The context provides detailed tables for various programs (e.g., Veterinary Medicine, Education, Law, Nursing, Allied Health, etc.). You must meet the specific minimums listed for your chosen course. \n\n*   **Undergraduate Examples:**\n    *   **Veterinary Medicine:** Requires IELTS 7.0 Overall (7.0 in each band), CAE 185 Overall, or PTE 66 Overall, among others.\n    *   **Education:** Requires IELTS 7.5 Overall (7.0 minimum, 8.0 in Speaking/Listening), CAE 191 Overall, or PTE 76 Overall.\n*   **Postgraduate Examples:**\n    *   **Food Security:** Requires IELTS 6.5 Overall (6.0 in each band), CAE 176 Overall, or PTE 58 Overall.\n*   **Note on TOEFL:** TOEFL IBT tests taken between **26th July 2023 and 4th May 2024** are not accepted for applicants applying for a student visa to study in Australia.\n\n### Scholarships\nThe provided documents mention that scholarships are available but do not specify individual dollar amounts or specific lists of all available awards.\n*   **University College:** Offers a range of scholarships to students from around the world.\n*   **General Information:** You can find available scholarships by visiting the \"Find a scholarship\" or \"Applying for scholarships\" sections on the University website.\n\n### Health Cover (OSHC)\n*   **Requirement:** Most international students are required to purchase Overseas Student Health Cover (OSHC) to cover the cost of medical care while living in Australia.\n*   **Duration:** You must have health cover in place that lasts for the full duration of your stay before you can apply for a student visa.\n*   **Exemptions:** If you are from Belgium, Norway, or Sweden, you may be eligible for coverage through your country's existing health insurance arrangements.\n*   **Costs:** The context does not provide specific dollar costs for OSHC, only that it is a necessary part of preparing for your studies and visa application.\n\n**Recommendation:** For specific tuition fees, exact scholarship amounts, and OSHC pricing, you should use the [Course Finder](https://goto.university.edu.au/CourseFinder) or contact University's international student support team via the contact details provided in the context (Phone: +61 8 9360 6063)."
+   },
+   "scoped": {
+    "status": "success",
+    "cited_pages": 2,
+    "cited_sections": [
+     "home",
+     "study"
+    ],
+    "words": 152,
+    "answer": "Based on the provided context, here is the information regarding your request:\n\n*   **English Test Scores:** The documents mention \"English proficiency tests\" as a relevant topic for international students and as an entry requirement, but the context does not provide specific score requirements.\n*   **Scholarships:** While \"Scholarships\" is listed as a topic under \"Fees and scholarships\" for international students (with specific links like \"Scholarships for good\" and \"Brighter Futures Scholarship\"), the context does not provide the specific dollar amounts or costs associated with these scholarships.\n*   **Visa/Health Cover Costs:** \n    *   **Visa:** The context mentions \"Apply for a visa\" as a requirement, but it does not list the specific costs associated with student visa applications.\n    *   **Health Cover:** While the context identifies that you need Overseas Student Health Cover (OSHC) for the full duration of your stay, it does not provide specific cost figures for the cover.\n\nNot enough data to answer this."
+   }
+  }
+ },
+ {
+  "start": "Support services",
+  "q": "I'm studying at the Perth campus. What can I use outside class: housing, wellbeing support and sport?",
+  "walked_pages": 15,
+  "arms": {
+   "plain": {
+    "status": "success",
+    "cited_pages": 6,
+    "cited_sections": [
+     "Community",
+     "collaborate",
+     "explore",
+     "study"
+    ],
+    "words": 299,
+    "answer": "Based on the provided context, here are the options available to you outside of class at the Perth campus:\n\n### Housing\n*   **On-campus:** You can live at the **The university Village**. Benefits include walking to class (within 1\u20132 km), 24/7 security, residential advisors, and the ability to meet other students. All bills are included except for food, mobile phone, and fuel/parking.\n*   **Off-campus:** You can look for private rentals using resources provided by the University Guild or various external student accommodation websites (e.g., flatmates.com.au, student.com, Campus Perth, UniLodge, and Yugo).\n\n### Wellbeing Support\n*   **Health and Counselling:** The university provides health and counselling support services. You can access the **Health & wellbeing** facility to support your academic and personal experience.\n*   **Clinics:** There are several professional services available, including the **Psychology Clinic** (for adults, children, couples, and families), **Caladenia Counselling** (affordable counselling and art therapy), and the **Chiropractic Clinic**.\n*   **Legal:** You can get help at the southern communities legal centre.\n*   **Specialized Facilities:** There is \"Easy Access\" parking for pregnant students, and parenting facilities/baby change rooms are available on campus. \n*   **Student Support:** The Access and Inclusion Office is available for student contact regarding wellbeing and accessibility services.\n\n### Sport\n*   **University Active:** This is the primary hub for staying active. It offers a fully equipped on-campus gym (with discounted access for students), group fitness classes, and personal training.\n*   **Teams:** You can join social and competitive sporting teams, including basketball, cricket, beach volleyball, cycling, golf, and more.\n*   **Facilities and Trails:** \n    *   The **Sports Precinct** has fields and pavilions available for hire.\n    *   There are three walking and cycling trails set within the **Banksia Woodland Reserve** on the Perth campus.\n*   **Programs:** The university also hosts an Elite Athlete Program to help balance studies with sporting commitments."
+   },
+   "context": {
+    "status": "success",
+    "cited_pages": 5,
+    "cited_sections": [
+     "explore",
+     "study"
+    ],
+    "words": 239,
+    "answer": "Based on the provided context, you have several options for housing, wellbeing support, and sport while studying at the Perth campus:\n\n**Housing**\n* **On-campus:** You can live at the The university Village, which offers 24/7 security, residential advisors, and includes all bills except for food, mobile phone, and fuel/parking.\n* **Private rental:** You can seek private rental options through the University Guild\u2019s accommodation support, or via platforms such as flatmates.com.au, student.com, Campus Perth, UniLodge, and Yugo.\n\n**Wellbeing Support**\n* **Health and Counselling:** The University provides health and counselling support services. You can access professional psychological services through the Psychology Clinic, chiropractic services via the Chiropractic Clinic, and counselling/creative arts therapies via Caladenia Counselling.\n* **Access and Inclusion:** The Access and Inclusion Office provides support for health, wellbeing, and accessibility.\n* **Medical Service:** For basic first aid advice and support during business hours (8:30 am\u20134:30 pm), you can contact the medical service.\n* **Emergency/Security:** Security Services are available 24/7, and you can report hazards or incidents via the M-REPORT system.\n\n**Sport and Recreation**\n* **University Active:** This includes a fully equipped on-campus gym, group fitness classes, personal training, and social/competitive sporting teams (such as basketball, cricket, beach volleyball, cycling, and golf).\n* **Esports:** There is an Esports Gaming Hub available.\n* **Outdoors:** You can utilize walking/jogging/cycling trails set within the Banksia Woodland on campus.\n* **Venues:** The Sports Precinct has a range of fields, pavilions, and facilities available for hire."
+   },
+   "scoped": {
+    "status": "success",
+    "cited_pages": 4,
+    "cited_sections": [
+     "collaborate",
+     "research",
+     "study"
+    ],
+    "words": 272,
+    "answer": "Based on the provided context for the Perth campus, here are the resources available to you for housing, wellbeing, and sport:\n\n### Housing and Accommodation\n* **Accommodation:** You can find information regarding accommodation via the \"Life in Perth\" section of the study pages.\n* **Students under 18:** There is specific support information for students under 18 years of age regarding accommodation.\n\n### Wellbeing Support\n* **Health Services:** You have on-campus access to doctors, nurses, and counsellors. Medical and counselling staff work with Allianz Care Australia for Overseas Student Health Cover (OSHC).\n* **Clinics:** \n    * **Chiropractic Clinic:** High-quality, patient-centred care.\n    * **Psychology Clinic:** Professional support for adults, children, couples, and families.\n    * **Caladenia Counselling:** Affordable counselling and art therapy services.\n* **Safety and Emergency:** \n    * **Sonder:** A specialist 24/7 multilingual emergency, safety, and wellbeing off-campus service for international students with eligible OSHC.\n    * **Emergency:** In a life-threatening emergency, call 000.\n* **Student Services:** \n    * **Student Central:** You can speak with the team about any personal issues or problems as you adjust to university life.\n    * **Support services:** There is a dedicated support team for first-year students.\n* **Other:** Therapy dogs occasionally visit campus to provide support.\n\n### Sport and Recreation\n* **University Active:** You can use facilities, join teams, and participate in classes to keep fit.\n* **Sporting venues:** There are designated sporting venues available on campus.\n* **Walks and trails:** The university provides access to various walks and trails.\n* **Other:** The campus features outdoor community cinemas, a Student Hub for socializing and co-working, and the University Student Guild, which hosts clubs and events to bring students together outside of academic settings."
+   }
+  }
+ },
+ {
+  "start": "Fees",
+  "q": "I'm an international postgraduate. What will my first year cost and what scholarships could reduce it?",
+  "walked_pages": 5,
+  "arms": {
+   "plain": {
+    "status": "success",
+    "cited_pages": 8,
+    "cited_sections": [
+     "#",
+     "#mainContent",
+     "FutureStudents",
+     "home",
+     "study"
+    ],
+    "words": 295,
+    "answer": "Based on the provided context, here is the information regarding your costs and potential scholarships as an international postgraduate student:\n\n### First-Year Costs\nThe context states that for international students, tuition fees are unit-based and calculated based on points and your area of study. While the provided \"2027 International Course Fees\" table lists indicative first-year fees for various **undergraduate** and **combined** degrees (ranging from $36,720 to $44,040), it does not provide specific fee amounts for postgraduate coursework degrees. \n\nTo determine your specific first-year cost:\n*   **Fee Calculator:** You can use the University [fee calculator](http://goto.university.edu.au/TuitionFeeCalculator) to work out the cost of your units.\n*   **Letter of Offer:** Your Letter of Offer will contain an estimated annual tuition fee based on 24 credit points.\n*   **Additional Costs:** Beyond tuition, the \"Cost of Attendance\" chart indicates that you may also need to budget for Overseas Student Health Cover, books, supplies, transportation, and living expenses (estimated at $22,400 for two semesters).\n\n### Potential Scholarships\nThere are 37 scholarships listed as available to international students. While eligibility requirements vary, the following scholarships are explicitly open to postgraduate students:\n\n*   **Academic Excellence Award: Postgraduate:** Available to high-achieving domestic students starting a postgraduate degree (note: although labeled \"domestic\" in the list, you should verify international eligibility through the [scholarship search portal](https://www.university.edu.au/study/scholarships)).\n*   **Kulbardi Aboriginal Centre Health Scholarships:** Available to Aboriginal and/or Torres Strait Islander postgraduate students studying a health-related field.\n*   **Scholarships for Good:** This program offers up to $12,000 across your degree if you are making a positive impact on the world around you outside of your studies.\n\nTo find all scholarships you may be eligible for, you should view the [full list of scholarships](https://www.university.edu.au/study/scholarships) and use the filter tool to select \"International\" under \"Student type\" and \"Postgraduate\" under \"Study level.\""
+   },
+   "context": {
+    "status": "success",
+    "cited_pages": 2,
+    "cited_sections": [
+     "study"
+    ],
+    "words": 159,
+    "answer": "Based on the provided context, I cannot determine the exact first-year cost for an international postgraduate student because the \"2027 International Course Fees\" table lists specific bachelor's degree programs, not postgraduate programs.\n\nRegarding scholarships, the provided text mentions the following for postgraduate students:\n\n*   **[Postgraduate Access and Equity Scholarship](https://www.university.edu.au/study/scholarship/postgraduate-access-and-equity-scholarship):** Available to domestic postgraduate students facing financial hardship. (Note: The context specifies this is for domestic students).\n*   **The university Dubai:** The context includes a section for \"The university Dubai,\" which lists several postgraduate programs (e.g., Graduate Certificate in Business Administration, Master of Education). That section also lists \"Scholarships\" (Academic Merit Scholarships, Grants and Bursaries), but it does not provide the specific costs or eligibility criteria for these scholarships.\n\nBecause the fee list only pertains to undergraduate courses and the primary scholarship listed for postgraduate students is explicitly for \"domestic\" students, there is not enough data to answer your question regarding costs and applicable scholarships for an international postgraduate student."
+   },
+   "scoped": {
+    "status": "no_context",
+    "cited_pages": 0,
+    "cited_sections": [],
+    "words": 71,
+    "answer": "Not enough data to answer this.\n\nThe provided context does not include specific tuition amounts or living costs for the first year of a postgraduate degree for international students. While it provides links to \"2027 International Fees,\" \"Cost of living,\" and \"Fees and scholarships,\" the actual data points (dollar amounts) are not contained within the text. Consequently, I cannot calculate your first-year costs or identify which specific scholarships would reduce them."
+   }
+  }
+ },
+ {
+  "start": "Research ethics and integrity",
+  "q": "I'm a PhD candidate working with animals. Which ethics approvals do I need and where can I get support?",
+  "walked_pages": 5,
+  "arms": {
+   "plain": {
+    "status": "success",
+    "cited_pages": 8,
+    "cited_sections": [
+     "research"
+    ],
+    "words": 289,
+    "answer": "As a PhD candidate working with animals, you are required to obtain ethics approval **before** any work can commence, as retrospective approvals cannot be granted.\n\n### Necessary Ethics Approvals and Requirements\n*   **Animal Ethics Approval:** You must submit an application for ethics approval for any project involving the care and use of animals for scientific purposes (on campus, in the field, or in collaboration with other institutions).\n*   **Training Prerequisites:** \n    *   You must complete the online **Working with Animals** training module.\n    *   You must complete ANZCCART\u2019s **ComPass online course** (Modules 1\u20137 and the quiz).\n    *   You must attend an **Animal Care & Ethics Workshop**. Enrollment for this is done by emailing the Animal Welfare Advisor at [animal.ethics@university.edu.au](mailto:animal.ethics@university.edu.au).\n*   **Supervision:** Note that students cannot be the Chief Investigator of a project; this role must be held by your supervisor.\n*   **Permits and Licences:** If your project involves specific activities, locations (e.g., interstate or overseas), or privately owned animals, you may require additional permits, licences, or owner consent forms, which must be attached to your application.\n*   **Documentation:** You may need to develop Standard Operating Procedures (SOPs) and provide independent statistical evaluation for your project.\n\n### Where to Get Support and Apply\n*   **Application System:** All applications, amendments, and reports are submitted online via the **IRMA** system ([https://goto.university.edu.au/RMS/](https://goto.university.edu.au/RMS/)).\n*   **Application Forms:** You can find the relevant application forms (e.g., Research Project Application Form) on the university's animal ethics resources page.\n*   **Administrative/Expert Support:** \n    *   For specific inquiries, you can contact the **Animal Ethics Advisor** at [animal.ethics@university.edu.au](mailto:animal.ethics@university.edu.au).\n    *   For general policy and procedural guidance, consult the **[Animal ethics homepage](/research/research-ethics-and-integrity/animal-ethics)**.\n    *   Ensure you check the agenda deadlines for Animal Ethics Committee (AEC) meetings, as applications must be submitted by these dates for review."
+   },
+   "context": {
+    "status": "success",
+    "cited_pages": 8,
+    "cited_sections": [
+     "research"
+    ],
+    "words": 315,
+    "answer": "As a PhD candidate working with animals, you are required to obtain **animal ethics approval** before any work can commence. Retrospective approvals cannot be granted.\n\n### Necessary Requirements\n*   **Ethics Approval:** You must obtain ethics approval via the Animal Ethics Committee (AEC). Approval is required for any project involving the care and use of animals for scientific purposes (on campus, in the field, or in collaboration with other institutions).\n*   **Training and Certification:** \n    *   You must complete the ANZCCART **ComPass online course** (Modules 1\u20137, with the quiz in Module 8).\n    *   You must attend an **Animal Care & Ethics (ACE) Workshop**. These are held monthly via MS Teams and are a compulsory requirement for Animal Care and Ethics registration.\n*   **Submission:** Applications are submitted online via the **IRMA system** as a \"coversheet\" with all forms submitted as attachments by the agenda document deadline.\n*   **Personnel Requirements:** All personnel handling animals must complete the required training (online module and workshop) before being included as co-investigators. Additionally, the Chief Investigator for the project must be a The university staff member who can take ultimate responsibility for the activity.\n\n### Where to get support\n*   **Training Enrolment:** To enrol in the Animal Care and Ethics Training Workshop, email the Animal Welfare Advisor - Research & Teaching at **animal.ethics@university.edu.au**.\n*   **Application Guidance:**\n    *   **IRMA System:** Use [IRMA](https://goto.university.edu.au/RMS/) to manage your application, amendments, and reporting.\n    *   **Resources:** Consult the \"Useful information\" page on the University website for guidance on amendments, reporting breaches, adverse incidents, and annual reporting.\n    *   **Legislation:** Read the Animal Code and relevant The university policies available via the [Legislation and links](https://www.university.edu.au/research/research-ethics-and-integrity/animal-ethics/legislation-and-links) page.\n    *   **Forms:** Download specific application forms (e.g., Research Project Application Form, Wildlife Research Application Form) from the [Animal ethics resources](https://www.university.edu.au/research/research-ethics-and-integrity/animal-ethics/animal-ethics-resources) page.\n    *   **AEC Support:** The Animal Ethics Committee provides oversight, and you can contact the Animal Welfare Advisor or Animal Ethics Advisor for further assistance."
+   },
+   "scoped": {
+    "status": "success",
+    "cited_pages": 4,
+    "cited_sections": [
+     "research"
+    ],
+    "words": 379,
+    "answer": "As a PhD candidate working with animals, you are considered an investigator. Your requirements for ethics approval and support are as follows:\n\n### Ethics Approval Requirements\n*   **Approval Necessity:** You need ethics approval if your project or activity involves the care and use of animals for scientific purposes (whether on campus, in the field, or in collaboration with other institutions). This also includes observational studies of live vertebrate animals and cephalopods.\n*   **Application Process:**\n    *   **Submission:** Your Principal Supervisor must submit the ethics application on your behalf.\n    *   **Platform:** Applications are managed through **IRMA**.\n    *   **Documentation:** You must provide realistic estimates of required animals and a rationale for those numbers. If using privately owned animals, you must obtain and attach owner consent. If you are using cadavers or tissue samples, you must notify the AEC via the Research or Teaching Application form and the Cadaver and Tissue questionnaire on IRMA before work commences.\n    *   **Training:** Before you can be included as a co-investigator, you must complete the online Working with Animals training module and attend an Animal Care & Ethics Workshop (or provide evidence of equivalent training). You must also complete the ANZCCART ComPass online course (Modules 1\u20137, with the quiz in Module 8) before enrolling in the workshop.\n*   **Compliance:** You must adhere to the Australian Code for the Care and Use of Animals for Scientific Purposes and the guiding principles of the 3 Rs (Replacement, Reduction, and Refinement).\n\n### Where to Get Support\n*   **Advisory Support:** You can contact the **Animal Ethics Advisor** or the **Animal Welfare Advisor - Research & Teaching** for guidance.\n*   **Email:** For inquiries or to enrol in the compulsory Animal Care and Ethics Training Workshop, email: **animal.ethics@university.edu.au**.\n*   **Institutional Resources:**\n    *   **Research Ethics and Integrity (REI):** Provides advice to research students on animal research ethics applications and information on education programs.\n    *   **IRMA:** The system used for submitting applications, amendments, and annual reports.\n    *   **Web Resources:** You can access specific guidance on the The university website under the \"Animal ethics\" and \"Useful information\" sections, which cover topics such as legislation, workshop dates, and the use of privately owned animals or cadavers.\n    *   **Physical Location:** The Research Ethics and Integrity office is located at The university, Chancellery Building Room 1.006, South Street, University."
+   }
+  }
+ },
+ {
+  "start": "Scholarships",
+  "q": "What funding and support exists for Aboriginal and Torres Strait Islander students, from entry to research?",
+  "walked_pages": 5,
+  "arms": {
+   "plain": {
+    "status": "success",
+    "cited_pages": 9,
+    "cited_sections": [
+     "HealthPartnerships",
+     "collaborate",
+     "explore",
+     "research",
+     "study"
+    ],
+    "words": 479,
+    "answer": "Based on the provided context, Aboriginal and Torres Strait Islander students at The university have access to a comprehensive range of support and funding throughout their educational journey, from enabling programs to postgraduate studies and research:\n\n### **Financial Support and Funding**\n*   **Donations:** The Kulbardi Aboriginal Centre receives donations that go directly to impacting students, including providing scholarships, laptops, and SmartRiders for public transport. \n*   **Scholarships:** Kulbardi sponsors specific scholarships to assist students with their studies, including additional expenses like childcare and laptops. These include:\n    *   Kulbardi Aboriginal Centre Success Scholarships.\n    *   Kulbardi Aboriginal Centre Health Scholarships.\n*   **External Scholarships:** A variety of other scholarships are available, such as the Dr Tracy Westerman Indigenous Psychology Scholarship, Cancer Council Honours/Masters Scholarship, The Kadadjiny Indigenous scholarship, Minnie Bairstow Scholarship, Bilya Boorn Scholarship 2026, Bendigo Bank scholarships, Teachers of STEM Initiative Scholarship, and the UGL Aboriginal and Torres Strait Islander Undergraduate Scholarship Program.\n\n### **Academic and Enabling Support**\n*   **Enabling Programs:**\n    *   **K-Track:** A free, award-winning enabling course for those starting tertiary education or changing direction, with no prerequisites. It includes a mentor program providing peer-facilitated study sessions.\n    *   **Ngoolark:** A free unit for students transitioning into Bachelor of Arts, Education, Business, or Nursing degrees, tailored to individual needs.\n    *   **Waardong:** A support unit for students entering veterinary and life sciences undergraduate degrees.\n*   **Undergraduate Support:** A student support coordinator assists with course advice, tutorials, career development, and general concerns.\n*   **Postgraduate Support:** An academic development coordinator provides assistance with coursework (Masters), literature reviews, research methodology, data analysis, thesis writing, editing, journal article publication, finding a supervisor, and preparing research proposals.\n\n### **General and Cultural Support**\n*   **Kulbardi Aboriginal Centre:** Offers a relationships-first approach, providing tutoring, mentoring, academic guidance, regular semester check-ins, free printing and stationery, access to textbooks, and a food pantry.\n*   **Facilities:** Students on the Perth campus have access to the Kulbardi computer room, printers, kitchen, and common room.\n*   **Clinical Placements:** Through the \"Moorditj Kaartdijin, Moorditj Warlang\" partnership, Aboriginal and Torres Strait Islander nursing students can complete all clinical placements at Fiona Stanley Hospital or other South Metropolitan Health Service facilities.\n*   **Institutional Leadership:** The Pro Vice Chancellor (First Nations) role was created to increase the participation and achievement of First Nations people, promote cultural inclusivity, and support the development of a culturally safe learning environment and the School of Indigenous Knowledges.\n\n### **Research Support**\n*   **Ethics and Guidelines:** Research involving Indigenous participants is highly sensitive. The University requires adherence to the National Statement (4.7) and specific guidelines (such as the 2018 guidelines for researchers and stakeholders and the University HREC ethics forms) to ensure research is culturally appropriate, often requiring consultation and agreement from indigenous groups, agencies, or community leaders.\n*   **Research Initiatives:** The Ngangk Yira Institute for Change conducts co-designed, translational research in areas like Maternal and Child Health, Family Empowerment, and Healthy Families and Communities."
+   },
+   "context": {
+    "status": "success",
+    "cited_pages": 10,
+    "cited_sections": [
+     "HealthPartnerships",
+     "collaborate",
+     "explore",
+     "research",
+     "study"
+    ],
+    "words": 380,
+    "answer": "Based on the provided context, The university offers a wide range of funding and support for Aboriginal and Torres Strait Islander students across their academic journey:\n\n### Financial Support and Scholarships\n*   **Kulbardi Scholarships:** These are designed to enable Aboriginal and Torres Strait Islander students to pursue their studies. Examples include:\n    *   **Kulbardi Aboriginal Centre Success Scholarships**\n    *   **Kulbardi Aboriginal Centre Health Scholarships:** Available to undergraduate or postgraduate students in health-related fields (HDR students are eligible for the laptop only).\n*   **Other Financial Assistance:** Kulbardi scholarships may assist with additional expenses such as laptops and childcare.\n*   **Donation-funded support:** Donations help provide students with laptops (for borrowing), SmartRiders for public transport, and access to other resources.\n*   **External/Other Scholarships:** There are various other scholarships listed for First Nations students, including the Dr Tracy Westerman Indigenous Psychology Scholarship, Cancer Council Honours/Masters Scholarship, The Kadadjiny Indigenous scholarship, Minnie Bairstow Scholarship, Bilya Boorn Scholarship 2026, Bendigo Bank scholarships, Teachers of STEM Initiative Scholarship, and the UGL Aboriginal and Torres Strait Islander Undergraduate Scholarship Program.\n\n### Academic and Institutional Support\n*   **Kulbardi Aboriginal Centre:** This centre provides academic, cultural, and social support. Support includes tutoring, mentoring, academic guidance, regular semester check-ins, free printing and stationery, access to textbooks, and a food pantry.\n*   **Enabling Programs:** The award-winning **K-Track** enabling program is available to improve pathways and participation in higher education.\n*   **Specialized Support by Degree Level:**\n    *   **Undergraduate:** Students have access to a student support coordinator who assists with course advice, tutorials, career development, and other concerns.\n    *   **Postgraduate:** Students can access an academic development coordinator for help with course work, writing (including literature reviews, journal articles, and thesis editing), research methodology, data analysis, and discussing ideas. Kulbardi also assists prospective postgraduate students in finding supervisors and preparing research proposals.\n*   **Clinical Placements:** Through the **Moorditj Kaartdijin, Moorditj Warlang** partnership, Aboriginal and Torres Strait Islander nursing students can complete all clinical placements at Fiona Stanley Hospital or other South Metropolitan Health Service facilities.\n*   **Facilities:** Students on the Perth campus have access to Kulbardi facilities, including a computer room, printers, a kitchen, and a common room.\n*   **Other Pathways:** Programs like **Waardong** are available for Aboriginal and Torres Strait Islander students aiming to study veterinary medicine who do not have a background in chemistry."
+   },
+   "scoped": {
+    "status": "success",
+    "cited_pages": 4,
+    "cited_sections": [
+     "explore",
+     "home",
+     "study"
+    ],
+    "words": 272,
+    "answer": "Based on the provided context, Aboriginal and Torres Strait Islander students have access to various forms of funding and support at The university:\n\n**General Support and Services**\n*   **Support Staff:** The Kulbardi Aboriginal Centre offers academic, cultural, and emotional support to students from the time they start their studies until they graduate.\n*   **Facilities:** Students on the Perth campus can access Kulbardi facilities, including a computer room (with printers), a kitchen, and a common room, using their identification card.\n*   **Enabling Program:** The K-Track enabling program is available through the Kulbardi Aboriginal Centre.\n\n**Financial Support (Scholarships)**\n*   **Kulbardi-Sponsored Scholarships:** Kulbardi sponsors scholarships specifically designed to enable Aboriginal and Torres Strait Islander students to pursue their studies. These may assist with additional expenses such as laptops and childcare.\n*   **Specific Scholarships:** Examples include the [Kulbardi Aboriginal Centre Success Scholarships](https://www.university.edu.au/study/scholarship/kulbardi-aboriginal-centre-success-scholarships) and the [Kulbardi Aboriginal Centre Health Scholarships](https://www.university.edu.au/study/scholarship/kulbardi-aboriginal-centre-health-scholarships).\n*   **Application Assistance:** The centre provides support for students with questions about scholarships or assistance with the application process.\n\n**Academic Support (Undergraduate to Postgraduate)**\n*   **Undergraduate Support:** A student support coordinator provides assistance with course advice, tutorials, career development, and any concerns that may affect studies.\n*   **Postgraduate Support:** The academic development coordinator assists with:\n    *   Course work (for Masters students).\n    *   Writing and conducting literature reviews.\n    *   Developing research methodology.\n    *   Data analysis.\n    *   Thesis writing and editing.\n    *   Writing journal articles for publication.\n    *   Discussing ideas.\n*   **Research Preparation:** If a student is considering a postgraduate degree, Kulbardi can assist with finding a supervisor and preparing a research proposal.\n\nStudents are encouraged to [get in touch](#contact) for support related to their undergraduate or postgraduate studies."
+   }
+  }
+ }
+]

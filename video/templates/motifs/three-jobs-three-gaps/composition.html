@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: three jobs, three gaps</title></head>
+<body>
+<template>
+  <style>
+    /* ============================================================================
+       THE ANCHOR SHOT FOR THE FILM'S VISUAL LANGUAGE.  Rebuilt 9 Oct 2026 after two
+       rejected cuts.  Three rules it is built to, and the rest of the film follows it.
+
+       1. AT MOST FOUR TYPE ELEMENTS ON SCREEN AT ONCE, NONE BELOW 32px AUTHORED.
+          32px is the floor at the worst REAL delivery medium (390 CSS px at 2x), not
+          at the contact sheet - the sheet is our own review artifact and its tiles
+          were widened instead of shrinking the film to suit them.  The three verb
+          labels this motif used to carry under the products (Holds / Finds / Draws)
+          are GONE: the narration says those words, so the screen does not have to.
+
+       2. THE SHOT PERFORMS THE MECHANISM THE LINE STATES.  The line is "each one's
+          gap is why the next is in the picture".  The old version assembled three
+          boxes and then opened notches on them, so the causality was nowhere on
+          screen.  Here a question is ASKED, BOUNCES off the product that cannot
+          answer it, goes DEAD GREY, and comes to rest in the empty place beside it -
+          and the next product arrives into that place and takes it.  The gap is not
+          an abstract notch; it is an unanswered question sitting in an empty place.
+
+       3. SUBJECT ON SCREEN AT t=0 (grammar rule 7).  All three places exist at frame
+          zero and the first one is already holding its rows.  Word events change the
+          picture; they never introduce it.
+
+       COLOUR, against GRAMMAR.md rule 3 - this is the decision worth reading:
+          NO AMBER APPEARS IN THIS SHOT, deliberately.  Amber means the ISV's own
+          work, and nothing in the opening is theirs: it is three Progress products
+          and the gaps between them, which the NEXT PROGRESS PRODUCT fills, not the
+          ISV.  An amber gap here would have asserted the film's thesis one shot too
+          early and in the wrong place.  The gap is DEAD GREY #6B7280 - rule 3's
+          "outside a boundary, or NOT REACHED" - which is exactly what a bounced
+          question is.  The first amber in the film is therefore in B2, where it is
+          true, and it lands harder for being the first.
+
+       WINDOW: the host plays 0 -> 15.23s.  Every constant below is a MEASURED word
+       event or a MEASURED silence from vo/manifest.json, listed at the top of the
+       script.  Nothing here is a hand-typed duration.
+       ============================================================================ */
+    #tj-root { position: absolute; inset: 0; overflow: hidden; }
+
+    /* three PLACES, equal and across the frame. 3*540 + 2*50 = 1720, margins 100. */
+    .tj-place { position: absolute; top: 400px; width: 540px; height: 300px;
+      border-radius: 20px; box-sizing: border-box; }
+    .tj-empty { position: absolute; inset: 0; border-radius: 20px;
+      border: 3px solid #6B7280; background-color: rgba(107, 114, 128, 0.07); }
+
+    .tj-label { position: absolute; top: 722px; width: 540px; text-align: center;
+      font-family: "ProgDisplay", sans-serif; font-size: 44px; color: #FFFFFF;
+      letter-spacing: 0.002em; }
+
+    /* OpenEdge: a record store whose rows settle and then stay settled */
+    .tj-store { position: absolute; inset: 0; border-radius: 20px;
+      border: 4px solid #008963; background: rgba(0, 54, 42, 0.42); }
+    .tj-row { position: absolute; left: 44px; height: 28px; border-radius: 7px;
+      background: linear-gradient(90deg, #D7DEEA 0%, #9FB0D0 100%); }
+
+    /* Progress Agentic RAG: a reader that lights a passage and threads it home */
+    .tj-reader { position: absolute; inset: 0; border-radius: 20px;
+      border: 4px solid #008963; background: rgba(0, 54, 42, 0.42); }
+    .tj-doc { position: absolute; width: 104px; height: 132px; border-radius: 11px;
+      background: linear-gradient(175deg, #ffffff 0%, #eef2f9 100%);
+      box-shadow: 0 14px 30px rgba(0, 10, 40, 0.55); }
+    .tj-doc i { position: absolute; left: 15px; height: 8px; border-radius: 4px;
+      background: #9FB0D0; display: block; }
+    .tj-passage { position: absolute; left: 196px; top: 206px; width: 300px;
+      height: 40px; border-radius: 10px; background: #00B563;
+      box-shadow: 0 0 36px rgba(0, 181, 99, 0.6); }
+
+    /* Domo: an axis whose bars rise to a height */
+    .tj-axis  { position: absolute; left: 58px; bottom: 54px; width: 430px; height: 4px;
+      background: #008963; }
+    .tj-axisv { position: absolute; left: 58px; bottom: 54px; width: 4px; height: 196px;
+      background: #008963; }
+    .tj-bar { position: absolute; bottom: 58px; width: 58px; border-radius: 7px 7px 0 0;
+      background: linear-gradient(180deg, #D7DEEA 0%, #9FB0D0 100%);
+      transform-origin: 50% 100%; }
+
+    /* the question. Bright green while live, dead grey once it has bounced. */
+    .tj-q { position: absolute; height: 76px; border-radius: 38px; box-sizing: border-box;
+      text-align: center; white-space: nowrap; color: #FFFFFF;
+      font-family: "ProgText", sans-serif; font-size: 34px; line-height: 70px;
+      background-color: rgba(0, 137, 99, 0.3); border: 3px solid #00B563; }
+
+    /* the reading pass: a narrow band that crosses the documents */
+    .tj-scan { position: absolute; top: 18px; width: 118px; height: 264px;
+      border-radius: 14px; pointer-events: none;
+      background: linear-gradient(90deg, rgba(0,181,99,0) 0%, rgba(0,181,99,0.30) 45%,
+                                  rgba(0,181,99,0.44) 55%, rgba(0,181,99,0) 100%); }
+    svg.tj-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="tj-root" data-composition-id="m-3j" data-width="1920" data-height="1080"
+       data-duration="15.4">
+    <div id="tj-stage" style="position:absolute; inset:0;" data-layout-allow-overflow>
+
+      <!-- THREE PLACES, all present at t=0. Place 1 already holds. -->
+      <div class="tj-place" id="tj-p0" style="left:100px;">
+        <div class="tj-store" id="tj-store"></div>
+      </div>
+      <div class="tj-place" id="tj-p1" style="left:690px;">
+        <div class="tj-empty" id="tj-e1"></div>
+        <div class="tj-reader" id="tj-reader"></div>
+        <div class="tj-scan" id="tj-scan" style="left:-40px;"></div>
+        <div class="tj-passage" id="tj-passage"></div>
+      </div>
+      <div class="tj-place" id="tj-p2" style="left:1280px;">
+        <div class="tj-empty" id="tj-e2"></div>
+        <div class="tj-chart" id="tj-chart" style="position:absolute; inset:0;">
+          <div class="tj-reader" id="tj-chartbox"></div>
+          <div class="tj-axis"></div><div class="tj-axisv"></div>
+        </div>
+      </div>
+
+      <div class="tj-label" id="tj-l0" style="left:100px;"
+           data-var-text="tjLabel0">OpenEdge</div>
+      <div class="tj-label" id="tj-l1" style="left:690px;"
+           data-var-text="tjLabel1">Progress Agentic RAG</div>
+      <div class="tj-label" id="tj-l2" style="left:1280px;"
+           data-var-text="tjLabel2">Domo</div>
+
+      <!-- the two questions. Authored centred over the product they will bounce off. -->
+      <div class="tj-q" id="tj-q0" style="left:150px; top:296px; width:440px;"
+           data-var-text="tjAsk0">Where is that stated?</div>
+      <div class="tj-q" id="tj-q1" style="left:758px; top:296px; width:404px;"
+           data-var-text="tjAsk1">How many, by month?</div>
+
+      <!-- the two hand-offs, revealed on the closing line -->
+      <svg class="tj-svg" id="tj-svg" viewBox="0 0 1920 1080" fill="none">
+        <!-- the two tokens start DEAD GREY and arrive BRIGHT GREEN: the same colour
+             move the bounced questions made, replayed as the closing line states it -->
+        <path id="tj-thread" d="M 880 614 C 830 600, 800 556, 792 512" stroke="#00B563"
+              stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path id="tj-arc0" d="M 370 392 C 470 268, 830 268, 922 388" stroke="#00B563"
+              stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path id="tj-arc1" d="M 998 388 C 1090 268, 1450 268, 1550 392" stroke="#00B563"
+              stroke-width="5" fill="none" stroke-linecap="round"/>
+        <circle id="tj-dot0" cx="0" cy="0" r="11" fill="#6B7280"/>
+        <circle id="tj-dot1" cx="0" cy="0" r="11" fill="#6B7280"/>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // Seeded LCG - a deterministic render, never Math.random.
+      let s = 20261009;
+      const rnd = () => (s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296;
+
+      // ---- MEASURED EVENTS, read off vo/manifest.json for take b1. The three SILENCES
+      // are where the mechanism acts, which is why the bounces land in them rather than
+      // under a word: a question being refused is not something the voice narrates.
+      //   words    0.80 "Three products"          2.30 "OpenEdge holds your data"
+      //            4.02 "Progress Agentic RAG"    7.03 "shows its working"
+      //            8.68 "Domo draws the numbers" 10.69 "Each one's gap ..."
+      //   silences 3.20-4.06   7.68-8.77   10.18-10.97
+      const W_THREE = 0.80, W_HOLD = 2.30, W_FIND = 4.02,
+            W_WORK  = 7.03, W_DRAW = 8.68, W_GAP  = 10.69;
+      const S1 = 3.20, S2 = 7.68;          // the two silences a bounce happens inside
+      const TITLE_OUT = 2.85;              // the host clears its title here; see build_host
+
+      const DROP_X = 590, DROP_Y = 216;    // place-to-place pitch, and place interior
+
+      // ---- build the interiors. THE INTERIORS ARE THE SHOT. The rejected cuts drew
+      // boundaries and labels and left a third of the boxes empty inside.
+      const store = document.getElementById("tj-store");
+      const rows = [];
+      for (let i = 0; i < 6; i++) {
+        const r = document.createElement("div");
+        r.className = "tj-row";
+        r.style.top = (36 + i * 42) + "px";
+        r.style.width = (300 + Math.round(rnd() * 140)) + "px";
+        store.appendChild(r);
+        rows.push(r);
+      }
+      const docs = [];
+      for (let i = 0; i < 3; i++) {
+        const d = document.createElement("div");
+        d.className = "tj-doc";
+        d.style.left = (40 + i * 128) + "px";
+        d.style.top = (40 + (i === 1 ? 10 : 0)) + "px";
+        d.style.transform = "rotate(" + (i === 0 ? -5 : i === 1 ? 1 : 6) + "deg)";
+        for (let k = 0; k < 5; k++) {
+          const b = document.createElement("i");
+          b.style.top = (24 + k * 20) + "px";
+          b.style.width = (46 + ((k * 19) % 28)) + "px";
+          d.appendChild(b);
+        }
+        document.getElementById("tj-p1").appendChild(d);
+        docs.push(d);
+      }
+      const bars = [118, 176, 92, 210, 146, 168].map((h, i) => {
+        const b = document.createElement("div");
+        b.className = "tj-bar";
+        b.style.left = (86 + i * 70) + "px";
+        b.style.height = h + "px";
+        document.getElementById("tj-chart").appendChild(b);
+        return b;
+      });
+
+      const thread = document.getElementById("tj-thread");
+      const arc0 = document.getElementById("tj-arc0");
+      const arc1 = document.getElementById("tj-arc1");
+      const lens = [thread, arc0, arc1].map((p) => {
+        const L = p.getTotalLength();
+        p.setAttribute("stroke-dasharray", String(L));
+        return L;
+      });
+
+      const tl = gsap.timeline({ paused: true,
+                                 defaults: { duration: 0.6, ease: "power3.out" } });
+
+      // ================= t=0 STATE =================
+      // Present: three places, the first one holding. Hidden: only things that have
+      // not happened yet. Nothing that exists at t=0 is faded in later.
+      gsap.set(["#tj-l0", "#tj-l1", "#tj-l2"], { autoAlpha: 0, y: 16 });
+      gsap.set(["#tj-reader", "#tj-chartbox", ".tj-axis", ".tj-axisv"],
+               { autoAlpha: 0 });
+      gsap.set("#tj-passage", { autoAlpha: 0, scaleX: 0.15, transformOrigin: "0% 50%" });
+      gsap.set(docs, { autoAlpha: 0, x: -34, y: 16 });
+      gsap.set("#tj-scan", { autoAlpha: 0 });
+      gsap.set(bars, { scaleY: 0, autoAlpha: 0 });
+      gsap.set(["#tj-q0", "#tj-q1"], { autoAlpha: 0, y: -26 });
+      gsap.set([thread, arc0, arc1], { autoAlpha: 0 });
+      gsap.set(thread, { strokeDashoffset: lens[0] });
+      gsap.set(arc0, { strokeDashoffset: lens[1] });
+      gsap.set(arc1, { strokeDashoffset: lens[2] });
+      gsap.set(["#tj-dot0", "#tj-dot1"], { autoAlpha: 0 });
+
+      // ---- "Three products": the three places answer the number, one at a time.
+      // The voice supplies the word; the picture supplies the count.
+      ["#tj-p0", "#tj-e1", "#tj-e2"].forEach((sel, i) => {
+        tl.fromTo(sel, { scale: 0.985 },
+                  { scale: 1.015, duration: 0.3, ease: "sine.out",
+                    transformOrigin: "50% 50%" }, W_THREE + i * 0.15);
+        tl.to(sel, { scale: 1, duration: 0.45, ease: "sine.inOut" },
+              W_THREE + 0.3 + i * 0.15);
+      });
+
+      // ---- "OpenEdge holds your data": the rows DROP and SETTLE, and then nothing
+      // about them moves again. Holding is the absence of further motion.
+      tl.to("#tj-l0", { autoAlpha: 1, y: 0, duration: 0.5 }, W_HOLD - 0.25);
+      rows.forEach((r, i) => {
+        tl.fromTo(r, { y: -30, autoAlpha: 0.3 },
+                  { y: 0, autoAlpha: 1, duration: 0.5, ease: "power3.out" },
+                  W_HOLD + i * 0.07);
+      });
+      tl.to(rows, { y: "+=5", duration: 0.24, ease: "power2.inOut",
+                    yoyo: true, repeat: 1 }, W_HOLD + 0.7);
+
+      // ---- THE HOST'S TITLE CLEARS HERE. Nothing is authored for it in the motif;
+      // the constant exists so the question below is never on screen beside it, which
+      // is what keeps this shot inside its four-type-element budget.
+
+      // ---- SILENCE 1: a question is asked, and BOUNCES.
+      tl.to("#tj-q0", { autoAlpha: 1, y: 0, duration: 0.42 }, S1 - 0.55);
+      tl.to("#tj-q0", { y: 52, duration: 0.26, ease: "power2.in" }, S1 + 0.02);
+      tl.to("#tj-store", { borderColor: "#6B7280", duration: 0.12 }, S1 + 0.26);
+      tl.to("#tj-store", { borderColor: "#008963", duration: 0.5 }, S1 + 0.4);
+      // it rebounds, and goes dead grey: asked, not reached.
+      tl.to("#tj-q0", { y: -14, duration: 0.34, ease: "power2.out" }, S1 + 0.28);
+      tl.to("#tj-q0", { borderColor: "#6B7280", color: "#C3C9D4",
+                        backgroundColor: "rgba(107,114,128,0.16)", duration: 0.34 }, S1 + 0.3);
+      // and it comes to rest INSIDE the empty place: the gap is an unanswered question.
+      tl.to("#tj-q0", { x: DROP_X, y: DROP_Y, duration: 0.6, ease: "power2.inOut" },
+            S1 + 0.5);
+      tl.to("#tj-e1", { borderColor: "#9AA3B2",
+                        backgroundColor: "rgba(107,114,128,0.14)", duration: 0.4 }, S1 + 0.6);
+
+      // ---- "Progress Agentic RAG": the reader arrives INTO that place and TAKES the
+      // question. The boundary draws in, the question turns live, then is absorbed.
+      tl.to("#tj-reader", { autoAlpha: 1, duration: 0.5 }, W_FIND);
+      tl.to("#tj-e1", { autoAlpha: 0, duration: 0.4 }, W_FIND + 0.1);
+      tl.to("#tj-l1", { autoAlpha: 1, y: 0, duration: 0.5 }, W_FIND + 0.25);
+      tl.to("#tj-q0", { borderColor: "#00B563", color: "#FFFFFF",
+                        backgroundColor: "rgba(0,137,99,0.3)", duration: 0.28 }, W_FIND + 0.28);
+      tl.to("#tj-q0", { y: DROP_Y - 104, autoAlpha: 0, duration: 0.5,
+                        ease: "power2.inOut" }, W_FIND + 0.55);
+      docs.forEach((d, i) => {
+        tl.to(d, { autoAlpha: 1, x: 0, y: 0, duration: 0.45 }, W_FIND + 1.0 + i * 0.16);
+      });
+
+      // ---- "finds things": the reading pass. The band crosses the documents left to
+      // right; the two it passes over recede, and the one that answers lifts and stays
+      // lit. This is the beat the voice was already narrating over a frozen frame.
+      tl.to("#tj-scan", { autoAlpha: 1, duration: 0.2 }, W_FIND + 1.82);
+      tl.to("#tj-scan", { x: 560, duration: 1.05, ease: "none" }, W_FIND + 1.85);
+      tl.to("#tj-scan", { autoAlpha: 0, duration: 0.22 }, W_FIND + 2.76);
+      // each document reacts AS the band reaches it, so the band is causing the change
+      // rather than happening beside it.
+      tl.to(docs[2], { autoAlpha: 0.42, scale: 0.96, duration: 0.3,
+                       transformOrigin: "50% 100%" }, W_FIND + 2.52);
+      tl.to(docs[1], { autoAlpha: 0.42, scale: 0.96, duration: 0.3,
+                       transformOrigin: "50% 100%" }, W_FIND + 2.26);
+      tl.to(docs[0], { y: -14, scale: 1.10, duration: 0.45, ease: "back.out(1.5)",
+                       transformOrigin: "50% 100%" }, W_FIND + 2.0);
+      tl.to(docs[0], { boxShadow: "0 18px 40px rgba(0,181,99,0.45)", duration: 0.4 },
+            W_FIND + 2.0);
+
+      // ---- "shows its working": a passage lights, and a thread draws from it back to
+      // the document it came from. Citation as a visible return path, not a footnote.
+      tl.to("#tj-passage", { autoAlpha: 1, scaleX: 1, duration: 0.5,
+                             ease: "power2.out" }, W_WORK);
+      tl.to(docs[0], { scale: 1.06, duration: 0.4, transformOrigin: "50% 50%" },
+            W_WORK + 0.35);
+      tl.to(thread, { autoAlpha: 1, duration: 0.12 }, W_WORK + 0.3);
+      tl.to(thread, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" },
+            W_WORK + 0.3);
+
+      // ---- SILENCE 2: a second question, this one the reader cannot DRAW.
+      tl.to("#tj-q1", { autoAlpha: 1, y: 0, duration: 0.4 }, S2 - 0.5);
+      tl.to("#tj-q1", { y: 52, duration: 0.24, ease: "power2.in" }, S2 + 0.02);
+      tl.to("#tj-reader", { borderColor: "#6B7280", duration: 0.12 }, S2 + 0.24);
+      tl.to("#tj-reader", { borderColor: "#008963", duration: 0.5 }, S2 + 0.38);
+      tl.to("#tj-q1", { y: -14, duration: 0.32, ease: "power2.out" }, S2 + 0.26);
+      tl.to("#tj-q1", { borderColor: "#6B7280", color: "#C3C9D4",
+                        backgroundColor: "rgba(107,114,128,0.16)", duration: 0.32 }, S2 + 0.28);
+      tl.to("#tj-q1", { x: DROP_X, y: DROP_Y, duration: 0.56, ease: "power2.inOut" },
+            S2 + 0.46);
+      tl.to("#tj-e2", { borderColor: "#9AA3B2",
+                        backgroundColor: "rgba(107,114,128,0.14)", duration: 0.4 }, S2 + 0.56);
+
+      // ---- "Domo draws the numbers": the chart arrives into the third place, takes
+      // the question, and the bars RISE. Drawing is height arriving.
+      tl.to(["#tj-chartbox", ".tj-axis", ".tj-axisv"],
+            { autoAlpha: 1, duration: 0.5 }, W_DRAW + 0.1);
+      tl.to("#tj-e2", { autoAlpha: 0, duration: 0.4 }, W_DRAW + 0.2);
+      tl.to("#tj-l2", { autoAlpha: 1, y: 0, duration: 0.5 }, W_DRAW + 0.35);
+      tl.to("#tj-q1", { borderColor: "#00B563", color: "#FFFFFF",
+                        backgroundColor: "rgba(0,137,99,0.3)", duration: 0.28 }, W_DRAW + 0.4);
+      tl.to("#tj-q1", { y: DROP_Y - 104, autoAlpha: 0, duration: 0.5,
+                        ease: "power2.inOut" }, W_DRAW + 0.66);
+      bars.forEach((b, i) => {
+        tl.to(b, { autoAlpha: 1, duration: 0.18 }, W_DRAW + 1.0 + i * 0.09);
+        tl.to(b, { scaleY: 1, duration: 0.66, ease: "power3.out" }, W_DRAW + 1.0 + i * 0.09);
+      });
+
+      // ---- "Each one's gap is why the next is in the picture".
+      //
+      // A CLAIM I ALMOST SHIPPED IN A LINE WEIGHT, caught 9 Oct 2026 by auditing the
+      // drawing with the captions covered. These two arcs were SOLID and they sit
+      // BETWEEN TWO PRODUCT OBJECTS - which is the exact shape GRAMMAR.md rule 2 gives
+      // a join, where a solid stroke means AVAILABLE TODAY. The primer says fifteen
+      // patterns: ONE available today, ONE not built, THIRTEEN the ISV builds. So two
+      // standing solid connectors between named products asserted two supported
+      // integrations that nobody has verified, with the voice silent on the subject.
+      //
+      // The fix is hard rule 3's: where the artwork cannot make the claim honestly,
+      // REMOVE the element rather than caption it. The token still travels - a gesture
+      // of succession, which is what the line is about - and the path FADES behind it,
+      // so no settled frame has a connector standing between two products. The film's
+      // first join stroke is therefore in B2, where the legend defines it.
+      // Do not restore a persistent stroke here without checking which of these two
+      // pairs is the one supported pattern.
+      // The products dim so the frame is about the JOINS, which is the film's thesis
+      // stated once, structurally, before the word "join" is ever used.
+      // The products used to dim to 0.58 here so the arcs could be the subject. With
+      // the arcs now transient, dimming would leave the final frame dim for no reason,
+      // so they dim only while a token is actually crossing and come back up after.
+      tl.to(["#tj-p0", "#tj-p1", "#tj-p2"], { autoAlpha: 0.66, duration: 0.6 },
+            W_GAP + 0.2);
+      tl.to(["#tj-p0", "#tj-p1", "#tj-p2"], { autoAlpha: 1, duration: 0.8 },
+            W_GAP + 2.5);
+      // THE TOKENS WERE INVISIBLE IN THE FIRST CUT OF THIS SHOT, and the cause is
+      // worth keeping beside the fix: `dot` was the SELECTOR STRING. gsap.to() accepts
+      // a string, so the entrance and exit tweens looked fine, but the onUpdate called
+      // `dot.setAttribute(...)` on a string, threw, and the token never moved from
+      // 0,0. Nothing reported it - the element existed in the DOM, the tweens existed
+      // in the timeline, and only LOOKING at a frame showed two missing tokens. Resolve
+      // elements once, up front, and raise on a miss.
+      const $ = (sel) => {
+        const el = document.querySelector(sel);
+        if (!el) throw new Error("motif m-3j: no element for " + sel);
+        return el;
+      };
+      [[arc0, lens[1], $("#tj-dot0"), 0], [arc1, lens[2], $("#tj-dot1"), 1]].forEach(
+        ([path, L, dot, i]) => {
+          const at = W_GAP + 0.25 + i * 0.75;
+          tl.to(path, { autoAlpha: 1, duration: 0.14 }, at);
+          tl.to(path, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, at);
+          tl.to(dot, { autoAlpha: 1, duration: 0.12 }, at + 0.05);
+          // ONE PROXY PER ARC. A shared proxy would have both tokens reading the same
+          // progress, which no still frame could show and no presence check would see.
+          const prox = { p: 0 };
+          tl.to(prox, {
+            p: 1, duration: 0.9, ease: "power2.inOut",
+            onUpdate: () => {
+              const pt = path.getPointAtLength(L * prox.p);
+              dot.setAttribute("cx", pt.x);
+              dot.setAttribute("cy", pt.y);
+            },
+          }, at + 0.05);
+          tl.to(dot, { attr: { fill: "#00B563" }, r: 14, duration: 0.3 }, at + 0.72);
+          tl.to(dot, { autoAlpha: 0, duration: 0.3 }, at + 1.05);
+          // the trail goes with it. No standing connector, no state asserted.
+          tl.to(path, { autoAlpha: 0, duration: 0.45, ease: "power2.in" }, at + 0.98);
+        });
+
+      // ---- never perceptually still: the content breathes, never the chrome.
+      rows.forEach((r, i) => {
+        if (i % 2 === 0) tl.to(r, { x: "+=7", duration: 1.5, ease: "sine.inOut",
+                                    yoyo: true, repeat: 2 }, W_GAP + 0.5 + i * 0.2);
+      });
+      bars.forEach((b, i) => {
+        if (i % 2 === 1) tl.to(b, { scaleY: 0.94, duration: 1.4, ease: "sine.inOut",
+                                    yoyo: true, repeat: 2 }, W_GAP + 0.9 + i * 0.22);
+      });
+      docs.forEach((d, i) => {
+        tl.to(d, { y: "+=9", duration: 1.6, ease: "sine.inOut", yoyo: true, repeat: 2 },
+              W_GAP + 0.7 + i * 0.3);
+      });
+
+      window.__timelines["m-3j"] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

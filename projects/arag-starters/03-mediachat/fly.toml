@@ -1,0 +1,18 @@
+# Rename the app before the first deploy: flyctl apps create <name>; then set secrets, never [env] values:
+#   flyctl secrets set ARAG_HOST=... KB_ID=... KB_TOKEN=... -a <name>
+app = "CHANGE-ME-mediachat"
+primary_region = "syd"
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

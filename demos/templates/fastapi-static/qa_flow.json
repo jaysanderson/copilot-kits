@@ -1,0 +1,9 @@
+[
+  {"click": "button[data-q]"},
+  {"wait_for_selector": ".answer-block", "timeout_ms": 180000},
+  {"click": "sup.cite"},
+  {"wait_for_selector": ".sourcecard.flash", "timeout_ms": 15000},
+  {"click": "#revealBtn"},
+  {"wait_for_selector": ".modal .flownode.lit", "timeout_ms": 15000},
+  {"wait_ms": 1500}
+]

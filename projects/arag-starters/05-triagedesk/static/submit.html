@@ -1,0 +1,195 @@
+<title>New submission - AkademDocs Pre-Check</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/style.css?v=3">
+<div class="shell">
+  <div id="topstrip"></div>
+  <div class="app-body">
+    <div id="rail"></div>
+    <div class="main">
+      <div class="page">
+        <div class="page-header">
+          <div>
+            <h1>New submission</h1>
+            <div class="lede">Applicant-facing upload step. Upload every document for this application together - this pre-check never blocks submission; it flags what an officer should look at first.</div>
+          </div>
+        </div>
+
+        <div class="wizard-steps" id="wizardSteps"></div>
+
+        <div class="card" id="stepHost"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="tabbar"></div>
+<div id="hiwHost"></div>
+<div class="footer-note">Synthetic demonstration data - no real applicant records. AkademDocs Pre-Check runs on Progress Agentic RAG.</div>
+
+<script src="/assets/app.js?v=3"></script>
+<script>
+mountShell("/submit", "submit");
+
+const STEPS = ["Applicant", "Documents", "Run pre-check"];
+let step = 0;
+let files = [];
+let applicantName = "";
+let feedbackLang = "en";
+let running = false;
+let runError = "";
+
+function renderSteps() {
+  const html = STEPS.map((t, i) => {
+    const cls = i < step ? "done" : (i === step ? "active" : "");
+    const num = i < step ? `<span style="display:inline-flex">&#10003;</span>` : (i + 1);
+    return `<div class="wizard-step ${cls}"><div class="n">${num}</div><div class="t">${t}</div></div>${i < STEPS.length - 1 ? `<div class="wizard-sep ${i < step ? "done" : ""}"></div>` : ""}`;
+  }).join("");
+  document.getElementById("wizardSteps").innerHTML = html;
+}
+
+function renderFileList() {
+  const el = document.getElementById("filelist");
+  if (!el) return;
+  if (!files.length) { el.innerHTML = `<div class="hint">No files added yet.</div>`; return; }
+  el.innerHTML = files.map((f, i) => `
+    <div class="f"><span>${escapeHtml(f.name)} (${Math.round(f.size / 1024)} KB)</span>
+    <a href="#" onclick="removeFile(${i});return false;">remove</a></div>`).join("");
+}
+function removeFile(i) { files.splice(i, 1); renderFileList(); renderStep(); }
+
+async function loadSampleBundle() {
+  const r = await fetch("/api/sample-bundle");
+  const blob = await r.blob();
+  files.push(new File([blob], "applicant-submission-bundle.pdf", { type: "application/pdf" }));
+  applicantName = "איוואן איוואנוב";
+  feedbackLang = "he";
+}
+
+function step0() {
+  return `
+    <div class="field">
+      <label for="name">Full name as it appears on the applicant's identity document</label>
+      <input type="text" id="name" placeholder="e.g. איוואן איוואנוב" value="${escapeHtml(applicantName)}">
+      <div class="hint">Type the name in the script you'd use on an official form (Hebrew, Latin, Cyrillic - all accepted).</div>
+    </div>
+    <div class="field">
+      <label for="lang">Feedback language</label>
+      <select id="lang">
+        <option value="he" ${feedbackLang === "he" ? "selected" : ""}>עברית (Hebrew)</option>
+        <option value="ru" ${feedbackLang === "ru" ? "selected" : ""}>Русский (Russian)</option>
+        <option value="en" ${feedbackLang === "en" ? "selected" : ""}>English</option>
+        <option value="uk" ${feedbackLang === "uk" ? "selected" : ""}>Українська (Ukrainian)</option>
+        <option value="fr" ${feedbackLang === "fr" ? "selected" : ""}>Français (French)</option>
+      </select>
+    </div>
+    <div class="hint" style="margin-bottom:14px;">
+      Don't have documents handy? <button type="button" class="btn secondary sm" id="loadSample0">Load the demo bundle</button>
+      <span id="sampleNote0"></span>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;">
+      <button class="btn" id="next0">Continue &#8594;</button>
+    </div>`;
+}
+
+function step1() {
+  return `
+    <div class="field">
+      <label>Documents</label>
+      <div class="dropzone" id="dropzone">
+        <div>Drag files here, or <span class="browse" id="browseLbl">browse</span></div>
+        <div class="hint">PDF, JPG or PNG. A multi-page PDF with several documents in one file is fine - it will be split automatically.</div>
+        <input type="file" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png" style="display:none">
+      </div>
+      <div class="filelist" id="filelist"></div>
+      <div class="hint" style="margin-top:12px;">
+        Don't have documents handy? <button type="button" class="btn secondary sm" id="loadSample">Load the demo bundle</button>
+        <span id="sampleNote"></span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:10px;">
+      <button class="btn ghost" id="back1">&#8592; Back</button>
+      <button class="btn" id="next1">Continue &#8594;</button>
+    </div>`;
+}
+
+function step2() {
+  const types = files.map(f => `<span class="chip">${escapeHtml(f.name)}</span>`).join(" ");
+  return `
+    <div class="factsheet" style="margin-bottom:18px;">
+      <dt>Applicant</dt><dd dir="${scriptDir(applicantName)}">${escapeHtml(applicantName)}</dd>
+      <dt>Feedback language</dt><dd>${feedbackLang.toUpperCase()}</dd>
+      <dt>Files attached</dt><dd>${files.length}</dd>
+    </div>
+    <div class="doctypes" style="margin-bottom:18px;">${types}</div>
+    ${runError ? `<div class="messages"><li class="REVIEW" style="list-style:none;">${escapeHtml(runError)}</li></div>` : ""}
+    <div style="display:flex;justify-content:space-between;gap:10px;">
+      <button class="btn ghost" id="back2" ${running ? "disabled" : ""}>&#8592; Back</button>
+      <button class="btn" id="run" ${running ? "disabled" : ""}>
+        ${running ? `<span class="spinner"></span> Splitting, reading &amp; classifying…` : "Run pre-check"}
+      </button>
+    </div>`;
+}
+
+function renderStep() {
+  renderSteps();
+  const host = document.getElementById("stepHost");
+  if (step === 0) {
+    host.innerHTML = step0();
+    document.getElementById("next0").addEventListener("click", () => {
+      applicantName = document.getElementById("name").value.trim();
+      feedbackLang = document.getElementById("lang").value;
+      if (!applicantName) { alert("Enter the applicant's declared name to continue."); return; }
+      step = 1; renderStep();
+    });
+    document.getElementById("loadSample0").addEventListener("click", async () => {
+      const note = document.getElementById("sampleNote0");
+      note.textContent = " loading…";
+      await loadSampleBundle();
+      step = 2; renderStep();
+    });
+  } else if (step === 1) {
+    host.innerHTML = step1();
+    renderFileList();
+    const dz = document.getElementById("dropzone");
+    const fi = document.getElementById("fileInput");
+    document.getElementById("browseLbl").addEventListener("click", () => fi.click());
+    fi.addEventListener("change", (e) => { files.push(...Array.from(e.target.files)); renderFileList(); });
+    ["dragenter", "dragover"].forEach(evt => dz.addEventListener(evt, (e) => { e.preventDefault(); dz.classList.add("drag"); }));
+    ["dragleave", "drop"].forEach(evt => dz.addEventListener(evt, (e) => { e.preventDefault(); dz.classList.remove("drag"); }));
+    dz.addEventListener("drop", (e) => { files.push(...Array.from(e.dataTransfer.files)); renderFileList(); });
+    document.getElementById("loadSample").addEventListener("click", async () => {
+      const note = document.getElementById("sampleNote");
+      note.textContent = " loading…";
+      await loadSampleBundle();
+      renderFileList();
+      note.textContent = " loaded - a 3-page bundle (diploma + transcript + name-change certificate).";
+    });
+    document.getElementById("back1").addEventListener("click", () => { step = 0; renderStep(); });
+    document.getElementById("next1").addEventListener("click", () => {
+      if (!files.length) { alert("Attach at least one document to continue."); return; }
+      step = 2; renderStep();
+    });
+  } else {
+    host.innerHTML = step2();
+    document.getElementById("back2").addEventListener("click", () => { step = 1; renderStep(); });
+    document.getElementById("run").addEventListener("click", runPrecheck);
+  }
+}
+
+async function runPrecheck() {
+  running = true; runError = ""; renderStep();
+  const fd = new FormData();
+  files.forEach(f => fd.append("files", f));
+  fd.append("ApplicantName", applicantName);
+  fd.append("ResponseLanguage", feedbackLang);
+  try {
+    const verdict = await fetchJSON("/api/submit", { method: "POST", body: fd });
+    location.href = "/submission/" + verdict.RequestId;
+  } catch (e) {
+    running = false;
+    runError = "Pre-check failed: " + e.message;
+    renderStep();
+  }
+}
+
+renderStep();
+</script>

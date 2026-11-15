@@ -1,0 +1,162 @@
+[
+  {
+    "q": "What do I do with a paralysis tick case?",
+    "file": "paralysis-tick-seasonal-advisory.md",
+    "expect": "antiserum"
+  },
+  {
+    "q": "how much antiserum do I give a tick dog and can I repeat it",
+    "file": "paralysis-tick-seasonal-advisory.md",
+    "expect": "24 hours"
+  },
+  {
+    "q": "when does a tick paralysis patient need ICU",
+    "file": "paralysis-tick-seasonal-advisory.md",
+    "expect": "40"
+  },
+  {
+    "q": "what are the discharge criteria for a tick case",
+    "file": "paralysis-tick-seasonal-advisory.md",
+    "expect": "swallow"
+  },
+  {
+    "q": "which dogs get a TPLO vs extracapsular repair",
+    "file": "canine-cruciate-surgical-case-review.md",
+    "expect": "15 kilograms"
+  },
+  {
+    "q": "how long is strict rest after cruciate surgery",
+    "file": "canine-cruciate-surgical-case-review.md",
+    "expect": "8 weeks"
+  },
+  {
+    "q": "whats the commonest complication after a cruciate repair",
+    "file": "canine-cruciate-surgical-case-review.md",
+    "expect": "infection"
+  },
+  {
+    "q": "what do I tell owners about recovery after a cruciate op",
+    "file": "canine-cruciate-surgical-case-review.md",
+    "expect": "12 to 16 weeks"
+  },
+  {
+    "q": "dog collapsed, suspected snake bite, what are my first steps",
+    "file": "snake-envenomation-management-protocol.md",
+    "expect": "antivenom"
+  },
+  {
+    "q": "how do I test for coagulopathy after snake bite",
+    "file": "snake-envenomation-management-protocol.md",
+    "expect": "clotting time"
+  },
+  {
+    "q": "how many vials of antivenom do I give",
+    "file": "snake-envenomation-management-protocol.md",
+    "expect": "second vial"
+  },
+  {
+    "q": "how long do I monitor a snake bite patient",
+    "file": "snake-envenomation-management-protocol.md",
+    "expect": "24 hours"
+  },
+  {
+    "q": "how do I manage a GDV",
+    "file": "gastric-dilatation-volvulus-emergency-protocol.md",
+    "expect": "gastropexy"
+  },
+  {
+    "q": "how do I decompress a bloated dog",
+    "file": "gastric-dilatation-volvulus-emergency-protocol.md",
+    "expect": "orogastric"
+  },
+  {
+    "q": "what arrhythmias should I watch for after GDV surgery",
+    "file": "gastric-dilatation-volvulus-emergency-protocol.md",
+    "expect": "ventricular"
+  },
+  {
+    "q": "what lactate predicts gastric necrosis in GDV",
+    "file": "gastric-dilatation-volvulus-emergency-protocol.md",
+    "expect": "6 millimoles"
+  },
+  {
+    "q": "blocked cat with bradycardia, what first",
+    "file": "feline-urethral-obstruction-guideline.md",
+    "expect": "calcium gluconate"
+  },
+  {
+    "q": "how long should the urinary catheter stay in a blocked cat",
+    "file": "feline-urethral-obstruction-guideline.md",
+    "expect": "24 to 48 hours"
+  },
+  {
+    "q": "what fluid rate for post obstructive diuresis in cats",
+    "file": "feline-urethral-obstruction-guideline.md",
+    "expect": "2 millilitres"
+  },
+  {
+    "q": "how do I stop a cat re-blocking",
+    "file": "feline-urethral-obstruction-guideline.md",
+    "expect": "urinary diet"
+  },
+  {
+    "q": "how do I treat a parvo puppy",
+    "file": "canine-parvovirus-isolation-and-treatment-protocol.md",
+    "expect": "crystalloid"
+  },
+  {
+    "q": "when can a parvo puppy leave isolation",
+    "file": "canine-parvovirus-isolation-and-treatment-protocol.md",
+    "expect": "48 hours"
+  },
+  {
+    "q": "what disinfectant kills parvovirus",
+    "file": "canine-parvovirus-isolation-and-treatment-protocol.md",
+    "expect": "bleach"
+  },
+  {
+    "q": "can I rely on a negative parvo snap test",
+    "file": "canine-parvovirus-isolation-and-treatment-protocol.md",
+    "expect": "repeated"
+  },
+  {
+    "q": "how do I stage CKD in a cat",
+    "file": "chronic-kidney-disease-staging-and-diet-guideline.md",
+    "expect": "creatinine"
+  },
+  {
+    "q": "when do I start a renal diet in a dog",
+    "file": "chronic-kidney-disease-staging-and-diet-guideline.md",
+    "expect": "stage 3"
+  },
+  {
+    "q": "what phosphate target do I aim for in stage 3 CKD",
+    "file": "chronic-kidney-disease-staging-and-diet-guideline.md",
+    "expect": "1.6"
+  },
+  {
+    "q": "when do I treat hypertension in a CKD cat",
+    "file": "chronic-kidney-disease-staging-and-diet-guideline.md",
+    "expect": "amlodipine"
+  },
+  {
+    "q": "what pain score do I use for dogs and cats",
+    "file": "companion-animal-analgesia-guideline.md",
+    "expect": "grimace"
+  },
+  {
+    "q": "analgesia for moderate to severe pain in a dog",
+    "file": "companion-animal-analgesia-guideline.md",
+    "expect": "methadone"
+  },
+  {
+    "q": "when should I avoid NSAIDs",
+    "file": "companion-animal-analgesia-guideline.md",
+    "expect": "hypovolaemic"
+  },
+  {
+    "q": "what is the maximum bupivacaine dose in cats",
+    "file": "companion-animal-analgesia-guideline.md",
+    "expect": "1 milligram"
+  }
+]

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><title>Motif: retrieval narrowing</title></head>
+<body>
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    .rn-q { position: absolute; left: 240px; top: 220px; height: 74px; padding: 0 34px;
+      border-radius: 37px; border: 2px solid #D7DEEA; color: #ffffff;
+      font-family: "ProgDisplay", sans-serif; font-size: 36px; font-weight: 500;
+      line-height: 70px; letter-spacing: 0.01em; background: rgba(0, 22, 85, 0.55); }
+    .rn-q .rn-kw { color: #ffffff; }
+    .rn-uline { position: absolute; left: 274px; top: 306px; width: 430px; height: 4px;
+      border-radius: 2px; background: #00B563; transform-origin: left center; }
+    .rn-p { position: absolute; width: 44px; height: 28px; border-radius: 6px; }
+    .rn-slot { position: absolute; left: 388px; width: 64px; height: 42px; border-radius: 8px;
+      background: #ffffff; border: 2px solid #00B563; box-shadow: 0 6px 18px rgba(0,10,40,.5); }
+    .rn-slot .rn-sbar { position: absolute; left: 9px; height: 5px; border-radius: 3px; background: #9FB0D0; }
+    .rn-card { position: absolute; left: 830px; top: 330px; width: 730px; height: 460px;
+      border-radius: 20px; background: linear-gradient(176deg, #ffffff 0%, #f0f4fa 100%);
+      box-shadow: 0 18px 48px rgba(0, 8, 36, 0.55); }
+    /* 32px, the film's legibility floor. This was 21px, which renders at about 4.3
+       device px on a 390 CSS-px phone - unreadable, on a label that names what the whole
+       shot is about. The pill grew with it (50px tall, radius 25) and still clears the
+       first answer bar at top 92 by 16px. The floor is the phone, not what fitted. */
+    .rn-card .rn-chip { position: absolute; left: 36px; top: 26px; height: 50px; padding: 0 20px;
+      border-radius: 25px; background: #00724F; color: #fff; font-family: "ProgText", sans-serif;
+      font-size: 32px; line-height: 50px; }
+    .rn-bar { position: absolute; left: 36px; height: 13px; border-radius: 7px;
+      background: #5E719F; transform-origin: left center; }
+    svg.rn-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+
+  <div id="root" data-composition-id="m-rn" data-width="1920" data-height="1080" data-duration="12.3">
+    <div id="rn-stage" style="position:absolute; inset:0;"></div>
+    <svg class="rn-svg" id="rn-svg" viewBox="0 0 1920 1080" fill="none"></svg>
+    <div class="rn-q" id="rn-q">What does the <span class="rn-kw" id="rn-kw1">policy</span> <span class="rn-kw" id="rn-kw2">cover</span>?</div>
+    <div class="rn-uline" id="rn-uline"></div>
+    <div class="rn-card" id="rn-card">
+      <div class="rn-chip" id="rn-chip" data-var-text="rnChip">Grounded response</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      let rnSeed = 20261005;
+      const rnd = () => (rnSeed = (rnSeed * 1664525 + 1013904223) % 4294967296) / 4294967296;
+      const stage = document.getElementById("rn-stage");
+      const svg = document.getElementById("rn-svg");
+      const COLS = 20, ROWS = 10;
+      const SIX = [23, 47, 85, 102, 141, 176];
+      const shades = ["#4A5C94", "#57699F", "#7287B5"];
+      const parts = [];
+      for (let i = 0; i < COLS * ROWS; i++) {
+        const el = document.createElement("div");
+        el.className = "rn-p"; el.id = "rn-p" + i;
+        const col = i % COLS, row = (i - col) / COLS;
+        const x = 600 + col * 56 + (rnd() * 10 - 5);
+        const y = 170 + row * 76 + (rnd() * 10 - 5);
+        el.style.left = x + "px"; el.style.top = y + "px";
+        el.style.background = shades[i % 3];
+        parts.push({ el, x, y, six: SIX.indexOf(i) });
+        stage.appendChild(el);
+      }
+      // Six survivor slots (stack on the left, under the question).
+      const slots = [];
+      for (let s = 0; s < 6; s++) {
+        const el = document.createElement("div");
+        el.className = "rn-slot"; el.id = "rn-slot" + s;
+        el.style.top = (400 + s * 66) + "px";
+        for (let b = 0; b < 2; b++) {
+          const bar = document.createElement("div"); bar.className = "rn-sbar";
+          bar.style.top = (11 + b * 11) + "px";
+          bar.style.width = (28 + ((s * 17 + b * 11) % 18)) + "px";
+          el.appendChild(bar);
+        }
+        slots.push(el); stage.appendChild(el);
+      }
+      // Answer bars inside the card.
+      const BARS = [
+        [92, 620], [132, 648], [172, 560], [226, 636], [266, 596], [306, 648], [346, 420],
+      ];
+      const bars = [];
+      BARS.forEach((b, i) => {
+        const el = document.createElement("div");
+        el.className = "rn-bar"; el.id = "rn-bar" + i;
+        el.style.top = b[0] + "px"; el.style.width = b[1] + "px";
+        document.getElementById("rn-card").appendChild(el);
+        bars.push(el);
+      });
+      // Streams: six stack -> card, one per answer-write pulse.
+      const streams = [];
+      for (let s = 0; s < 6; s++) {
+        const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const y0 = 421 + s * 66, y1 = 426 + s * 56;
+        p.setAttribute("d", `M 452 ${y0} C 640 ${y0}, 700 ${y1}, 866 ${y1}`);
+        p.setAttribute("stroke", "#00B563"); p.setAttribute("stroke-width", "2.5");
+        p.setAttribute("fill", "none"); p.id = "rn-stream" + s;
+        svg.appendChild(p); streams.push(p);
+      }
+
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 0.6, ease: "power3.out" } });
+
+      // Initial states.
+      tl.set(["#rn-q", "#rn-card", "#rn-chip"], { autoAlpha: 0 }, 0);
+      tl.set("#rn-uline", { scaleX: 0 }, 0);
+      // GRAMMAR RULE 7: the corpus field IS this motif's subject, so it rests on screen
+      // from t=0 and the stagger below LIGHTS it. It used to be set to 0 and assembled
+      // from nothing over about 0.8s, which made this shot open on a bare stage -
+      // measured structure 0.0109 at +0.1s against a 0.05 floor. A corpus that has to
+      // assemble itself before the question arrives also says the wrong thing: the
+      // content was always there, and what changes is which of it is reached.
+      parts.forEach((p) => tl.set(p.el, { autoAlpha: 0.5 }, 0));
+      slots.forEach((s) => tl.set(s, { autoAlpha: 0 }, 0));
+      bars.forEach((b) => tl.set(b, { scaleX: 0 }, 0));
+      streams.forEach((s) => {
+        const L = s.getTotalLength ? 700 : 700;
+        s.setAttribute("stroke-dasharray", "700");
+        tl.set(s, { strokeDashoffset: 700, autoAlpha: 0 }, 0);
+      });
+
+      // Field fades in as waves 0.05-1.2 - content on stage from the first frame
+      // of the handoff, never a blank hold.
+      parts.forEach((p, i) => {
+        tl.to(p.el, { autoAlpha: 0.95, duration: 0.4 }, 0.05 + (i % COLS) * 0.038 + ((i / COLS) | 0) * 0.01);
+      });
+      // Question enters 0.5-1.2.
+      tl.fromTo("#rn-q", { x: -90, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.7 }, 0.5);
+      // "does not guess" 1.9: brief collective dim-dip.
+      tl.to("#rn-stage", { opacity: 0.82, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.95);
+      // "works out what the question needs" 3.4: underline + keywords, and a scan
+      // wave brightens the passage field column by column - the engine visibly
+      // reading the corpus against the question.
+      tl.to("#rn-uline", { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 3.4);
+      tl.to("#rn-kw1", { color: "#00B563", duration: 0.4 }, 3.6);
+      tl.to("#rn-kw2", { color: "#00B563", duration: 0.4 }, 3.9);
+      parts.forEach((p, i) => {
+        tl.to(p.el, { autoAlpha: 1, scale: 1.12, duration: 0.2, ease: "sine.inOut",
+                      yoyo: true, repeat: 1 }, 3.25 + ((i % COLS) / COLS) * 1.25);
+      });
+      // Collapse toward the question 4.9-6.8; six survive.
+      parts.forEach((p, i) => {
+        const dx = 420 - p.x, dy = 520 - p.y;
+        const at = 4.9 + (i % 7) * 0.05;
+        if (p.six < 0) {
+          tl.to(p.el, { x: dx * 0.55, y: dy * 0.55, scale: 0.45, autoAlpha: 0.07,
+                        duration: 1.5, ease: "power2.inOut" }, at);
+        }
+      });
+      parts.forEach((p) => {
+        if (p.six >= 0) {
+          tl.to(p.el, { autoAlpha: 1, scale: 1.5, duration: 0.4 }, 5.1);
+          tl.to(p.el, { x: 400 - p.x, y: (400 + p.six * 66 + 7) - p.y, duration: 0.9, ease: "power3.inOut" }, 5.6 + p.six * 0.1);
+          tl.to(p.el, { autoAlpha: 0, duration: 0.25 }, 6.5 + p.six * 0.1);
+        }
+      });
+      slots.forEach((s, i) => {
+        tl.fromTo(s, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.35 }, 6.45 + i * 0.1);
+      });
+      // Answer card 7.6; bars write themselves 7.8-10.9 with a stream pulse each.
+      tl.fromTo("#rn-card", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7 }, 7.55);
+      tl.to("#rn-chip", { autoAlpha: 1, duration: 0.4 }, 7.9);
+      bars.forEach((b, i) => {
+        const at = 7.85 + i * 0.42;
+        const s = streams[i % 6];
+        tl.to(s, { autoAlpha: 0.9, duration: 0.12 }, at - 0.1);
+        tl.to(s, { strokeDashoffset: 0, duration: 0.5, ease: "power2.in" }, at - 0.1);
+        tl.to(s, { autoAlpha: 0, duration: 0.3 }, at + 0.45);
+        tl.set(s, { strokeDashoffset: 700 }, at + 0.8);
+        tl.to(b, { scaleX: 1, duration: 0.55, ease: "power2.out" }, at);
+      });
+      // "and only those" 9.5: residual field fully dark.
+      parts.forEach((p, i) => {
+        if (p.six < 0 && i % 2 === 0) tl.to(p.el, { autoAlpha: 0.02, duration: 0.8 }, 9.4);
+      });
+      // Settle alive: card breathe + slot shimmer.
+      tl.to("#rn-card", { scale: 1.012, transformOrigin: "50% 50%", duration: 2.6, ease: "sine.inOut" }, 10.0);
+      slots.forEach((s, i) => {
+        tl.to(s, { y: -4, duration: 1.0, ease: "sine.inOut", yoyo: true, repeat: 1 }, 10.1 + i * 0.12);
+      });
+
+      window.__timelines["m-rn"] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

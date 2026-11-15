@@ -1,0 +1,643 @@
+<template id="f02-template" data-composition-id="02-sample-pack" data-width="1920" data-height="1080" data-duration="16.532">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+<style>
+  /* Composition: this frame's content measured top gap vs bottom gap as
+     bottom-heavy, leaving a dead band under it. The whole layer stack drops 92px -
+     60% of the measured difference, since optical centre sits above true centre. The
+     stage colour is pinned on #root so the strip the shift opens at the top is the
+     same navy, not a hole. */
+  #root { background: #00216B; }
+  #root > *.pg-vshift-marker, #root > * {
+    transform: translateY(92px);
+    height: calc(100% - 92px);
+  }
+
+  /* Real Progress Sans - local files, names outside the HyperFrames alias map */
+  @font-face { font-family: "ProgressSansDisplay"; src: url("assets/ProgressSansDisplayVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  @font-face { font-family: "ProgressSansText"; src: url("assets/ProgressSansTextVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  :root, #root { --pg-display: "ProgressSansDisplay", Arial, Helvetica, sans-serif; --pg-text: "ProgressSansText", Arial, Helvetica, sans-serif; }
+
+  /* Blue Professional tokens (frame.md) */
+  #root {
+    --f02-bg: #00216B;
+    --f02-primary: #00B563;
+    --f02-text: #FFFFFF;
+    --f02-text-muted: #C6D5EB;
+    --f02-text-light: #9EAEC3;
+    --f02-accent-light: rgba(0, 181, 99, 0.16);
+    --f02-border: rgba(198, 213, 235, 0.26);
+    --f02-card-bg: rgba(255, 255, 255, 0.055);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    container-type: size;
+    font-family: var(--pg-text);
+    color: var(--f02-text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .f02-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+  }
+  .f02-ground {
+    background: var(--f02-bg);
+  }
+
+  /* slide-header: accent-line + eyebrow + h2, top-left, ~45% width */
+  .f02-header {
+    position: absolute;
+    left: 5cqw;
+    top: 5cqw;
+    width: 45cqw;
+  }
+  .f02-accent {
+    width: 60px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--f02-primary);
+    transform-origin: 0% 50%;
+    margin-bottom: 18px;
+  }
+  .f02-eyebrow {
+    font-size: 0.9cqw;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--f02-primary);
+    margin-bottom: 14px;
+  }
+  .f02-h2 {
+    font-size: 2.6cqw;
+    font-family: var(--pg-display);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--f02-text);
+  }
+  .f02-line {
+    display: block;
+  }
+
+  /* the row of seven slots, centred on y ~470 */
+  .f02-row {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 336px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.4cqw;
+  }
+  .f02-slot {
+    width: 223px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* card-tinted: 4% fill, 20% 1.5px border, 14px radius, no shadow */
+  .f02-card {
+    position: relative;
+    box-sizing: content-box;
+    width: 196px;
+    height: 278px;
+    padding: 12px;
+    background: var(--f02-card-bg);
+    border: 1.5px solid var(--f02-border);
+    border-radius: 14px;
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+  .f02-inner {
+    position: relative;
+    width: 196px;
+    height: 278px;
+  }
+  .f02-page {
+    display: block;
+    box-sizing: border-box;
+    width: 196px;
+    height: 278px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 6px;
+    border: 1px solid var(--f02-border);
+    background: #ffffff;
+  }
+  .f02-label {
+    margin-top: 12px;
+    font-size: 0.85cqw;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--f02-text-muted);
+    white-space: nowrap;
+  }
+
+
+  /* page thumbnails reused in the stack / fan are CSS backgrounds (one <img> per source) */
+  .f02-thumb-ex1-page1 { background-image: url(assets/ex1-page1.png); }
+  .f02-thumb-ex1-page2 { background-image: url(assets/ex1-page2.png); }
+  .f02-thumb-ex1-page3 { background-image: url(assets/ex1-page3.png); }
+  .f02-thumb-ex1-page4 { background-image: url(assets/ex1-page4.png); }
+
+  /* 2 · missing page: stack of three + dashed empty fourth slot */
+  .f02-miss-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 196px;
+    height: 278px;
+    overflow: visible;
+  }
+  .f02-miss-dash {
+    fill: var(--f02-primary);
+    fill-opacity: 0;
+    stroke: var(--f02-primary);
+    stroke-opacity: 0.6;
+    stroke-width: 1.5;
+    stroke-dasharray: 6 5;
+  }
+  .f02-miss-mask-path {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 8;
+    stroke-linejoin: round;
+  }
+  .f02-miss-pg {
+    position: absolute;
+    box-sizing: border-box;
+    width: 118px;
+    height: 168px;
+    border-radius: 5px;
+    border: 1px solid var(--f02-border);
+    background-color: #ffffff;
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+  .f02-miss-pg-1 { left: 0; top: 0; }
+  .f02-miss-pg-2 { left: 8px; top: 8px; }
+  .f02-miss-pg-3 { left: 16px; top: 16px; }
+
+  /* 3 · out of order: four pages fanned, numbered */
+  .f02-fan-item {
+    position: absolute;
+    top: 68px;
+    width: 100px;
+    height: 142px;
+    transform-origin: 50% 110%;
+    will-change: transform;
+  }
+  .f02-fan-item-1 { left: 9px; }
+  .f02-fan-item-2 { left: 37px; }
+  .f02-fan-item-3 { left: 65px; }
+  .f02-fan-item-4 { left: 93px; }
+  .f02-fan-pg {
+    display: block;
+    box-sizing: border-box;
+    width: 100px;
+    height: 142px;
+    border-radius: 5px;
+    border: 1px solid var(--f02-border);
+    background-color: #ffffff;
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+  .f02-num {
+    position: absolute;
+    top: -8px;
+    left: -5px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--f02-primary);
+    color: var(--f02-bg);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  /* 5 · Word file: thin page outline + DOCX */
+  .f02-doc {
+    position: absolute;
+    left: 23px;
+    top: 34px;
+    width: 150px;
+    height: 210px;
+  }
+  .f02-doc-outline {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+    height: 210px;
+    overflow: visible;
+  }
+  .f02-doc-outline path {
+    stroke: var(--f02-border);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+  .f02-doc-word {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 78px;
+    text-align: center;
+    font-size: 1.25cqw;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    color: var(--f02-text);
+  }
+  .f02-doc-lines {
+    position: absolute;
+    left: 30px;
+    top: 128px;
+    width: 90px;
+  }
+  .f02-doc-line {
+    height: 3px;
+    border-radius: 2px;
+    background: var(--f02-border);
+    margin-bottom: 9px;
+    transform-origin: 0% 50%;
+  }
+  .f02-doc-line-2 { width: 70%; }
+  .f02-doc-line-3 { width: 85%; }
+
+  /* 6 · phone photo: 4 degree tilt inside the frame */
+  .f02-photo-frame {
+    position: absolute;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    width: 196px;
+    height: 278px;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid var(--f02-border);
+    background: var(--f02-accent-light);
+  }
+  .f02-photo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 208px;
+    height: 294px;
+    margin-left: -104px;
+    margin-top: -147px;
+    transform: rotate(4deg);
+    object-fit: cover;
+  }
+
+  /* 7 · scanner batch: thick stack + tag-pill */
+  .f02-batch {
+    position: absolute;
+    left: 2px;
+    top: 22px;
+    width: 176px;
+    height: 250px;
+  }
+  .f02-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    width: 176px;
+    height: 250px;
+    background: #ffffff;
+    border: 1px solid var(--f02-border);
+    border-radius: 5px;
+    will-change: transform;
+  }
+  .f02-batch-page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    box-sizing: border-box;
+    width: 176px;
+    height: 250px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 5px;
+    border: 1px solid var(--f02-border);
+    background: #ffffff;
+  }
+  .f02-pill-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -15px;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .f02-pill {
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--f02-primary);
+    background: linear-gradient(var(--f02-accent-light), var(--f02-accent-light)), var(--f02-bg);
+    border-radius: 100px;
+    padding: 8px 14px;
+    white-space: nowrap;
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+</style>
+
+<div data-hf-id="hf-hjvn" id="root" data-composition-id="02-sample-pack" data-start="0" data-duration="14.921" data-width="1920" data-height="1080">
+  <!-- full-bleed ground -->
+  <div data-hf-id="hf-gb2n" id="f02-bg" class="clip f02-layer f02-ground" data-start="0.000" data-duration="16.532" data-track-index="0"></div>
+
+  <!-- slide-header -->
+  <div data-hf-id="hf-zmx8" id="f02-header-layer" class="clip f02-layer" data-start="0.000" data-duration="16.532" data-track-index="1">
+    <div data-hf-id="hf-594u" class="f02-header">
+      <div data-hf-id="hf-z4q6" id="f02-accent" class="f02-accent"></div>
+      <div data-hf-id="hf-k846" id="f02-eyebrow" class="f02-eyebrow">The sample pack</div>
+      <div data-hf-id="hf-kqt7" class="f02-h2">
+        <span data-hf-id="hf-w5l4" id="f02-line-1" class="f02-line">Nine files.</span>
+        <span data-hf-id="hf-2hb8" id="f02-line-2" class="f02-line">Seven kinds of trouble.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- the row of seven document cards -->
+  <div data-hf-id="hf-vuac" id="f02-row-layer" class="clip f02-layer" data-start="0.000" data-duration="16.532" data-track-index="2">
+    <div data-hf-id="hf-xznn" class="f02-row">
+
+      <!-- 1 · clean scan -->
+      <div data-hf-id="hf-2kf1" class="f02-slot">
+        <div data-hf-id="hf-vgaw" id="f02-card-1" class="f02-card">
+          <div data-hf-id="hf-l3zj" class="f02-inner">
+            <img data-hf-id="hf-td1v" class="f02-page" src="assets/ex1-page1.png" alt="">
+          </div>
+        </div>
+        <div data-hf-id="hf-ncdk" id="f02-label-1" class="f02-label">Clean scan</div>
+      </div>
+
+      <!-- 2 · missing page -->
+      <div data-hf-id="hf-g44x" class="f02-slot">
+        <div data-hf-id="hf-6bsj" id="f02-card-2" class="f02-card">
+          <div data-hf-id="hf-9wnj" class="f02-inner">
+            <svg data-hf-id="hf-3i4p" class="f02-miss-svg" viewBox="0 0 196 278" xmlns="http://www.w3.org/2000/svg">
+              <defs data-hf-id="hf-mh0t">
+                <mask data-hf-id="hf-v5do" id="f02-miss-mask">
+                  <rect data-hf-id="hf-w9k6" id="f02-miss-mask-path" class="f02-miss-mask-path" x="78.75" y="110.75" width="116.5" height="166.5" rx="6" />
+                </mask>
+              </defs>
+              <rect data-hf-id="hf-25j2" id="f02-miss-dash" class="f02-miss-dash" x="78.75" y="110.75" width="116.5" height="166.5" rx="6" mask="url(#f02-miss-mask)" />
+            </svg>
+            <div data-hf-id="hf-ovib" class="f02-miss-pg f02-miss-pg-1 f02-thumb-ex1-page1"></div>
+            <div data-hf-id="hf-hg63" class="f02-miss-pg f02-miss-pg-2 f02-thumb-ex1-page2"></div>
+            <div data-hf-id="hf-6lij" class="f02-miss-pg f02-miss-pg-3 f02-thumb-ex1-page3"></div>
+          </div>
+        </div>
+        <div data-hf-id="hf-9kv6" id="f02-label-2" class="f02-label">Missing page</div>
+      </div>
+
+      <!-- 3 · out of order -->
+      <div data-hf-id="hf-hb20" class="f02-slot">
+        <div data-hf-id="hf-2doi" id="f02-card-3" class="f02-card">
+          <div data-hf-id="hf-9ici" class="f02-inner">
+            <div data-hf-id="hf-etvq" id="f02-fan-1" class="f02-fan-item f02-fan-item-1">
+              <div data-hf-id="hf-o3m9" class="f02-fan-pg f02-thumb-ex1-page3"></div>
+              <div data-hf-id="hf-n3vk" class="f02-num">3</div>
+            </div>
+            <div data-hf-id="hf-sl0o" id="f02-fan-2" class="f02-fan-item f02-fan-item-2">
+              <div data-hf-id="hf-y7g3" class="f02-fan-pg f02-thumb-ex1-page1"></div>
+              <div data-hf-id="hf-mb9i" class="f02-num">1</div>
+            </div>
+            <div data-hf-id="hf-a1vu" id="f02-fan-3" class="f02-fan-item f02-fan-item-3">
+              <div data-hf-id="hf-ffqe" class="f02-fan-pg f02-thumb-ex1-page4"></div>
+              <div data-hf-id="hf-kbqd" class="f02-num">4</div>
+            </div>
+            <div data-hf-id="hf-ww4w" id="f02-fan-4" class="f02-fan-item f02-fan-item-4">
+              <div data-hf-id="hf-nbyg" class="f02-fan-pg f02-thumb-ex1-page2"></div>
+              <div data-hf-id="hf-mpkj" class="f02-num">2</div>
+            </div>
+          </div>
+        </div>
+        <div data-hf-id="hf-fw7t" id="f02-label-3" class="f02-label">Out of order</div>
+      </div>
+
+      <!-- 4 · faded blue ink -->
+      <div data-hf-id="hf-gwqz" class="f02-slot">
+        <div data-hf-id="hf-jlyt" id="f02-card-4" class="f02-card">
+          <div data-hf-id="hf-941h" class="f02-inner">
+            <img data-hf-id="hf-oy2i" class="f02-page" src="assets/ex4-page1.png" alt="">
+          </div>
+        </div>
+        <div data-hf-id="hf-yz0d" id="f02-label-4" class="f02-label">Faded blue ink</div>
+      </div>
+
+      <!-- 5 · Word file -->
+      <div data-hf-id="hf-ex7u" class="f02-slot">
+        <div data-hf-id="hf-iub0" id="f02-card-5" class="f02-card">
+          <div data-hf-id="hf-bw6o" class="f02-inner">
+            <div data-hf-id="hf-ggs5" class="f02-doc">
+              <svg data-hf-id="hf-xk17" class="f02-doc-outline" viewBox="-1 -1 152 212" xmlns="http://www.w3.org/2000/svg">
+                <path data-hf-id="hf-i9vk" d="M6 0 H118 L150 32 V204 a6 6 0 0 1 -6 6 H6 a6 6 0 0 1 -6 -6 V6 a6 6 0 0 1 6 -6 Z" fill="#F4FAFF" />
+                <path data-hf-id="hf-h586" d="M118 0 V26 a6 6 0 0 0 6 6 H150" fill="none" />
+              </svg>
+              <div data-hf-id="hf-goq4" id="f02-doc-word" class="f02-doc-word">DOCX</div>
+              <div data-hf-id="hf-vfrj" class="f02-doc-lines">
+                <div data-hf-id="hf-y9c6" class="f02-doc-line f02-doc-line-1"></div>
+                <div data-hf-id="hf-ub85" class="f02-doc-line f02-doc-line-2"></div>
+                <div data-hf-id="hf-rbyk" class="f02-doc-line f02-doc-line-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-hf-id="hf-k9w8" id="f02-label-5" class="f02-label">Word file</div>
+      </div>
+
+      <!-- 6 · phone photo -->
+      <div data-hf-id="hf-eiwt" class="f02-slot">
+        <div data-hf-id="hf-ri6v" id="f02-card-6" class="f02-card">
+          <div data-hf-id="hf-bhvn" class="f02-inner">
+            <div data-hf-id="hf-7wen" class="f02-photo-frame">
+              <img data-hf-id="hf-anqe" class="f02-photo" src="assets/ex10-page1.png" alt="">
+            </div>
+          </div>
+        </div>
+        <div data-hf-id="hf-p4yr" id="f02-label-6" class="f02-label">Phone photo</div>
+      </div>
+
+      <!-- 7 · scanner batch -->
+      <div data-hf-id="hf-fptw" class="f02-slot">
+        <div data-hf-id="hf-nk2u" id="f02-card-7" class="f02-card">
+          <div data-hf-id="hf-b3km" class="f02-inner">
+            <div data-hf-id="hf-r6t3" class="f02-batch">
+              <div data-hf-id="hf-242i" class="f02-sheet"></div>
+              <div data-hf-id="hf-3t4u" class="f02-sheet"></div>
+              <div data-hf-id="hf-47fv" class="f02-sheet"></div>
+              <div data-hf-id="hf-4lqw" class="f02-sheet"></div>
+              <div data-hf-id="hf-1tlp" class="f02-sheet"></div>
+              <div data-hf-id="hf-27wq" class="f02-sheet"></div>
+              <img data-hf-id="hf-jvra" class="f02-batch-page" src="assets/form-page1.png" alt="">
+            </div>
+          </div>
+          <div data-hf-id="hf-muz9" class="f02-pill-wrap">
+            <div data-hf-id="hf-evsb" id="f02-pill" class="f02-pill">28 pages · 7 applicants</div>
+          </div>
+        </div>
+        <div data-hf-id="hf-oru2" id="f02-label-7" class="f02-label">Scanner batch</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    /* == RETIMED (tools_apply_retime.py) == */
+      /* Beat times below are OLD-take time; P() maps them onto the delivered take
+         through word anchors matched by text. Generated - do not hand-edit. */
+      var __KX = [0.0000, 0.0400, 0.1700, 0.7000, 1.0500, 1.1300, 1.5100, 2.0100, 2.5900, 3.0600, 3.7600, 3.7900, 4.1600, 5.0600, 5.3500, 5.5600, 5.7200, 6.5000, 6.7600, 7.0300, 7.4100, 7.7200, 8.2600, 8.7300, 9.2700, 9.5100, 9.7300, 10.4800, 10.6700, 10.9700, 11.4000, 12.2400, 12.3600, 12.4300, 13.3700, 13.7100, 14.4210];
+      var __KY = [0.0000, 0.0120, 0.1970, 0.6040, 0.7780, 0.9170, 1.3350, 1.7530, 2.4030, 2.7280, 3.6110, 3.7620, 4.0980, 4.8410, 5.2830, 5.4330, 5.5500, 6.2460, 6.5830, 6.8850, 7.5580, 7.9300, 8.7190, 9.0670, 9.8920, 10.2400, 10.5650, 10.9600, 11.4360, 11.8540, 12.2490, 13.1890, 13.3750, 13.4910, 14.7910, 15.1280, 15.8820];
+      function __pw(t, X, Y) { if (t <= X[0]) return Y[0] + (t - X[0]); var n = X.length - 1;
+        if (t >= X[n]) return Y[n] + (t - X[n]) * (Y[n] / X[n]); var lo = 0, hi = n;
+        while (hi - lo > 1) { var m = (lo + hi) >> 1; if (X[m] <= t) lo = m; else hi = m; }
+        return Y[lo] + (t - X[lo]) / (X[hi] - X[lo]) * (Y[hi] - Y[lo]); }
+      function P(t) { return __pw(t, __KX, __KY); }   /* old take time -> delivered take time */
+      function Q(u) { return __pw(u, __KY, __KX); }   /* inverse: drivers run in new time,
+         so a threshold written in old time is compared against Q(driver.t) unedited */
+      var DUR = 15.882;  /* measured delivered take (was 14.421) */
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    /* ---------- Scene 1 (0.0–2.4s): slide-header only ---------- */
+    tl.fromTo("#f02-accent", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.05);
+    tl.fromTo("#f02-eyebrow", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.15);
+    tl.fromTo("#f02-line-1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 0.3);
+    tl.fromTo("#f02-line-2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 1.0);
+
+    /* ---------- Scene 2 (2.4–12.9s): one card per spoken beat ---------- */
+    // spring-pop-entrance: scale 0 -> 1, power3.out, zero overshoot, one per cue
+    var CUES = [2.59, 3.79, 5.06, 6.5, 7.41, 8.26, 9.73];
+    function pop(i, at) {
+      tl.fromTo(
+        "#f02-card-" + i,
+        { scale: 0, opacity: 0, y: 14 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
+        at
+      );
+      tl.fromTo(
+        "#f02-label-" + i,
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" },
+        at + 0.12
+      );
+    }
+    for (var i = 0; i < CUES.length; i++) pop(i + 1, CUES[i]);
+
+    // 2 · missing page: svg-path-draw traces the dashed empty fourth slot
+    var maskPath = document.getElementById("f02-miss-mask-path");
+    var missLen = 0;
+    try { missLen = maskPath.getTotalLength(); } catch (e) { missLen = 0; }
+    if (!missLen) missLen = 2 * (116.5 + 166.5);
+    missLen = missLen * 1.05;
+    maskPath.style.strokeDasharray = String(missLen);
+    maskPath.style.strokeDashoffset = String(missLen);
+    tl.to(maskPath, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 4.16);
+    tl.to("#f02-miss-dash", { fillOpacity: 0.05, duration: 0.35, ease: "power1.out" }, 4.72);
+
+    // 3 · out of order: the four numbered pages fan out after the card lands
+    var FAN_ROT = [-7, -2.5, 2.5, 7];
+    for (var f = 0; f < 4; f++) {
+      tl.fromTo(
+        "#f02-fan-" + (f + 1),
+        { rotation: 0 },
+        { rotation: FAN_ROT[f], duration: 0.55, ease: "power3.out" },
+        5.4 + f * 0.06
+      );
+    }
+
+    // 5 · Word file: DOCX word + text lines fill the outline
+    tl.fromTo("#f02-doc-word", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 7.7);
+    var docLines = document.querySelectorAll(".f02-doc-line");
+    for (var l = 0; l < docLines.length; l++) {
+      tl.fromTo(docLines[l], { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 7.85 + l * 0.08);
+    }
+
+    // 7 · scanner batch: the stack thickens on "seven applicants", pill lands on "28"
+    var sheets = document.querySelectorAll(".f02-sheet");
+    for (var s = 0; s < sheets.length; s++) {
+      var k = sheets.length - s; // back-most sheet travels furthest
+      tl.fromTo(
+        sheets[s],
+        { x: 0, y: 0 },
+        { x: k * 3, y: -k * 3, duration: 0.45, ease: "power3.out" },
+        10.97 + s * 0.05
+      );
+    }
+    tl.fromTo(
+      "#f02-pill",
+      { scale: 0, opacity: 0, y: 6 },
+      { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+      12.85
+    );
+
+    /* ---------- Scene 3 (hold): subtle jitter on the pill (sine-wave-loop, onUpdate form) ---------- */
+    var pill = document.getElementById("f02-pill");
+    var IDLE_START = 13.45;
+    var IDLE_DUR = DUR - P(IDLE_START);
+    var PERIOD = 2.0;
+    var CYCLES = IDLE_DUR / PERIOD;
+    var phase = { p: 0 };
+    tl.to(
+      phase,
+      {
+        p: Math.PI * 2 * CYCLES,
+        duration: IDLE_DUR,
+        ease: "none",
+        onUpdate: function () {
+          var sn = Math.sin(phase.p);
+          gsap.set(pill, { y: sn * 2, scale: 1 + sn * 0.01 });
+        }
+      },
+      IDLE_START
+    );
+
+    window.__timelines["02-sample-pack"] = tl;
+
+      /* == RETIMED (tools_apply_retime.py) == beat walk == */
+      /* Every registered beat moves to its remapped position. */
+      (function () {
+        var kids = tl.getChildren(false, true, true);
+        if (!kids.length) throw new Error("retime: no children to reposition");
+        var moved = 0, over = [];
+        kids.forEach(function (c) {
+          if (c.vars && c.vars.data === "pin") return;   /* already in new-take time */
+          var s = c.startTime(), n = P(s);
+          if (Math.abs(n - s) > 0.0005) { c.startTime(n); moved++; }
+          /* Eyebrows share one zone, so at a fade boundary two of them smear. Hold
+             any eyebrow until the 0.5s transition is done. */
+          var tg = (c.targets ? c.targets() : []);
+          var nm = tg.length ? ((tg[0].id || "") + " " + (tg[0].className || "")) : "";
+          if (/-eyebrow(\s|$)/.test(nm) && c.startTime() < 0.52) {
+            c.startTime(0.52);
+          }
+          if (c.startTime() + c.duration() > 15.882 + 0.02) {
+            over.push(Math.round((c.startTime() + c.duration()) * 1000) / 1000);
+          }
+        });
+        window.__retime = window.__retime || {};
+        window.__retime["02-sample-pack"] = { beats: kids.length, moved: moved, overrun: over };
+      })();
+
+  })();
+</script>
+</template>

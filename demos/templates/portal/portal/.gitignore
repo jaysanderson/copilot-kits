@@ -1,0 +1,22 @@
+node_modules
+dist
+.env
+.env.local
+.DS_Store
+npm-debug.log*
+.fly
+*.tsbuildinfo
+telerik-license.txt
+kendo-ui-license.txt
+
+# NOTE (fixed in this app, 17 Aug 2026 - the exact latent scaffold bug CLAUDE.md
+# documents from Auto-co, 12 Aug 2026): this used to exclude
+# src/demo/composition.tsx as "generated per build, never shipped in the
+# package" - but composition.tsx is NOT generated boilerplate, it is this
+# demo's own bespoke Shell (nav, routes, information architecture). Excluding
+# it means the App frame's loadComposition() finds nothing on a fresh clone
+# and the app silently falls back to the default config-shell skeleton - no
+# routing, no Quality Desk archetype, no anti-sameness guarantee. Committed
+# instead. Flag this upstream in the shared template - do not silently
+# re-exclude it in a future scaffold; every app built from this template
+# should run `git ls-files | grep composition` before trusting its repo.

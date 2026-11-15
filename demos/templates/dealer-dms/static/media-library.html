@@ -1,0 +1,112 @@
+<title>Media Library - Ignition</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/css/ignition.css">
+
+<header class="topbar">
+  <a href="/" class="brand" id="brand-mark"><span>Ignition</span><small>Coppermill Motor Group</small></a>
+  <nav>
+    <a href="/">Overview</a>
+    <a href="/service-assistant">Service</a>
+    <a href="/compliance">Compliance</a>
+    <a href="/media-library" class="active">Media</a>
+    <a href="/deal-desk">Deal Desk</a>
+    <a href="/insights">Insights</a>
+  </nav>
+  <div class="right-cluster">
+    <span class="site-pill"><span class="dot"></span> Both sites online</span>
+    <button class="how-btn" id="how-it-works-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 4.9 2.3c-.9.7-1.5 1.3-1.5 2.7"/><circle cx="12" cy="17" r=".3" fill="currentColor"/></svg>
+    <span>How this works</span>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+  <div class="hero">
+    <div class="eyebrow"><span class="bar"></span> Recon documentation</div>
+    <h1>Media Library</h1>
+    <p class="lede">Every recon documentation photo across both sites, indexed and
+      searchable the same way as the standards library.</p>
+  </div>
+
+  <div class="facet-row" id="facet-row"></div>
+  <div class="catalogue-grid" id="grid"></div>
+</main>
+
+<footer class="disclosure-footer">
+  Illustrative recon-documentation images generated for this demonstration, not real
+  vehicle photographs.
+</footer>
+
+<div class="modal-backdrop" id="reveal-backdrop" hidden>
+  <div class="modal">
+    <div class="modal-head"><h3 class="reveal-title">How this works</h3><button class="modal-close">&times;</button></div>
+    <div class="modal-body">
+      <div class="flow-diagram"></div>
+      <div class="reveal-section"><h4>What this page does</h4><p class="reveal-what"></p></div>
+      <div class="reveal-section"><h4>Why it matters</h4><p class="reveal-why"></p></div>
+      <div class="reveal-section"><h4>The real mechanism</h4><p class="reveal-tech"></p></div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-tabs">
+  <a href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></a>
+  <a href="/service-assistant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M4 7h16M4 17h16"/></svg><span>Service</span></a>
+  <a href="/compliance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/></svg><span>Compliance</span></a>
+  <a href="/media-library" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m8 10 5 3-5 3z"/></svg><span>Media</span></a>
+  <a href="/deal-desk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H8l-4 4z"/></svg><span>Deals</span></a>
+  <a href="/insights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M12 20V4M20 20v-7"/></svg><span>Insights</span></a>
+</nav>
+
+<script src="/static/js/shared.js"></script>
+<script>
+document.getElementById('brand-mark').insertAdjacentHTML('afterbegin', IGN.logoSVG());
+
+let activeSite = null;
+function itemCard(item) {
+  return `
+    <div class="item-card" onclick="location.href='/r/${item.id}'">
+      <div class="thumb">
+        <img src="${item.thumb_url}" loading="lazy" alt="${IGN.cleanText(item.title)}">
+        <span class="type-tag">${item.body}</span>
+      </div>
+      <div class="body">
+        <div class="t">${IGN.cleanText(item.title)}</div>
+        <div class="s">${IGN.cleanText(item.summary)}</div>
+        <div class="chips"><span class="chip">${item.site}</span><span class="chip">${item.angle}</span></div>
+      </div>
+    </div>`;
+}
+
+async function load() {
+  const facets = await IGN.api('/api/facets?kind=media');
+  const params = new URLSearchParams({ kind: 'media' });
+  if (activeSite) params.set('site', activeSite);
+  const d = await IGN.api('/api/catalog?' + params.toString());
+
+  const sites = Object.keys(facets.site);
+  document.getElementById('facet-row').innerHTML =
+    `<button class="facet-btn ${!activeSite?'active':''}" onclick="setSite(null)">all sites <span class="n">${sites.reduce((a,s)=>a+facets.site[s],0)}</span></button>` +
+    sites.map(s => `<button class="facet-btn ${activeSite===s?'active':''}" onclick="setSite('${s}')">${s} <span class="n">${facets.site[s]}</span></button>`).join('');
+
+  document.getElementById('grid').innerHTML = d.items.map(itemCard).join('') ||
+    '<div class="empty-state">No recon photos for this filter.</div>';
+}
+function setSite(s) { activeSite = s; load(); }
+load();
+
+IGN.mountReveal({
+  title: 'How the Media Library works',
+  nodes: [
+    { label: 'Photo uploaded', tag: 'Ingest', active: false },
+    { label: 'Progress Agentic RAG', tag: 'File storage + extraction', active: true },
+    { label: 'Ignition server', tag: 'Streams via /api/media', active: true },
+    { label: 'Browser', tag: 'Rendered card', active: false },
+  ],
+  what: 'Each photo is a real file resource stored in Progress Agentic RAG\'s records library for Coppermill. The thumbnail you see streams through Ignition\'s own server, which holds the access credential - it never reaches your browser.',
+  why: 'Recon documentation scattered across phones and folders gets lost. A single indexed library, filterable by site and vehicle, means any consultant can find the right photo in seconds.',
+  tech: 'Card titles and summaries come from a real query-time Progress Agentic RAG call over each photo\'s own recon metadata (stock, site, angle) - the same structured-answer mechanism used across the app.',
+});
+</script>

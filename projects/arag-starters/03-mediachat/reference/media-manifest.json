@@ -1,0 +1,1004 @@
+{
+  "resources": [
+    {
+      "id": "04daacb80d764adfa17cac61795f08f6",
+      "slug": "curb-cheryl-david",
+      "title": "Cheryl David",
+      "docType": "character",
+      "show": "curb",
+      "tag": "Family Obligations",
+      "summary": "Larry's wife for the show's earlier seasons, and the character whose reaction to a dispute usually settles who the audience is meant to side with.",
+      "characters": [
+        "Cheryl David",
+        "Larry David",
+        "Susie Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "be1a7bfe0d2f4399a9fb290a5931d0aa",
+      "slug": "curb-jeff-greene",
+      "title": "Jeff Greene",
+      "docType": "character",
+      "show": "curb",
+      "tag": "Friendship Protocol",
+      "summary": "Larry's longtime friend and manager, permanently caught between Larry's schemes and his wife Susie's fury at where those schemes usually land.",
+      "characters": [
+        "Jeff Greene",
+        "Larry David",
+        "Susie Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "acd964801ce345cd8037c7a37121cbeb",
+      "slug": "curb-larry-david",
+      "title": "Larry David",
+      "docType": "character",
+      "show": "curb",
+      "tag": "Friendship Protocol",
+      "summary": "The show's central figure, a fictionalised version of the real Seinfeld co-creator, who treats minor social infractions as matters of genuine principle.",
+      "characters": [
+        "Larry David",
+        "Cheryl David",
+        "Jeff Greene",
+        "Leon Black"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "8612909c2b2e4252ae7e689c362fda2e",
+      "slug": "curb-leon-black",
+      "title": "Leon Black",
+      "docType": "character",
+      "show": "curb",
+      "tag": "Neighbours and Community",
+      "summary": "A friend of Larry's who becomes a long-term houseguest and offers a running stream of unsolicited, oddly effective advice.",
+      "characters": [
+        "Leon Black",
+        "Larry David"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "f33b7cf6cf25432fb28aa0ef9bf92943",
+      "slug": "curb-ruling-armrest-doctrine",
+      "title": "The TiVo",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Friendship Protocol",
+      "summary": "Establishes a hand gesture by which a listener may signal a storyteller to skip ahead, sparing both parties the tedium of a story's slow middle.",
+      "characters": [
+        "Larry David",
+        "Jeff Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "48d4f4b4d182444a81a38f54a09d89b0",
+      "slug": "curb-ruling-cinema-narration",
+      "title": "The Silent Auditorium Rule",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Neighbours and Community",
+      "summary": "Establishes that narrating, questioning or reacting audibly during a film violates the shared quiet every ticket holder is presumed to have purchased.",
+      "characters": [
+        "Larry David",
+        "Leon Black"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "14c6d1ee35ad44a4a644a5805d116a9e",
+      "slug": "curb-ruling-email-tone",
+      "title": "The Tone Violation",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Technology and Modern Life",
+      "summary": "Establishes that a written message carrying an unintended harsh tone is the sender's fault, never the reader's for misreading it.",
+      "characters": [
+        "Larry David",
+        "Jeff Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "c0e1d55e960a4340ac43e363787a6c93",
+      "slug": "curb-ruling-generosity-exploit",
+      "title": "The Anonymous Donor",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Friendship Protocol",
+      "summary": "Weighs whether an anonymous act of generosity still counts as generosity once the giver becomes desperate for someone to know it was them.",
+      "characters": [
+        "Larry David",
+        "Jeff Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "979c064bd6f6423da44188b174bb4449",
+      "slug": "curb-ruling-over-familiar-greeting",
+      "title": "The Stop and Chat",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Neighbours and Community",
+      "summary": "Rules on the neighbour who treats every routine sighting as an occasion for a full conversation, when a nod or a wave would fully discharge the obligation.",
+      "characters": [
+        "Larry David",
+        "Leon Black"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "d8364ebe266d44998943be57e192b3bd",
+      "slug": "curb-ruling-overstaying-welcome",
+      "title": "The Indefinite Houseguest",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Friendship Protocol",
+      "summary": "Sets the point at which a friend's temporary stay, extended informally with no fixed end date, becomes a standing arrangement neither host nor guest ever actually agreed to.",
+      "characters": [
+        "Leon Black",
+        "Larry David"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "ac51ef3e27c44c1fa5a7a6e8f8733e1a",
+      "slug": "curb-ruling-plus-one-clause",
+      "title": "The Plus-One Clause",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Friendship Protocol",
+      "summary": "Governs whether a guest may bring an uninvited companion to a social function without prior clearance from the host.",
+      "characters": [
+        "Larry David",
+        "Jeff Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "2a84775a1a174a3eae1a0e66613b91fe",
+      "slug": "curb-ruling-queue-diversion",
+      "title": "The Chat and Cut",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Restaurant Etiquette",
+      "summary": "Prohibits approaching someone already in a queue under the pretence of a friendly conversation, then remaining beside them as an informal, unearned cut in line.",
+      "characters": [
+        "Larry David",
+        "Jeff Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "f24371bd0ed049b097a2227d607f8e1e",
+      "slug": "curb-ruling-regift-exposure",
+      "title": "The Debt of Gratitude",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Friendship Protocol",
+      "summary": "Weighs how much ongoing warmth a person owes someone who has performed them a genuinely enormous, unsolicited favour, even one they never asked for.",
+      "characters": [
+        "Larry David",
+        "Cheryl David"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "f9936ad6984a4d05b0c308024d7640bc",
+      "slug": "curb-ruling-sample-abuse",
+      "title": "Sample Abuse",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Restaurant Etiquette",
+      "summary": "Sets the point at which repeatedly returning to a free sample counter, without any genuine intention to buy, stops being tasting and starts being an unpaid meal.",
+      "characters": [
+        "Larry David",
+        "Leon Black"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "fab8d65242834b16be29b18d019f642c",
+      "slug": "curb-ruling-shoe-removal-mandate",
+      "title": "The Footwear Mandate",
+      "docType": "ruling-precedent",
+      "show": "curb",
+      "tag": "Family Obligations",
+      "summary": "Weighs a host's right to demand shoe removal at the door against a guest's right to be told about that rule before arriving, not on the doorstep.",
+      "characters": [
+        "Larry David",
+        "Cheryl David"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "1de2bf9054a942d6a3321d4799b35bab",
+      "slug": "curb-susie-greene",
+      "title": "Susie Greene",
+      "docType": "character",
+      "show": "curb",
+      "tag": "Friendship Protocol",
+      "summary": "Jeff's wife, the character the show relies on to say, at maximum volume, what everyone else is only thinking.",
+      "characters": [
+        "Susie Greene",
+        "Jeff Greene",
+        "Larry David"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "db5049ce789b440e8373c9d45486f3db",
+      "slug": "curb-the-communal-hedge",
+      "title": "The Funeral",
+      "docType": "episode",
+      "show": "curb",
+      "tag": "Neighbours and Community",
+      "summary": "Larry's golf club goes missing during a round played the same day as a funeral, and the search for it leads somewhere no one else wants him looking.",
+      "characters": [
+        "Larry David",
+        "Jeff Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "13f22f4f27414825a8ad0af1bfe6890c",
+      "slug": "curb-the-decoy-reservation",
+      "title": "Opening Night",
+      "docType": "episode",
+      "show": "curb",
+      "tag": "Friendship Protocol",
+      "summary": "Larry is cast in a Broadway revival of The Producers, and a season-long arc of amateur stage fright builds to a single live performance.",
+      "characters": [
+        "Larry David",
+        "Jeff Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "03156743ade24529ad17a87a8c1ae3e7",
+      "slug": "curb-the-firmware-apology",
+      "title": "The Reunion",
+      "docType": "episode",
+      "show": "curb",
+      "tag": "Friendship Protocol",
+      "summary": "Larry spends a season organising a genuine reunion special for Seinfeld, the sitcom he co-created, and finds the old cast dynamics are exactly as he left them.",
+      "characters": [
+        "Larry David",
+        "Jeff Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "c61305ace8104891a932d08101536a9d",
+      "slug": "curb-the-loyalty-clause",
+      "title": "The Carpool Lane",
+      "docType": "episode",
+      "show": "curb",
+      "tag": "Technology and Modern Life",
+      "summary": "Larry arranges for a companion to ride along so he can legally use the carpool lane, and must account for the arrangement when a police officer pulls him over.",
+      "characters": [
+        "Larry David",
+        "Jeff Greene"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "e159fdc4092a40dca1908af96a02b9bf",
+      "slug": "sv-bertram-gilfoyle",
+      "title": "Bertram Gilfoyle",
+      "docType": "character",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "Pied Piper's systems architect, a self-declared LaVeyan Satanist whose deadpan contempt masks genuine infrastructure talent.",
+      "characters": [
+        "Bertram Gilfoyle",
+        "Dinesh Chugtai",
+        "Richard Hendricks"
+      ],
+      "arcStage": 2
+    },
+    {
+      "id": "55403d24a9e0446ea56c25dbb1bd4215",
+      "slug": "sv-big-head",
+      "title": "Nelson 'Big Head' Bighetti",
+      "docType": "character",
+      "show": "siliconvalley",
+      "tag": "Independent",
+      "summary": "Richard Hendricks's easygoing former Hooli colleague, whose career advances repeatedly despite minimal effort or technical output.",
+      "characters": [
+        "Nelson Bighetti",
+        "Richard Hendricks",
+        "Gavin Belson",
+        "Erlich Bachman"
+      ],
+      "arcStage": 2
+    },
+    {
+      "id": "2b39568b19674dcabdf55889667e417b",
+      "slug": "sv-box-demo-disaster",
+      "title": "The Box Demo Disaster",
+      "docType": "episode",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "The public failure of Pied Piper's enterprise compliance appliance launch, staged during Jack Barker's tenure as chief executive.",
+      "characters": [
+        "Jack Barker",
+        "Richard Hendricks",
+        "Bertram Gilfoyle",
+        "Jared Dunn"
+      ],
+      "arcStage": 3
+    },
+    {
+      "id": "7f61bd7e8d3641518865c45575550a55",
+      "slug": "sv-dinesh-chugtai",
+      "title": "Dinesh Chugtai",
+      "docType": "character",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "Pied Piper engineer and Gilfoyle's office rival, whose need for validation drives much of the pair's running feud.",
+      "characters": [
+        "Dinesh Chugtai",
+        "Bertram Gilfoyle",
+        "Richard Hendricks",
+        "Jared Dunn"
+      ],
+      "arcStage": 2
+    },
+    {
+      "id": "32c372bd26e34e84aa59365880b4c83b",
+      "slug": "sv-episode-big-heads-professorship",
+      "title": "Big Head's Accidental Professorship",
+      "docType": "episode",
+      "show": "siliconvalley",
+      "tag": "Independent",
+      "summary": "An administrative mix-up lands Big Head a paid Stanford lecturing post he keeps for years despite having no qualifications for it.",
+      "characters": [
+        "Nelson Bighetti",
+        "Richard Hendricks",
+        "Gavin Belson"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "9541c8c9fbfa400b921425dc2d5155f9",
+      "slug": "sv-episode-middle-out-explanation",
+      "title": "The Middle-Out Explanation",
+      "docType": "episode",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "The party scene where Richard is pressured into explaining Middle-Out in plain terms, producing an analogy that outlives the moment itself.",
+      "characters": [
+        "Richard Hendricks",
+        "Erlich Bachman",
+        "Bertram Gilfoyle",
+        "Dinesh Chugtai"
+      ],
+      "arcStage": 4
+    },
+    {
+      "id": "13956857b61f495da33040254dc61762",
+      "slug": "sv-episode-optimal-tip-to-tip-efficiency",
+      "title": "Optimal Tip-to-Tip Efficiency",
+      "docType": "episode",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "The season one finale, staging Nucleus's live launch collapse against Pied Piper's TechCrunch Disrupt win on the very same night.",
+      "characters": [
+        "Richard Hendricks",
+        "Erlich Bachman",
+        "Gavin Belson",
+        "Jared Dunn"
+      ],
+      "arcStage": 2
+    },
+    {
+      "id": "c1f44c9a8a0d4cf8b2efcc5fed43398f",
+      "slug": "sv-episode-shutting-it-down",
+      "title": "The Decision to Shut It Down",
+      "docType": "episode",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "The series finale, in which Pied Piper's own team chooses to bury their most powerful breakthrough rather than release it to the world.",
+      "characters": [
+        "Richard Hendricks",
+        "Bertram Gilfoyle",
+        "Dinesh Chugtai",
+        "Jared Dunn",
+        "Monica Hall",
+        "Gavin Belson"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "770aeec5c9a94cbd99a0fed75684d20e",
+      "slug": "sv-erlich-bachman",
+      "title": "Erlich Bachman",
+      "docType": "character",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "Bombastic early investor and incubator landlord who claims outsized credit for discovering Richard Hendricks and Pied Piper.",
+      "characters": [
+        "Erlich Bachman",
+        "Richard Hendricks",
+        "Jian-Yang",
+        "Big Head"
+      ],
+      "arcStage": 1
+    },
+    {
+      "id": "bf969a3160f2408f8f5fd887bed2f0ca",
+      "slug": "sv-gavin-belson",
+      "title": "Gavin Belson",
+      "docType": "character",
+      "show": "siliconvalley",
+      "tag": "Hooli",
+      "summary": "Hooli's founder and chief executive, whose rivalry with Pied Piper runs from a rejected buyout to an IP dispute to a patent-troll lawsuit.",
+      "characters": [
+        "Gavin Belson",
+        "Richard Hendricks",
+        "Jared Dunn",
+        "Jack Barker"
+      ],
+      "arcStage": 3
+    },
+    {
+      "id": "819090c132b8435f9db859306ea4ef01",
+      "slug": "sv-hooli-xyz",
+      "title": "Nucleus",
+      "docType": "product",
+      "show": "siliconvalley",
+      "tag": "Hooli",
+      "summary": "Hooli's internal compression platform, rushed to market by Gavin Belson to beat Pied Piper after his acquisition offer was rejected.",
+      "characters": [
+        "Gavin Belson",
+        "Richard Hendricks",
+        "Erlich Bachman"
+      ],
+      "arcStage": 3
+    },
+    {
+      "id": "6244740eed8945cb9caa850c8d93f64c",
+      "slug": "sv-hooli",
+      "title": "Hooli",
+      "docType": "company",
+      "show": "siliconvalley",
+      "tag": "Hooli",
+      "summary": "Sprawling Silicon Valley technology conglomerate founded by Gavin Belson, Pied Piper's largest and most persistent rival.",
+      "characters": [
+        "Gavin Belson",
+        "Jared Dunn",
+        "Richard Hendricks",
+        "Big Head"
+      ],
+      "arcStage": 3
+    },
+    {
+      "id": "66cf3daaa340486796520ffd1ba3e39c",
+      "slug": "sv-jack-barker",
+      "title": "Jack Barker",
+      "docType": "character",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "Veteran technology executive installed as Pied Piper's CEO by the board, favouring a conventional growth-at-all-costs playbook.",
+      "characters": [
+        "Jack Barker",
+        "Richard Hendricks",
+        "Monica Hall",
+        "Gavin Belson"
+      ],
+      "arcStage": 4
+    },
+    {
+      "id": "e2795ed7f0d74be8a4c955b8cfbe9136",
+      "slug": "sv-jared-dunn",
+      "title": "Jared Dunn",
+      "docType": "character",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "Pied Piper's earnest operations lead, a former Hooli senior VP who left a lucrative role to work unpaid for Richard Hendricks.",
+      "characters": [
+        "Jared Dunn",
+        "Richard Hendricks",
+        "Gavin Belson",
+        "Monica Hall"
+      ],
+      "arcStage": 2
+    },
+    {
+      "id": "fa9ab13f63b0448bb9f4021a2c9ecb93",
+      "slug": "sv-middle-out",
+      "title": "The Compression Algorithm (Middle-Out)",
+      "docType": "product",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "Richard Hendricks's breakthrough lossless compression method, scoring higher on the Weissman Score than any known rival technique.",
+      "characters": [
+        "Richard Hendricks",
+        "Gavin Belson",
+        "Bertram Gilfoyle",
+        "Erlich Bachman"
+      ],
+      "arcStage": 1
+    },
+    {
+      "id": "8fc688a685f4426c9498687121e83685",
+      "slug": "sv-monica-hall",
+      "title": "Monica Hall",
+      "docType": "character",
+      "show": "siliconvalley",
+      "tag": "Raviga Capital",
+      "summary": "Raviga Capital associate and later partner who championed Pied Piper's seed investment against her own board's scepticism.",
+      "characters": [
+        "Monica Hall",
+        "Richard Hendricks",
+        "Jared Dunn",
+        "Peter Gregory",
+        "Laurie Bream",
+        "Jack Barker"
+      ],
+      "arcStage": 1
+    },
+    {
+      "id": "563ad3a959bb479a880c44d4e36f8609",
+      "slug": "sv-not-hotdog",
+      "title": "Not Hotdog (app)",
+      "docType": "product",
+      "show": "siliconvalley",
+      "tag": "Independent",
+      "summary": "Jian-Yang's deliberately narrow image-recognition app, built to identify only whether a photo contains a hotdog.",
+      "characters": [
+        "Jian-Yang",
+        "Erlich Bachman"
+      ],
+      "arcStage": 2
+    },
+    {
+      "id": "650f752ba7c3463bb08f1450fbeca9a3",
+      "slug": "sv-patent-rivalry",
+      "title": "The Hooli vs Pied Piper IP and Patent Rivalry",
+      "docType": "episode",
+      "show": "siliconvalley",
+      "tag": "Hooli",
+      "summary": "Two separate legal fights Hooli brings against Pied Piper - an ownership claim over the algorithm itself, then a later patent-troll lawsuit.",
+      "characters": [
+        "Gavin Belson",
+        "Richard Hendricks",
+        "Jared Dunn",
+        "Monica Hall"
+      ],
+      "arcStage": 3
+    },
+    {
+      "id": "bd840582eb9b4011afdf89f05b6bdd6a",
+      "slug": "sv-pied-piper",
+      "title": "Pied Piper",
+      "docType": "company",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "Compression-technology startup founded by Richard Hendricks, funded by Raviga Capital and repeatedly at war with Hooli.",
+      "characters": [
+        "Richard Hendricks",
+        "Erlich Bachman",
+        "Jared Dunn",
+        "Bertram Gilfoyle",
+        "Dinesh Chugtai",
+        "Monica Hall"
+      ],
+      "arcStage": 1
+    },
+    {
+      "id": "960a14c5bbad4069b03efdddd6094b97",
+      "slug": "sv-pipernet",
+      "title": "PiperNet",
+      "docType": "product",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "Richard Hendricks's decentralised internet project, built on Middle-Out compression running across idle storage on users' own phones.",
+      "characters": [
+        "Richard Hendricks",
+        "Jared Dunn",
+        "Bertram Gilfoyle",
+        "Dinesh Chugtai"
+      ],
+      "arcStage": 4
+    },
+    {
+      "id": "aae04f8c9a6c49b7ac1eaed8291b7779",
+      "slug": "sv-raviga-capital",
+      "title": "Raviga Capital",
+      "docType": "company",
+      "show": "siliconvalley",
+      "tag": "Raviga Capital",
+      "summary": "Venture capital firm and Pied Piper's earliest institutional investor, holding board seats through the company's entire history.",
+      "characters": [
+        "Monica Hall",
+        "Richard Hendricks",
+        "Jared Dunn",
+        "Peter Gregory",
+        "Laurie Bream"
+      ],
+      "arcStage": 1
+    },
+    {
+      "id": "3b278a5f00fa405781a6bffbbc39b476",
+      "slug": "sv-richard-hendricks",
+      "title": "Richard Hendricks",
+      "docType": "character",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "Founder and on-again CEO of Pied Piper, the anxious engineer whose Middle-Out algorithm underpins the whole company.",
+      "characters": [
+        "Richard Hendricks",
+        "Erlich Bachman",
+        "Jared Dunn",
+        "Bertram Gilfoyle",
+        "Dinesh Chugtai"
+      ],
+      "arcStage": 1
+    },
+    {
+      "id": "2cce56b183b045df81e1318678b227c1",
+      "slug": "sv-techcrunch-disrupt-pitch",
+      "title": "The Middle-Out Pitch at TechCrunch Disrupt",
+      "docType": "episode",
+      "show": "siliconvalley",
+      "tag": "Pied Piper",
+      "summary": "Pied Piper's original public unveiling of the Middle-Out compression algorithm, the moment that first drew Gavin Belson's interest.",
+      "characters": [
+        "Richard Hendricks",
+        "Erlich Bachman",
+        "Gavin Belson",
+        "Jared Dunn"
+      ],
+      "arcStage": 2
+    },
+    {
+      "id": "fa5415a923564389954221ab42db74f1",
+      "slug": "sv-tres-commas-club",
+      "title": "The Tres Commas Club",
+      "docType": "running-gag",
+      "show": "siliconvalley",
+      "tag": "Independent",
+      "summary": "Investor Russ Hanneman's running fixation on the billion-dollar valuation milestone, named for the three commas in a ten-figure number.",
+      "characters": [
+        "Russ Hanneman",
+        "Erlich Bachman",
+        "Richard Hendricks"
+      ],
+      "arcStage": 4
+    },
+    {
+      "id": "9a0978ef402b49cba838a1abebc2defb",
+      "slug": "trek-borg",
+      "title": "Borg",
+      "docType": "species",
+      "show": "trek",
+      "tag": "Borg Collective",
+      "summary": "Cybernetic hive-mind species that assimilates people and technology in pursuit of perfection, and once turned Captain Picard into one of its own.",
+      "characters": [
+        "Jean-Luc Picard"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "244527d993724eab994c654d51cd301a",
+      "slug": "trek-data",
+      "title": "Data",
+      "docType": "character",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Self-aware android officer of the Enterprise-D whose lifelong pursuit of Human emotion led to a landmark Starfleet ruling on his own rights.",
+      "characters": [
+        "Data",
+        "Jean-Luc Picard",
+        "Worf"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "c5dd1f30418946068bc37d757a8b7240",
+      "slug": "trek-ferengi",
+      "title": "Ferengi",
+      "docType": "species",
+      "show": "trek",
+      "tag": "Ferengi Alliance",
+      "summary": "Small, sharp-eared commerce-driven species whose entire legal and moral code is built on the Rules of Acquisition and the pursuit of profit.",
+      "characters": [],
+      "arcStage": 5
+    },
+    {
+      "id": "d5a32641866d4fa28d2f23fdaa8a86e4",
+      "slug": "trek-holodeck",
+      "title": "Holodeck",
+      "docType": "technology",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Shipboard holographic recreation facility on later Starfleet vessels, whose safety protocols have famously failed in some of Starfleet's strangest recorded incidents.",
+      "characters": [
+        "Jean-Luc Picard",
+        "Data"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "86bce27ef06c4d5cb8ae81c28fd17b48",
+      "slug": "trek-james-t-kirk",
+      "title": "James T. Kirk",
+      "docType": "character",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Iconic Starfleet captain who led the USS Enterprise on its historic five-year mission and became the only cadet to beat a legendarily unwinnable test.",
+      "characters": [
+        "James T. Kirk",
+        "Spock",
+        "Leonard McCoy",
+        "Nyota Uhura"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "1c90ff9c46f347c7b3a66fdfd17b8ec4",
+      "slug": "trek-jean-luc-picard",
+      "title": "Jean-Luc Picard",
+      "docType": "character",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Measured, diplomatic Enterprise-D captain famed for his command of Shakespeare, his archaeology hobby and his survival of assimilation by the Borg.",
+      "characters": [
+        "Jean-Luc Picard",
+        "Data",
+        "Worf"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "bf3ebedcf48f49b2bb5096ae36c5dfd6",
+      "slug": "trek-klingon",
+      "title": "Klingon",
+      "docType": "species",
+      "show": "trek",
+      "tag": "Klingon Empire",
+      "summary": "Warrior species from the homeworld Qo'noS whose Empire moved from bitter Federation rival to uneasy ally across generations of shared history.",
+      "characters": [
+        "Worf"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "5cbf7bfdb493416786fc2e4a037a1782",
+      "slug": "trek-leonard-mccoy",
+      "title": "Leonard McCoy",
+      "docType": "character",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Blunt, deeply humane chief medical officer of the USS Enterprise, whose scepticism of the transporter never once stopped him from doing his job.",
+      "characters": [
+        "Leonard McCoy",
+        "James T. Kirk",
+        "Spock"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "5a52777da8bd493aacd98602b5dfaecb",
+      "slug": "trek-mission-best-of-both-worlds",
+      "title": "The Best of Both Worlds",
+      "docType": "mission-log",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "The Borg abduct and assimilate Captain Picard as Locutus, forcing First Officer Riker to lead the Enterprise-D against the fleet's most devastating defeat.",
+      "characters": [
+        "Jean-Luc Picard",
+        "Data",
+        "Worf"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "8c2c38c9c25647328818abb3efcda946",
+      "slug": "trek-mission-caretaker",
+      "title": "Caretaker",
+      "docType": "mission-log",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "A search for missing Maquis rebels flings USS Voyager seventy thousand light years into the Delta Quadrant, starting the crew's long journey home.",
+      "characters": [],
+      "arcStage": 5
+    },
+    {
+      "id": "19c9a8f7d8df47b2b9741ce89d2cda3c",
+      "slug": "trek-mission-city-on-the-edge-of-forever",
+      "title": "The City on the Edge of Forever",
+      "docType": "mission-log",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Kirk and Spock pursue a delirious McCoy through a time portal to 1930s Earth, where saving the woman Kirk loves would unravel history itself.",
+      "characters": [
+        "James T. Kirk",
+        "Spock",
+        "Leonard McCoy"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "7263636c9c074f81ba084f058e23b0af",
+      "slug": "trek-mission-in-the-pale-moonlight",
+      "title": "In the Pale Moonlight",
+      "docType": "mission-log",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Captain Sisko compromises his own principles to draw the Romulan Star Empire into the Dominion War, then has to live with how he did it.",
+      "characters": [
+        "Worf"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "6d0466c1379545cb9dd0726b7f35e2b2",
+      "slug": "trek-nyota-uhura",
+      "title": "Nyota Uhura",
+      "docType": "character",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Enterprise communications officer and gifted linguist whose skill broke first-contact deadlocks, in a role that made real television history too.",
+      "characters": [
+        "Nyota Uhura",
+        "James T. Kirk",
+        "Spock"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "b339d0c0842c490d9294f15839540f63",
+      "slug": "trek-phaser",
+      "title": "Phaser",
+      "docType": "technology",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Starfleet's standard energy sidearm, built around a strict stun-first doctrine that runs from non-lethal incapacitation up to full disintegration.",
+      "characters": [
+        "James T. Kirk",
+        "Worf"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "3ba5f40af00f42a199af2d6856d25e14",
+      "slug": "trek-romulan",
+      "title": "Romulan",
+      "docType": "species",
+      "show": "trek",
+      "tag": "Romulan Star Empire",
+      "summary": "Secretive militarised species descended from Vulcans who rejected logic, ruling the Romulan Star Empire from behind a veil of cloaked ships.",
+      "characters": [
+        "Spock"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "a7083fa81f0740488d42bbee4c870931",
+      "slug": "trek-spock",
+      "title": "Spock",
+      "docType": "character",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Half-Vulcan, half-Human science officer of the USS Enterprise, famed for cool logic, the Vulcan mind meld and a lifelong friendship with Kirk and McCoy.",
+      "characters": [
+        "Spock",
+        "James T. Kirk",
+        "Leonard McCoy"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "b4fcb53db2314265b66b291241b859b4",
+      "slug": "trek-transporter",
+      "title": "Transporter",
+      "docType": "technology",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Starfleet's matter-energy transport system, standard on every vessel, with a track record strong enough to survive its own most famous malfunction.",
+      "characters": [
+        "Leonard McCoy",
+        "James T. Kirk"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "86d4fb801fec4f65a319ad992ca67dcb",
+      "slug": "trek-tricorder",
+      "title": "Tricorder",
+      "docType": "technology",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Handheld Starfleet scanning device carried on every away mission, with medical and science variants tailored to the officer using it.",
+      "characters": [
+        "Spock",
+        "Leonard McCoy"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "9b37faa3889545f9ae9826f422d7b3ac",
+      "slug": "trek-uss-defiant",
+      "title": "USS Defiant",
+      "docType": "starship",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Compact, heavily armed Starfleet warship built after the Borg's attack on the fleet, later a mainstay of Deep Space Nine during the Dominion War.",
+      "characters": [],
+      "arcStage": 5
+    },
+    {
+      "id": "a8dfac19aaa34378b86556ce133fd55c",
+      "slug": "trek-uss-enterprise",
+      "title": "USS Enterprise",
+      "docType": "starship",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Storied line of Starfleet flagships, from Kirk's original five-year mission to Picard's Enterprise-D, each a byword for Starfleet exploration itself.",
+      "characters": [
+        "James T. Kirk",
+        "Spock",
+        "Jean-Luc Picard",
+        "Data",
+        "Worf"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "e8359cc80cb64e0cadac43d2b6bdd6bf",
+      "slug": "trek-uss-voyager",
+      "title": "USS Voyager",
+      "docType": "starship",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Intrepid-class Starfleet vessel, commanded by Kathryn Janeway, stranded in the Delta Quadrant and forced to spend seventy-five years finding a way home.",
+      "characters": [],
+      "arcStage": 5
+    },
+    {
+      "id": "11afba158f9d4e80b87f3d5623974857",
+      "slug": "trek-vulcan",
+      "title": "Vulcan",
+      "docType": "species",
+      "show": "trek",
+      "tag": "Vulcan Science Academy",
+      "summary": "Logic-driven humanoid species from the planet Vulcan, whose culture was rebuilt around emotional control after Surak's teachings ended ancient wars.",
+      "characters": [
+        "Spock"
+      ],
+      "arcStage": 5
+    },
+    {
+      "id": "5a94cc79fd3040a99e26ce5b24dc1e39",
+      "slug": "trek-warp-drive",
+      "title": "Warp Drive",
+      "docType": "technology",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Starfleet's faster-than-light propulsion system, powered by a dilithium-regulated matter-antimatter reaction, and the technology that first brought Vulcans to Earth.",
+      "characters": [],
+      "arcStage": 5
+    },
+    {
+      "id": "782f09644f97400a829ba3a0235f4076",
+      "slug": "trek-worf",
+      "title": "Worf",
+      "docType": "character",
+      "show": "trek",
+      "tag": "Starfleet",
+      "summary": "Klingon Starfleet officer raised by Human parents after a Romulan attack, valued for his combat skill and unbending code of honour.",
+      "characters": [
+        "Worf",
+        "Jean-Luc Picard",
+        "Data"
+      ],
+      "arcStage": 5
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+[
+ {
+  "q": "Which antimicrobial classes need senior approval before dispensing?",
+  "file": "antimicrobial-stewardship-teaching-hospital.md",
+  "expect": "fluoroquinolone"
+ },
+ {
+  "q": "How long does approval for a restricted antibiotic last before it has to be renewed?",
+  "file": "antimicrobial-stewardship-teaching-hospital.md",
+  "expect": "72 hours"
+ },
+ {
+  "q": "Can a final-year student approve their own restricted drug order?",
+  "file": "antimicrobial-stewardship-teaching-hospital.md",
+  "expect": "cannot"
+ },
+ {
+  "q": "What do we give for a simple UTI as first choice, and for how many days?",
+  "file": "antimicrobial-stewardship-teaching-hospital.md",
+  "expect": "three to five days"
+ },
+ {
+  "q": "How should a carcase be stored before post-mortem, chilled or frozen?",
+  "file": "necropsy-submission-standards.md",
+  "expect": "4 degrees"
+ },
+ {
+  "q": "how much formalin do I need for tissue fixation and how thick can the slices be",
+  "file": "necropsy-submission-standards.md",
+  "expect": "ten times"
+ },
+ {
+  "q": "What is the most common reason a necropsy submission can't be interpreted?",
+  "file": "necropsy-submission-standards.md",
+  "expect": "autolysis"
+ },
+ {
+  "q": "Why must fixed and fresh tissue go in separate containers?",
+  "file": "necropsy-submission-standards.md",
+  "expect": "vapour"
+ },
+ {
+  "q": "How quickly should a farm inspect after the first footrot lameness report?",
+  "file": "ovine-footrot-district-survey.md",
+  "expect": "two weeks"
+ },
+ {
+  "q": "What were the main ways footrot got onto properties in the survey?",
+  "file": "ovine-footrot-district-survey.md",
+  "expect": "agistment"
+ },
+ {
+  "q": "How do you confirm footrot is virulent and not benign?",
+  "file": "ovine-footrot-district-survey.md",
+  "expect": "gel test"
+ },
+ {
+  "q": "Did eradicating footrot pay for itself, and when?",
+  "file": "ovine-footrot-district-survey.md",
+  "expect": "second season"
+ },
+ {
+  "q": "What is the most common reason imaging requests get sent back?",
+  "file": "diagnostic-imaging-request-quality.md",
+  "expect": "clinical history"
+ },
+ {
+  "q": "How fast is an emergency imaging request read?",
+  "file": "diagnostic-imaging-request-quality.md",
+  "expect": "1 hour"
+ },
+ {
+  "q": "What should a good radiology request question look like?",
+  "file": "diagnostic-imaging-request-quality.md",
+  "expect": "please assess whether"
+ },
+ {
+  "q": "When do most imaging rejections happen - which hours?",
+  "file": "diagnostic-imaging-request-quality.md",
+  "expect": "after-hours"
+ },
+ {
+  "q": "How do I collect a clean milk sample from a cow with mastitis?",
+  "file": "bovine-mastitis-milk-culture-interpretation.md",
+  "expect": "70 per cent alcohol"
+ },
+ {
+  "q": "What bulk tank cell count means we need a herd investigation?",
+  "file": "bovine-mastitis-milk-culture-interpretation.md",
+  "expect": "250,000"
+ },
+ {
+  "q": "When do you call a quarter chronically infected?",
+  "file": "bovine-mastitis-milk-culture-interpretation.md",
+  "expect": "two samples"
+ },
+ {
+  "q": "What does a contaminated milk culture result mean?",
+  "file": "bovine-mastitis-milk-culture-interpretation.md",
+  "expect": "three or more colony types"
+ },
+ {
+  "q": "How many sheep do I need for a drench resistance test?",
+  "file": "sheep-worm-control-drench-resistance-testing.md",
+  "expect": "15"
+ },
+ {
+  "q": "At what egg count reduction do you call a drench resistant?",
+  "file": "sheep-worm-control-drench-resistance-testing.md",
+  "expect": "95 per cent"
+ },
+ {
+  "q": "What FEC in lambs means barber's pole worm needs drenching?",
+  "file": "sheep-worm-control-drench-resistance-testing.md",
+  "expect": "500"
+ },
+ {
+  "q": "How should new sheep arriving on the farm be drenched?",
+  "file": "sheep-worm-control-drench-resistance-testing.md",
+  "expect": "two actives"
+ },
+ {
+  "q": "Which bug causes scours in a calf a few days old?",
+  "file": "calf-scours-investigation-protocol.md",
+  "expect": "escherichia coli"
+ },
+ {
+  "q": "How much colostrum should a calf get and how soon?",
+  "file": "calf-scours-investigation-protocol.md",
+  "expect": "6 hours"
+ },
+ {
+  "q": "How do I tell if a scouring calf can be rehydrated orally or needs a drip?",
+  "file": "calf-scours-investigation-protocol.md",
+  "expect": "skin tent"
+ },
+ {
+  "q": "Why shouldn't I use hand sanitiser after handling calves with crypto?",
+  "file": "calf-scours-investigation-protocol.md",
+  "expect": "alcohol"
+ },
+ {
+  "q": "What blood level of GSH-Px means a mob is selenium deficient?",
+  "file": "trace-element-deficiency-investigation.md",
+  "expect": "60 units"
+ },
+ {
+  "q": "How many animals should I sample to test a mob for trace elements?",
+  "file": "trace-element-deficiency-investigation.md",
+  "expect": "8 to 10"
+ },
+ {
+  "q": "What does a low serum B12 in lambs tell you and below what number?",
+  "file": "trace-element-deficiency-investigation.md",
+  "expect": "300 picomoles"
+ },
+ {
+  "q": "What liver copper is toxic for sheep?",
+  "file": "trace-element-deficiency-investigation.md",
+  "expect": "3000"
+ },
+ {
+  "q": "How long does routine histopathology take to come back?",
+  "file": "histopathology-turnaround-and-specimen-fixation.md",
+  "expect": "5 working days"
+ },
+ {
+  "q": "What fixative and ratio should biopsies go into?",
+  "file": "histopathology-turnaround-and-specimen-fixation.md",
+  "expect": "neutral buffered formalin"
+ },
+ {
+  "q": "Does bone take longer to report and why?",
+  "file": "histopathology-turnaround-and-specimen-fixation.md",
+  "expect": "decalcification"
+ },
+ {
+  "q": "Can I freeze a tissue sample for histology?",
+  "file": "histopathology-turnaround-and-specimen-fixation.md",
+  "expect": "ice crystals"
+ },
+ {
+  "q": "How quickly does PCR come back compared to culture?",
+  "file": "pcr-versus-culture-decision-guide.md",
+  "expect": "1 to 2 working days"
+ },
+ {
+  "q": "When do I have to use culture rather than PCR?",
+  "file": "pcr-versus-culture-decision-guide.md",
+  "expect": "susceptibility"
+ },
+ {
+  "q": "Does a positive PCR prove the animal is actively infected?",
+  "file": "pcr-versus-culture-decision-guide.md",
+  "expect": "dead"
+ },
+ {
+  "q": "Which tests for Johne's disease in a live animal?",
+  "file": "pcr-versus-culture-decision-guide.md",
+  "expect": "faecal pcr"
+ }
+]

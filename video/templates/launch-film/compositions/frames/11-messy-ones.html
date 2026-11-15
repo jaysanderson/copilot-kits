@@ -1,0 +1,421 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+  /* Composition: this frame's content measured top gap vs bottom gap as
+     bottom-heavy, leaving a dead band under it. The whole layer stack drops 44px -
+     60% of the measured difference, since optical centre sits above true centre. The
+     stage colour is pinned on #root so the strip the shift opens at the top is the
+     same navy, not a hole. */
+  #root { background: #00216B; }
+  #root > *.pg-vshift-marker, #root > * {
+    transform: translateY(44px);
+    height: calc(100% - 44px);
+  }
+
+  /* Real Progress Sans - local files, names outside the HyperFrames alias map */
+  @font-face { font-family: "ProgressSansDisplay"; src: url("assets/ProgressSansDisplayVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  @font-face { font-family: "ProgressSansText"; src: url("assets/ProgressSansTextVF.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: block; }
+  :root, #root { --pg-display: "ProgressSansDisplay", Arial, Helvetica, sans-serif; --pg-text: "ProgressSansText", Arial, Helvetica, sans-serif; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: var(--pg-text);
+      color: #FFFFFF;
+    }
+    #root .clip {
+      position: absolute;
+    }
+
+    /* ground */
+    #f11-bg {
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      background: #00216B;
+    }
+
+    /* ghosted scan behind the window */
+    #f11-ghost {
+      left: 850px;
+      top: 100px;
+      width: 1070px;
+      height: 700px;
+      overflow: hidden;
+    }
+    .f11-ghost-img {
+      position: absolute;
+      left: 450px;
+      top: 14px;
+      width: 560px;
+      height: auto;
+      transform: rotate(4deg);
+      transform-origin: 50% 50%;
+      opacity: 0.22;
+      filter: grayscale(1);
+    }
+
+    /* header, top-left */
+    #f11-head {
+      left: 96px;
+      top: 150px;
+      width: 704px;
+      height: 110px;
+    }
+    .f11-eyebrow {
+      display: block;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #00B563;
+      line-height: 1;
+    }
+    .f11-h2 {
+      display: block;
+      margin-top: 16px;
+      font-size: 56px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      white-space: nowrap;
+      font-family: var(--pg-display);
+    }
+
+    /* outcome list, left */
+    #f11-list {
+      left: 96px;
+      top: 300px;
+      width: 704px;
+      height: 360px;
+    }
+    .f11-line {
+      position: absolute;
+      left: 0;
+      width: 704px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .f11-marker {
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      /* Was a filled green disc carrying a tick. A tick asserts "verified, and here is
+         the proof"; this frame shows proof for one row of five (the 28-page grid). The
+         marker is now a neutral outline - it indexes the row and claims nothing. */
+      background: transparent;
+      border: 2px solid rgba(198, 213, 235, 0.45);
+      box-sizing: border-box;
+      display: block;
+    }
+    .f11-marker svg {
+      display: block;
+      width: 36px;
+      height: 36px;
+    }
+    .f11-marker path {
+      fill: none;
+      stroke: #F4FAFF;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .f11-text {
+      display: inline-block;
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: #FFFFFF;
+      white-space: nowrap;
+    }
+    .f11-pill {
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 100px;
+      background: rgba(0, 181, 99, 0.16);
+      color: #00B563;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* stat under the list */
+    #f11-stat {
+      left: 96px;
+      top: 684px;
+      width: 704px;
+      height: 120px;
+    }
+    .f11-rule {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 704px;
+      height: 1.5px;
+      background: rgba(198, 213, 235, 0.26);
+      transform-origin: 0 50%;
+    }
+    .f11-stat-row {
+      position: absolute;
+      left: 0;
+      top: 26px;
+      display: flex;
+      align-items: baseline;
+      gap: 22px;
+    }
+    .f11-stat-num {
+      display: inline-block;
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1;
+      color: #00B563;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+      font-family: var(--pg-display);
+    }
+    .f11-stat-label {
+      display: inline-block;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #C6D5EB;
+      line-height: 1.5;
+      max-width: 760px;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* the bulk-result window, right */
+    #f11-window {
+      left: 850px;
+      top: 190px;
+      width: 974px;
+      height: 560px;
+      box-sizing: border-box;
+      border: 1.5px solid rgba(198, 213, 235, 0.26);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.055);
+      overflow: hidden;
+    }
+    .f11-shot {
+      position: absolute;
+      left: -195px;
+      top: -187.2px;
+      width: 1497.6px;
+      height: 842.4px;
+      display: block;
+    }
+    .f11-outline {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 971px;
+      height: 557px;
+      display: block;
+      pointer-events: none;
+    }
+    .f11-outline rect {
+      fill: rgba(0, 181, 99, 0.16);
+      fill-opacity: 0;
+      stroke: #00B563;
+      stroke-width: 3;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+
+  <div data-hf-id="hf-ebwx" id="root" data-composition-id="11-messy-ones" data-width="1920" data-height="1080" data-duration="18.158">
+    <div data-hf-id="hf-n0c6" id="f11-bg" class="clip" data-start="0.000" data-duration="18.158" data-track-index="0"></div>
+
+    <div data-hf-id="hf-8d8z" id="f11-ghost" class="clip" data-start="0.000" data-duration="18.158" data-track-index="1">
+      <img data-hf-id="hf-vn9y" id="f11-ghost-img" class="f11-ghost-img" src="assets/form-page1.png" alt="" data-layout-allow-overflow="">
+    </div>
+
+    <div data-hf-id="hf-vpy9" id="f11-window" class="clip" data-start="0.000" data-duration="18.158" data-track-index="2">
+      <img data-hf-id="hf-tecm" id="f11-shot" class="f11-shot" src="assets/screen-bulk-result.png" alt="" data-layout-allow-overflow="">
+      <svg data-hf-id="hf-5fck" id="f11-outline" class="f11-outline" viewBox="0 0 971 557" xmlns="http://www.w3.org/2000/svg">
+        <rect data-hf-id="hf-n7en" id="f11-outline-rect" x="13" y="498" width="272" height="48" rx="10" ry="10" />
+      </svg>
+    </div>
+
+    <div data-hf-id="hf-zuc2" id="f11-head" class="clip" data-start="0.000" data-duration="18.158" data-track-index="3">
+      <span data-hf-id="hf-6l0i" id="f11-eyebrow" class="f11-eyebrow">The whole pack</span>
+      <span data-hf-id="hf-e77w" id="f11-h2" class="f11-h2">The messy ones hold up</span>
+    </div>
+
+    <div data-hf-id="hf-s8wz" id="f11-list" class="clip" data-start="0.000" data-duration="18.158" data-track-index="4">
+      <div data-hf-id="hf-o6p1" id="f11-line-1" class="f11-line" style="top: 0px">
+        <span data-hf-id="hf-k8h9" id="f11-marker-1" class="f11-marker"><svg data-hf-id="hf-rpi9" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><path data-hf-id="hf-4km6" id="f11-tick-1" d="M 13 18 L 23 18" /></svg></span>
+        <span data-hf-id="hf-fcie" id="f11-text-1" class="f11-text">Missing page</span>
+        <span data-hf-id="hf-ws9d" id="f11-pill-1" class="f11-pill">Flagged</span>
+      </div>
+      <div data-hf-id="hf-cfcj" id="f11-line-2" class="f11-line" style="top: 72px">
+        <span data-hf-id="hf-o6la" id="f11-marker-2" class="f11-marker"><svg data-hf-id="hf-eho5" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><path data-hf-id="hf-0mi5" id="f11-tick-2" d="M 13 18 L 23 18" /></svg></span>
+        <span data-hf-id="hf-siea" id="f11-text-2" class="f11-text">Shuffled scan</span>
+        <span data-hf-id="hf-n2rp" id="f11-pill-2" class="f11-pill">Reassembled</span>
+      </div>
+      <div data-hf-id="hf-4jba" id="f11-line-3" class="f11-line" style="top: 144px">
+        <span data-hf-id="hf-s4pb" id="f11-marker-3" class="f11-marker"><svg data-hf-id="hf-fol8" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><path data-hf-id="hf-xn8k" id="f11-tick-3" d="M 13 18 L 23 18" /></svg></span>
+        <span data-hf-id="hf-3h4c" id="f11-text-3" class="f11-text">Word files</span>
+        <span data-hf-id="hf-yu9v" id="f11-pill-3" class="f11-pill">Converted</span>
+      </div>
+      <div data-hf-id="hf-irjt" id="f11-line-4" class="f11-line" style="top: 216px">
+        <span data-hf-id="hf-w2tc" id="f11-marker-4" class="f11-marker"><svg data-hf-id="hf-faa7" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><path data-hf-id="hf-l4q3" id="f11-tick-4" d="M 13 18 L 23 18" /></svg></span>
+        <span data-hf-id="hf-t7eh" id="f11-text-4" class="f11-text">Phone photos</span>
+        <span data-hf-id="hf-361p" id="f11-pill-4" class="f11-pill">Read · doubtful fields flagged</span>
+      </div>
+      <div data-hf-id="hf-ogkz" id="f11-line-5" class="f11-line" style="top: 288px">
+        <span data-hf-id="hf-wuh5" id="f11-marker-5" class="f11-marker"><svg data-hf-id="hf-gh7a" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><path data-hf-id="hf-h6m2" id="f11-tick-5" d="M 13 18 L 23 18" /></svg></span>
+        <span data-hf-id="hf-avm7" id="f11-text-5" class="f11-text">28-page scanner batch</span>
+        <span data-hf-id="hf-47s6" id="f11-pill-5" class="f11-pill">One per applicant</span>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-a4tw" id="f11-stat" class="clip" data-start="0.000" data-duration="18.158" data-track-index="5">
+      <div data-hf-id="hf-kslu" id="f11-rule" class="f11-rule"></div>
+      <div data-hf-id="hf-hnwa" id="f11-stat-row" class="f11-stat-row">
+        <span data-hf-id="hf-gt1l" id="f11-stat-num" class="f11-stat-num">28</span>
+        <span data-hf-id="hf-7ob6" id="f11-stat-label" class="f11-stat-label">Pages in · one application per applicant out</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      /* == RETIMED (tools_apply_retime.py) == */
+      /* Beat times below are OLD-take time; P() maps them onto the delivered take
+         through word anchors matched by text. Generated - do not hand-edit. */
+      var __KX = [0.0000, 0.0900, 0.2500, 0.5000, 0.9300, 1.2400, 1.3000, 1.8500, 1.9800, 2.4900, 2.7800, 2.8900, 3.7700, 3.9000, 4.5000, 4.8000, 4.9400, 6.1300, 6.4500, 6.9700, 8.0900, 8.5200, 9.1400, 9.8200, 9.8800, 10.1200, 10.7500, 11.7700, 11.8900, 12.0100, 12.7300, 12.9300, 13.6300, 13.8400, 14.1400, 14.5700, 14.6100, 14.8100, 15.5400, 15.7400, 16.4480];
+      var __KY = [0.0000, 0.0120, 0.3020, 0.4410, 0.7890, 1.0910, 1.3820, 2.0200, 2.1830, 2.5190, 2.9140, 3.0770, 3.9130, 4.1100, 4.5280, 5.0970, 5.3290, 6.5250, 6.9780, 7.4650, 8.5330, 8.8930, 9.3000, 9.9150, 10.1470, 10.2630, 10.7740, 11.2730, 12.2020, 12.5500, 13.2240, 13.5370, 13.9090, 14.2340, 14.5590, 15.1630, 15.5570, 15.7900, 16.4280, 16.6140, 17.5080];
+      function __pw(t, X, Y) { if (t <= X[0]) return Y[0] + (t - X[0]); var n = X.length - 1;
+        if (t >= X[n]) return Y[n] + (t - X[n]) * (Y[n] / X[n]); var lo = 0, hi = n;
+        while (hi - lo > 1) { var m = (lo + hi) >> 1; if (X[m] <= t) lo = m; else hi = m; }
+        return Y[lo] + (t - X[lo]) / (X[hi] - X[lo]) * (Y[hi] - Y[lo]); }
+      function P(t) { return __pw(t, __KX, __KY); }   /* old take time -> delivered take time */
+      function Q(u) { return __pw(u, __KY, __KX); }   /* inverse: drivers run in new time,
+         so a threshold written in old time is compared against Q(driver.t) unedited */
+      var DURATION = 17.508;  /* measured delivered take (was 16.448) */
+      var root = document.querySelector('[data-composition-id="11-messy-ones"]');
+      var q = function (sel) { return root.querySelector(sel); };
+
+      // svg-path-draw setup: measure each stroke, hide it fully behind its own dash.
+      function prime(el, fallback) {
+        var len = fallback;
+        try {
+          var m = el.getTotalLength();
+          if (m && isFinite(m) && m > 0) len = m * 1.05;
+        } catch (e) {}
+        el.style.strokeDasharray = String(len);
+        el.style.strokeDashoffset = String(len);
+        return len;
+      }
+      var ticks = [];
+      for (var i = 1; i <= 5; i++) ticks.push(q("#f11-tick-" + i));
+      ticks.forEach(function (p) { prime(p, 24); });
+      var outlineRect = q("#f11-outline-rect");
+      prime(outlineRect, 2 * (272 + 48));
+
+      var tl = gsap.timeline({ paused: true });
+
+      // clock tween: pins the timeline length to the frame duration exactly
+      tl.to({ t: 0 }, { t: 1, duration: DURATION, ease: "none" }, 0);
+
+      // ---- Scene 1 (0.0–2.6s): header fills in, window slides in from the right ----
+      tl.fromTo("#f11-eyebrow",
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 0.1);
+      tl.fromTo("#f11-h2",
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.22);
+
+      tl.fromTo("#f11-ghost-img",
+        { opacity: 0 },
+        { opacity: 0.22, duration: 1.4, ease: "power1.out" }, 0.3);
+
+      // window: slide in from the right with a long-tail settle
+      tl.fromTo("#f11-window",
+        { x: 340, opacity: 0 },
+        { x: 0, opacity: 1, duration: 2.1, ease: "expo.out" }, 0.25);
+
+      // ---- Scene 2 (2.6–12.0s): one line per voiceover cue ----
+      // Benefits BUILD: marker spring-pop → tick draw-in → text mask-wipe → pill lands at line end.
+      var cues = [2.7, 4.6, 6.5, 7.9, 10.6];
+      cues.forEach(function (t, idx) {
+        var n = idx + 1;
+        tl.fromTo("#f11-marker-" + n,
+          { opacity: 0, scale: 0, transformOrigin: "50% 50%" },
+          { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(2.4)" }, t);
+        tl.to("#f11-tick-" + n,
+          { strokeDashoffset: 0, duration: 0.42, ease: "power2.out" }, t + 0.18);
+        tl.fromTo("#f11-text-" + n,
+          { clipPath: "inset(0 100% 0 0)", x: -14, opacity: 0 },
+          { clipPath: "inset(0 0% 0 0)", x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, t + 0.12);
+        tl.fromTo("#f11-pill-" + n,
+          { opacity: 0, scale: 0.7, x: 18, transformOrigin: "0% 50%" },
+          { opacity: 1, scale: 1, x: 0, duration: 0.6, ease: "back.out(1.7)" }, t + 0.46);
+      });
+
+      // ---- Scene 3 (12.0–14.6s): outline draws around the first application card's heading;
+      //      the "28" stat lands under the list ----
+      tl.to("#f11-outline-rect",
+        { strokeDashoffset: 0, duration: 0.85, ease: "power2.out" }, 12.0);
+      tl.to("#f11-outline-rect",
+        { fillOpacity: 1, duration: 0.5, ease: "power1.out" }, 12.85);
+
+      tl.fromTo("#f11-rule",
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.7, ease: "power3.out" }, 12.3);
+      tl.fromTo("#f11-stat-num",
+        { opacity: 0, scale: 0.78, y: 16, transformOrigin: "0% 100%" },
+        { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.8)" }, 12.55);
+      tl.fromTo("#f11-stat-label",
+        { clipPath: "inset(0 100% 0 0)", opacity: 0, x: -10 },
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, 12.8);
+
+      // ---- Scene 4 (14.6–end): hold ----
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["11-messy-ones"] = tl;
+
+      /* == RETIMED (tools_apply_retime.py) == beat walk == */
+      /* Every registered beat moves to its remapped position. */
+      (function () {
+        var kids = tl.getChildren(false, true, true);
+        if (!kids.length) throw new Error("retime: no children to reposition");
+        var moved = 0, over = [];
+        kids.forEach(function (c) {
+          if (c.vars && c.vars.data === "pin") return;   /* already in new-take time */
+          var s = c.startTime(), n = P(s);
+          if (Math.abs(n - s) > 0.0005) { c.startTime(n); moved++; }
+          /* Eyebrows share one zone, so at a fade boundary two of them smear. Hold
+             any eyebrow until the 0.5s transition is done. */
+          var tg = (c.targets ? c.targets() : []);
+          var nm = tg.length ? ((tg[0].id || "") + " " + (tg[0].className || "")) : "";
+          if (/-eyebrow(\s|$)/.test(nm) && c.startTime() < 0.52) {
+            c.startTime(0.52);
+          }
+          if (c.startTime() + c.duration() > 17.508 + 0.02) {
+            over.push(Math.round((c.startTime() + c.duration()) * 1000) / 1000);
+          }
+        });
+        window.__retime = window.__retime || {};
+        window.__retime["11-messy-ones"] = { beats: kids.length, moved: moved, overrun: over };
+      })();
+
+    })();
+  </script>
+</template>

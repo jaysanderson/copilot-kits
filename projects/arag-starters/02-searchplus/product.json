@@ -1,0 +1,14 @@
+{
+  "name": "SearchPlus",
+  "promise": "Site search that shows its evidence and its relevance, and lets the business pin, boost and bury results without a developer.",
+  "suggested": [
+    "waterproof jacket for a wet winter",
+    "cheapest rod for a beginner",
+    "what goes with the braid line"
+  ],
+  "how_it_works": [
+    "Your query goes to this app, which asks the Knowledge Box for scored passages.",
+    "The business rules (pin, boost, bury, synonyms) re-rank that list on the server.",
+    "Each result shows the passage that matched, the score, and the rule that moved it."
+  ]
+}
